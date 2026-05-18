@@ -174,6 +174,14 @@ const ProductDetails = () => {
             >
               {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
             </button>
+            {/* Favourite */}
+            <button
+              onClick={() => alert('Đã thêm vào danh sách yêu thích!')}
+              className="px-md py-sm border border-outline-variant rounded hover:bg-surface-container transition-colors text-primary flex items-center justify-center"
+              aria-label="Add to favourite"
+            >
+              <span className="material-symbols-outlined">favorite</span>
+            </button>
           </div>
           <p className="font-label-caps text-label-caps text-on-surface-variant text-center opacity-70 text-[11px]">Free shipping on orders over $150</p>
         </div>

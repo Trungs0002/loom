@@ -47,6 +47,16 @@ const Navbar = () => {
 
         {/* Trailing Actions */}
         <div className="flex items-center gap-md">
+          {/* Search */}
+          <button onClick={() => alert('Tính năng tìm kiếm đang được phát triển!')} aria-label="search" className="text-[#081F5C] hover:opacity-70 transition-opacity duration-300 active:scale-95">
+            <span className="material-symbols-outlined">search</span>
+          </button>
+
+          {/* Favourite */}
+          <Link to="#" onClick={(e) => { e.preventDefault(); alert('Feature coming soon!'); }} aria-label="favorite" className="text-[#081F5C] hover:opacity-70 transition-opacity duration-300 active:scale-95">
+            <span className="material-symbols-outlined">favorite</span>
+          </Link>
+
           <Link to="/cart" onClick={(e) => {
             if (!user) {
               e.preventDefault();
