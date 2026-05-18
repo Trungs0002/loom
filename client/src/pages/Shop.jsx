@@ -3,6 +3,7 @@ import API_BASE from '../config';
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { getImgUrl } from './AdminCategories';
 
 // Removed hardcoded CATEGORIES
 
@@ -66,7 +67,7 @@ const Shop = () => {
     return matchCat && matchSearch;
   });
 
-  const mainImg = (p) => p.colorImages?.[0]?.image || p.image || '';
+  const mainImg = (p) => getImgUrl(p.colorImages?.[0]?.image || p.image || '');
 
   const isFavorited = (id) => favorites.some(f => (f._id || f) === id);
 

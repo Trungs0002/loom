@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { getImgUrl } from './AdminCategories';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -43,7 +44,7 @@ const ProductDetails = () => {
     : product.colors?.map(c => ({ color: c, image: product.image })) || [{ color: '', image: product.image }];
 
   const currentEntry = colorImages[selectedColorIdx] || colorImages[0] || {};
-  const currentImage = currentEntry.image || product.image;
+  const currentImage = getImgUrl(currentEntry.image || product.image);
   const currentColor = currentEntry.color;
 
   const handleAddToCart = () => {
@@ -97,7 +98,7 @@ const ProductDetails = () => {
                   className={`w-20 aspect-square overflow-hidden rounded border-2 transition-all ${i === selectedColorIdx ? 'border-primary' : 'border-transparent hover:border-outline-variant'}`}
                 >
                   <img
-                    src={ci.image}
+                    src={getImgUrl(ci.image)}
                     alt={ci.color}
                     className="w-full h-full object-cover"
                   />

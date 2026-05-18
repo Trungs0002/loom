@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { getImgUrl } from './AdminCategories';
 
 const Favorites = () => {
   const { favorites, toggleFavorite } = useAuth();
@@ -32,7 +33,7 @@ const Favorites = () => {
                 <div className="relative aspect-[4/5] overflow-hidden">
                   <Link to={`/products/${product._id}`}>
                     <img 
-                      src={product.colorImages?.[0]?.image || product.image} 
+                      src={getImgUrl(product.colorImages?.[0]?.image || product.image)} 
                       alt={product.name} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />

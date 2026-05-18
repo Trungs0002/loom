@@ -2,6 +2,7 @@
 import API_BASE from '../config';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getImgUrl } from './AdminCategories';
 
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -58,7 +59,7 @@ const Home = () => {
               <Link key={cat._id} to={`/products?category=${encodeURIComponent(cat.name)}`}
                 className="group relative overflow-hidden rounded-xl aspect-[3/4] block bg-surface-container hover:shadow-lg transition-shadow duration-300 border border-outline-variant/10">
                 {cat.image
-                  ? <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={cat.name} src={cat.image} />
+                  ? <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={cat.name} src={getImgUrl(cat.image)} />
                   : <div className="w-full h-full bg-surface-container-low flex items-center justify-center">
                       <span className="material-symbols-outlined text-[48px] text-on-surface-variant opacity-30">category</span>
                     </div>}
@@ -84,7 +85,7 @@ const Home = () => {
             <Link key={prod._id} to={`/products/${prod._id}`} className="group flex flex-col cursor-pointer">
               <div className="relative w-full aspect-[4/5] bg-surface-container rounded-xl overflow-hidden mb-md border border-outline-variant/20">
                 {prod.tags && prod.tags.includes('New') && <div className="absolute top-sm left-sm bg-surface/90 text-primary font-label-caps text-[10px] px-2 py-1 rounded-full z-10">New</div>}
-                <img className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" alt={prod.name} src={prod.colorImages?.[0]?.image || prod.image} />
+                <img className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" alt={prod.name} src={getImgUrl(prod.colorImages?.[0]?.image || prod.image)} />
                 <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
                 <button className="absolute bottom-md right-md bg-surface text-primary p-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-primary hover:text-on-primary shadow-sm">
                   <span className="material-symbols-outlined text-[20px]">shopping_bag</span>

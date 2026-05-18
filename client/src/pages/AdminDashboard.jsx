@@ -3,7 +3,7 @@ import API_BASE from '../config';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { AdminLayout, uploadImage } from './AdminCategories';
+import { AdminLayout, uploadImage, getImgUrl } from './AdminCategories';
 
 // ─── Color Image Row ───────────────────────────────────────────────────────────
 const ColorImageRow = ({ entry, onChange, onRemove, token }) => {
@@ -22,7 +22,7 @@ const ColorImageRow = ({ entry, onChange, onRemove, token }) => {
         placeholder="Color name"
         className="w-28 bg-transparent border-b border-outline-variant/50 py-xs text-sm text-on-surface focus:border-primary outline-none" />
       <div className="flex items-center gap-sm flex-1">
-        {entry.image && <img src={entry.image} alt={entry.color} className="w-10 h-10 rounded object-cover border border-outline-variant/30" />}
+        {entry.image && <img src={getImgUrl(entry.image)} alt={entry.color} className="w-10 h-10 rounded object-cover border border-outline-variant/30" />}
         <label className={`flex items-center gap-xs px-md py-xs rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[11px] ${uploading ? 'opacity-50' : ''}`}>
           <span className="material-symbols-outlined text-[16px]">upload</span>
           {uploading ? 'Uploading...' : entry.image ? 'Change' : 'Upload'}
@@ -256,7 +256,7 @@ export const AdminProducts = () => {
                   <div className="flex items-center gap-md">
                     <div className="w-12 h-12 bg-surface-variant rounded overflow-hidden flex-shrink-0">
                       {product.colorImages?.[0]?.image || product.image
-                        ? <img alt={product.name} className="w-full h-full object-cover" src={product.colorImages?.[0]?.image || product.image} />
+                        ? <img alt={product.name} className="w-full h-full object-cover" src={getImgUrl(product.colorImages?.[0]?.image || product.image)} />
                         : <span className="flex items-center justify-center w-full h-full material-symbols-outlined text-outline text-[20px]">image</span>}
                     </div>
                     <div>
@@ -395,7 +395,7 @@ export const AdminOrders = () => {
                     <div className="flex flex-col gap-sm">
                       {order.items?.map((item, i) => (
                         <div key={i} className="flex items-center gap-md bg-surface-container rounded-lg px-md py-sm">
-                          {item.product?.image && <img src={item.product.image} alt={item.product?.name} className="w-10 h-10 rounded object-cover" />}
+                          {item.product?.image && <img src={getImgUrl(item.product.image)} alt={item.product?.name} className="w-10 h-10 rounded object-cover" />}
                           <div className="flex-1">
                             <div className="text-sm font-medium text-on-surface">{item.product?.name || 'Unknown'}</div>
                             <div className="text-xs text-on-surface-variant">Qty: {item.quantity}</div>

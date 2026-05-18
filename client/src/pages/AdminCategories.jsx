@@ -49,7 +49,13 @@ export const AdminLayout = ({ children }) => {
   );
 };
 
-// ─── Upload helper ────────────────────────────────────────────────────────────
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+export const getImgUrl = (path) => {
+  if (!path) return '';
+  if (path.startsWith('http')) return path;
+  return `${API_BASE}${path}`;
+};
+
 export const uploadImage = async (file, token) => {
   const fd = new FormData();
   fd.append('image', file);
@@ -60,7 +66,8 @@ export const uploadImage = async (file, token) => {
   });
   const data = await res.json();
   if (!res.ok) throw new Error(data.message || 'Upload failed');
-  return `${API_BASE}` + data.url;
+  // If Cloudinary returns full URL, use it directly.
+  return data.url.startsWith('http') ? data.url : `${API_BASE}${data.url}`;
 };
 
 // ─── Category Modal ───────────────────────────────────────────────────────────
@@ -123,7 +130,7 @@ const CategoryModal = ({ category, onClose, onSave, token }) => {
           <div>
             <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">Image</label>
             <div className="flex items-center gap-md">
-              {image && <img src={image} alt={name} className="w-16 h-16 rounded-lg object-cover border border-outline-variant/30" />}
+              {image && <img src={getImgUrl(image)} alt={name} className="w-16 h-16 rounded-lg object-cover border border-outline-variant/30" />}
               <div className="flex flex-col gap-sm flex-1">
                 <label className={`flex items-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-sm ${uploading ? 'opacity-50' : ''}`}>
                   <span className="material-symbols-outlined text-[18px]">upload</span>
@@ -203,7 +210,7 @@ export const AdminCategories = () => {
             <div key={cat._id} className="group bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden hover:shadow-md transition-shadow">
               <div className="aspect-[4/3] bg-surface-container relative overflow-hidden">
                 {cat.image
-                  ? <img src={cat.image} alt={cat.name} className="w-full h-full object-cover" />
+                  ? <img src={getImgUrl(cat.image)} alt={cat.name} className="w-full h-full object-cover" />
                   : <div className="w-full h-full flex items-center justify-center text-on-surface-variant">
                       <span className="material-symbols-outlined text-[40px] opacity-30">image</span>
                     </div>}
