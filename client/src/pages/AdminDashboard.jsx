@@ -1,5 +1,5 @@
 /* eslint-disable */
-import API_BASE from '../config';
+import API_BASE, { formatPrice } from '../config';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -51,7 +51,15 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
     stock: product?.stock || '',
     description: product?.description || '',
     material: product?.material || '',
+    innerLining: product?.innerLining || '',
+    numberStraps: product?.numberStraps || '',
+    detachableStrap: product?.detachableStrap || '',
+    adjustableStrap: product?.adjustableStrap || '',
+    closureType: product?.closureType || '',
+    innerCompartments: product?.innerCompartments || '',
     dimensions: product?.dimensions || '',
+    weight: product?.weight || '',
+    careInstructions: product?.careInstructions || '',
     tags: product?.tags?.join(', ') || '',
   });
   const [colorImages, setColorImages] = useState(
@@ -103,12 +111,20 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
   };
 
   const textFields = [
-    { name: 'name', label: 'Product Name', required: true, full: true, placeholder: 'e.g. Classic Tote Bag' },
-    { name: 'price', label: 'Price ($)', type: 'number', required: true, placeholder: 'e.g. 199' },
-    { name: 'stock', label: 'Stock Qty', type: 'number', required: true, placeholder: 'e.g. 50' },
-    { name: 'material', label: 'Material', placeholder: 'e.g. Vegan Leather' },
-    { name: 'dimensions', label: 'Dimensions', placeholder: 'e.g. 30cm x 40cm x 15cm' },
-    { name: 'tags', label: 'Tags (comma-separated)', full: true, placeholder: 'e.g. Sustainable, Minimalist, Office' },
+    { name: 'name', label: 'Product Name', required: true, full: true, placeholder: 'e.g. Dusk Clutch' },
+    { name: 'price', label: 'Price', type: 'number', required: true, placeholder: 'e.g. 459000' },
+    { name: 'stock', label: 'Stock Qty', type: 'number', required: true, placeholder: 'e.g. 15' },
+    { name: 'material', label: 'Material', placeholder: 'e.g. Recycled jean/denim from old clothes' },
+    { name: 'innerLining', label: 'Inner Lining', placeholder: 'e.g. Recycled fabric' },
+    { name: 'numberStraps', label: 'Number of Straps', placeholder: 'e.g. No strap / optional detachable chain strap' },
+    { name: 'detachableStrap', label: 'Detachable Strap', placeholder: 'e.g. Yes, if used with chain strap' },
+    { name: 'adjustableStrap', label: 'Adjustable Strap', placeholder: 'e.g. No' },
+    { name: 'closureType', label: 'Closure Type', placeholder: 'e.g. Magnetic flap closure' },
+    { name: 'innerCompartments', label: 'Inner Compartments', placeholder: 'e.g. 1 main compartment, 1 small inner pocket' },
+    { name: 'dimensions', label: 'Dimensions', placeholder: 'e.g. 26 x 5 x 13 cm' },
+    { name: 'weight', label: 'Weight', placeholder: 'e.g. 230 g' },
+    { name: 'careInstructions', label: 'Care Instructions', full: true, placeholder: 'e.g. Wipe gently with a soft cloth, avoid machine washing...' },
+    { name: 'tags', label: 'Tags (comma-separated)', full: true, placeholder: 'e.g. Clutch, Denim, Recycled' },
   ];
 
   return (
@@ -143,7 +159,7 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
             </div>
             <div className="col-span-2">
               <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">Description</label>
-              <textarea name="description" value={form.description} onChange={handleChange} rows={3} placeholder="Describe the product features, styling tips, etc."
+              <textarea name="description" value={form.description} onChange={handleChange} rows={3} placeholder="e.g. Dusk Clutch is inspired by the calm moment when daylight fades into night..."
                 className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none resize-none placeholder:text-on-surface-variant/50" />
             </div>
           </div>
@@ -273,7 +289,7 @@ export const AdminProducts = () => {
                     ))}
                   </div>
                 </td>
-                <td className="px-lg py-md font-medium text-primary">${product.price}</td>
+                <td className="px-lg py-md font-medium text-primary">{formatPrice(product.price)}</td>
                 <td className="px-lg py-md">
                   <span className={`inline-flex px-2 py-1 rounded font-label-caps text-[10px] ${product.stock > 10 ? 'bg-tertiary-fixed text-on-tertiary-fixed' : product.stock > 0 ? 'bg-surface-variant text-on-surface-variant' : 'bg-error-container text-on-error-container'}`}>
                     {product.stock > 0 ? `${product.stock} in stock` : 'Out of Stock'}
@@ -363,7 +379,7 @@ export const AdminOrders = () => {
                   </div>
                   <div className="flex items-center gap-lg">
                     <div className="text-right">
-                      <div className="font-medium text-primary">${order.totalAmount}</div>
+                      <div className="font-medium text-primary">{formatPrice(order.totalAmount)}</div>
                       <div className="text-xs text-on-surface-variant">{order.items?.length} item(s)</div>
                     </div>
                     <select value={order.status}
@@ -400,12 +416,12 @@ export const AdminOrders = () => {
                             <div className="text-sm font-medium text-on-surface">{item.product?.name || 'Unknown'}</div>
                             <div className="text-xs text-on-surface-variant">Qty: {item.quantity}</div>
                           </div>
-                          <div className="font-medium text-primary text-sm">${item.price * item.quantity}</div>
+                          <div className="font-medium text-primary text-sm">{formatPrice(item.price * item.quantity)}</div>
                         </div>
                       ))}
                     </div>
                     <div className="flex justify-end mt-md pt-md border-t border-outline-variant/20">
-                      <div className="font-headline-md text-headline-md text-primary">Total: ${order.totalAmount}</div>
+                      <div className="font-headline-md text-headline-md text-primary">Total: {formatPrice(order.totalAmount)}</div>
                     </div>
                   </div>
                 )}

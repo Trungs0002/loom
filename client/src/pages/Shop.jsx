@@ -1,5 +1,5 @@
 /* eslint-disable */
-import API_BASE from '../config';
+import API_BASE, { formatPrice } from '../config';
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -166,7 +166,7 @@ const Shop = () => {
                 <p className="font-body-md text-body-md text-on-surface-variant mb-xs">
                   {(product.colorImages?.length ? product.colorImages.map(c => c.color) : product.colors)?.join(', ')}
                 </p>
-                <p className="font-body-md text-body-md font-medium mb-md">${product.price}</p>
+                <p className="font-body-md text-body-md font-medium mb-md">{formatPrice(product.price)}</p>
                 <Link to={`/products/${product._id}`} className="mt-auto border border-primary text-primary px-lg py-sm rounded-full font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-colors duration-300 w-full max-w-[200px] mx-auto text-center inline-block">
                   View Details
                 </Link>

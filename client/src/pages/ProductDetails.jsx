@@ -1,5 +1,5 @@
 /* eslint-disable */
-import API_BASE from '../config';
+import API_BASE, { formatPrice } from '../config';
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
@@ -115,7 +115,9 @@ const ProductDetails = () => {
               <span key={tag} className="inline-block bg-surface-container text-primary font-label-caps text-label-caps px-md py-xs rounded-full mb-md tracking-wider mr-sm text-[11px]">{tag}</span>
             ))}
             <h1 className="font-headline-lg text-headline-lg text-primary mb-sm">{product.name}</h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant">${product.price}</p>
+            <p className="font-body-lg text-body-lg text-on-surface-variant">
+              {formatPrice(product.price)}
+            </p>
           </div>
 
           {/* Color selector */}
@@ -215,11 +217,19 @@ const ProductDetails = () => {
         <div className="max-w-3xl py-md">
           {activeTab === 'Description' && <p className="text-on-surface-variant leading-relaxed">{product.description || '—'}</p>}
           {activeTab === 'Details' && (
-            <p className="text-on-surface-variant leading-relaxed">
-              {product.material && <>Material: {product.material}<br /></>}
-              {product.dimensions && <>Dimensions: {product.dimensions}<br /></>}
-              {product.tags?.length > 0 && <>Tags: {product.tags.join(', ')}</>}
-            </p>
+            <div className="text-on-surface-variant leading-relaxed space-y-md">
+              {product.material && <p><span className="font-bold text-primary">Material:</span> {product.material}</p>}
+              {product.innerLining && <p><span className="font-bold text-primary">Inner lining:</span> {product.innerLining}</p>}
+              {product.numberStraps && <p><span className="font-bold text-primary">Number of straps:</span> {product.numberStraps}</p>}
+              {product.detachableStrap && <p><span className="font-bold text-primary">Detachable strap:</span> {product.detachableStrap}</p>}
+              {product.adjustableStrap && <p><span className="font-bold text-primary">Adjustable strap:</span> {product.adjustableStrap}</p>}
+              {product.closureType && <p><span className="font-bold text-primary">Closure type:</span> {product.closureType}</p>}
+              {product.innerCompartments && <p><span className="font-bold text-primary">Inner compartments:</span> {product.innerCompartments}</p>}
+              {product.dimensions && <p><span className="font-bold text-primary">Bag size:</span> {product.dimensions}</p>}
+              {product.weight && <p><span className="font-bold text-primary">Weight:</span> {product.weight}</p>}
+              {product.careInstructions && <p><span className="font-bold text-primary">Care instructions:</span> {product.careInstructions}</p>}
+              {product.tags?.length > 0 && <p><span className="font-bold text-primary">Tags:</span> {product.tags.join(', ')}</p>}
+            </div>
           )}
         </div>
       </div>

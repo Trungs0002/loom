@@ -1,4 +1,4 @@
-
+import { formatPrice } from '../config';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -56,7 +56,7 @@ const Favorites = () => {
                   </div>
                   
                   <div className="mt-auto flex justify-between items-center">
-                    <span className="font-body-md text-body-md text-on-surface-variant">${product.price}</span>
+                    <span className="font-body-md text-body-md text-on-surface-variant">{formatPrice(product.price)}</span>
                     <Link 
                       to={`/products/${product._id}`}
                       className="text-primary font-label-caps text-label-caps hover:underline"

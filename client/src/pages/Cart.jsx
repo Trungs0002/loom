@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { formatPrice } from '../config';
 
 const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity, getCartTotal } = useCart();
@@ -45,7 +46,7 @@ const Cart = () => {
                   <div className="flex flex-col gap-xs justify-center">
                     <h3 className="font-headline-md text-headline-md text-primary">{item.name}</h3>
                     <p className="font-body-md text-body-md text-on-surface-variant">{item.color}</p>
-                    <p className="font-body-md text-body-md text-primary mt-sm md:hidden">${item.price}</p>
+                    <p className="font-body-md text-body-md text-primary mt-sm md:hidden">{formatPrice(item.price)}</p>
                   </div>
                 </div>
                 <div className="col-span-3 flex items-center justify-start md:justify-center w-full mt-md md:mt-0">
@@ -60,7 +61,7 @@ const Cart = () => {
                   </div>
                 </div>
                 <div className="col-span-3 flex items-center justify-between md:justify-end w-full mt-md md:mt-0">
-                  <p className="font-body-md text-body-md text-primary hidden md:block">${item.price * item.quantity}</p>
+                  <p className="font-body-md text-body-md text-primary hidden md:block">{formatPrice(item.price * item.quantity)}</p>
                   <button onClick={() => removeFromCart(item.product)} aria-label="Remove item" className="text-on-surface-variant hover:text-error transition-colors md:ml-lg flex items-center gap-xs">
                     <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>close</span>
                     <span className="font-label-caps text-label-caps md:hidden">Remove</span>
@@ -78,7 +79,7 @@ const Cart = () => {
             <div className="flex flex-col gap-md">
               <div className="flex justify-between items-center font-body-md text-body-md text-on-surface-variant">
                 <span>Subtotal</span>
-                <span>${total}</span>
+                <span>{formatPrice(total)}</span>
               </div>
               <div className="flex justify-between items-center font-body-md text-body-md text-on-surface-variant">
                 <span>Shipping</span>
@@ -91,7 +92,7 @@ const Cart = () => {
             </div>
             <div className="border-t border-outline-variant/30 pt-md flex justify-between items-center font-headline-md text-headline-md text-primary">
               <span>Total</span>
-              <span>${total}</span>
+              <span>{formatPrice(total)}</span>
             </div>
             <Link to={cartItems.length > 0 ? "/checkout" : "#"} className={`w-full font-label-caps text-label-caps py-md mt-sm transition-colors duration-300 flex justify-center items-center gap-sm group ${cartItems.length > 0 ? 'bg-primary text-on-primary hover:bg-primary-container' : 'bg-outline-variant text-on-surface-variant cursor-not-allowed'}`}>
               Proceed to Checkout

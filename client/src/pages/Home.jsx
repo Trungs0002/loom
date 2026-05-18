@@ -1,5 +1,5 @@
 /* eslint-disable */
-import API_BASE from '../config';
+import API_BASE, { formatPrice } from '../config';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getImgUrl } from './AdminCategories';
@@ -93,7 +93,7 @@ const Home = () => {
               </div>
               <div className="flex flex-col text-center">
                 <h3 className="font-headline-md text-[18px] text-primary mb-xs">{prod.name}</h3>
-                <p className="font-body-md text-body-md text-on-surface-variant">${prod.price}</p>
+                <p className="font-body-md text-body-md text-on-surface-variant">{formatPrice(prod.price)}</p>
               </div>
             </Link>
           ))}
