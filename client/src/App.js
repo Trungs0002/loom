@@ -17,6 +17,7 @@ import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { AdminProducts, AdminOrders } from './pages/AdminDashboard';
+import { AdminCategories } from './pages/AdminCategories';
 
 const AppLayout = ({ children }) => {
   const location = useLocation();
@@ -58,6 +59,7 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/admin/products" element={<AdminProducts />} />
+              <Route path="/admin/categories" element={<AdminCategories />} />
               <Route path="/admin/orders" element={<AdminOrders />} />
             </Routes>
           </AppLayout>

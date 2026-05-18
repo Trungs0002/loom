@@ -3,12 +3,12 @@
   "name": "Loom – Recycled Handbags",
   "icons": [
     {
-      "src": "avatar.png",
+      "src": "AVATAR.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "avatar.png",
+      "src": "AVATAR.png",
       "sizes": "512x512",
       "type": "image/png"
     }

@@ -5,18 +5,16 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    const fetchFeatured = async () => {
-      try {
-        const res = await fetch(`${API_BASE}/api/products`);
-        const data = await res.json();
-        setFeaturedProducts(data.slice(0, 4));
-      } catch (error) {
-        console.error("Error fetching featured products:", error);
-      }
-    };
-    fetchFeatured();
+    fetch(`${API_BASE}/api/products`)
+      .then(r => r.json()).then(d => setFeaturedProducts(d.slice(0, 4)))
+      .catch(console.error);
+
+    fetch(`${API_BASE}/api/categories`)
+      .then(r => r.json()).then(setCategories)
+      .catch(console.error);
   }, []);
 
   return (
@@ -27,7 +25,7 @@ const Home = () => {
           <img
             alt="Loom hero banner"
             className="w-full h-full object-cover object-center opacity-90"
-            src={`${API_BASE}/uploads/cover.png`}
+            src={`${API_BASE}/uploads/COVER.png`}
           />
         </div>
         <div className="relative z-10 w-full max-w-container-max mx-auto px-gutter py-xxl flex flex-col items-start justify-center">
@@ -52,19 +50,23 @@ const Home = () => {
           <div className="w-16 h-px bg-primary mx-auto opacity-30"></div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-gutter">
-          {[
-            { title: 'Raw Atlas', slug: 'raw atlas', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCxGG3yL0FtV8gdYgGlyIW65xUm5cumfmmQYTsIQDrST2kLlAjM5pPPTnNRS-lefQ6aLQfRQ9qycT0u9fREW2VV6hRFTRfswnODh4Hkoa-USw7guIwJ1KOH-WabxYYcuU_dNdGrN1QoJNHAlb9BKkEbmwT9LbhdN5DGzxsBZkG-mEoioJ_0J6rzKXDYlwObW2rKJvsYerskeFfkVYzHhG7rqvC40f20UlFyObBRP2-bnp1TzObmWl8TDq4FKxoJlnvXkk8hb0BTDk8' },
-            { title: 'Moonlight', slug: 'moonlight', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBjyKUClcAwq6L-gM-EzMG35H-qrXR2sZBiu2CeprSn90-rCI1fGe7UtcdnE6WKUKEfKsi86rA9OuhSnC9HTUw6unaAFwso_LYNWceYNmA6Z8-IccB_5VuT-WXWTZW4K6MqPNlTSSfL7DibvWmq7RaU9pVaBkM725b2QFBSB461WJvcYx8WuB9c5_YL1tjRIA1J9OdCMnFDS3L2NpU3On5KHZx4KmmEG4PALo-WzpN2scloM-D4liHsj1ykLqnyK-CPkKDXS4Sly8U' },
-            { title: 'Blue Orbit', slug: 'blue orbit', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDTtk1HYl4ONpk_BjOBaOYzdXOTIHb0fTKB9hdamhYSUm3Dy0bHPoicRYKP9gWdUNGMmNfMHR5wlark1Tkpba-la2UFXL1Pxhm74SxbnNv0WouFeP3TSzflM_-WADW3tHL0uZUa-5WxkdvOkCxXCdWzK3Wv-OZEDn-JAwt5-K61PzyE298YO6p1b3u73ooUUegv1v9sxxeN8n9XkZ_MJUTSTHHk87FnoTKDD45wBPy-LRoa7w7NYy789FRb1XdEuzKoEbjJYBan9yg' },
-            { title: 'Sweetstatic', slug: 'sweetstatic', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBOY4mdVcjnqIjS10aLioiRD88WZ_sm1b8tjOAlOpF8lcSPld0D04n1Qjj58ymgNCGAAQsIYBwLBZ4SFmTy2f68mnQggZT6ugXuhYxmllRz6Jg_cVkQZ5hITDC2VpJMvebF9vjhckw7WmkwLd7N2TeIWAtC3JrfVN3d7fbFYJov8yD5srt8WjXp-QjrmjXsv-yq--ZDFKfNavd2l6zS1lPFbJ2Cd3IUi5H-Xl1ywOnHG7wKjPNac9o88v6uG8CAPKRMUZbXut8Njv0' }
-          ].map((cat) => (
-            <Link key={cat.slug} to={`/products?category=${encodeURIComponent(cat.slug)}`} className="group relative overflow-hidden rounded-xl aspect-[3/4] block bg-surface-container hover:shadow-lg transition-shadow duration-300 border border-outline-variant/10">
-              <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={cat.title} src={cat.img} />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent flex items-end p-lg">
-                <h3 className="font-headline-md text-headline-md text-on-primary">{cat.title}</h3>
-              </div>
-            </Link>
-          ))}
+          {categories.length === 0
+            ? [1,2,3,4].map(i => (
+                <div key={i} className="animate-pulse rounded-xl aspect-[3/4] bg-surface-container" />
+              ))
+            : categories.map((cat) => (
+              <Link key={cat._id} to={`/products?category=${encodeURIComponent(cat.name)}`}
+                className="group relative overflow-hidden rounded-xl aspect-[3/4] block bg-surface-container hover:shadow-lg transition-shadow duration-300 border border-outline-variant/10">
+                {cat.image
+                  ? <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={cat.name} src={cat.image} />
+                  : <div className="w-full h-full bg-surface-container-low flex items-center justify-center">
+                      <span className="material-symbols-outlined text-[48px] text-on-surface-variant opacity-30">category</span>
+                    </div>}
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent flex items-end p-lg">
+                  <h3 className="font-headline-md text-headline-md text-on-primary capitalize">{cat.name}</h3>
+                </div>
+              </Link>
+            ))}
         </div>
       </section>
 

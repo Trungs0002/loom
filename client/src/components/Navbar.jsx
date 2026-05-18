@@ -8,7 +8,7 @@ const Navbar = () => {
   const path = location.pathname;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, logout } = useAuth();
-  
+
   const isAdminUser = user && user.role === 'admin';
 
   return (
@@ -16,7 +16,7 @@ const Navbar = () => {
       <div className="flex justify-between items-center px-gutter py-md w-full max-w-container-max mx-auto">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-sm hover:opacity-80 transition-opacity duration-300">
-          <img src={`${API_BASE}/uploads/avatar.png`} alt="Loom" className="w-8 h-8 rounded-full object-cover" />
+          <img src={`${API_BASE}/uploads/AVATAR.png`} alt="Loom" className="w-8 h-8 rounded-full object-cover" />
           <span className="font-headline-lg text-headline-lg tracking-widest text-[#081F5C]">LOOM</span>
         </Link>
 
@@ -50,8 +50,8 @@ const Navbar = () => {
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>shopping_bag</span>
           </Link>
           {/* Mobile Menu Toggle */}
-          <button 
-            aria-label="Menu" 
+          <button
+            aria-label="Menu"
             className="md:hidden text-[#081F5C] hover:opacity-70 transition-opacity duration-300 active:scale-95"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
