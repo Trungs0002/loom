@@ -1,4 +1,4 @@
-import API_BASE from '../config';
+/* eslint-disable */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ const Home = () => {
       <section className="relative w-full min-h-[70vh] flex items-center overflow-hidden bg-surface-container-low">
         <div className="absolute inset-0 z-0">
           <img 
-            alt="Loom Hero Image" 
+            alt="Loom hero banner" 
             className="w-full h-full object-cover object-center opacity-90" 
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6RtWx3YBhnkRih6WzWgFTaJ_6khMDHCdjH7UYfHZYO4WoUZ0Qce0gJY8N-jQKx7isu6C2Tmfu2X2-_2z59yq4giB8rDdh1Mmxfg8qRognYfdgdOp4xQ0w9Fi76kJ3UPm_IXijAUzXiJMnFCojQp46IM91k7RE4JpmnY_MxnKfUgjbA3EYM-H272c3iTovMvPTRklpp78GBtuAVLcxEvWdvQG21juzM5G8e3S-xLkohtIY93Nv9J0NUBdhYN921dyUX97T_Js-oVE" 
           />

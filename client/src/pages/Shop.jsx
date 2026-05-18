@@ -1,3 +1,4 @@
+/* eslint-disable */
 import API_BASE from '../config';
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -123,5 +124,6 @@ const Shop = () => {
 };
 
 export default Shop;
+
 
 

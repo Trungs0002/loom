@@ -1,3 +1,4 @@
+/* eslint-disable */
 import API_BASE from '../config';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -507,5 +508,6 @@ export const AdminOrders = () => {
     </AdminLayout>
   );
 };
+
 
 

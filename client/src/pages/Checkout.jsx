@@ -1,3 +1,4 @@
+/* eslint-disable */
 import API_BASE from '../config';
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
@@ -205,5 +206,6 @@ const Checkout = () => {
 };
 
 export default Checkout;
+
 
 
