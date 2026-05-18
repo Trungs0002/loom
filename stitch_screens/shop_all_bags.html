@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>All Bags - LOOM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-low": "#f5f3f9",
+                      "error": "#ba1a1a",
+                      "surface-bright": "#fbf8fe",
+                      "inverse-on-surface": "#f2f0f6",
+                      "tertiary-fixed": "#d5e3ff",
+                      "surface-variant": "#e3e1e7",
+                      "on-surface": "#1b1b20",
+                      "on-secondary": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "surface": "#fbf8fe",
+                      "surface-dim": "#dbd9df",
+                      "secondary-fixed-dim": "#b7c4ff",
+                      "surface-container": "#efedf3",
+                      "on-secondary-container": "#082d8d",
+                      "tertiary-fixed-dim": "#a7c8ff",
+                      "on-secondary-fixed-variant": "#213e9d",
+                      "on-secondary-fixed": "#001552",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed": "#00164f",
+                      "on-error-container": "#93000a",
+                      "background": "#fbf8fe",
+                      "inverse-primary": "#b6c4ff",
+                      "secondary": "#3d57b6",
+                      "on-tertiary-fixed-variant": "#1b477d",
+                      "tertiary-container": "#00244b",
+                      "on-background": "#1b1b20",
+                      "primary-container": "#081f5c",
+                      "on-error": "#ffffff",
+                      "outline": "#757681",
+                      "primary-fixed": "#dce1ff",
+                      "primary-fixed-dim": "#b6c4ff",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-tint": "#4a5b9a",
+                      "secondary-container": "#829bfe",
+                      "secondary-fixed": "#dce1ff",
+                      "surface-container-high": "#e9e7ed",
+                      "surface-container-highest": "#e3e1e7",
+                      "tertiary": "#000f25",
+                      "inverse-surface": "#303035",
+                      "on-primary-fixed-variant": "#314380",
+                      "on-tertiary-container": "#668dc7",
+                      "outline-variant": "#c5c5d1",
+                      "on-primary-container": "#7789cb",
+                      "error-container": "#ffdad6",
+                      "on-surface-variant": "#454650",
+                      "primary": "#000b34",
+                      "on-tertiary-fixed": "#001b3b"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "xxl": "80px",
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "sm": "8px",
+                      "unit": "4px",
+                      "lg": "24px",
+                      "md": "16px",
+                      "xl": "48px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Playfair Display"
+                      ],
+                      "display-lg-mobile": [
+                              "Playfair Display"
+                      ],
+                      "display-lg": [
+                              "Playfair Display"
+                      ],
+                      "headline-md": [
+                              "Playfair Display"
+                      ],
+                      "body-md": [
+                              "DM Sans"
+                      ],
+                      "body-lg": [
+                              "DM Sans"
+                      ],
+                      "label-caps": [
+                              "DM Sans"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "40px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "64px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "0.15em",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface/90 dark:bg-surface-dim/90 backdrop-blur-md sticky top-0 z-50 border-b border-outline-variant dark:border-outline/20">
+<div class="flex justify-between items-center px-gutter py-md w-full max-w-container-max mx-auto">
+<div class="font-headline-lg text-headline-lg tracking-widest text-primary dark:text-primary-fixed">
+                LOOM
+            </div>
+<nav class="hidden md:flex gap-lg items-center">
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors hover:opacity-70 duration-300" href="#">Home</a>
+<a class="font-label-caps text-label-caps text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 hover:opacity-70 transition-opacity duration-300" href="#">Bags</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors hover:opacity-70 duration-300" href="#">About</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors hover:opacity-70 duration-300" href="#">Login</a>
+</nav>
+<div class="flex items-center gap-md">
+<button aria-label="shopping_bag" class="text-primary dark:text-primary-fixed hover:opacity-70 transition-opacity duration-300">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-gutter py-xxl">
+<!-- Page Header -->
+<div class="mb-xl text-center">
+<h1 class="font-display-lg text-display-lg hidden md:block mb-sm">All Bags</h1>
+<h1 class="font-display-lg-mobile text-display-lg-mobile md:hidden mb-sm">All Bags</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Discover our collection of sustainably crafted minimalist handbags, designed for timeless elegance and everyday utility.</p>
+</div>
+<!-- Filter Bar -->
+<div class="flex flex-col md:flex-row justify-between items-center mb-xl pb-md border-b border-outline-variant/30 gap-md">
+<div class="flex flex-wrap gap-sm items-center w-full md:w-auto">
+<span class="font-label-caps text-label-caps text-on-surface-variant mr-sm hidden md:inline-block">Filter By:</span>
+<select class="bg-surface text-on-surface border border-outline-variant/50 rounded px-md py-sm font-body-md text-body-md focus:border-primary focus:ring-0 w-full md:w-auto">
+<option>Category</option>
+<option>Totes</option>
+<option>Crossbody</option>
+<option>Clutches</option>
+</select>
+<select class="bg-surface text-on-surface border border-outline-variant/50 rounded px-md py-sm font-body-md text-body-md focus:border-primary focus:ring-0 w-full md:w-auto">
+<option>Color</option>
+<option>Black</option>
+<option>Cream</option>
+<option>Tan</option>
+</select>
+<select class="bg-surface text-on-surface border border-outline-variant/50 rounded px-md py-sm font-body-md text-body-md focus:border-primary focus:ring-0 w-full md:w-auto">
+<option>Price</option>
+<option>Under $200</option>
+<option>$200 - $500</option>
+<option>Over $500</option>
+</select>
+</div>
+<div class="font-body-md text-body-md text-on-surface-variant w-full md:w-auto text-right">
+                Showing 12 results
+            </div>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-xl">
+<!-- Product Card 1 -->
+<div class="group flex flex-col">
+<div class="bg-surface-container-low rounded-xl overflow-hidden mb-md aspect-[4/5] relative">
+<img alt="The Canvas Tote" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A minimalist cream-colored canvas tote bag with subtle leather trim, resting on a smooth, pale stone surface. The lighting is soft, diffused, and natural, creating a serene, high-end editorial feel typical of luxury sustainable fashion. The background is a slightly blurred, warm beige environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATH2Y82Gimb4SIAdeYqx5sTTeIUC4jL47a1taGB5f1fwSIy4URsj057Br8i4q5Bj19OxP86LMHDcsMLC-qZoMpjDEalrrXrTyv5xdActDkpXYsFP6zk3xlXLU0ogkyvKm8rDpizc24RkpEAlxJONsTkD8XBI9aLt_aVp2sDwc91UKmfaQg_CHgbZ3d29MMD2Y3U8h7Sp8J0PLMMUs3gUZrsbyNjYOswNLQG8b_Plt9IBLsK6ZEo5wMe7tCXpfcqzrl3bzxHtz1nN4"/>
+<div class="absolute top-sm left-sm bg-surface-container-high px-sm py-xs rounded font-label-caps text-label-caps text-primary">Sustainable</div>
+</div>
+<div class="text-center flex-grow flex flex-col">
+<h3 class="font-headline-md text-headline-md mb-xs">The Canvas Tote</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xs">Cream</p>
+<p class="font-body-md text-body-md font-medium mb-md">$185</p>
+<button class="mt-auto border border-primary text-primary px-lg py-sm rounded-full font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-colors duration-300 w-full max-w-[200px] mx-auto">
+                        View Details
+                    </button>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group flex flex-col">
+<div class="bg-surface-container-low rounded-xl overflow-hidden mb-md aspect-[4/5] relative shadow-[0_4px_20px_rgba(8,31,92,0.05)]">
+<img alt="The Leather Crossbody" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A sleek, minimalist black leather crossbody bag showcased against a stark, light-filled minimalist architectural background. The bag has a smooth matte finish and minimal hardware. The lighting highlights the high-quality texture of the leather, creating a premium, modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXieo0CZMHhmvwsJSbn8fKfHPoytBhcD8mf8ghzLfYwkYepEYXFan2ljNLfXWfh21Bp5-wBjz9g9s7zSpK-aZ12EXQC7dIHacGHTCTMfLwVYYVMvrEFDaN4xhKTgc6mK6APOV5a4906oPtdQJViv6-0M5izzQJLuq_YxHHSDVprkGlXhvWBWH_7FvDog-8keJJz9pSaP6UwGpDQanhoKMStDFPNaTo9qPvGeKfDgHVVksNyrRoMlQvoqn5nXZ0nzXcFo9q7o1qwXM"/>
+</div>
+<div class="text-center flex-grow flex flex-col">
+<h3 class="font-headline-md text-headline-md mb-xs">The Leather Crossbody</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xs">Black</p>
+<p class="font-body-md text-body-md font-medium mb-md">$240</p>
+<button class="mt-auto border border-primary text-primary px-lg py-sm rounded-full font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-colors duration-300 w-full max-w-[200px] mx-auto">
+                        View Details
+                    </button>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group flex flex-col">
+<div class="bg-surface-container-low rounded-xl overflow-hidden mb-md aspect-[4/5] relative">
+<img alt="The Weekend Duffel" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A spacious, minimalist tan suede weekend duffel bag resting on a polished concrete floor in a bright, airy studio space. The lighting is warm and inviting, emphasizing the rich texture of the suede. The scene conveys a sense of effortless, sustainable luxury travel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATKTHFsBQVPjrMD9RVCcj8Ft5A36iV3ldOqYN3CU6_iSQUDZzvlycBGdc5alaJzl0H2_YWgAiRkrG9xh0YhFrnj4UO45USWwMb8N6DCxKFpeDzEkvvBfjjzBJnHJ8OFuh3Mx2I1KfJ49GThWBdV7vgApUfTEEJD1SsWjxlbZuUMIOSOtfTKD1wqeAX9O-p3GZNH98UzWXwtebRGSlCEl5MmbmoHZ8ilbwFGzYqD5Go9_0-cJq_UQszEByoSJwLjo5w4aWiTz8XmhQ"/>
+<div class="absolute top-sm left-sm bg-surface-container-high px-sm py-xs rounded font-label-caps text-label-caps text-primary">Recycled Leather</div>
+</div>
+<div class="text-center flex-grow flex flex-col">
+<h3 class="font-headline-md text-headline-md mb-xs">The Weekend Duffel</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xs">Tan</p>
+<p class="font-body-md text-body-md font-medium mb-md">$320</p>
+<button class="mt-auto border border-primary text-primary px-lg py-sm rounded-full font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-colors duration-300 w-full max-w-[200px] mx-auto">
+                        View Details
+                    </button>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group flex flex-col">
+<div class="bg-surface-container-low rounded-xl overflow-hidden mb-md aspect-[4/5] relative">
+<img alt="The Mini Satchel" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A small, structured mini satchel bag in a muted sage green color, placed on a pristine white pedestal. The lighting is soft and studio-quality, casting subtle shadows that define the bag's minimalist geometry. The overall aesthetic is clean, modern, and high-end." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvS4_53_y1PBWGb3CJv_OtJM40nzvCizLUiBNV-FMGvkU9X0aGjdDFTtThu7FugmixMgdqglqZ6r5J5ivER-HTeEBNUjM7cA2IEXsTIXzPEn5Dg_ypb6VP42ON8dj7IqydbyT5NDo7s9J8Q7-mKykB34mGBx9U5VyEnsGQUg_IqivFSfUstBDJps82rr9f20avNeySnpDAlX5rgxqH8xpMYrF5XXVIQGr-PvJzt0pjNvavLgzDuXNR52z0oUBr4NJm4FZ20V2c4yA"/>
+</div>
+<div class="text-center flex-grow flex flex-col">
+<h3 class="font-headline-md text-headline-md mb-xs">The Mini Satchel</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xs">Sage</p>
+<p class="font-body-md text-body-md font-medium mb-md">$195</p>
+<button class="mt-auto border border-primary text-primary px-lg py-sm rounded-full font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-colors duration-300 w-full max-w-[200px] mx-auto">
+                        View Details
+                    </button>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="group flex flex-col">
+<div class="bg-surface-container-low rounded-xl overflow-hidden mb-md aspect-[4/5] relative">
+<img alt="The Slouch Hobo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A relaxed, unstructured slouch hobo bag made of soft, ethically sourced camel-colored leather, draped casually over a mid-century modern wooden chair. The scene is bathed in warm, natural sunlight filtering through a window, creating a cozy, minimalist lifestyle aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCc723keBxPd9GdWsGT2o42nHrx6d_S6ArROPuFuODqW7NXrhifc7UKSDG89xF2jmkCo8751wEN7THAHvDY0l8vEbclEhvCmKiXDQj1ZLJ7N83QhP_flFInEPn-R67PQdFzewZ-5ieoJ6_PDRTYTaXlQY6dIs7f6Byl7YBTEacJNplTh2VgF4x4i3s7-_BtV744juOhPg7j2LCVkSonUY5STwr9CIC-2FP6t9KUm6dau-CV8rOMNQNLPTjIHuvmo9s8LHWsPfHpwpg"/>
+</div>
+<div class="text-center flex-grow flex flex-col">
+<h3 class="font-headline-md text-headline-md mb-xs">The Slouch Hobo</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xs">Camel</p>
+<p class="font-body-md text-body-md font-medium mb-md">$280</p>
+<button class="mt-auto border border-primary text-primary px-lg py-sm rounded-full font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-colors duration-300 w-full max-w-[200px] mx-auto">
+                        View Details
+                    </button>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="group flex flex-col">
+<div class="bg-surface-container-low rounded-xl overflow-hidden mb-md aspect-[4/5] relative">
+<img alt="The Structured Clutch" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A sleek, rigid, rectangular clutch bag in deep navy blue, resting on a cool, minimalist marble countertop. The lighting is crisp and cool, enhancing the bag's minimalist lines and smooth finish. The composition is highly editorial, emphasizing modern luxury and sophisticated restraint." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0uKqjAN-IPUoPwhnCLROR_H1UepfvXwz6Tgif9SNJ0oSgxYx2mTaB4PPAScu62wgfrR-8PLKlv9NCvHsOMF1QpqRL1-wd9SM2Ko2AfvCWEN8DHWFIRIm6dy9ejugG-lOu2H-ELjtrnLVepGEwj7l93NkgZ5Wwy1EbDUaKWamM3YYuVmrtvRxMY2jj2tXdR_t7nhjb40Ov9uxznEnJTcoiy-DtcT6xKUbUSB_5WWWKCVAc5VS_sx9scLFkr4BcyRlzPCpU-XFd0Fo"/>
+</div>
+<div class="text-center flex-grow flex flex-col">
+<h3 class="font-headline-md text-headline-md mb-xs">The Structured Clutch</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xs">Navy</p>
+<p class="font-body-md text-body-md font-medium mb-md">$150</p>
+<button class="mt-auto border border-primary text-primary px-lg py-sm rounded-full font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-colors duration-300 w-full max-w-[200px] mx-auto">
+                        View Details
+                    </button>
+</div>
+</div>
+</div>
+<!-- Load More -->
+<div class="mt-xxl text-center">
+<button class="border border-outline text-on-surface-variant px-xl py-md rounded-full font-label-caps text-label-caps hover:border-primary hover:text-primary transition-colors duration-300">
+                Load More
+            </button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-inverse-surface mt-xxl">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-xl px-gutter py-xxl w-full max-w-container-max mx-auto">
+<div class="col-span-1">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-md">LOOM</div>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">© 2024 LOOM. Sustainable by Choice.</p>
+</div>
+<div class="col-span-1 md:col-span-3 flex flex-wrap gap-lg justify-start md:justify-end">
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors focus:underline decoration-primary dark:decoration-primary-fixed underline-offset-4" href="#">Contact</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors focus:underline decoration-primary dark:decoration-primary-fixed underline-offset-4" href="#">Shipping &amp; Returns</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors focus:underline decoration-primary dark:decoration-primary-fixed underline-offset-4" href="#">Privacy Policy</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors focus:underline decoration-primary dark:decoration-primary-fixed underline-offset-4" href="#">Sustainability</a>
+</div>
+</div>
+</footer>
+</body></html>

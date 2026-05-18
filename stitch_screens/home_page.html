@@ -1,0 +1,342 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Loom - Recycled Bags, Refined For You</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-low": "#f5f3f9",
+                      "error": "#ba1a1a",
+                      "surface-bright": "#fbf8fe",
+                      "inverse-on-surface": "#f2f0f6",
+                      "tertiary-fixed": "#d5e3ff",
+                      "surface-variant": "#e3e1e7",
+                      "on-surface": "#1b1b20",
+                      "on-secondary": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "surface": "#fbf8fe",
+                      "surface-dim": "#dbd9df",
+                      "secondary-fixed-dim": "#b7c4ff",
+                      "surface-container": "#efedf3",
+                      "on-secondary-container": "#082d8d",
+                      "tertiary-fixed-dim": "#a7c8ff",
+                      "on-secondary-fixed-variant": "#213e9d",
+                      "on-secondary-fixed": "#001552",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed": "#00164f",
+                      "on-error-container": "#93000a",
+                      "background": "#fbf8fe",
+                      "inverse-primary": "#b6c4ff",
+                      "secondary": "#3d57b6",
+                      "on-tertiary-fixed-variant": "#1b477d",
+                      "tertiary-container": "#00244b",
+                      "on-background": "#1b1b20",
+                      "primary-container": "#081f5c",
+                      "on-error": "#ffffff",
+                      "outline": "#757681",
+                      "primary-fixed": "#dce1ff",
+                      "primary-fixed-dim": "#b6c4ff",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-tint": "#4a5b9a",
+                      "secondary-container": "#829bfe",
+                      "secondary-fixed": "#dce1ff",
+                      "surface-container-high": "#e9e7ed",
+                      "surface-container-highest": "#e3e1e7",
+                      "tertiary": "#000f25",
+                      "inverse-surface": "#303035",
+                      "on-primary-fixed-variant": "#314380",
+                      "on-tertiary-container": "#668dc7",
+                      "outline-variant": "#c5c5d1",
+                      "on-primary-container": "#7789cb",
+                      "error-container": "#ffdad6",
+                      "on-surface-variant": "#454650",
+                      "primary": "#000b34",
+                      "on-tertiary-fixed": "#001b3b"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "xxl": "80px",
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "sm": "8px",
+                      "unit": "4px",
+                      "lg": "24px",
+                      "md": "16px",
+                      "xl": "48px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Playfair Display"
+                      ],
+                      "display-lg-mobile": [
+                              "Playfair Display"
+                      ],
+                      "display-lg": [
+                              "Playfair Display"
+                      ],
+                      "headline-md": [
+                              "Playfair Display"
+                      ],
+                      "body-md": [
+                              "DM Sans"
+                      ],
+                      "body-lg": [
+                              "DM Sans"
+                      ],
+                      "label-caps": [
+                              "DM Sans"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "40px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "64px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "0.15em",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-secondary-container selection:text-on-secondary-container min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface/90 dark:bg-surface-dim/90 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-outline-variant dark:border-outline/20">
+<div class="flex justify-between items-center px-gutter py-md w-full max-w-container-max mx-auto">
+<!-- Brand -->
+<a class="flex items-center gap-sm hover:opacity-70 transition-opacity duration-300" href="#">
+<img alt="LOOM Logo" class="h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5uK9IzZlcZK6oRmlRbDfleYN8P8o0pbibuarw_bS5Fb7vlgo0rn4ameQjMZsbTjEYDO1PJEyrkRBCLcACyEGt1XnGnNNluAOapahJNJcHKH8gypM6d2G9wV_LHV3wL7l9zyE1m0D_FZBFCHwIIJmvL_OmCIgbu3EKZbjupDfS0_tBF0VnaaUtoZBDzh92PJi130w97YArJRrA0UkZk9OhAWxaQNB0jwByqepnckiVYj1cQInAth_3Ss5lt2OWJa8zeH5DE0LbxM4">
+</a>
+<!-- Navigation Links (Desktop) -->
+<div class="hidden md:flex items-center gap-lg">
+<a class="font-label-caps text-label-caps text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 hover:opacity-70 transition-opacity duration-300" href="#">Home</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors hover:opacity-70 transition-opacity duration-300" href="#">Bags</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors hover:opacity-70 transition-opacity duration-300" href="#">About</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors hover:opacity-70 transition-opacity duration-300" href="#">Login</a>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-md text-primary dark:text-primary-fixed">
+<button class="hover:opacity-70 transition-opacity duration-300 active:scale-95 flex items-center justify-center p-sm rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">shopping_bag</span>
+</button>
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden hover:opacity-70 transition-opacity duration-300 active:scale-95 flex items-center justify-center p-sm rounded-full">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative w-full min-h-[70vh] flex items-center overflow-hidden bg-surface-container-low">
+<div class="absolute inset-0 z-0">
+<img alt="Loom Hero Image" class="w-full h-full object-cover object-center opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6RtWx3YBhnkRih6WzWgFTaJ_6khMDHCdjH7UYfHZYO4WoUZ0Qce0gJY8N-jQKx7isu6C2Tmfu2X2-_2z59yq4giB8rDdh1Mmxfg8qRognYfdgdOp4xQ0w9Fi76kJ3UPm_IXijAUzXiJMnFCojQp46IM91k7RE4JpmnY_MxnKfUgjbA3EYM-H272c3iTovMvPTRklpp78GBtuAVLcxEvWdvQG21juzM5G8e3S-xLkohtIY93Nv9J0NUBdhYN921dyUX97T_Js-oVE">
+</div>
+<div class="relative z-10 w-full max-w-container-max mx-auto px-gutter py-xxl flex flex-col items-start justify-center">
+<div class="max-w-2xl bg-surface/80 backdrop-blur-sm p-xl rounded-xl border border-outline-variant/30">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-md">Recycled Bags, Refined For You</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-lg">Discover our collection of sustainably crafted handbags, where timeless luxury meets environmental responsibility. Effortless elegance for the conscious modern woman.</p>
+<a class="inline-block bg-primary text-on-primary font-label-caps text-label-caps px-xl py-md rounded-full hover:bg-primary-container hover:text-on-primary-container transition-colors duration-300 shadow-sm hover:shadow-md" href="#">Shop Bags</a>
+</div>
+</div>
+</section>
+<!-- Categories Section -->
+<section class="w-full max-w-container-max mx-auto px-gutter py-xxl">
+<div class="text-center mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-sm">Shop by Category</h2>
+<div class="w-16 h-px bg-primary mx-auto opacity-30"></div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<!-- Category 1 -->
+<a class="group relative overflow-hidden rounded-xl aspect-[3/4] block bg-surface-container hover:shadow-lg transition-shadow duration-300 border border-outline-variant/10" href="#">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A minimalist overhead shot of a sleek, structured shoulder bag in a soft cream color, resting on a smooth light blue surface. The lighting is soft and even, highlighting the bag's clean lines and high-quality leather texture. The aesthetic is modern, elegant, and perfectly aligned with a premium, sustainable fashion brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxGG3yL0FtV8gdYgGlyIW65xUm5cumfmmQYTsIQDrST2kLlAjM5pPPTnNRS-lefQ6aLQfRQ9qycT0u9fREW2VV6hRFTRfswnODh4Hkoa-USw7guIwJ1KOH-WabxYYcuU_dNdGrN1QoJNHAlb9BKkEbmwT9LbhdN5DGzxsBZkG-mEoioJ_0J6rzKXDYlwObW2rKJvsYerskeFfkVYzHhG7rqvC40f20UlFyObBRP2-bnp1TzObmWl8TDq4FKxoJlnvXkk8hb0BTDk8">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent flex items-end p-lg">
+<h3 class="font-headline-md text-headline-md text-on-primary">Shoulder Bags</h3>
+</div>
+</a>
+<!-- Category 2 -->
+<a class="group relative overflow-hidden rounded-xl aspect-[3/4] block bg-surface-container hover:shadow-lg transition-shadow duration-300 border border-outline-variant/10" href="#">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up lifestyle shot of a chic crossbody bag in a deep navy blue, worn by a model in a neutral beige outfit. The focus is tight on the bag and its hardware, with a blurred, bright minimalist background. The lighting is natural and flattering, emphasizing the sustainable luxury vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjyKUClcAwq6L-gM-EzMG35H-qrXR2sZBiu2CeprSn90-rCI1fGe7UtcdnE6WKUKEfKsi86rA9OuhSnC9HTUw6unaAFwso_LYNWceYNmA6Z8-IccB_5VuT-WXWTZW4K6MqPNlTSSfL7DibvWmq7RaU9pVaBkM725b2QFBSB461WJvcYx8WuB9c5_YL1tjRIA1J9OdCMnFDS3L2NpU3On5KHZx4KmmEG4PALo-WzpN2scloM-D4liHsj1ykLqnyK-CPkKDXS4Sly8U">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent flex items-end p-lg">
+<h3 class="font-headline-md text-headline-md text-on-primary">Crossbody Bags</h3>
+</div>
+</a>
+<!-- Category 3 -->
+<a class="group relative overflow-hidden rounded-xl aspect-[3/4] block bg-surface-container hover:shadow-lg transition-shadow duration-300 border border-outline-variant/10" href="#">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A spacious, minimalist tote bag made of supple, recycled leather in a warm sand tone, standing upright on a polished concrete floor. Soft, diffused daylight filters in from a nearby window, casting gentle shadows. The mood is calm, practical, and highly sophisticated, fitting for a modern ethical brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTtk1HYl4ONpk_BjOBaOYzdXOTIHb0fTKB9hdamhYSUm3Dy0bHPoicRYKP9gWdUNGMmNfMHR5wlark1Tkpba-la2UFXL1Pxhm74SxbnNv0WouFeP3TSzflM_-WADW3tHL0uZUa-5WxkdvOkCxXCdWzK3Wv-OZEDn-JAwt5-K61PzyE298YO6p1b3u73ooUUegv1v9sxxeN8n9XkZ_MJUTSTHHk87FnoTKDD45wBPy-LRoa7w7NYy789FRb1XdEuzKoEbjJYBan9yg">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent flex items-end p-lg">
+<h3 class="font-headline-md text-headline-md text-on-primary">Tote Bags</h3>
+</div>
+</a>
+<!-- Category 4 -->
+<a class="group relative overflow-hidden rounded-xl aspect-[3/4] block bg-surface-container hover:shadow-lg transition-shadow duration-300 border border-outline-variant/10" href="#">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A tiny, perfectly structured mini bag in a muted seafoam blue, placed on a pristine white marble block. The composition is highly editorial and minimalist, with stark lighting that accentuates the bag's precise geometric shape. The overall aesthetic is high-end, clean, and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOY4mdVcjnqIjS10aLioiRD88WZ_sm1b8tjOAlOpF8lcSPld0D04n1Qjj58ymgNCGAAQsIYBwLBZ4SFmTy2f68mnQggZT6ugXuhYxmllRz6Jg_cVkQZ5hITDC2VpJMvebF9vjhckw7WmkwLd7N2TeIWAtC3JrfVN3d7fbFYJov8yD5srt8WjXp-QjrmjXsv-yq--ZDFKfNavd2l6zS1lPFbJ2Cd3IUi5H-Xl1ywOnHG7wKjPNac9o88v6uG8CAPKRMUZbXut8Njv0">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent flex items-end p-lg">
+<h3 class="font-headline-md text-headline-md text-on-primary">Mini Bags</h3>
+</div>
+</a>
+</div>
+</section>
+<!-- Featured Products -->
+<section class="w-full max-w-container-max mx-auto px-gutter py-xxl bg-surface-container-low rounded-[2rem] my-xxl">
+<div class="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-sm">Featured Arrivals</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">Our latest silhouettes, consciously designed for effortless daily wear.</p>
+</div>
+<a class="font-label-caps text-label-caps text-primary border-b border-primary pb-1 hover:text-secondary hover:border-secondary transition-colors" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Product 1 -->
+<div class="group flex flex-col cursor-pointer">
+<div class="relative w-full aspect-[4/5] bg-surface-container rounded-xl overflow-hidden mb-md border border-outline-variant/20">
+<div class="absolute top-sm left-sm bg-surface/90 text-primary font-label-caps text-[10px] px-2 py-1 rounded-full z-10">New</div>
+<img class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" data-alt="A beautifully crafted, minimalist hobo bag in a rich navy blue, photographed against a seamless light beige background. The bag is slightly slouched, showing off its soft, sustainable material. The lighting is studio-quality, creating a soft, premium aesthetic that emphasizes the product's elegant simplicity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCer2m7RYCu6Li5x0k7DZBscZb7wURKzx1qSnJWySP1dlX46btrik6Sg0RGG8asl_6exwLYnV5YQZcnM8JdlIoNbhJ3iISjsUJKmT412yEKr15fHcx_DjbifF3sE2uaGrCC05FqiFNGNTxQgDe-oqe6jjO1qvw12N82aXfqMajLmedl6ZBo5n9HahNEjog3fGjRu5zKaUp-z-Dp4MwhQSuIYB6qPYIpUna0OLVddT-CK_8R8l_foUamK-Xz28QZs8WFmCTXpuBRmyE">
+<div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
+<button class="absolute bottom-md right-md bg-surface text-primary p-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-primary hover:text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+</button>
+</div>
+<div class="flex flex-col text-center">
+<h3 class="font-headline-md text-[18px] text-primary mb-xs">The Luna Hobo</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">$245</p>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="group flex flex-col cursor-pointer">
+<div class="relative w-full aspect-[4/5] bg-surface-container rounded-xl overflow-hidden mb-md border border-outline-variant/20">
+<img class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" data-alt="A crisp, structured top-handle bag in a light cream color, sitting on a pale blue plinth. The background is a soft, out-of-focus white. The lighting is bright and airy, creating a fresh, modern look that highlights the bag's refined silhouette and sustainable craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu8N6VT16nVFyXWqulKiqxkfWs2KM9tfgcbQcezGZe2_b94NJeDQJ1YW8iniqggiKI8mufuPdg1jUQcFr5vz1Wh3jT3mO8kV_eQNcYnYM9aOifOINFaiA7yxAV3gvaJhJADfe9NTqquzr8p__-GEWfo8NBJ5tyzfOUB8xEGeyaiTnmAny6pvdYezLh3PHQngaX9_vJzjW7VqEpkv-n768gqQvBkZAqp9-uVV9FOTOScNIzsZaFDGeO0bemVt7iAAEGVbZeJj6pxdg">
+<div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
+<button class="absolute bottom-md right-md bg-surface text-primary p-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-primary hover:text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+</button>
+</div>
+<div class="flex flex-col text-center">
+<h3 class="font-headline-md text-[18px] text-primary mb-xs">The Structured Top Handle</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">$280</p>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="group flex flex-col cursor-pointer">
+<div class="relative w-full aspect-[4/5] bg-surface-container rounded-xl overflow-hidden mb-md border border-outline-variant/20">
+<img class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" data-alt="A sleek, rectangular crossbody bag in a soft taupe shade, presented against a minimalist white backdrop with subtle warm lighting. The bag's clean lines and subtle gold hardware are highlighted, conveying a sense of quiet luxury and sustainable, timeless design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4e3R1-fOozz_Ti5cX1tALs9-P5cCwTFwdLqBMGDZxeg3-gqoMtMrVdE3C-rnfO8FPV1e5y4bEBIM3r1gveEpXsjkDbDO-Uhs8yaHzIJ8zxvZWZYaNO_fvPBiZiRd-yCcIMO_cs_bd76GijEe0usyjaFXhkPnzGt2-M_3AoihWGy-b-0J0lt1lnMVhhJ3ZbdEyB1wdWhEtRjyR-3h3jIZkF6T0pCNcJ-IxU8RP-agW7at0yVEFrTGJh4kJDZ3ynsabmHEvwTnNFjE">
+<div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
+<button class="absolute bottom-md right-md bg-surface text-primary p-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-primary hover:text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+</button>
+</div>
+<div class="flex flex-col text-center">
+<h3 class="font-headline-md text-[18px] text-primary mb-xs">The Minimalist Crossbody</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">$195</p>
+</div>
+</div>
+<!-- Product 4 -->
+<div class="group flex flex-col cursor-pointer">
+<div class="relative w-full aspect-[4/5] bg-surface-container rounded-xl overflow-hidden mb-md border border-outline-variant/20">
+<img class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" data-alt="An elegant, oversized tote bag made of recycled canvas and leather trim in a muted dusty blue, resting on a clean, light wood surface. The image is bright, spacious, and serene, perfectly matching the brand's aesthetic of minimal, conscious fashion." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBal1-9zwmoInNDsOa1NtYp75A1uhpPffoF4pv2xMA6Ezp2jKj-9c1ercx63uOPKBNKzUwlOGu8i_-1x0FYlL7UAeXG46dbxhJvWOD66IJRwH6F3Ekuc6NzRm8BNjmh2-GwlnZd-YjyaVVON759RDdQAVZsCZ7s2Gi7bpbRHQ7-GhZVPBDbCZaQzxEVBndb_5JIRM_o1XmpcTDkxO3z5zFHIqHeJG6Tx6RFNXtGjnFUCv9ov8jw97-hR6gBbiuwP9grdX6ZlRHDBrA">
+<div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
+<button class="absolute bottom-md right-md bg-surface text-primary p-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-primary hover:text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+</button>
+</div>
+<div class="flex flex-col text-center">
+<h3 class="font-headline-md text-[18px] text-primary mb-xs">The Everyday Canvas Tote</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">$220</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Brand Ethos Section -->
+<section class="w-full max-w-container-max mx-auto px-gutter py-xxl border-t border-outline-variant/20">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xxl items-center">
+<div class="order-2 md:order-1">
+<img class="w-full h-auto rounded-xl object-cover aspect-[4/3] shadow-sm" data-alt="A close-up, highly textural shot of high-quality, sustainable fabrics and leather swatches in calming sea-and-sand colors, arranged thoughtfully on a minimal white surface. The soft, editorial lighting emphasizes the tactile nature of the materials, reinforcing the brand's commitment to ethical production and luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaPYMaiQe0s4wgYylHTX3to9okdYtXdfgL5DEFpiNSIL6WJ2x3SkYnsnYGE_DUCbHaf9ejPgD1DL5kmDz5wCx9af7mJe18jcFDyxhkCPNeMfOeyZ1QDob6ODHDqvbsD9_tYaWRRgL8s9UgB47aSbivKhZlfC1501SaTaUCk3qbkcCWbzZ_pRqZnRtBW2utMKT-S25X3C3COHOG6ETOLiMu9m96bdQRQOfIIxA3ci5688YTOJhR9XveHYJpYxEcN3ukyfB57llzmpU">
+</div>
+<div class="order-1 md:order-2 flex flex-col justify-center">
+<span class="font-label-caps text-label-caps text-secondary mb-md">Sustainable by Choice</span>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-lg">Crafted with Intention</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xl">Every Loom bag is a testament to mindful creation. We source premium recycled materials to design pieces that endure shifting trends. Our minimalist approach ensures that your bag is not just an accessory, but a staple of your refined, conscious wardrobe.</p>
+<a class="inline-block border border-primary text-primary font-label-caps text-label-caps px-xl py-md rounded-full hover:bg-primary hover:text-on-primary transition-colors duration-300 self-start" href="#">Learn About Our Materials</a>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-inverse-surface text-primary dark:text-primary-fixed full-width bottom flat no shadows grid grid-cols-1 md:grid-cols-4 gap-xl px-gutter py-xxl w-full max-w-container-max mx-auto mt-xxl">
+<div class="md:col-span-1">
+<span class="font-headline-md text-headline-md text-primary dark:text-primary-fixed block mb-md font-display">LOOM</span>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant"> 2024 LOOM. Sustainable by Choice.</p>
+</div>
+<div class="md:col-span-3 flex flex-wrap gap-xl md:justify-end">
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors focus:underline decoration-primary dark:decoration-primary-fixed underline-offset-4" href="#">Contact</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors focus:underline decoration-primary dark:decoration-primary-fixed underline-offset-4" href="#">Shipping &amp; Returns</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors focus:underline decoration-primary dark:decoration-primary-fixed underline-offset-4" href="#">Privacy Policy</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors focus:underline decoration-primary dark:decoration-primary-fixed underline-offset-4" href="#">Sustainability</a>
+</div>
+</footer>
+
+
+
+
+</body></html>

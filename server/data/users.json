@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Admin Manager",
+    "email": "admin@loom.com",
+    "pass": "admin123",
+    "role": "admin"
+  },
+  {
+    "name": "Normal User",
+    "email": "user@loom.com",
+    "pass": "user123",
+    "role": "user"
+  }
+]

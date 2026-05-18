@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LOOM - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=DM+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-low": "#f5f3f9",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#fbf8fe",
+                        "inverse-on-surface": "#f2f0f6",
+                        "tertiary-fixed": "#d5e3ff",
+                        "surface-variant": "#e3e1e7",
+                        "on-surface": "#1b1b20",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface": "#fbf8fe",
+                        "surface-dim": "#dbd9df",
+                        "secondary-fixed-dim": "#b7c4ff",
+                        "surface-container": "#efedf3",
+                        "on-secondary-container": "#082d8d",
+                        "tertiary-fixed-dim": "#a7c8ff",
+                        "on-secondary-fixed-variant": "#213e9d",
+                        "on-secondary-fixed": "#001552",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#00164f",
+                        "on-error-container": "#93000a",
+                        "background": "#fbf8fe",
+                        "inverse-primary": "#b6c4ff",
+                        "secondary": "#3d57b6",
+                        "on-tertiary-fixed-variant": "#1b477d",
+                        "tertiary-container": "#00244b",
+                        "on-background": "#1b1b20",
+                        "primary-container": "#081f5c",
+                        "on-error": "#ffffff",
+                        "outline": "#757681",
+                        "primary-fixed": "#dce1ff",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#4a5b9a",
+                        "secondary-container": "#829bfe",
+                        "secondary-fixed": "#dce1ff",
+                        "surface-container-high": "#e9e7ed",
+                        "surface-container-highest": "#e3e1e7",
+                        "tertiary": "#000f25",
+                        "inverse-surface": "#303035",
+                        "on-primary-fixed-variant": "#314380",
+                        "on-tertiary-container": "#668dc7",
+                        "outline-variant": "#c5c5d1",
+                        "on-primary-container": "#7789cb",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#454650",
+                        "primary": "#000b34",
+                        "on-tertiary-fixed": "#001b3b"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "xxl": "80px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "sm": "8px",
+                        "unit": "4px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "xl": "48px",
+                        "xs": "4px"
+                    },
+                    fontFamily: {
+                        "headline-lg": ["Playfair Display"],
+                        "display-lg-mobile": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-md": ["Playfair Display"],
+                        "body-md": ["DM Sans"],
+                        "body-lg": ["DM Sans"],
+                        "label-caps": ["DM Sans"]
+                    },
+                    fontSize: {
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "400" }],
+                        "display-lg-mobile": ["40px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "display-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.15em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #fbf8fe; /* background */
+            color: #1b1b20; /* on-background */
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between font-body-md text-body-md text-on-background antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- Header suppressed as per intent guidelines for Transactional pages -->
+<header class="w-full flex justify-center py-xl bg-transparent absolute top-0 left-0 right-0 z-10">
+<a class="font-headline-lg text-headline-lg tracking-widest text-primary" href="#">LOOM</a>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center px-gutter py-xxl relative overflow-hidden">
+<!-- Decorative Background Element - Subtle Minimalist Blob -->
+<div class="absolute top-0 right-0 w-[600px] h-[600px] bg-primary-fixed rounded-full mix-blend-multiply filter blur-3xl opacity-20 -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+<div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-tertiary-fixed rounded-full mix-blend-multiply filter blur-3xl opacity-20 translate-y-1/3 -translate-x-1/4 pointer-events-none"></div>
+<!-- Login Container -->
+<div class="w-full max-w-md bg-surface-container-lowest border border-outline-variant/30 p-xl relative z-10 shadow-[0_20px_40px_-15px_rgba(8,31,92,0.05)] rounded-lg">
+<div class="text-center mb-xl">
+<h1 class="font-headline-md text-headline-md text-primary mb-sm">Welcome Back</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Sign in to continue to your LOOM account.</p>
+</div>
+<form action="#" class="space-y-lg" method="POST">
+<!-- Email Field -->
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs" for="email">Email Address</label>
+<div class="relative">
+<input class="block w-full bg-transparent border-0 border-b border-outline-variant/50 focus:border-primary focus:ring-0 px-0 py-sm font-body-md text-body-md text-on-surface placeholder:text-outline-variant/50 transition-colors bg-transparent rounded-none" id="email" name="email" placeholder="your@email.com" required="" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div>
+<div class="flex justify-between items-center mb-xs">
+<label class="block font-label-caps text-label-caps text-on-surface-variant" for="password">Password</label>
+<a class="font-label-caps text-label-caps text-primary hover:text-secondary transition-colors underline-offset-4 hover:underline" href="#">Forgot?</a>
+</div>
+<div class="relative">
+<input class="block w-full bg-transparent border-0 border-b border-outline-variant/50 focus:border-primary focus:ring-0 px-0 py-sm font-body-md text-body-md text-on-surface placeholder:text-outline-variant/50 transition-colors bg-transparent rounded-none" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute inset-y-0 right-0 flex items-center text-outline hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility_off</span>
+</button>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="pt-md">
+<button class="w-full bg-primary text-on-primary font-label-caps text-label-caps py-md px-lg hover:bg-primary-container hover:text-on-primary-container transition-colors duration-300 rounded-DEFAULT flex items-center justify-center space-x-sm group" type="submit">
+<span>Login</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</form>
+<div class="mt-xl text-center border-t border-outline-variant/20 pt-lg">
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Don't have an account? 
+                    <a class="text-primary font-bold hover:text-secondary transition-colors underline underline-offset-4 decoration-primary/30 hover:decoration-secondary" href="#">Create an account</a>
+</p>
+</div>
+</div>
+</main>
+<!-- Footer Component from JSON -->
+<footer class="w-full max-w-container-max mx-auto px-gutter py-xxl bg-surface-container-low grid grid-cols-1 md:grid-cols-4 gap-xl">
+<div class="md:col-span-1">
+<span class="font-headline-md text-headline-md text-primary block mb-md">LOOM</span>
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 LOOM. Sustainable by Choice.</p>
+</div>
+<div class="md:col-span-3 flex flex-wrap gap-lg md:justify-end items-center">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-secondary transition-colors hover:underline decoration-primary underline-offset-4" href="#">Contact</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-secondary transition-colors hover:underline decoration-primary underline-offset-4" href="#">Shipping &amp; Returns</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-secondary transition-colors hover:underline decoration-primary underline-offset-4" href="#">Privacy Policy</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-secondary transition-colors hover:underline decoration-primary underline-offset-4" href="#">Sustainability</a>
+</div>
+</footer>
+</body></html>

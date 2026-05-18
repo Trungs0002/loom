@@ -1,0 +1,67 @@
+[
+  {
+    "name": "The Minimal Tote",
+    "price": 245.00,
+    "category": "Túi tote",
+    "colors": ["Kem", "Đen", "Nâu"],
+    "material": "Da tái chế",
+    "dimensions": "38cm x 30cm x 12cm",
+    "description": "Túi tote rộng rãi, thanh lịch làm từ da tái chế. Hoàn hảo cho việc sử dụng hàng ngày và đủ lớn để đựng laptop 13-inch.",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAhnk20scGCchHeulXPn_48JVAc_YrBf_XDGsn9LyynbXqXDDpcSPjtTBXcA5Ja2gB2DM2_ZPHc8P8YIyma5XbKy03N7XcLGvDidbfPux776krFzT1icHOOx3r_oh1G8DsUR28pZ71vG1at6HSmBUIwUBdfJLCgWJRzVsYqJOHMV7aFKscZZv7w3RkeI94XIIhn1ihlPvl4CRiXIxteib5FB_9Wd-x9echkbLlmGJplZHdt-TkJgcKTN0VeihaJtN2j45bmco687Fw",
+    "stock": 42,
+    "tags": ["Tote", "Everyday", "Vegan", "Bestseller"],
+    "wishlist": false
+  },
+  {
+    "name": "Everyday Crossbody",
+    "price": 125.00,
+    "category": "Túi đeo chéo",
+    "colors": ["Xanh", "Trắng", "Đen"],
+    "material": "Canvas tái chế",
+    "dimensions": "20cm x 15cm x 5cm",
+    "description": "Túi đeo chéo nhỏ gọn cho các vật dụng thiết yếu hàng ngày. Dây đeo có thể điều chỉnh và chất liệu canvas tái chế bền bỉ.",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDvDxFiEhNKrrtjVprXgItoY0V2MpLUTRYOl3twUpwxGp2egcZRSfyxN0-uWALUqxTTo4USfifPLZSFPecftvwteEKpbEyh5Jltmo5XhlIh-uoWKa8vroI2xpEjMU6mzfHPYlX-19ttxhBdc5LfbM7oxtopYcya9H8FXoFQFxjhnFhEnUNXwrzkJmM9PwMPt1YqkJG8CwcrP2kdEs61NsaIt8B4KI2klmj2KumeCsaU8-S0XDLpgWYD7sNpcgwW4e7KxPw1YqLhWWI",
+    "stock": 15,
+    "tags": ["Crossbody", "Travel", "Canvas"],
+    "wishlist": false
+  },
+  {
+    "name": "Classic Weekender",
+    "price": 320.00,
+    "category": "Túi xách",
+    "colors": ["Đen", "Nâu", "Xanh"],
+    "material": "Nylon chống nước",
+    "dimensions": "55cm x 35cm x 25cm",
+    "description": "Người bạn đồng hành lý tưởng cho những chuyến đi du lịch. Không gian bên trong rộng rãi với nhiều ngăn, làm từ vật liệu cao cấp chống nước.",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCfYivRt209pX22DMN31q5alsqS3UvVJpBQi0Ag4aI7poMXStvWFJ6vnIYevQf7wpUWMCMEFIv7f8pG9GyT90F-N3a0UM2bQIx010w1l4a6B9VOanbVfz_jChSNPwEh5mwlIeHl_kVGVLvEIuIKkBMMccu2LDblbonLnwNsZMYMdHTGgqcXFB2UY55v9Z2hWud7SVb9vQRQd0K1tRw34qAog9_HM9O0ffnd0OfXVTokvrmFuoifoS2huQtL6ExbOzwuKlWE2fIdueI",
+    "stock": 5,
+    "tags": ["Travel", "Duffel", "Water-resistant"],
+    "wishlist": true
+  },
+  {
+    "name": "Recycled Nylon Pouch",
+    "price": 45.00,
+    "category": "Túi mini",
+    "colors": ["Đen", "Trắng"],
+    "material": "100% Nylon tái chế",
+    "dimensions": "15cm x 10cm x 4cm",
+    "description": "Giữ những vật dụng nhỏ gọn gàng. Có thể dùng độc lập hoặc bỏ vào trong túi tote lớn hơn.",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDCVh2BpwYBC-BzlEK8qzxopk-f43PzqZYFmxu7zHF71orU3oidpyqP3iIJPR52HtBwxT6bYFgNPIy-cgCgT85PxYj5pGWsiFAloJoGvdX27xPvOrmhZuUG8og24ySwAQYAzYDoy00j3EHo0v2deGA11QS9zSzbm-Pfe9lxtl8Bkn51R0PHEyu1qnobZnN4NT3qAev30jkGFmB8A5pxBg0NN4g0RitAU9NI1pakMsvGi6xi79vP6GnZOMNp44SAY9KWn-O7tYexwAY",
+    "stock": 0,
+    "tags": ["Accessories", "Pouch", "Small"],
+    "wishlist": false
+  },
+  {
+    "name": "Structured Satchel",
+    "price": 285.00,
+    "category": "Túi đeo vai",
+    "colors": ["Nâu", "Đen"],
+    "material": "Da thật nguyên miếng",
+    "dimensions": "33cm x 25cm x 11cm",
+    "description": "Túi satchel sang trọng cho môi trường công sở. Giữ form cực chuẩn và đẳng cấp.",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDKwk4j_xy-1DdoYvbNvrQ7bzg5_4oXldR6KH-5rEsSgij3gA4XTAiRJu3-u2xg2J87ypRq8iOmLScBKP1COn6G8wN8hSituIkCWomgihRKokgf3gh-qNg4-k9O69rnkEdS2FE8NfXbdt6M3HmQQzwMkVcO7rXXmzqGwoSlNScQmBL7nHyCPpNxwB_Ay2WROviz1egN4r9v0CHNVZX_S876fNiFHdYw6_yK-1eQuJuFq81H6IRgIScmoFBkJvtoTKLVNG70SQLvQLs",
+    "stock": 12,
+    "tags": ["Work", "Satchel", "Leather"],
+    "wishlist": false
+  }
+]

@@ -1,0 +1,284 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Loom Checkout</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&amp;family=Playfair+Display:wght@400;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#f5f3f9",
+                    "error": "#ba1a1a",
+                    "surface-bright": "#fbf8fe",
+                    "inverse-on-surface": "#f2f0f6",
+                    "tertiary-fixed": "#d5e3ff",
+                    "surface-variant": "#e3e1e7",
+                    "on-surface": "#1b1b20",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface": "#fbf8fe",
+                    "surface-dim": "#dbd9df",
+                    "secondary-fixed-dim": "#b7c4ff",
+                    "surface-container": "#efedf3",
+                    "on-secondary-container": "#082d8d",
+                    "tertiary-fixed-dim": "#a7c8ff",
+                    "on-secondary-fixed-variant": "#213e9d",
+                    "on-secondary-fixed": "#001552",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#00164f",
+                    "on-error-container": "#93000a",
+                    "background": "#fbf8fe",
+                    "inverse-primary": "#b6c4ff",
+                    "secondary": "#3d57b6",
+                    "on-tertiary-fixed-variant": "#1b477d",
+                    "tertiary-container": "#00244b",
+                    "on-background": "#1b1b20",
+                    "primary-container": "#081f5c",
+                    "on-error": "#ffffff",
+                    "outline": "#757681",
+                    "primary-fixed": "#dce1ff",
+                    "primary-fixed-dim": "#b6c4ff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#4a5b9a",
+                    "secondary-container": "#829bfe",
+                    "secondary-fixed": "#dce1ff",
+                    "surface-container-high": "#e9e7ed",
+                    "surface-container-highest": "#e3e1e7",
+                    "tertiary": "#000f25",
+                    "inverse-surface": "#303035",
+                    "on-primary-fixed-variant": "#314380",
+                    "on-tertiary-container": "#668dc7",
+                    "outline-variant": "#c5c5d1",
+                    "on-primary-container": "#7789cb",
+                    "error-container": "#ffdad6",
+                    "on-surface-variant": "#454650",
+                    "primary": "#000b34",
+                    "on-tertiary-fixed": "#001b3b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xxl": "80px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "sm": "8px",
+                    "unit": "4px",
+                    "lg": "24px",
+                    "md": "16px",
+                    "xl": "48px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "headline-lg": [
+                            "Playfair Display"
+                    ],
+                    "display-lg-mobile": [
+                            "Playfair Display"
+                    ],
+                    "display-lg": [
+                            "Playfair Display"
+                    ],
+                    "headline-md": [
+                            "Playfair Display"
+                    ],
+                    "body-md": [
+                            "DM Sans"
+                    ],
+                    "body-lg": [
+                            "DM Sans"
+                    ],
+                    "label-caps": [
+                            "DM Sans"
+                    ]
+            },
+            "fontSize": {
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg-mobile": [
+                            "40px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg": [
+                            "64px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "0.15em",
+                                    "fontWeight": "500"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-bottom-color: #3d57b6 !important;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface/90 backdrop-blur-md sticky top-0 z-50 w-full">
+<div class="flex justify-between items-center px-gutter py-md w-full max-w-container-max mx-auto"><div class="flex items-center w-1/3"><span class="font-headline-lg text-headline-lg tracking-widest text-primary dark:text-primary-fixed cursor-pointer font-display">LOOM</span></div><div class="hidden md:flex justify-center items-center space-x-lg w-1/3"><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-caps text-label-caps hover:opacity-70 transition-opacity duration-300" href="#">Home</a><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-caps text-label-caps hover:opacity-70 transition-opacity duration-300" href="#">Bags</a><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-caps text-label-caps hover:opacity-70 transition-opacity duration-300" href="#">About</a><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-caps text-label-caps hover:opacity-70 transition-opacity duration-300" href="#">Login</a></div><div class="flex items-center justify-end w-1/3"><button class="hover:opacity-70 transition-opacity duration-300 text-primary dark:text-primary-fixed flex items-center justify-center p-sm"><span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span></button></div></div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-gutter py-xxl grid grid-cols-1 lg:grid-cols-12 gap-xxl">
+<!-- Left Column: Checkout Form -->
+<div class="lg:col-span-7 xl:col-span-8 flex flex-col gap-xl">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary mb-sm">Checkout</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Please provide your details below to complete your order.</p>
+</div>
+<!-- Shipping Information -->
+<section class="flex flex-col gap-lg">
+<h2 class="font-headline-md text-headline-md text-primary pb-sm border-b border-outline-variant/30">Shipping Information</h2>
+<form class="flex flex-col gap-lg mt-sm">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase" for="fullName">Full Name</label>
+<input class="bg-transparent border-0 border-b border-outline-variant/50 py-sm font-body-md text-body-md text-primary transition-colors focus:ring-0 px-0" id="fullName" placeholder="Jane Doe" type="text">
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase" for="phone">Phone Number</label>
+<input class="bg-transparent border-0 border-b border-outline-variant/50 py-sm font-body-md text-body-md text-primary transition-colors focus:ring-0 px-0" id="phone" placeholder="+1 (555) 000-0000" type="tel">
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase" for="address">Shipping Address</label>
+<input class="bg-transparent border-0 border-b border-outline-variant/50 py-sm font-body-md text-body-md text-primary transition-colors focus:ring-0 px-0" id="address" placeholder="123 Minimalist Way, Apt 4B, NY 10001" type="text">
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase" for="note">Note (Optional)</label>
+<textarea class="bg-transparent border-0 border-b border-outline-variant/50 py-sm font-body-md text-body-md text-primary transition-colors focus:ring-0 px-0 resize-none" id="note" placeholder="Special instructions for delivery..." rows="2"></textarea>
+</div>
+</form>
+</section>
+<!-- Payment Method -->
+<section class="flex flex-col gap-lg mt-md">
+<h2 class="font-headline-md text-headline-md text-primary pb-sm border-b border-outline-variant/30">Payment Method</h2>
+<div class="mt-sm">
+<div class="flex items-center gap-md p-md border border-outline-variant/30 bg-surface-container-low rounded-DEFAULT cursor-not-allowed opacity-90">
+<span class="material-symbols-outlined text-primary" data-icon="local_shipping">local_shipping</span>
+<div class="flex-grow">
+<h3 class="font-body-md text-body-md font-medium text-primary">Cash on Delivery</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant lowercase mt-xs">Pay when you receive your order.</p>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="check_circle" style="font-variation-settings: &quot;FILL&quot; 1;">check_circle</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Order Summary -->
+<div class="lg:col-span-5 xl:col-span-4">
+<div class="bg-surface-container-low p-lg rounded-DEFAULT flex flex-col gap-lg sticky top-[100px]">
+<h2 class="font-headline-md text-headline-md text-primary pb-sm border-b border-outline-variant/30">Order Summary</h2>
+<!-- Items list -->
+<div class="flex flex-col gap-md">
+<div class="flex gap-md items-center">
+<div class="w-16 h-20 bg-[#e0d6ce] flex-shrink-0 relative overflow-hidden rounded-sm">
+<!-- Placeholder for item image -->
+<img alt="Minimalist beige leather tote bag on a neutral background" class="object-cover w-full h-full absolute inset-0" data-alt="A minimalist beige leather tote bag presented on a clean, light cream background. The lighting is soft and diffused, highlighting the smooth texture of the sustainable leather. The composition is simple and elegant, perfectly aligned with a high-end, minimalist fashion aesthetic, emphasizing clean lines and understated luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCVh2BpwYBC-BzlEK8qzxopk-f43PzqZYFmxu7zHF71orU3oidpyqP3iIJPR52HtBwxT6bYFgNPIy-cgCgT85PxYj5pGWsiFAloJoGvdX27xPvOrmhZuUG8og24ySwAQYAzYDoy00j3EHo0v2deGA11QS9zSzbm-Pfe9lxtl8Bkn51R0PHEyu1qnobZnN4NT3qAev30jkGFmB8A5pxBg0NN4g0RitAU9NI1pakMsvGi6xi79vP6GnZOMNp44SAY9KWn-O7tYexwAY">
+</div>
+<div class="flex-grow flex flex-col">
+<span class="font-body-md text-body-md text-primary">The Essential Tote</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mt-xs">Color: Sand</span>
+</div>
+<span class="font-body-md text-body-md text-primary">$345</span>
+</div>
+</div>
+<!-- Totals -->
+<div class="flex flex-col gap-sm pt-md border-t border-outline-variant/30">
+<div class="flex justify-between font-body-md text-body-md text-on-surface-variant">
+<span class="">Subtotal</span>
+<span class="">$345.00</span>
+</div>
+<div class="flex justify-between font-body-md text-body-md text-on-surface-variant">
+<span class="">Shipping</span>
+<span class="">Calculated at next step</span>
+</div>
+</div>
+<div class="flex justify-between font-headline-md text-headline-md text-primary pt-md border-t border-outline-variant/30">
+<span class="">Total</span>
+<span class="">$345.00</span>
+</div>
+<button class="w-full bg-primary text-on-primary font-label-caps text-label-caps uppercase py-md px-lg hover:opacity-90 transition-opacity mt-sm tracking-widest">
+                    Place Order
+                </button>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-inverse-surface text-primary dark:text-primary-fixed full-width bottom flat no shadows grid grid-cols-1 md:grid-cols-4 gap-xl px-gutter py-xxl w-full max-w-container-max mx-auto mt-xxl">
+<div class="md:col-span-1">
+<span class="font-headline-md text-headline-md text-primary dark:text-primary-fixed block mb-md">LOOM</span>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">© 2024 LOOM. Sustainable by Choice.</p>
+</div>
+<div class="md:col-span-3 flex flex-wrap gap-xl md:justify-end">
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors focus:underline decoration-primary dark:decoration-primary-fixed underline-offset-4" href="#">Contact</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors focus:underline decoration-primary dark:decoration-primary-fixed underline-offset-4" href="#">Shipping &amp; Returns</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors focus:underline decoration-primary dark:decoration-primary-fixed underline-offset-4" href="#">Privacy Policy</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors focus:underline decoration-primary dark:decoration-primary-fixed underline-offset-4" href="#">Sustainability</a>
+</div>
+</footer>
+
+
+
+
+</body></html>
