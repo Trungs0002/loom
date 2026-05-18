@@ -14,7 +14,7 @@ const Shop = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('${API_BASE}/api/products');
+        const res = await fetch(`${API_BASE}/api/products`);
         const data = await res.json();
         setProducts(data);
       } catch (error) {
@@ -123,4 +123,5 @@ const Shop = () => {
 };
 
 export default Shop;
+
 

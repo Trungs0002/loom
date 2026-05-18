@@ -45,14 +45,14 @@ const AdminLayout = ({ children }) => {
 const uploadImage = async (file, token) => {
   const fd = new FormData();
   fd.append('image', file);
-  const res = await fetch('${API_BASE}/api/upload', {
+  const res = await fetch(`${API_BASE}/api/upload`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
     body: fd,
   });
   const data = await res.json();
   if (!res.ok) throw new Error(data.message || 'Upload failed');
-  return '${API_BASE}' + data.url;
+  return `${API_BASE}` + data.url;
 };
 
 // ─── Color Image Row ───────────────────────────────────────────────────────────
@@ -145,7 +145,7 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
     try {
       const url = isEdit
         ? `${API_BASE}/api/products/${product._id}`
-        : '${API_BASE}/api/products';
+        : `${API_BASE}/api/products`;
       const res = await fetch(url, {
         method: isEdit ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
@@ -263,7 +263,7 @@ export const AdminProducts = () => {
 
   const fetchProducts = useCallback(async () => {
     try {
-      const res = await fetch('${API_BASE}/api/products');
+      const res = await fetch(`${API_BASE}/api/products`);
       setProducts(await res.json());
     } catch (err) { console.error(err); }
     finally { setLoading(false); }
@@ -402,7 +402,7 @@ export const AdminOrders = () => {
     if (!user || user.role !== 'admin') { navigate('/login'); return; }
     const fetchOrders = async () => {
       try {
-        const res = await fetch('${API_BASE}/api/orders', {
+        const res = await fetch(`${API_BASE}/api/orders`, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         const data = await res.json();
@@ -507,4 +507,5 @@ export const AdminOrders = () => {
     </AdminLayout>
   );
 };
+
 

@@ -47,7 +47,7 @@ const Checkout = () => {
         paymentMethod: 'Cash on Delivery'
       };
 
-      const res = await fetch('${API_BASE}/api/orders', {
+      const res = await fetch(`${API_BASE}/api/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -205,4 +205,5 @@ const Checkout = () => {
 };
 
 export default Checkout;
+
 

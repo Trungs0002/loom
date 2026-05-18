@@ -8,7 +8,7 @@ const Home = () => {
   useEffect(() => {
     const fetchFeatured = async () => {
       try {
-        const res = await fetch('${API_BASE}/api/products');
+        const res = await fetch(`${API_BASE}/api/products`);
         const data = await res.json();
         setFeaturedProducts(data.slice(0, 4));
       } catch (error) {
@@ -120,4 +120,5 @@ const Home = () => {
 };
 
 export default Home;
+
 
