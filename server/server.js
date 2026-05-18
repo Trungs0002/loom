@@ -15,7 +15,12 @@ app.use(cors({
   credentials: true
 }));
 app.use(express.json());
-app.use(express.static('public')); // Thư mục chứa image
+app.use(express.static('public'));
+
+// Health check endpoint (for cron ping to keep Render alive)
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
 
 // Routes
 const productRoutes = require('./routes/productRoutes');
