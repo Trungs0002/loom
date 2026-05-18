@@ -12,8 +12,8 @@ client/.env
 client/build/
 
 # Uploaded files
-server/public/uploads/*
-!server/public/uploads/.gitkeep
+# server/public/uploads/*
+# !server/public/uploads/.gitkeep
 
 # Logs
 *.log
