@@ -103,12 +103,12 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
   };
 
   const textFields = [
-    { name: 'name', label: 'Product Name', required: true, full: true },
-    { name: 'price', label: 'Price ($)', type: 'number', required: true },
-    { name: 'stock', label: 'Stock Qty', type: 'number', required: true },
-    { name: 'material', label: 'Material' },
-    { name: 'dimensions', label: 'Dimensions' },
-    { name: 'tags', label: 'Tags (comma-separated)', full: true },
+    { name: 'name', label: 'Product Name', required: true, full: true, placeholder: 'e.g. Classic Tote Bag' },
+    { name: 'price', label: 'Price ($)', type: 'number', required: true, placeholder: 'e.g. 199' },
+    { name: 'stock', label: 'Stock Qty', type: 'number', required: true, placeholder: 'e.g. 50' },
+    { name: 'material', label: 'Material', placeholder: 'e.g. Vegan Leather' },
+    { name: 'dimensions', label: 'Dimensions', placeholder: 'e.g. 30cm x 40cm x 15cm' },
+    { name: 'tags', label: 'Tags (comma-separated)', full: true, placeholder: 'e.g. Sustainable, Minimalist, Office' },
   ];
 
   return (
@@ -126,8 +126,8 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
             {textFields.map(f => (
               <div key={f.name} className={f.full ? 'col-span-2' : ''}>
                 <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">{f.label}</label>
-                <input name={f.name} type={f.type || 'text'} value={form[f.name]} onChange={handleChange} required={f.required}
-                  className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none" />
+                <input name={f.name} type={f.type || 'text'} value={form[f.name]} onChange={handleChange} required={f.required} placeholder={f.placeholder}
+                  className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none placeholder:text-on-surface-variant/50" />
               </div>
             ))}
             {/* Category dropdown — fetched from DB */}
@@ -143,8 +143,8 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
             </div>
             <div className="col-span-2">
               <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">Description</label>
-              <textarea name="description" value={form.description} onChange={handleChange} rows={3}
-                className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none resize-none" />
+              <textarea name="description" value={form.description} onChange={handleChange} rows={3} placeholder="Describe the product features, styling tips, etc."
+                className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none resize-none placeholder:text-on-surface-variant/50" />
             </div>
           </div>
 
