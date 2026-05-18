@@ -15,7 +15,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'loom-uploads',
+    folder: 'loom',
     allowed_formats: ['jpg', 'png', 'jpeg', 'gif', 'webp'],
   },
 });
