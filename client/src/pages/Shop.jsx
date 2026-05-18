@@ -1,7 +1,8 @@
 /* eslint-disable */
 import API_BASE from '../config';
 import React, { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 // Removed hardcoded CATEGORIES
 
@@ -12,6 +13,8 @@ const Shop = () => {
   const activeCategory = searchParams.get('category') || '';
   const [search, setSearch] = useState('');
   const [categories, setCategories] = useState([]);
+  const { user, favorites, toggleFavorite } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -47,6 +50,20 @@ const Shop = () => {
   });
 
   const mainImg = (p) => p.colorImages?.[0]?.image || p.image || '';
+
+  const isFavorited = (id) => favorites.some(f => (f._id || f) === id);
+
+  const handleToggleFavorite = async (e, productId) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!user) {
+      if (window.confirm('Bạn cần đăng nhập để thêm vào danh sách yêu thích. Đi tới trang đăng nhập?')) {
+        navigate('/login');
+      }
+      return;
+    }
+    await toggleFavorite(productId);
+  };
 
   return (
     <div className="flex-grow w-full max-w-container-max mx-auto px-gutter py-xxl">
@@ -99,11 +116,24 @@ const Shop = () => {
           <div className="col-span-full text-center py-xl text-on-surface-variant">No products found.</div>
         ) : (
           filtered.map(product => (
-            <div key={product._id} className="group flex flex-col">
+            <div key={product._id} className="group flex flex-col relative">
               <div className="bg-surface-container-low rounded-xl overflow-hidden mb-md aspect-[4/5] relative">
                 <img alt={product.name} src={mainImg(product)} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                
+                {/* Favorite Button */}
+                <button 
+                  onClick={(e) => handleToggleFavorite(e, product._id)}
+                  className="absolute top-sm left-sm bg-white/80 backdrop-blur-sm p-xs rounded-full shadow-md z-10 hover:bg-white transition-colors"
+                  aria-label="Toggle Favorite"
+                >
+                  <span className={`material-symbols-outlined text-[20px] ${isFavorited(product._id) ? 'text-primary' : 'text-on-surface-variant opacity-60'}`}
+                        style={{ fontVariationSettings: isFavorited(product._id) ? "'FILL' 1" : "'FILL' 0" }}>
+                    favorite
+                  </span>
+                </button>
+
                 {product.tags?.includes('Sustainable') && (
-                  <div className="absolute top-sm left-sm bg-surface-container-high px-sm py-xs rounded font-label-caps text-label-caps text-primary">
+                  <div className="absolute bottom-sm left-sm bg-surface-container-high px-sm py-xs rounded font-label-caps text-label-caps text-primary">
                     Sustainable
                   </div>
                 )}
@@ -132,7 +162,3 @@ const Shop = () => {
 };
 
 export default Shop;
-
-
-
-

@@ -1,5 +1,5 @@
 import API_BASE from '../config';
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
 const AuthContext = createContext();
 
@@ -8,6 +8,31 @@ export const AuthProvider = ({ children }) => {
     const savedUser = localStorage.getItem('userInfo');
     return savedUser ? JSON.parse(savedUser) : null;
   });
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    if (user && user.token) {
+      fetchFavorites();
+    } else {
+      setFavorites([]);
+    }
+  }, [user]);
+
+  const fetchFavorites = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/favorites`, {
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setFavorites(data);
+      }
+    } catch (error) {
+      console.error('Error fetching favorites:', error);
+    }
+  };
 
   const login = async (name, pass) => {
     const res = await fetch(`${API_BASE}/api/auth/login`, {
@@ -41,11 +66,33 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
+    setFavorites([]);
     localStorage.removeItem('userInfo');
   };
 
+  const toggleFavorite = async (productId) => {
+    if (!user) return { success: false, message: 'Please login to add favorites' };
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/favorites`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        },
+        body: JSON.stringify({ productId })
+      });
+      if (res.ok) {
+        await fetchFavorites(); // Refresh favorites list
+        return { success: true };
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+    }
+    return { success: false };
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
+    <AuthContext.Provider value={{ user, favorites, login, register, logout, toggleFavorite }}>
       {children}
     </AuthContext.Provider>
   );

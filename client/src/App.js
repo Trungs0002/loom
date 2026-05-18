@@ -16,6 +16,7 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Favorites from './pages/Favorites';
 import { AdminProducts, AdminOrders } from './pages/AdminDashboard';
 import { AdminCategories } from './pages/AdminCategories';
 
@@ -58,6 +59,7 @@ const App = () => {
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/favorites" element={<Favorites />} />
               <Route path="/admin/products" element={<AdminProducts />} />
               <Route path="/admin/categories" element={<AdminCategories />} />
               <Route path="/admin/orders" element={<AdminOrders />} />

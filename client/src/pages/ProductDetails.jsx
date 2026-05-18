@@ -13,8 +13,10 @@ const ProductDetails = () => {
   const [activeTab, setActiveTab] = useState('Description');
   const [selectedColorIdx, setSelectedColorIdx] = useState(0);
   const { addToCart } = useCart();
-  const { user } = useAuth();
+  const { user, favorites, toggleFavorite } = useAuth();
   const navigate = useNavigate();
+
+  const isFavorited = favorites.some(f => (f._id || f) === id);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -59,6 +61,16 @@ const ProductDetails = () => {
       colors: [currentColor],
     }, quantity);
     alert('Added to cart!');
+  };
+
+  const handleToggleFavorite = async () => {
+    if (!user) {
+      if (window.confirm('Bạn cần đăng nhập để thêm vào danh sách yêu thích. Đi tới trang đăng nhập?')) {
+        navigate('/login');
+      }
+      return;
+    }
+    await toggleFavorite(product._id);
   };
 
 
@@ -176,11 +188,13 @@ const ProductDetails = () => {
             </button>
             {/* Favourite */}
             <button
-              onClick={() => alert('Đã thêm vào danh sách yêu thích!')}
-              className="px-md py-sm border border-outline-variant rounded hover:bg-surface-container transition-colors text-primary flex items-center justify-center"
-              aria-label="Add to favourite"
+              onClick={handleToggleFavorite}
+              className={`px-md py-sm border border-outline-variant rounded hover:bg-surface-container transition-colors flex items-center justify-center ${isFavorited ? 'text-primary' : 'text-on-surface-variant'}`}
+              aria-label={isFavorited ? "Remove from favourite" : "Add to favourite"}
             >
-              <span className="material-symbols-outlined">favorite</span>
+              <span className="material-symbols-outlined" style={{ fontVariationSettings: isFavorited ? "'FILL' 1" : "'FILL' 0" }}>
+                favorite
+              </span>
             </button>
           </div>
           <p className="font-label-caps text-label-caps text-on-surface-variant text-center opacity-70 text-[11px]">Free shipping on orders over $150</p>

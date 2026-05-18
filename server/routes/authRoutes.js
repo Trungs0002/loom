@@ -59,12 +59,47 @@ router.post('/login', async (req, res) => {
 // GET /api/auth/profile
 router.get('/profile', protect, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-pass');
+    const user = await User.findById(req.user.id).select('-pass').populate('favorites');
     if (user) {
       res.json(user);
     } else {
       res.status(404).json({ message: 'User not found' });
     }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET /api/auth/favorites
+router.get('/favorites', protect, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).populate('favorites');
+    if (user) {
+      res.json(user.favorites);
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// POST /api/auth/favorites
+router.post('/favorites', protect, async (req, res) => {
+  const { productId } = req.body;
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    const isFavorite = user.favorites.includes(productId);
+    if (isFavorite) {
+      user.favorites = user.favorites.filter(id => id.toString() !== productId);
+    } else {
+      user.favorites.push(productId);
+    }
+
+    await user.save();
+    res.json(user.favorites);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

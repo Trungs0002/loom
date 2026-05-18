@@ -7,7 +7,7 @@ const Navbar = () => {
   const location = useLocation();
   const path = location.pathname;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { user, logout } = useAuth();
+  const { user, logout, favorites } = useAuth();
   const navigate = useNavigate();
 
   const isAdminUser = user && user.role === 'admin';
@@ -53,8 +53,25 @@ const Navbar = () => {
           </button>
 
           {/* Favourite */}
-          <Link to="#" onClick={(e) => { e.preventDefault(); alert('Feature coming soon!'); }} aria-label="favorite" className="text-[#081F5C] hover:opacity-70 transition-opacity duration-300 active:scale-95">
-            <span className="material-symbols-outlined">favorite</span>
+          <Link 
+            to="/favorites" 
+            onClick={(e) => {
+              if (!user) {
+                e.preventDefault();
+                if (window.confirm('Bạn cần đăng nhập để xem danh sách yêu thích. Đi tới trang đăng nhập?')) {
+                  navigate('/login');
+                }
+              }
+            }} 
+            aria-label="favorite" 
+            className="text-[#081F5C] hover:opacity-70 transition-opacity duration-300 active:scale-95 relative"
+          >
+            <span className="material-symbols-outlined" style={{ fontVariationSettings: favorites.some(f => f) ? "'FILL' 1" : "'FILL' 0" }}>favorite</span>
+            {favorites.length > 0 && (
+              <span className="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] w-4 h-4 rounded-full flex items-center justify-center">
+                {favorites.length}
+              </span>
+            )}
           </Link>
 
           <Link to="/cart" onClick={(e) => {
