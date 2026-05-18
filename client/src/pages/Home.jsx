@@ -9,7 +9,7 @@ const Home = () => {
 
   useEffect(() => {
     fetch(`${API_BASE}/api/products`)
-      .then(r => r.json()).then(d => setFeaturedProducts(d.slice(0, 4)))
+      .then(r => r.json()).then(d => setFeaturedProducts([...d].reverse().slice(0, 4)))
       .catch(console.error);
 
     fetch(`${API_BASE}/api/categories`)
