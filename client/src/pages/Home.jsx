@@ -25,7 +25,7 @@ const Home = () => {
           <img
             alt="Loom hero banner"
             className="w-full h-full object-cover object-center opacity-90"
-            src={`${API_BASE}/uploads/COVER.png`}
+            src="/cover.png"
           />
         </div>
         <div className="relative z-10 w-full max-w-container-max mx-auto px-gutter py-xxl flex flex-col items-start justify-center">

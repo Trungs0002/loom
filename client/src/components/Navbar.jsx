@@ -16,7 +16,7 @@ const Navbar = () => {
       <div className="flex justify-between items-center px-gutter py-md w-full max-w-container-max mx-auto">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-sm hover:opacity-80 transition-opacity duration-300">
-          <img src={`${API_BASE}/uploads/AVATAR.png`} alt="Loom" className="w-8 h-8 rounded-full object-cover" />
+          <img src="/avatar.png" alt="Loom" className="w-8 h-8 rounded-full object-cover" />
           <span className="font-headline-lg text-headline-lg tracking-widest text-[#081F5C]">LOOM</span>
         </Link>
 

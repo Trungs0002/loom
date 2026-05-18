@@ -23,7 +23,7 @@ export const AdminLayout = ({ children }) => {
       <aside className="w-64 bg-surface-container-low min-h-screen border-r border-outline-variant/30 px-lg py-xl flex flex-col sticky top-0 h-screen">
         <div className="mb-xxl">
           <Link to="/" className="flex items-center gap-sm">
-            <img src={`${API_BASE}/uploads/avatar.png`} alt="Loom" className="w-8 h-8 rounded-full object-cover" />
+            <img src="/avatar.png" alt="Loom" className="w-8 h-8 rounded-full object-cover" />
             <span className="font-headline-lg text-headline-lg tracking-widest text-primary">LOOM</span>
           </Link>
           <div className="font-label-caps text-label-caps text-on-surface-variant mt-xs">Admin Panel</div>
