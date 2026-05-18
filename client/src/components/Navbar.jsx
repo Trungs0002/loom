@@ -57,7 +57,7 @@ const Navbar = () => {
         </nav>
 
         {/* Trailing Actions */}
-        <div className="flex items-center gap-md">
+        <div className="flex items-center gap-sm md:gap-md">
           {/* Search */}
           <div className="relative flex items-center">
             {isSearchOpen && (
@@ -75,7 +75,7 @@ const Navbar = () => {
             <button 
               onClick={() => setIsSearchOpen(!isSearchOpen)} 
               aria-label="search" 
-              className="text-[#081F5C] hover:opacity-70 transition-opacity duration-300 active:scale-95 flex items-center"
+              className="text-[#081F5C] p-sm rounded-full hover:bg-surface-container transition-all duration-300 active:scale-95 flex items-center justify-center"
             >
               <span className="material-symbols-outlined">{isSearchOpen ? 'close' : 'search'}</span>
             </button>
@@ -93,24 +93,29 @@ const Navbar = () => {
               }
             }} 
             aria-label="favorite" 
-            className="text-[#081F5C] hover:opacity-70 transition-opacity duration-300 active:scale-95 relative"
+            className="text-[#081F5C] p-sm rounded-full hover:bg-surface-container transition-all duration-300 active:scale-95 relative flex items-center justify-center"
           >
             <span className="material-symbols-outlined" style={{ fontVariationSettings: favorites.some(f => f) ? "'FILL' 1" : "'FILL' 0" }}>favorite</span>
             {favorites.length > 0 && (
-              <span className="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] w-4 h-4 rounded-full flex items-center justify-center">
+              <span className="absolute top-0 right-0 bg-primary text-on-primary text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white dark:border-surface-dim">
                 {favorites.length}
               </span>
             )}
           </Link>
 
-          <Link to="/cart" onClick={(e) => {
-            if (!user) {
-              e.preventDefault();
-              if (window.confirm('Bạn cần đăng nhập để xem giỏ hàng. Đi tới trang đăng nhập?')) {
-                navigate('/login');
+          <Link 
+            to="/cart" 
+            onClick={(e) => {
+              if (!user) {
+                e.preventDefault();
+                if (window.confirm('Bạn cần đăng nhập để xem giỏ hàng. Đi tới trang đăng nhập?')) {
+                  navigate('/login');
+                }
               }
-            }
-          }} aria-label="shopping_bag" className="text-[#081F5C] hover:opacity-70 transition-opacity duration-300 active:scale-95">
+            }} 
+            aria-label="shopping_bag" 
+            className="text-[#081F5C] p-sm rounded-full hover:bg-surface-container transition-all duration-300 active:scale-95 flex items-center justify-center"
+          >
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>shopping_bag</span>
           </Link>
           {/* Mobile Menu Toggle */}
