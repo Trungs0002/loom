@@ -1,3 +1,4 @@
+import API_BASE from '../config';
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -46,7 +47,7 @@ const Checkout = () => {
         paymentMethod: 'Cash on Delivery'
       };
 
-      const res = await fetch('http://localhost:5000/api/orders', {
+      const res = await fetch('${API_BASE}/api/orders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -204,3 +205,4 @@ const Checkout = () => {
 };
 
 export default Checkout;
+

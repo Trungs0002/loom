@@ -1,3 +1,4 @@
+import API_BASE from '../config';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -44,14 +45,14 @@ const AdminLayout = ({ children }) => {
 const uploadImage = async (file, token) => {
   const fd = new FormData();
   fd.append('image', file);
-  const res = await fetch('http://localhost:5000/api/upload', {
+  const res = await fetch('${API_BASE}/api/upload', {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
     body: fd,
   });
   const data = await res.json();
   if (!res.ok) throw new Error(data.message || 'Upload failed');
-  return 'http://localhost:5000' + data.url;
+  return '${API_BASE}' + data.url;
 };
 
 // ─── Color Image Row ───────────────────────────────────────────────────────────
@@ -143,8 +144,8 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
     };
     try {
       const url = isEdit
-        ? `http://localhost:5000/api/products/${product._id}`
-        : 'http://localhost:5000/api/products';
+        ? `${API_BASE}/api/products/${product._id}`
+        : '${API_BASE}/api/products';
       const res = await fetch(url, {
         method: isEdit ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
@@ -262,7 +263,7 @@ export const AdminProducts = () => {
 
   const fetchProducts = useCallback(async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/products');
+      const res = await fetch('${API_BASE}/api/products');
       setProducts(await res.json());
     } catch (err) { console.error(err); }
     finally { setLoading(false); }
@@ -275,7 +276,7 @@ export const AdminProducts = () => {
 
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this product?')) return;
-    const res = await fetch(`http://localhost:5000/api/products/${id}`, {
+    const res = await fetch(`${API_BASE}/api/products/${id}`, {
       method: 'DELETE', headers: { Authorization: `Bearer ${user.token}` },
     });
     if (res.ok) setProducts(prev => prev.filter(p => p._id !== id));
@@ -401,7 +402,7 @@ export const AdminOrders = () => {
     if (!user || user.role !== 'admin') { navigate('/login'); return; }
     const fetchOrders = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/orders', {
+        const res = await fetch('${API_BASE}/api/orders', {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         const data = await res.json();
@@ -413,7 +414,7 @@ export const AdminOrders = () => {
   }, [user, navigate]);
 
   const updateStatus = async (orderId, status) => {
-    const res = await fetch(`http://localhost:5000/api/orders/${orderId}/status`, {
+    const res = await fetch(`${API_BASE}/api/orders/${orderId}/status`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
       body: JSON.stringify({ status }),
@@ -506,3 +507,4 @@ export const AdminOrders = () => {
     </AdminLayout>
   );
 };
+

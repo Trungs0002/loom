@@ -1,3 +1,4 @@
+import API_BASE from '../config';
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
@@ -13,7 +14,7 @@ const Shop = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/products');
+        const res = await fetch('${API_BASE}/api/products');
         const data = await res.json();
         setProducts(data);
       } catch (error) {
@@ -122,3 +123,4 @@ const Shop = () => {
 };
 
 export default Shop;
+

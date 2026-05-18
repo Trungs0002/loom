@@ -1,3 +1,4 @@
+import API_BASE from '../config';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
@@ -14,7 +15,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/products/${id}`);
+        const res = await fetch(`${API_BASE}/api/products/${id}`);
         const data = await res.json();
         setProduct(data);
         setSelectedColorIdx(0);
@@ -194,3 +195,4 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
+
