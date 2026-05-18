@@ -3,22 +3,84 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="bg-surface-container-low dark:bg-inverse-surface mt-xxl">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-xl px-gutter py-xxl w-full max-w-container-max mx-auto">
-        <div className="col-span-1">
-          <div className="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-md">LOOM</div>
-          <p className="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">© 2024 LOOM. Sustainable by Choice.</p>
+    <footer className="bg-surface-container-low mt-xxl border-t border-outline-variant/30">
+      <div className="px-gutter py-xl md:py-xxl w-full max-w-container-max mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-xl">
+          
+          {/* Brand Info */}
+          <div className="col-span-1 lg:col-span-1">
+            <Link to="/" className="flex items-center gap-sm mb-sm hover:opacity-80 transition-opacity">
+              <img src="/avatar.png" alt="Loom" className="w-8 h-8 rounded-full object-cover" />
+              <div className="font-headline-lg text-headline-lg text-[#081F5C] tracking-widest">LOOM</div>
+            </Link>
+            <p className="font-label-caps text-label-caps text-on-surface mb-md">Crafted from the past, designed for the future.</p>
+            <p className="font-body-md text-body-md text-on-surface-variant max-w-sm">
+              LOOM transforms old denim and fashion waste into modern recycled bags, giving used materials a new life through sustainable design.
+            </p>
+          </div>
+
+          {/* Quick Links */}
+          <div className="col-span-1">
+            <h4 className="font-headline-sm text-headline-sm text-on-surface mb-md">Quick Links</h4>
+            <div className="flex flex-col gap-sm">
+              <Link to="/" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Home</Link>
+              <Link to="/products" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Collections</Link>
+              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">About LOOM</Link>
+              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Sustainability</Link>
+              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Contact</Link>
+              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">FAQ</Link>
+            </div>
+          </div>
+
+          {/* Customer Support */}
+          <div className="col-span-1">
+            <h4 className="font-headline-sm text-headline-sm text-on-surface mb-md">Customer Support</h4>
+            <div className="flex flex-col gap-sm">
+              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Shipping Policy</Link>
+              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Return & Exchange Policy</Link>
+              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Care Instructions</Link>
+              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Size Guide</Link>
+              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Payment Methods</Link>
+            </div>
+          </div>
+
+          {/* Contact & Sustainability */}
+          <div className="col-span-1 flex flex-col gap-xl">
+            <div>
+              <h4 className="font-headline-sm text-headline-sm text-on-surface mb-md">Contact</h4>
+              <div className="flex flex-col gap-xs font-body-md text-body-md text-on-surface-variant">
+                <p>Email: <a href="mailto:work.loomdenim@gmail.com" className="hover:text-primary transition-colors">work.loomdenim@gmail.com</a></p>
+                <p>Hotline: <a href="tel:0981456397" className="hover:text-primary transition-colors">0981456397</a></p>
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="font-headline-sm text-headline-sm text-on-surface mb-sm">Sustainability</h4>
+              <p className="font-body-md text-body-md text-on-surface-variant">
+                Every LOOM bag is crafted from recycled denim, helping reduce fashion waste while creating stylish, functional pieces for everyday use.
+              </p>
+            </div>
+          </div>
+
         </div>
-        <div className="col-span-1 md:col-span-3 flex flex-wrap gap-lg justify-start md:justify-end">
-          <Link to="#" className="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors focus:underline decoration-primary dark:decoration-primary-fixed underline-offset-4">Contact</Link>
-          <Link to="#" className="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors focus:underline decoration-primary dark:decoration-primary-fixed underline-offset-4">Shipping & Returns</Link>
-          <Link to="#" className="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors focus:underline decoration-primary dark:decoration-primary-fixed underline-offset-4">Privacy Policy</Link>
-          <Link to="#" className="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors focus:underline decoration-primary dark:decoration-primary-fixed underline-offset-4">Sustainability</Link>
+
+        {/* Bottom Bar */}
+        <div className="mt-xl pt-lg border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-md">
+          <p className="font-body-md text-body-md text-on-surface-variant">© 2026 LOOM. All rights reserved.</p>
+          
+          <div className="flex items-center gap-md">
+            <span className="font-label-caps text-label-caps text-on-surface">Follow Us:</span>
+            <div className="flex gap-md">
+              <a href="#" className="text-on-surface-variant hover:text-primary transition-colors font-body-md">Instagram</a>
+              <a href="#" className="text-on-surface-variant hover:text-primary transition-colors font-body-md">TikTok</a>
+              <a href="#" className="text-on-surface-variant hover:text-primary transition-colors font-body-md">Facebook</a>
+            </div>
+          </div>
         </div>
+
       </div>
     </footer>
   );
 };
 
 export default Footer;
-
