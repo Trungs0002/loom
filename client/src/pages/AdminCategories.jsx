@@ -66,8 +66,7 @@ export const uploadImage = async (file, token) => {
   });
   const data = await res.json();
   if (!res.ok) throw new Error(data.message || 'Upload failed');
-  // If Cloudinary returns full URL, use it directly.
-  return data.url.startsWith('http') ? data.url : `${API_BASE}${data.url}`;
+  return data.url;
 };
 
 // ─── Category Modal ───────────────────────────────────────────────────────────
