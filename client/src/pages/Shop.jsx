@@ -3,7 +3,7 @@ import API_BASE from '../config';
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
-const CATEGORIES = ['raw atlas', 'moonlight', 'blue orbit', 'sweetstatic'];
+// Removed hardcoded CATEGORIES
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -11,6 +11,7 @@ const Shop = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCategory = searchParams.get('category') || '';
   const [search, setSearch] = useState('');
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -25,6 +26,13 @@ const Shop = () => {
       }
     };
     fetchProducts();
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/categories`);
+        setCategories(await res.json());
+      } catch (error) { console.error(error); }
+    };
+    fetchCategories();
   }, []);
 
   const setCategory = (cat) => {
@@ -63,12 +71,12 @@ const Shop = () => {
             onClick={() => setCategory('')}
             className={`px-md py-xs rounded-full font-label-caps text-label-caps text-sm border transition-colors ${!activeCategory ? 'bg-primary text-on-primary border-primary' : 'border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary'}`}
           >All</button>
-          {CATEGORIES.map(cat => (
+          {categories.map(cat => (
             <button
-              key={cat}
-              onClick={() => setCategory(cat)}
-              className={`px-md py-xs rounded-full font-label-caps text-label-caps text-sm border transition-colors capitalize ${activeCategory === cat ? 'bg-primary text-on-primary border-primary' : 'border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary'}`}
-            >{cat}</button>
+              key={cat._id}
+              onClick={() => setCategory(cat.name)}
+              className={`px-md py-xs rounded-full font-label-caps text-label-caps text-sm border transition-colors capitalize ${activeCategory.toLowerCase() === cat.name.toLowerCase() ? 'bg-primary text-on-primary border-primary' : 'border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary'}`}
+            >{cat.name}</button>
           ))}
         </div>
         {/* Search + count */}
@@ -124,6 +132,7 @@ const Shop = () => {
 };
 
 export default Shop;
+
 
 
 
