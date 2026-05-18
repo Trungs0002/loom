@@ -148,26 +148,26 @@ const ProductDetails = () => {
           {/* Specs */}
           <div className="mb-xl space-y-md text-on-surface-variant">
             {product.category && (
-              <div className="flex justify-between border-b border-outline-variant/30 pb-sm">
-                <span className="font-label-caps text-label-caps">Category</span>
-                <span>{product.category}</span>
+              <div className="flex justify-between items-start border-b border-outline-variant/30 pb-sm gap-xl">
+                <span className="font-label-caps text-label-caps flex-shrink-0 mt-xs">Category</span>
+                <span className="text-right">{product.category}</span>
               </div>
             )}
             {product.dimensions && (
-              <div className="flex justify-between border-b border-outline-variant/30 pb-sm">
-                <span className="font-label-caps text-label-caps">Dimensions</span>
-                <span>{product.dimensions}</span>
+              <div className="flex justify-between items-start border-b border-outline-variant/30 pb-sm gap-xl">
+                <span className="font-label-caps text-label-caps flex-shrink-0 mt-xs">Dimensions</span>
+                <span className="text-right">{product.dimensions}</span>
               </div>
             )}
             {product.material && (
-              <div className="flex justify-between border-b border-outline-variant/30 pb-sm">
-                <span className="font-label-caps text-label-caps">Material</span>
-                <span>{product.material}</span>
+              <div className="flex justify-between items-start border-b border-outline-variant/30 pb-sm gap-xl">
+                <span className="font-label-caps text-label-caps flex-shrink-0 mt-xs">Material</span>
+                <span className="text-right">{product.material}</span>
               </div>
             )}
-            <div className="flex justify-between pb-sm">
-              <span className="font-label-caps text-label-caps">Status</span>
-              <span className="text-primary flex items-center gap-xs">
+            <div className="flex justify-between items-center pb-sm gap-xl">
+              <span className="font-label-caps text-label-caps flex-shrink-0">Status</span>
+              <span className="text-primary flex items-center gap-xs text-right">
                 {product.stock > 0
                   ? <><span className="material-symbols-outlined text-[16px]">check_circle</span> In Stock ({product.stock})</>
                   : <><span className="material-symbols-outlined text-[16px]">cancel</span> Out of Stock</>}
