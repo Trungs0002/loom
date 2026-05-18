@@ -1,4 +1,5 @@
 /* eslint-disable */
+import API_BASE from '../config';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -23,10 +24,10 @@ const Home = () => {
       {/* Hero Section */}
       <section className="relative w-full min-h-[70vh] flex items-center overflow-hidden bg-surface-container-low">
         <div className="absolute inset-0 z-0">
-          <img 
-            alt="Loom hero banner" 
-            className="w-full h-full object-cover object-center opacity-90" 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6RtWx3YBhnkRih6WzWgFTaJ_6khMDHCdjH7UYfHZYO4WoUZ0Qce0gJY8N-jQKx7isu6C2Tmfu2X2-_2z59yq4giB8rDdh1Mmxfg8qRognYfdgdOp4xQ0w9Fi76kJ3UPm_IXijAUzXiJMnFCojQp46IM91k7RE4JpmnY_MxnKfUgjbA3EYM-H272c3iTovMvPTRklpp78GBtuAVLcxEvWdvQG21juzM5G8e3S-xLkohtIY93Nv9J0NUBdhYN921dyUX97T_Js-oVE" 
+          <img
+            alt="Loom hero banner"
+            className="w-full h-full object-cover object-center opacity-90"
+            src={`${API_BASE}/uploads/cover.png`}
           />
         </div>
         <div className="relative z-10 w-full max-w-container-max mx-auto px-gutter py-xxl flex flex-col items-start justify-center">
@@ -67,7 +68,6 @@ const Home = () => {
         </div>
       </section>
 
-
       {/* Featured Products */}
       <section className="w-full max-w-container-max mx-auto px-gutter py-xxl bg-surface-container-low rounded-[2rem] my-xxl">
         <div className="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
@@ -82,7 +82,7 @@ const Home = () => {
             <Link key={prod._id} to={`/products/${prod._id}`} className="group flex flex-col cursor-pointer">
               <div className="relative w-full aspect-[4/5] bg-surface-container rounded-xl overflow-hidden mb-md border border-outline-variant/20">
                 {prod.tags && prod.tags.includes('New') && <div className="absolute top-sm left-sm bg-surface/90 text-primary font-label-caps text-[10px] px-2 py-1 rounded-full z-10">New</div>}
-                <img className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" alt={prod.name} src={prod.image} />
+                <img className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" alt={prod.name} src={prod.colorImages?.[0]?.image || prod.image} />
                 <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
                 <button className="absolute bottom-md right-md bg-surface text-primary p-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-primary hover:text-on-primary shadow-sm">
                   <span className="material-symbols-outlined text-[20px]">shopping_bag</span>
@@ -120,5 +120,3 @@ const Home = () => {
 };
 
 export default Home;
-
-

@@ -1,3 +1,4 @@
+import API_BASE from '../config';
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -14,8 +15,9 @@ const Navbar = () => {
     <header className="bg-white/90 dark:bg-surface-dim/90 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-outline-variant/30">
       <div className="flex justify-between items-center px-gutter py-md w-full max-w-container-max mx-auto">
         {/* Brand Logo */}
-        <Link to="/" className="font-headline-lg text-headline-lg tracking-widest text-[#081F5C] hover:opacity-70 transition-opacity duration-300">
-          LOOM
+        <Link to="/" className="flex items-center gap-sm hover:opacity-80 transition-opacity duration-300">
+          <img src={`${API_BASE}/uploads/avatar.png`} alt="Loom" className="w-8 h-8 rounded-full object-cover" />
+          <span className="font-headline-lg text-headline-lg tracking-widest text-[#081F5C]">LOOM</span>
         </Link>
 
         {/* Navigation Links (Desktop) */}
