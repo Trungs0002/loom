@@ -7,8 +7,19 @@ const Navbar = () => {
   const location = useLocation();
   const path = location.pathname;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const { user, logout, favorites } = useAuth();
   const navigate = useNavigate();
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+      setIsSearchOpen(false);
+      setSearchQuery('');
+    }
+  };
 
   const isAdminUser = user && user.role === 'admin';
 
@@ -48,9 +59,27 @@ const Navbar = () => {
         {/* Trailing Actions */}
         <div className="flex items-center gap-md">
           {/* Search */}
-          <button onClick={() => alert('Tính năng tìm kiếm đang được phát triển!')} aria-label="search" className="text-[#081F5C] hover:opacity-70 transition-opacity duration-300 active:scale-95">
-            <span className="material-symbols-outlined">search</span>
-          </button>
+          <div className="relative flex items-center">
+            {isSearchOpen && (
+              <form onSubmit={handleSearchSubmit} className="absolute right-full mr-sm">
+                <input
+                  autoFocus
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="bg-surface-container-low border border-outline-variant/50 rounded-full px-md py-xs text-sm text-on-surface focus:border-primary outline-none w-48 md:w-64"
+                />
+              </form>
+            )}
+            <button 
+              onClick={() => setIsSearchOpen(!isSearchOpen)} 
+              aria-label="search" 
+              className="text-[#081F5C] hover:opacity-70 transition-opacity duration-300 active:scale-95 flex items-center"
+            >
+              <span className="material-symbols-outlined">{isSearchOpen ? 'close' : 'search'}</span>
+            </button>
+          </div>
 
           {/* Favourite */}
           <Link 

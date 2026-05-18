@@ -11,10 +11,16 @@ const Shop = () => {
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCategory = searchParams.get('category') || '';
-  const [search, setSearch] = useState('');
+  const initialSearch = searchParams.get('search') || '';
+  const [search, setSearch] = useState(initialSearch);
   const [categories, setCategories] = useState([]);
   const { user, favorites, toggleFavorite } = useAuth();
   const navigate = useNavigate();
+
+  // Sync search state with searchParams if it changes from outside (e.g. Navbar)
+  useEffect(() => {
+    setSearch(searchParams.get('search') || '');
+  }, [searchParams]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -39,8 +45,19 @@ const Shop = () => {
   }, []);
 
   const setCategory = (cat) => {
-    if (cat) setSearchParams({ category: cat });
-    else setSearchParams({});
+    const params = {};
+    if (cat) params.category = cat;
+    if (search) params.search = search;
+    setSearchParams(params);
+  };
+
+  const handleSearchChange = (e) => {
+    const val = e.target.value;
+    setSearch(val);
+    const params = {};
+    if (activeCategory) params.category = activeCategory;
+    if (val) params.search = val;
+    setSearchParams(params);
   };
 
   const filtered = products.filter(p => {
@@ -100,7 +117,7 @@ const Shop = () => {
         <div className="flex items-center gap-md">
           <input
             value={search}
-            onChange={e => setSearch(e.target.value)}
+            onChange={handleSearchChange}
             placeholder="Search..."
             className="bg-surface border border-outline-variant/50 rounded-full px-md py-xs text-sm text-on-surface focus:border-primary outline-none w-40"
           />

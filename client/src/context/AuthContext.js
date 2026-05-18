@@ -1,5 +1,5 @@
 import API_BASE from '../config';
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 
 const AuthContext = createContext();
 
@@ -10,15 +10,8 @@ export const AuthProvider = ({ children }) => {
   });
   const [favorites, setFavorites] = useState([]);
 
-  useEffect(() => {
-    if (user && user.token) {
-      fetchFavorites();
-    } else {
-      setFavorites([]);
-    }
-  }, [user]);
-
-  const fetchFavorites = async () => {
+  const fetchFavorites = useCallback(async () => {
+    if (!user || !user.token) return;
     try {
       const res = await fetch(`${API_BASE}/api/auth/favorites`, {
         headers: {
@@ -32,7 +25,15 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error('Error fetching favorites:', error);
     }
-  };
+  }, [user]);
+
+  useEffect(() => {
+    if (user && user.token) {
+      fetchFavorites();
+    } else {
+      setFavorites([]);
+    }
+  }, [user, fetchFavorites]);
 
   const login = async (name, pass) => {
     const res = await fetch(`${API_BASE}/api/auth/login`, {
