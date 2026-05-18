@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
@@ -8,6 +8,7 @@ const Navbar = () => {
   const path = location.pathname;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   const isAdminUser = user && user.role === 'admin';
 
@@ -46,7 +47,14 @@ const Navbar = () => {
 
         {/* Trailing Actions */}
         <div className="flex items-center gap-md">
-          <Link to="/cart" aria-label="shopping_bag" className="text-[#081F5C] hover:opacity-70 transition-opacity duration-300 active:scale-95">
+          <Link to="/cart" onClick={(e) => {
+            if (!user) {
+              e.preventDefault();
+              if (window.confirm('Bạn cần đăng nhập để xem giỏ hàng. Đi tới trang đăng nhập?')) {
+                navigate('/login');
+              }
+            }
+          }} aria-label="shopping_bag" className="text-[#081F5C] hover:opacity-70 transition-opacity duration-300 active:scale-95">
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>shopping_bag</span>
           </Link>
           {/* Mobile Menu Toggle */}

@@ -1,8 +1,9 @@
 /* eslint-disable */
 import API_BASE from '../config';
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -12,6 +13,8 @@ const ProductDetails = () => {
   const [activeTab, setActiveTab] = useState('Description');
   const [selectedColorIdx, setSelectedColorIdx] = useState(0);
   const { addToCart } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -42,6 +45,12 @@ const ProductDetails = () => {
   const currentColor = currentEntry.color;
 
   const handleAddToCart = () => {
+    if (!user) {
+      if (window.confirm('Bạn cần đăng nhập để thêm vào giỏ hàng. Đi tới trang đăng nhập?')) {
+        navigate('/login');
+      }
+      return;
+    }
     addToCart({
       _id: product._id,
       name: product.name,
