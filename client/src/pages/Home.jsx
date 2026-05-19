@@ -72,27 +72,7 @@ const ProductScroll = ({ title, items }) => {
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [currentBanner, setCurrentBanner] = useState(0);
-  
-  const banners = [
-    {
-      title: "Recycled Bags, Refined For You",
-      subtitle: "Discover our collection of sustainably crafted handbags.",
-      image: "/cover.png",
-      link: "/collection"
-    },
-    {
-      title: "Sustainable Elegance",
-      subtitle: "Handcrafted pieces for the conscious modern woman.",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAaPYMaiQe0s4wgYylHTX3to9okdYtXdfgL5DEFpiNSIL6WJ2x3SkYnsnYGE_DUCbHaf9ejPgD1DL5kmDz5wCx9af7mJe18jcFDyxhkCPNeMfOeyZ1QDob6ODHDqvbsD9_tYaWRRgL8s9UgB47aSbivKhZlfC1501SaTaUCk3qbkcCWbzZ_pRqZnRtBW2utMKT-S25X3C3COHOG6ETOLiMu9m96bdQRQOfIIxA3ci5688YTOJhR9XveHYJpYxEcN3ukyfB57llzmpU",
-      link: "/products"
-    },
-    {
-      title: "Minimalist Staples",
-      subtitle: "Timeless luxury meets environmental responsibility.",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCfYivRt209pX22DMN31q5alsqS3UvVJpBQi0Ag4aI7poMXStvWFJ6vnIYevQf7wpUWMCMEFIv7f8pG9GyT90F-N3a0UM2bQIx010w1l4a6B9VOanbVfz_jChSNPwEh5mwlIeHl_kVGVLvEIuIKkBMMccu2LDblbonLnwNsZMYMdHTGgqcXFB2UY55v9Z2hWud7SVb9vQRQd0K1tRw34qAog9_HM9O0ffnd0OfXVTokvrmFuoifoS2huQtL6ExbOzwuKlWE2fIdueI",
-      link: "/collection"
-    }
-  ];
+  const [banners, setBanners] = useState([]);
 
   useEffect(() => {
     fetch(`${API_BASE}/api/products`)
@@ -100,11 +80,20 @@ const Home = () => {
       .then(setProducts)
       .catch(console.error);
 
-    const timer = setInterval(() => {
-      setCurrentBanner(prev => (prev + 1) % banners.length);
-    }, 5000);
-    return () => clearInterval(timer);
+    fetch(`${API_BASE}/api/home`)
+      .then(r => r.json())
+      .then(data => setBanners(data.banners || []))
+      .catch(console.error);
   }, []);
+
+  useEffect(() => {
+    if (banners.length > 1) {
+      const timer = setInterval(() => {
+        setCurrentBanner(prev => (prev + 1) % banners.length);
+      }, 5000);
+      return () => clearInterval(timer);
+    }
+  }, [banners.length]);
 
   const bestSellers = products.slice(0, 6);
   const bestForJune = products.slice().reverse().slice(0, 6);

@@ -22,6 +22,7 @@ import Register from './pages/Register';
 import Favorites from './pages/Favorites';
 import { AdminProducts, AdminOrders } from './pages/AdminDashboard';
 import { AdminCategories } from './pages/AdminCategories';
+import { AdminHome } from './pages/AdminHome';
 
 const AppLayout = ({ children }) => {
   const location = useLocation();
@@ -67,6 +68,7 @@ const App = () => {
               <Route path="/register" element={<Register />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/admin/products" element={<AdminProducts />} />
+              <Route path="/admin/home" element={<AdminHome />} />
               <Route path="/admin/categories" element={<AdminCategories />} />
               <Route path="/admin/orders" element={<AdminOrders />} />
             </Routes>
