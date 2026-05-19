@@ -7,6 +7,7 @@ import { getImgUrl } from './AdminCategories';
 const Collection = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [banner, setBanner] = useState('/cover.png');
 
   useEffect(() => {
     fetch(`${API_BASE}/api/products`)
@@ -15,6 +16,13 @@ const Collection = () => {
 
     fetch(`${API_BASE}/api/categories`)
       .then(r => r.json()).then(setCategories)
+      .catch(console.error);
+
+    fetch(`${API_BASE}/api/home`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.collectionBanner) setBanner(data.collectionBanner);
+      })
       .catch(console.error);
   }, []);
 
@@ -26,7 +34,7 @@ const Collection = () => {
           <img
             alt="Loom collection banner"
             className="w-full h-full object-cover object-center opacity-80"
-            src="/cover.png"
+            src={getImgUrl(banner)}
           />
         </div>
         <div className="relative z-10 w-full max-w-container-max mx-auto px-gutter py-xxl flex flex-col items-center text-center">

@@ -6,7 +6,22 @@ const homeSettingsSchema = new mongoose.Schema({
     link: { type: String, default: '/collection' },
     title: { type: String },
     subtitle: { type: String }
-  }]
+  }],
+  collectionBanner: { type: String },
+  aboutPage: {
+    banner: { type: String },
+    title: { type: String },
+    description: { type: String },
+    // Mission Section
+    missionTitle: { type: String },
+    missionDescription1: { type: String },
+    missionDescription2: { type: String },
+    missionImage: { type: String },
+    // Spotlight Section
+    spotlightTitle: { type: String },
+    spotlightDescription: { type: String },
+    spotlightImage: { type: String }
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model('HomeSettings', homeSettingsSchema);

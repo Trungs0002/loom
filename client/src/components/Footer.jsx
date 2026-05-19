@@ -72,7 +72,7 @@ const Footer = () => {
           <div className="flex items-center gap-md">
             <span className="font-label-caps text-label-caps text-on-surface">Follow Us:</span>
             <div className="flex gap-md">
-              <a href="https://www.instagram.com/loomdenim" target="_blank" rel="noopener noreferrer" className="text-on-surface-variant hover:text-primary transition-colors font-body-md">Instagram</a>
+              <a href="https://www.instagram.com/loom__bags" target="_blank" rel="noopener noreferrer" className="text-on-surface-variant hover:text-primary transition-colors font-body-md">Instagram</a>
               <a href="https://www.tiktok.com/@loom.demin" target="_blank" rel="noopener noreferrer" className="text-on-surface-variant hover:text-primary transition-colors font-body-md">TikTok</a>
               <a href="https://web.facebook.com/people/LOOM-BAGS/61589634698432/" target="_blank" rel="noopener noreferrer" className="text-on-surface-variant hover:text-primary transition-colors font-body-md">Facebook</a>
             </div>

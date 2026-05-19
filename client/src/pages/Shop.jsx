@@ -13,14 +13,17 @@ const Shop = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCategory = searchParams.get('category') || '';
   const initialSearch = searchParams.get('search') || '';
+  const initialSort = searchParams.get('sort') || '';
   const [search, setSearch] = useState(initialSearch);
+  const [sortOrder, setSortOrder] = useState(initialSort);
   const [categories, setCategories] = useState([]);
   const { user, favorites, toggleFavorite } = useAuth();
   const navigate = useNavigate();
 
-  // Sync search state with searchParams if it changes from outside (e.g. Navbar)
+  // Sync search and sort state with searchParams if they change from outside
   useEffect(() => {
     setSearch(searchParams.get('search') || '');
+    setSortOrder(searchParams.get('sort') || '');
   }, [searchParams]);
 
   useEffect(() => {
@@ -49,6 +52,7 @@ const Shop = () => {
     const params = {};
     if (cat) params.category = cat;
     if (search) params.search = search;
+    if (sortOrder) params.sort = sortOrder;
     setSearchParams(params);
   };
 
@@ -58,6 +62,17 @@ const Shop = () => {
     const params = {};
     if (activeCategory) params.category = activeCategory;
     if (val) params.search = val;
+    if (sortOrder) params.sort = sortOrder;
+    setSearchParams(params);
+  };
+
+  const handleSortChange = (e) => {
+    const val = e.target.value;
+    setSortOrder(val);
+    const params = {};
+    if (activeCategory) params.category = activeCategory;
+    if (search) params.search = search;
+    if (val) params.sort = val;
     setSearchParams(params);
   };
 
@@ -65,6 +80,13 @@ const Shop = () => {
     const matchCat = !activeCategory || p.category?.toLowerCase() === activeCategory.toLowerCase();
     const matchSearch = !search || p.name.toLowerCase().includes(search.toLowerCase());
     return matchCat && matchSearch;
+  });
+
+  // Apply Sorting
+  const sortedAndFiltered = [...filtered].sort((a, b) => {
+    if (sortOrder === 'price-asc') return a.price - b.price;
+    if (sortOrder === 'price-desc') return b.price - a.price;
+    return 0; // Default: as returned by API
   });
 
   const mainImg = (p) => getImgUrl(p.colorImages?.[0]?.image || p.image || '');
@@ -115,14 +137,23 @@ const Shop = () => {
           ))}
         </div>
         {/* Search + count */}
-        <div className="flex items-center gap-md">
+        <div className="flex flex-wrap items-center gap-md">
+          <select
+            value={sortOrder}
+            onChange={handleSortChange}
+            className="bg-surface border border-outline-variant/50 rounded-full px-md py-xs text-sm text-on-surface focus:border-primary outline-none cursor-pointer"
+          >
+            <option value="">Sort by (Default)</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+          </select>
           <input
             value={search}
             onChange={handleSearchChange}
             placeholder="Search..."
             className="bg-surface border border-outline-variant/50 rounded-full px-md py-xs text-sm text-on-surface focus:border-primary outline-none w-40"
           />
-          <span className="font-body-md text-sm text-on-surface-variant whitespace-nowrap">{filtered.length} results</span>
+          <span className="font-body-md text-sm text-on-surface-variant whitespace-nowrap">{sortedAndFiltered.length} results</span>
         </div>
       </div>
 
@@ -130,10 +161,10 @@ const Shop = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-xl">
         {loading ? (
           <div className="col-span-full text-center py-xl text-on-surface-variant">Loading products...</div>
-        ) : filtered.length === 0 ? (
+        ) : sortedAndFiltered.length === 0 ? (
           <div className="col-span-full text-center py-xl text-on-surface-variant">No products found.</div>
         ) : (
-          filtered.map(product => (
+          sortedAndFiltered.map(product => (
             <div key={product._id} className="group flex flex-col relative">
               <div className="bg-surface-container-low rounded-xl overflow-hidden mb-md aspect-[4/5] relative">
                 <img alt={product.name} src={mainImg(product)} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
