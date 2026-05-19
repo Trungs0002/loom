@@ -24,6 +24,18 @@ import { AdminProducts, AdminOrders } from './pages/AdminDashboard';
 import { AdminCategories } from './pages/AdminCategories';
 import { AdminHome } from './pages/AdminHome';
 
+// New Pages
+import Sustainability from './pages/Sustainability';
+import Contact from './pages/Contact';
+import FAQ from './pages/FAQ';
+import { 
+  ShippingPolicy, 
+  ReturnPolicy, 
+  CareInstructions, 
+  SizeGuide, 
+  PaymentMethods 
+} from './pages/Policies';
+
 const AppLayout = ({ children }) => {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith('/admin');
@@ -71,6 +83,16 @@ const App = () => {
               <Route path="/admin/home" element={<AdminHome />} />
               <Route path="/admin/categories" element={<AdminCategories />} />
               <Route path="/admin/orders" element={<AdminOrders />} />
+              
+              {/* Info Pages */}
+              <Route path="/sustainability" element={<Sustainability />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/shipping-policy" element={<ShippingPolicy />} />
+              <Route path="/return-policy" element={<ReturnPolicy />} />
+              <Route path="/care-instructions" element={<CareInstructions />} />
+              <Route path="/size-guide" element={<SizeGuide />} />
+              <Route path="/payment-methods" element={<PaymentMethods />} />
             </Routes>
           </AppLayout>
         </Router>

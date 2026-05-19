@@ -7,7 +7,7 @@ const Footer = () => {
     <footer className="bg-surface-container-low mt-xxl border-t border-outline-variant/30">
       <div className="px-gutter py-xl md:py-xxl w-full max-w-container-max mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-xl">
-          
+
           {/* Brand Info */}
           <div className="col-span-1 lg:col-span-1">
             <Link to="/" className="flex items-center gap-sm mb-sm hover:opacity-80 transition-opacity">
@@ -25,11 +25,11 @@ const Footer = () => {
             <h4 className="font-headline-sm text-headline-sm text-on-surface mb-md">Quick Links</h4>
             <div className="flex flex-col gap-sm">
               <Link to="/" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Home</Link>
-              <Link to="/products" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Collections</Link>
-              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">About LOOM</Link>
-              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Sustainability</Link>
-              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Contact</Link>
-              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">FAQ</Link>
+              <Link to="/collection" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Collections</Link>
+              <Link to="/about" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">About LOOM</Link>
+              <Link to="/sustainability" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Sustainability</Link>
+              <Link to="/contact" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Contact</Link>
+              <Link to="/faq" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">FAQ</Link>
             </div>
           </div>
 
@@ -37,11 +37,11 @@ const Footer = () => {
           <div className="col-span-1">
             <h4 className="font-headline-sm text-headline-sm text-on-surface mb-md">Customer Support</h4>
             <div className="flex flex-col gap-sm">
-              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Shipping Policy</Link>
-              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Return & Exchange Policy</Link>
-              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Care Instructions</Link>
-              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Size Guide</Link>
-              <Link to="#" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Payment Methods</Link>
+              <Link to="/shipping-policy" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Shipping Policy</Link>
+              <Link to="/return-policy" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Return & Exchange Policy</Link>
+              <Link to="/care-instructions" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Care Instructions</Link>
+              <Link to="/size-guide" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Size Guide</Link>
+              <Link to="/payment-methods" className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Payment Methods</Link>
             </div>
           </div>
 
@@ -54,7 +54,7 @@ const Footer = () => {
                 <p>Hotline: <a href="tel:0981456397" className="hover:text-primary transition-colors">0981456397</a></p>
               </div>
             </div>
-            
+
             <div>
               <h4 className="font-headline-sm text-headline-sm text-on-surface mb-sm">Sustainability</h4>
               <p className="font-body-md text-body-md text-on-surface-variant">
@@ -68,13 +68,13 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-xl pt-lg border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-md">
           <p className="font-body-md text-body-md text-on-surface-variant">© 2026 LOOM. All rights reserved.</p>
-          
+
           <div className="flex items-center gap-md">
             <span className="font-label-caps text-label-caps text-on-surface">Follow Us:</span>
             <div className="flex gap-md">
-              <a href="#" className="text-on-surface-variant hover:text-primary transition-colors font-body-md">Instagram</a>
-              <a href="#" className="text-on-surface-variant hover:text-primary transition-colors font-body-md">TikTok</a>
-              <a href="#" className="text-on-surface-variant hover:text-primary transition-colors font-body-md">Facebook</a>
+              <a href="https://www.instagram.com/loomdenim" target="_blank" rel="noopener noreferrer" className="text-on-surface-variant hover:text-primary transition-colors font-body-md">Instagram</a>
+              <a href="https://www.tiktok.com/@loom.demin" target="_blank" rel="noopener noreferrer" className="text-on-surface-variant hover:text-primary transition-colors font-body-md">TikTok</a>
+              <a href="https://web.facebook.com/people/LOOM-BAGS/61589634698432/" target="_blank" rel="noopener noreferrer" className="text-on-surface-variant hover:text-primary transition-colors font-body-md">Facebook</a>
             </div>
           </div>
         </div>
