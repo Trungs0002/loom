@@ -22,6 +22,11 @@ const homeSettingsSchema = new mongoose.Schema({
     spotlightDescription: { type: String },
     spotlightImage: { type: String }
   },
+  giftPage: {
+    banner: { type: String },
+    product1: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
+    product2: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' }
+  },
   homeEthos: {
     image: { type: String },
     label: { type: String },

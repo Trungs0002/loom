@@ -53,6 +53,8 @@ export const AdminHome = () => {
     missionTitle: '', missionDescription1: '', missionDescription2: '', missionImage: '',
     spotlightTitle: '', spotlightDescription: '', spotlightImage: '' 
   });
+  const [giftPage, setGiftPage] = useState({ banner: '', product1: '', product2: '' });
+  const [products, setProducts] = useState([]);
   const [homeEthos, setHomeEthos] = useState({ image: '', label: '', title: '', description: '' });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -61,12 +63,24 @@ export const AdminHome = () => {
 
   useEffect(() => {
     if (!user || user.role !== 'admin') { navigate('/login'); return; }
+    
+    // Fetch products for selection
+    fetch(`${API_BASE}/api/products`)
+      .then(r => r.json())
+      .then(setProducts)
+      .catch(console.error);
+
     fetch(`${API_BASE}/api/home`)
       .then(r => r.json())
       .then(data => {
         setBanners(data.banners || []);
         setCollectionBanner(data.collectionBanner || '');
         setAboutPage(data.aboutPage || {});
+        setGiftPage({
+          banner: data.giftPage?.banner || '',
+          product1: data.giftPage?.product1?._id || data.giftPage?.product1 || '',
+          product2: data.giftPage?.product2?._id || data.giftPage?.product2 || ''
+        });
         setHomeEthos(data.homeEthos || { image: '', label: '', title: '', description: '' });
       })
       .catch(console.error)
@@ -87,7 +101,8 @@ export const AdminHome = () => {
           banners: banners.filter(b => b.image),
           collectionBanner,
           aboutPage,
-          homeEthos
+          homeEthos,
+          giftPage
         }),
       });
       if (res.ok) alert('Settings updated successfully!');
@@ -224,14 +239,14 @@ export const AdminHome = () => {
             {/* About Title */}
             <div className="flex flex-col gap-sm">
               <label className="font-label-caps text-label-caps text-on-surface-variant">Page Title</label>
-              <input value={aboutPage.title} onChange={e => setAboutPage({...aboutPage, title: e.target.value})}
+              <input value={aboutPage.title || ''} onChange={e => setAboutPage({...aboutPage, title: e.target.value})}
                 placeholder="e.g. Our Story" className="bg-surface border border-outline-variant/30 rounded p-md text-on-surface focus:border-primary outline-none w-full" />
             </div>
 
             {/* About Description */}
             <div className="flex flex-col gap-sm">
               <label className="font-label-caps text-label-caps text-on-surface-variant">Description</label>
-              <textarea value={aboutPage.description} onChange={e => setAboutPage({...aboutPage, description: e.target.value})}
+              <textarea value={aboutPage.description || ''} onChange={e => setAboutPage({...aboutPage, description: e.target.value})}
                 placeholder="Enter about page description..." rows={4} className="bg-surface border border-outline-variant/30 rounded p-md text-on-surface focus:border-primary outline-none w-full resize-none" />
             </div>
 
@@ -293,6 +308,91 @@ export const AdminHome = () => {
                 <label className="font-label-caps text-label-caps text-on-surface-variant">Spotlight Description</label>
                 <textarea value={aboutPage.spotlightDescription || ''} onChange={e => setAboutPage({...aboutPage, spotlightDescription: e.target.value})}
                   rows={3} className="bg-surface border border-outline-variant/30 rounded p-md text-on-surface focus:border-primary outline-none w-full resize-none" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Gift Page Section */}
+        <section className="flex flex-col gap-lg border-t border-outline-variant/30 pt-xl pb-xxl">
+          <h2 className="font-headline-md text-headline-md text-on-surface">Gift Page</h2>
+          <div className="bg-surface-container-low border border-outline-variant/20 rounded-xl p-lg flex flex-col gap-lg">
+            {/* Gift Banner */}
+            <div className="flex flex-col gap-md">
+              <label className="font-label-caps text-label-caps text-on-surface-variant">Hero Banner</label>
+              <div className="flex items-center gap-md">
+                <div className="w-40 h-24 bg-surface-variant rounded overflow-hidden flex-shrink-0 border border-outline-variant/30">
+                  {giftPage.banner ? <img src={getImgUrl(giftPage.banner)} alt="gift banner" className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center opacity-30"><span className="material-symbols-outlined">image</span></div>}
+                </div>
+                <div className="flex-1 flex flex-col gap-sm">
+                  <label className="flex items-center justify-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[12px] w-fit">
+                    <span className="material-symbols-outlined text-[18px]">upload</span>
+                    Upload Banner
+                    <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, (url) => setGiftPage({...giftPage, banner: url}))} />
+                  </label>
+                  <input value={giftPage.banner} onChange={e => setGiftPage({...giftPage, banner: e.target.value})}
+                    placeholder="or paste image URL" className="bg-transparent border-b border-outline-variant/30 py-xs text-sm text-on-surface focus:border-primary outline-none w-full" />
+                </div>
+              </div>
+            </div>
+
+            {/* Featured Product 1 */}
+            <div className="flex flex-col gap-sm">
+              <label className="font-label-caps text-label-caps text-on-surface-variant">Featured Gift 1</label>
+              <div className="flex items-center gap-md">
+                <div className="w-20 h-20 bg-surface-variant rounded overflow-hidden flex-shrink-0 border border-outline-variant/30">
+                  {giftPage.product1 && products.find(p => p._id === giftPage.product1) ? (
+                    <img 
+                      src={getImgUrl(products.find(p => p._id === giftPage.product1).colorImages?.[0]?.image || products.find(p => p._id === giftPage.product1).image)} 
+                      alt="gift 1" 
+                      className="w-full h-full object-cover" 
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center opacity-30">
+                      <span className="material-symbols-outlined">shopping_bag</span>
+                    </div>
+                  )}
+                </div>
+                <select 
+                  value={giftPage.product1} 
+                  onChange={e => setGiftPage({...giftPage, product1: e.target.value})}
+                  className="bg-surface border border-outline-variant/30 rounded p-md text-on-surface focus:border-primary outline-none flex-1"
+                >
+                  <option value="">Select a product...</option>
+                  {products.map(p => (
+                    <option key={p._id} value={p._id}>{p.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Featured Product 2 */}
+            <div className="flex flex-col gap-sm">
+              <label className="font-label-caps text-label-caps text-on-surface-variant">Featured Gift 2</label>
+              <div className="flex items-center gap-md">
+                <div className="w-20 h-20 bg-surface-variant rounded overflow-hidden flex-shrink-0 border border-outline-variant/30">
+                  {giftPage.product2 && products.find(p => p._id === giftPage.product2) ? (
+                    <img 
+                      src={getImgUrl(products.find(p => p._id === giftPage.product2).colorImages?.[0]?.image || products.find(p => p._id === giftPage.product2).image)} 
+                      alt="gift 2" 
+                      className="w-full h-full object-cover" 
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center opacity-30">
+                      <span className="material-symbols-outlined">shopping_bag</span>
+                    </div>
+                  )}
+                </div>
+                <select 
+                  value={giftPage.product2} 
+                  onChange={e => setGiftPage({...giftPage, product2: e.target.value})}
+                  className="bg-surface border border-outline-variant/30 rounded p-md text-on-surface focus:border-primary outline-none flex-1"
+                >
+                  <option value="">Select a product...</option>
+                  {products.map(p => (
+                    <option key={p._id} value={p._id}>{p.name}</option>
+                  ))}
+                </select>
               </div>
             </div>
           </div>

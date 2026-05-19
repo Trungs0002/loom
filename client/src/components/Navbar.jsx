@@ -40,6 +40,9 @@ const Navbar = () => {
           <Link to="/collection" className={`font-label-caps text-label-caps transition-colors ${path === '/collection' ? 'text-[#081F5C] border-b-2 border-[#081F5C] pb-1' : 'text-on-surface-variant hover:text-[#081F5C]'}`}>
             Collection
           </Link>
+          <Link to="/gift" className={`font-label-caps text-label-caps transition-colors ${path === '/gift' ? 'text-[#081F5C] border-b-2 border-[#081F5C] pb-1' : 'text-on-surface-variant hover:text-[#081F5C]'}`}>
+            Gift
+          </Link>
           <Link to="/about" className={`font-label-caps text-label-caps transition-colors ${path === '/about' ? 'text-[#081F5C] border-b-2 border-[#081F5C] pb-1' : 'text-on-surface-variant hover:text-[#081F5C]'}`}>
             About
           </Link>
@@ -139,6 +142,7 @@ const Navbar = () => {
         <div className="md:hidden bg-white dark:bg-surface-dim border-t border-outline-variant/20 px-gutter py-md flex flex-col gap-md">
           <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="font-label-caps text-label-caps text-on-surface-variant hover:text-[#081F5C]">Home</Link>
           <Link to="/collection" onClick={() => setIsMobileMenuOpen(false)} className="font-label-caps text-label-caps text-on-surface-variant hover:text-[#081F5C]">Collection</Link>
+          <Link to="/gift" onClick={() => setIsMobileMenuOpen(false)} className="font-label-caps text-label-caps text-on-surface-variant hover:text-[#081F5C]">Gift</Link>
           <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="font-label-caps text-label-caps text-on-surface-variant hover:text-[#081F5C]">About</Link>
           {isAdminUser && (
             <Link to="/admin/products" onClick={() => setIsMobileMenuOpen(false)} className="font-label-caps text-label-caps text-on-surface-variant hover:text-[#081F5C]">Admin</Link>
