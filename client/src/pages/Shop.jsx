@@ -127,7 +127,7 @@ const Shop = () => {
       </div>
 
       {/* Product Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-xl">
         {loading ? (
           <div className="col-span-full text-center py-xl text-on-surface-variant">Loading products...</div>
         ) : filtered.length === 0 ? (

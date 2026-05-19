@@ -81,7 +81,7 @@ const ProductDetails = () => {
         {/* Left: Images */}
         <div className="md:col-span-7 flex flex-col gap-gutter">
           {/* Main image */}
-          <div className="bg-surface-container-low w-full aspect-[4/5] overflow-hidden rounded-xl">
+          <div className="bg-surface-container-low w-full aspect-square overflow-hidden rounded-xl">
             <img
               alt={`${product.name} - ${currentColor}`}
               className="w-full h-full object-cover transition-all duration-500"
@@ -200,7 +200,7 @@ const ProductDetails = () => {
               </span>
             </button>
           </div>
-          <p className="font-label-caps text-label-caps text-on-surface-variant text-center opacity-70 text-[11px]">Free shipping on orders over $150</p>
+          <p className="font-label-caps text-label-caps text-on-surface-variant text-center opacity-70 text-[11px]">Free shipping on orders over 500.000 VND</p>
         </div>
       </div>
 

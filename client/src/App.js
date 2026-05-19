@@ -4,12 +4,15 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 // Layout Components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 
 // Pages
 import Home from './pages/Home';
+import Collection from './pages/Collection';
+import About from './pages/About';
 import Shop from './pages/Shop';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
@@ -50,9 +53,12 @@ const App = () => {
     <AuthProvider>
       <CartProvider>
         <Router>
+          <ScrollToTop />
           <AppLayout>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/collection" element={<Collection />} />
+              <Route path="/about" element={<About />} />
               <Route path="/products" element={<Shop />} />
               <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/cart" element={<Cart />} />
