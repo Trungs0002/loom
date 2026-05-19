@@ -1,42 +1,155 @@
 /* eslint-disable */
-import React from 'react';
+import API_BASE, { formatPrice } from '../config';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { getImgUrl } from './AdminCategories';
+
+const ProductScroll = ({ title, items }) => {
+  const scrollRef = useRef(null);
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollTo = direction === 'left' 
+        ? scrollLeft - clientWidth / 2 
+        : scrollLeft + clientWidth / 2;
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <section className="w-full max-w-container-max mx-auto px-gutter py-xl relative group/scroll">
+      <div className="flex justify-between items-end mb-lg">
+        <h2 className="font-headline-lg text-headline-lg text-primary">{title}</h2>
+        <Link to="/products" className="text-primary font-label-caps text-label-caps border-b border-primary pb-0.5 hover:opacity-70 transition-opacity">View All</Link>
+      </div>
+      
+      {/* Navigation Buttons */}
+      <button 
+        onClick={() => scroll('left')}
+        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-surface/80 backdrop-blur-md p-sm rounded-full shadow-lg border border-outline-variant/30 text-primary opacity-0 group-hover/scroll:opacity-100 transition-opacity hidden md:flex items-center justify-center hover:bg-primary hover:text-on-primary"
+        aria-label="Scroll Left"
+      >
+        <span className="material-symbols-outlined">chevron_left</span>
+      </button>
+      <button 
+        onClick={() => scroll('right')}
+        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-surface/80 backdrop-blur-md p-sm rounded-full shadow-lg border border-outline-variant/30 text-primary opacity-0 group-hover/scroll:opacity-100 transition-opacity hidden md:flex items-center justify-center hover:bg-primary hover:text-on-primary"
+        aria-label="Scroll Right"
+      >
+        <span className="material-symbols-outlined">chevron_right</span>
+      </button>
+
+      <div 
+        ref={scrollRef}
+        className="flex gap-md overflow-x-auto pb-lg no-scrollbar snap-x"
+      >
+        {items.map(prod => (
+          <Link 
+            key={prod._id} 
+            to={`/products/${prod._id}`} 
+            className="flex-shrink-0 w-[240px] md:w-[280px] snap-start group"
+          >
+            <div className="aspect-square bg-surface-container-low rounded-xl overflow-hidden mb-sm border border-outline-variant/20 relative">
+              <img 
+                src={getImgUrl(prod.colorImages?.[0]?.image || prod.image)} 
+                alt={prod.name}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <button className="absolute bottom-sm right-sm bg-surface text-primary p-xs rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="material-symbols-outlined text-[20px]">shopping_bag</span>
+              </button>
+            </div>
+            <h3 className="font-headline-md text-[16px] text-primary mb-xs truncate">{prod.name}</h3>
+            <p className="font-body-md text-body-md text-on-surface-variant">{formatPrice(prod.price)}</p>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+};
 
 const Home = () => {
+  const [products, setProducts] = useState([]);
+  const [currentBanner, setCurrentBanner] = useState(0);
+  
+  const banners = [
+    {
+      title: "Recycled Bags, Refined For You",
+      subtitle: "Discover our collection of sustainably crafted handbags.",
+      image: "/cover.png",
+      link: "/collection"
+    },
+    {
+      title: "Sustainable Elegance",
+      subtitle: "Handcrafted pieces for the conscious modern woman.",
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAaPYMaiQe0s4wgYylHTX3to9okdYtXdfgL5DEFpiNSIL6WJ2x3SkYnsnYGE_DUCbHaf9ejPgD1DL5kmDz5wCx9af7mJe18jcFDyxhkCPNeMfOeyZ1QDob6ODHDqvbsD9_tYaWRRgL8s9UgB47aSbivKhZlfC1501SaTaUCk3qbkcCWbzZ_pRqZnRtBW2utMKT-S25X3C3COHOG6ETOLiMu9m96bdQRQOfIIxA3ci5688YTOJhR9XveHYJpYxEcN3ukyfB57llzmpU",
+      link: "/products"
+    },
+    {
+      title: "Minimalist Staples",
+      subtitle: "Timeless luxury meets environmental responsibility.",
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCfYivRt209pX22DMN31q5alsqS3UvVJpBQi0Ag4aI7poMXStvWFJ6vnIYevQf7wpUWMCMEFIv7f8pG9GyT90F-N3a0UM2bQIx010w1l4a6B9VOanbVfz_jChSNPwEh5mwlIeHl_kVGVLvEIuIKkBMMccu2LDblbonLnwNsZMYMdHTGgqcXFB2UY55v9Z2hWud7SVb9vQRQd0K1tRw34qAog9_HM9O0ffnd0OfXVTokvrmFuoifoS2huQtL6ExbOzwuKlWE2fIdueI",
+      link: "/collection"
+    }
+  ];
+
+  useEffect(() => {
+    fetch(`${API_BASE}/api/products`)
+      .then(r => r.json())
+      .then(setProducts)
+      .catch(console.error);
+
+    const timer = setInterval(() => {
+      setCurrentBanner(prev => (prev + 1) % banners.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const bestSellers = products.slice(0, 6);
+  const bestForJune = products.slice().reverse().slice(0, 6);
+
   return (
     <div className="flex-grow">
-      {/* Hero Section */}
-      <section className="relative w-full min-h-[70vh] flex items-center overflow-hidden bg-surface-container-low">
-        <div className="absolute inset-0 z-0">
-          <img
-            alt="Loom hero banner"
-            className="w-full h-full object-cover object-center opacity-90"
-            src="/cover.png"
-          />
-        </div>
-        <div className="relative z-10 w-full max-w-container-max mx-auto px-gutter py-xxl flex flex-col items-start justify-center">
-          <div className="max-w-2xl bg-surface/80 backdrop-blur-sm p-xl rounded-xl border border-outline-variant/30">
-            <h1 className="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-md">
-              Recycled Bags, Refined For You
-            </h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-lg">
-              Discover our collection of sustainably crafted handbags, where timeless luxury meets environmental responsibility. Effortless elegance for the conscious modern woman.
-            </p>
-            <Link to="/collection" className="inline-block bg-primary text-on-primary font-label-caps text-label-caps px-xl py-md rounded-full hover:bg-primary-container hover:text-on-primary-container transition-colors duration-300 shadow-sm hover:shadow-md">
-              View Collection
-            </Link>
+      {/* Auto-scrolling Hero Banner */}
+      <section className="relative w-full aspect-[21/9] md:aspect-[3/1] min-h-[400px] overflow-hidden">
+        {banners.map((banner, idx) => (
+          <div 
+            key={idx}
+            className={`absolute inset-0 transition-opacity duration-1000 flex items-center ${idx === currentBanner ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+          >
+            <img src={banner.image} alt={banner.title} className="absolute inset-0 w-full h-full object-cover" />
+            <div className="relative z-20 w-full max-w-container-max mx-auto px-gutter">
+              {/* Content box hidden as requested */}
+            </div>
           </div>
+        ))}
+        {/* Banner Dots */}
+        <div className="absolute bottom-md left-1/2 -translate-x-1/2 z-30 flex gap-sm">
+          {banners.map((_, idx) => (
+            <button 
+              key={idx} 
+              onClick={() => setCurrentBanner(idx)}
+              className={`w-2 h-2 rounded-full transition-all ${idx === currentBanner ? 'bg-primary w-6' : 'bg-primary/30'}`}
+            />
+          ))}
         </div>
       </section>
 
-      {/* Brand Ethos Section - Crafted with Intention */}
-      <section className="w-full max-w-container-max mx-auto px-gutter py-xxl">
+      {/* Best Sellers Carousel */}
+      <ProductScroll title="Best Sellers" items={bestSellers} />
+
+      {/* Best for June Carousel */}
+      <ProductScroll title="Best for June" items={bestForJune} />
+
+      {/* Brand Ethos Section - Retained */}
+      <section className="w-full max-w-container-max mx-auto px-gutter py-xxl border-t border-outline-variant/20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-xxl items-center">
           <div className="order-2 md:order-1">
             <img className="w-full h-auto rounded-xl object-cover aspect-[4/3] shadow-sm" alt="Materials" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaPYMaiQe0s4wgYylHTX3to9okdYtXdfgL5DEFpiNSIL6WJ2x3SkYnsnYGE_DUCbHaf9ejPgD1DL5kmDz5wCx9af7mJe18jcFDyxhkCPNeMfOeyZ1QDob6ODHDqvbsD9_tYaWRRgL8s9UgB47aSbivKhZlfC1501SaTaUCk3qbkcCWbzZ_pRqZnRtBW2utMKT-S25X3C3COHOG6ETOLiMu9m96bdQRQOfIIxA3ci5688YTOJhR9XveHYJpYxEcN3ukyfB57llzmpU" />
           </div>
           <div className="order-1 md:order-2 flex flex-col justify-center">
-            <span className="font-label-caps text-label-caps text-secondary mb-md">Sustainable by Choice</span>
+            <span className="font-label-caps text-label-caps text-secondary mb-md tracking-wider">Sustainable by Choice</span>
             <h2 className="font-headline-lg text-headline-lg text-primary mb-lg">Crafted with Intention</h2>
             <p className="font-body-md text-body-md text-on-surface-variant mb-xl">
               Every Loom bag is a testament to mindful creation. We source premium recycled materials to design pieces that endure shifting trends. Our minimalist approach ensures that your bag is not just an accessory, but a staple of your refined, conscious wardrobe.
