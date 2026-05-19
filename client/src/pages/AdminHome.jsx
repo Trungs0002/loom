@@ -53,6 +53,7 @@ export const AdminHome = () => {
     missionTitle: '', missionDescription1: '', missionDescription2: '', missionImage: '',
     spotlightTitle: '', spotlightDescription: '', spotlightImage: '' 
   });
+  const [homeEthos, setHomeEthos] = useState({ image: '', label: '', title: '', description: '' });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const { user } = useAuth();
@@ -65,7 +66,8 @@ export const AdminHome = () => {
       .then(data => {
         setBanners(data.banners || []);
         setCollectionBanner(data.collectionBanner || '');
-        setAboutPage(data.aboutPage || { banner: '', title: '', description: '' });
+        setAboutPage(data.aboutPage || {});
+        setHomeEthos(data.homeEthos || { image: '', label: '', title: '', description: '' });
       })
       .catch(console.error)
       .finally(() => setLoading(false));
@@ -84,7 +86,8 @@ export const AdminHome = () => {
         body: JSON.stringify({ 
           banners: banners.filter(b => b.image),
           collectionBanner,
-          aboutPage
+          aboutPage,
+          homeEthos
         }),
       });
       if (res.ok) alert('Settings updated successfully!');
@@ -136,6 +139,41 @@ export const AdminHome = () => {
                 ))}
               </div>
             )}
+        </section>
+
+        {/* Home Ethos Section */}
+        <section className="flex flex-col gap-lg border-t border-outline-variant/30 pt-xl">
+          <h2 className="font-headline-md text-headline-md text-on-surface">Home Materials Section</h2>
+          <div className="bg-surface-container-low border border-outline-variant/20 rounded-xl p-lg flex flex-col gap-lg">
+            <div className="flex flex-col gap-md">
+              <label className="font-label-caps text-label-caps text-on-surface-variant">Section Image</label>
+              <div className="flex items-center gap-md">
+                <div className="w-40 h-24 bg-surface-variant rounded overflow-hidden flex-shrink-0 border border-outline-variant/30">
+                  {homeEthos.image ? <img src={getImgUrl(homeEthos.image)} alt="home ethos" className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center opacity-30"><span className="material-symbols-outlined">image</span></div>}
+                </div>
+                <label className="flex items-center justify-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[12px] w-fit">
+                  <span className="material-symbols-outlined text-[18px]">upload</span>
+                  Upload Image
+                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, (url) => setHomeEthos({...homeEthos, image: url}))} />
+                </label>
+              </div>
+            </div>
+            <div className="flex flex-col gap-sm">
+              <label className="font-label-caps text-label-caps text-on-surface-variant">Label (e.g. Sustainable by Choice)</label>
+              <input value={homeEthos.label || ''} onChange={e => setHomeEthos({...homeEthos, label: e.target.value})}
+                className="bg-surface border border-outline-variant/30 rounded p-md text-on-surface focus:border-primary outline-none w-full" />
+            </div>
+            <div className="flex flex-col gap-sm">
+              <label className="font-label-caps text-label-caps text-on-surface-variant">Title (e.g. Crafted with Intention)</label>
+              <input value={homeEthos.title || ''} onChange={e => setHomeEthos({...homeEthos, title: e.target.value})}
+                className="bg-surface border border-outline-variant/30 rounded p-md text-on-surface focus:border-primary outline-none w-full" />
+            </div>
+            <div className="flex flex-col gap-sm">
+              <label className="font-label-caps text-label-caps text-on-surface-variant">Description</label>
+              <textarea value={homeEthos.description || ''} onChange={e => setHomeEthos({...homeEthos, description: e.target.value})}
+                rows={4} className="bg-surface border border-outline-variant/30 rounded p-md text-on-surface focus:border-primary outline-none w-full resize-none" />
+            </div>
+          </div>
         </section>
 
         {/* Collection Page Section */}

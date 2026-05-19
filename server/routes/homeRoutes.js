@@ -32,6 +32,12 @@ router.get('/', async (req, res) => {
           spotlightTitle: "Recycled Denim: Our Signature",
           spotlightDescription: "We specialize in transforming vintage denim and post-consumer textile waste into premium fabrics. This process saves thousands of gallons of water and prevents tons of fabric from reaching landfills.",
           spotlightImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuAhnk20scGCchHeulXPn_48JVAc_YrBf_XDGsn9LyynbXqXDDpcSPjtTBXcA5Ja2gB2DM2_ZPHc8P8YIyma5XbKy03N7XcLGvDidbfPux776krFzT1icHOOx3r_oh1G8DsUR28pZ71vG1at6HSmBUIwUBdfJLCgWJRzVsYqJOHMV7aFKscZZv7w3RkeI94XIIhn1ihlPvl4CRiXIxteib5FB_9Wd-x9echkbLlmGJplZHdt-TkJgcKTN0VeihaJtN2j45bmco687Fw"
+        },
+        homeEthos: {
+          image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAaPYMaiQe0s4wgYylHTX3to9okdYtXdfgL5DEFpiNSIL6WJ2x3SkYnsnYGE_DUCbHaf9ejPgD1DL5kmDz5wCx9af7mJe18jcFDyxhkCPNeMfOeyZ1QDob6ODHDqvbsD9_tYaWRRgL8s9UgB47aSbivKhZlfC1501SaTaUCk3qbkcCWbzZ_pRqZnRtBW2utMKT-S25X3C3COHOG6ETOLiMu9m96bdQRQOfIIxA3ci5688YTOJhR9XveHYJpYxEcN3ukyfB57llzmpU",
+          label: "Sustainable by Choice",
+          title: "Crafted with Intention",
+          description: "Every Loom bag is a testament to mindful creation. We source premium recycled materials to design pieces that endure shifting trends. Our minimalist approach ensures that your bag is not just an accessory, but a staple of your refined, conscious wardrobe."
         }
       });
     }
@@ -54,12 +60,14 @@ router.put('/', protect, admin, async (req, res) => {
         ...settings.aboutPage,
         ...req.body.aboutPage
       };
+      settings.homeEthos = req.body.homeEthos;
       await settings.save();
     } else {
       settings = await HomeSettings.create({
         banners: req.body.banners,
         collectionBanner: req.body.collectionBanner,
-        aboutPage: req.body.aboutPage
+        aboutPage: req.body.aboutPage,
+        homeEthos: req.body.homeEthos
       });
     }
     res.json(settings);

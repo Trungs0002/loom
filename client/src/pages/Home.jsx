@@ -73,6 +73,12 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [currentBanner, setCurrentBanner] = useState(0);
   const [banners, setBanners] = useState([]);
+  const [ethos, setEthos] = useState({
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAaPYMaiQe0s4wgYylHTX3to9okdYtXdfgL5DEFpiNSIL6WJ2x3SkYnsnYGE_DUCbHaf9ejPgD1DL5kmDz5wCx9af7mJe18jcFDyxhkCPNeMfOeyZ1QDob6ODHDqvbsD9_tYaWRRgL8s9UgB47aSbivKhZlfC1501SaTaUCk3qbkcCWbzZ_pRqZnRtBW2utMKT-S25X3C3COHOG6ETOLiMu9m96bdQRQOfIIxA3ci5688YTOJhR9XveHYJpYxEcN3ukyfB57llzmpU",
+    label: "Sustainable by Choice",
+    title: "Crafted with Intention",
+    description: "Every Loom bag is a testament to mindful creation. We source premium recycled materials to design pieces that endure shifting trends. Our minimalist approach ensures that your bag is not just an accessory, but a staple of your refined, conscious wardrobe."
+  });
 
   useEffect(() => {
     fetch(`${API_BASE}/api/products`)
@@ -82,7 +88,10 @@ const Home = () => {
 
     fetch(`${API_BASE}/api/home`)
       .then(r => r.json())
-      .then(data => setBanners(data.banners || []))
+      .then(data => {
+        setBanners(data.banners || []);
+        if (data.homeEthos) setEthos(data.homeEthos);
+      })
       .catch(console.error);
   }, []);
 
@@ -107,7 +116,7 @@ const Home = () => {
             key={idx}
             className={`absolute inset-0 transition-opacity duration-1000 flex items-center ${idx === currentBanner ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
           >
-            <img src={banner.image} alt={banner.title} className="absolute inset-0 w-full h-full object-cover" />
+            <img src={getImgUrl(banner.image)} alt={banner.title} className="absolute inset-0 w-full h-full object-cover" />
             <div className="relative z-20 w-full max-w-container-max mx-auto px-gutter">
               {/* Content box hidden as requested */}
             </div>
@@ -135,13 +144,13 @@ const Home = () => {
       <section className="w-full max-w-container-max mx-auto px-gutter py-xxl border-t border-outline-variant/20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-xxl items-center">
           <div className="order-2 md:order-1">
-            <img className="w-full h-auto rounded-xl object-cover aspect-[4/3] shadow-sm" alt="Materials" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaPYMaiQe0s4wgYylHTX3to9okdYtXdfgL5DEFpiNSIL6WJ2x3SkYnsnYGE_DUCbHaf9ejPgD1DL5kmDz5wCx9af7mJe18jcFDyxhkCPNeMfOeyZ1QDob6ODHDqvbsD9_tYaWRRgL8s9UgB47aSbivKhZlfC1501SaTaUCk3qbkcCWbzZ_pRqZnRtBW2utMKT-S25X3C3COHOG6ETOLiMu9m96bdQRQOfIIxA3ci5688YTOJhR9XveHYJpYxEcN3ukyfB57llzmpU" />
+            <img className="w-full h-auto rounded-xl shadow-sm" alt="Materials" src={getImgUrl(ethos.image)} />
           </div>
           <div className="order-1 md:order-2 flex flex-col justify-center">
-            <span className="font-label-caps text-label-caps text-secondary mb-md tracking-wider">Sustainable by Choice</span>
-            <h2 className="font-headline-lg text-headline-lg text-primary mb-lg">Crafted with Intention</h2>
+            <span className="font-label-caps text-label-caps text-secondary mb-md tracking-wider">{ethos.label}</span>
+            <h2 className="font-headline-lg text-headline-lg text-primary mb-lg">{ethos.title}</h2>
             <p className="font-body-md text-body-md text-on-surface-variant mb-xl">
-              Every Loom bag is a testament to mindful creation. We source premium recycled materials to design pieces that endure shifting trends. Our minimalist approach ensures that your bag is not just an accessory, but a staple of your refined, conscious wardrobe.
+              {ethos.description}
             </p>
             <Link to="/about" className="inline-block border border-primary text-primary font-label-caps text-label-caps px-xl py-md rounded-full hover:bg-primary hover:text-on-primary transition-colors duration-300 self-start">
               Learn About Our Materials

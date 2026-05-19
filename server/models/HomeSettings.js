@@ -21,6 +21,12 @@ const homeSettingsSchema = new mongoose.Schema({
     spotlightTitle: { type: String },
     spotlightDescription: { type: String },
     spotlightImage: { type: String }
+  },
+  homeEthos: {
+    image: { type: String },
+    label: { type: String },
+    title: { type: String },
+    description: { type: String }
   }
 }, { timestamps: true });
 

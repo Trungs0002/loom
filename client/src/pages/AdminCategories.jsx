@@ -14,7 +14,7 @@ export const AdminLayout = ({ children }) => {
 
   const navItems = [
     { to: '/admin/products', icon: 'inventory_2', label: 'Products' },
-    { to: '/admin/home', icon: 'home', label: 'Home' },
+    { to: '/admin/home', icon: 'settings', label: 'Website Settings' },
     { to: '/admin/categories', icon: 'category', label: 'Categories' },
     { to: '/admin/orders', icon: 'shopping_cart', label: 'Orders' },
   ];
