@@ -330,17 +330,32 @@ const statusColors = {
 
 export const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
+  const [stats, setStats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(null);
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  const fetchOrders = useCallback(async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/orders`, { headers: { Authorization: `Bearer ${user.token}` } });
+      const d = await res.json();
+      setOrders(Array.isArray(d) ? d : []);
+    } catch (err) { console.error(err); }
+  }, [user]);
+
+  const fetchStats = useCallback(async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/orders/stats`, { headers: { Authorization: `Bearer ${user.token}` } });
+      const d = await res.json();
+      setStats(Array.isArray(d) ? d : []);
+    } catch (err) { console.error(err); }
+  }, [user]);
+
   useEffect(() => {
     if (!user || user.role !== 'admin') { navigate('/login'); return; }
-    fetch(`${API_BASE}/api/orders`, { headers: { Authorization: `Bearer ${user.token}` } })
-      .then(r => r.json()).then(d => setOrders(Array.isArray(d) ? d : []))
-      .catch(console.error).finally(() => setLoading(false));
-  }, [user, navigate]);
+    Promise.all([fetchOrders(), fetchStats()]).finally(() => setLoading(false));
+  }, [user, navigate, fetchOrders, fetchStats]);
 
   const updateStatus = async (orderId, status) => {
     const res = await fetch(`${API_BASE}/api/orders/${orderId}/status`, {
@@ -353,18 +368,97 @@ export const AdminOrders = () => {
 
   const fmt = d => new Date(d).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
+  const getMonthName = (monthNumber) => {
+    const date = new Date();
+    date.setMonth(monthNumber - 1);
+    return date.toLocaleString('en-US', { month: 'long' });
+  };
+
   return (
     <AdminLayout>
-      <div className="mb-xl">
+      {/* Page Header */}
+      <div className="mb-2xl">
         <h1 className="font-headline-lg text-headline-lg text-primary">Orders</h1>
-        <p className="text-sm text-on-surface-variant mt-xs">{orders.length} total orders</p>
+        <p className="text-sm text-on-surface-variant mt-xs">{orders.length} total orders managed</p>
       </div>
-      {loading ? <div className="text-center py-xxl text-on-surface-variant">Loading orders...</div>
-        : orders.length === 0 ? <div className="text-center py-xxl text-on-surface-variant">No orders yet.</div>
-        : (
-          <div className="flex flex-col gap-md">
+
+      {/* Sales Stats Overview */}
+      {!loading && stats.length > 0 && (
+        <section className="mb-xxl border-b border-outline-variant/20 pb-xxl">
+          <h2 className="font-title-lg text-title-lg mb-xl flex items-center gap-sm">
+            <span className="material-symbols-outlined">analytics</span>
+            Sales Performance
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-xl">
+            {/* Total Revenue Card */}
+            <div className="bg-primary/5 border border-primary/10 rounded-3xl p-xl flex flex-col justify-between">
+              <div>
+                <p className="font-label-caps text-label-caps text-primary opacity-70 mb-sm">Life-time Revenue</p>
+                <h3 className="text-3xl font-bold text-primary">
+                  {formatPrice(stats.reduce((acc, curr) => acc + curr.totalSales, 0))}
+                </h3>
+              </div>
+              <p className="text-xs text-on-surface-variant mt-lg flex items-center gap-xs">
+                <span className="material-symbols-outlined text-[14px]">payments</span>
+                All-time business total
+              </p>
+            </div>
+
+            {/* Current Month Card */}
+            <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-3xl p-xl shadow-sm flex flex-col justify-between">
+              <div>
+                <p className="font-label-caps text-label-caps text-on-surface-variant mb-sm">
+                  {getMonthName(stats[0]?._id.month)} {stats[0]?._id.year}
+                </p>
+                <h3 className="text-3xl font-bold text-on-surface">
+                  {formatPrice(stats[0]?.totalSales || 0)}
+                </h3>
+              </div>
+              <p className="text-xs text-secondary mt-lg font-bold flex items-center gap-xs">
+                <span className="material-symbols-outlined text-[14px]">shopping_cart</span>
+                {stats[0]?.orderCount || 0} Orders this month
+              </p>
+            </div>
+
+            {/* Avg Order Value Card */}
+            <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-3xl p-xl shadow-sm flex flex-col justify-between md:col-span-2 lg:col-span-1">
+              <div>
+                <p className="font-label-caps text-label-caps text-on-surface-variant mb-sm">Avg. Order Value</p>
+                <h3 className="text-3xl font-bold text-on-surface">
+                  {formatPrice(
+                    stats.reduce((acc, curr) => acc + curr.totalSales, 0) / 
+                    stats.reduce((acc, curr) => acc + curr.orderCount, 0) || 0
+                  )}
+                </h3>
+              </div>
+              <p className="text-xs text-on-surface-variant mt-lg flex items-center gap-xs">
+                <span className="material-symbols-outlined text-[14px]">trending_up</span>
+                Efficiency per transaction
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Orders List Section */}
+      <section>
+        <h2 className="font-title-lg text-title-lg mb-lg flex items-center gap-sm">
+          <span className="material-symbols-outlined">list_alt</span>
+          Recent Orders
+        </h2>
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-20 gap-4">
+            <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+            <p className="text-on-surface-variant animate-pulse">Loading orders...</p>
+          </div>
+        ) : orders.length === 0 ? (
+          <div className="text-center py-20 bg-surface-container-lowest border border-outline-variant/30 rounded-3xl">
+            <p className="text-on-surface-variant">No orders yet.</p>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-lg">
             {orders.map(order => (
-              <div key={order._id} className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden">
+              <div key={order._id} className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden shadow-sm">
                 <div className="flex items-center justify-between px-lg py-md cursor-pointer hover:bg-surface-container-low/50 transition-colors"
                   onClick={() => setExpanded(expanded === order._id ? null : order._id)}>
                   <div className="flex items-center gap-xl">
@@ -395,7 +489,7 @@ export const AdminOrders = () => {
                   </div>
                 </div>
                 {expanded === order._id && (
-                  <div className="border-t border-outline-variant/20 px-lg py-md">
+                  <div className="border-t border-outline-variant/20 px-lg py-md bg-surface-container-low/30">
                     <div className="grid grid-cols-2 gap-xl mb-lg">
                       <div>
                         <div className="font-label-caps text-label-caps text-on-surface-variant mb-xs">Shipping Address</div>
@@ -411,7 +505,7 @@ export const AdminOrders = () => {
                     <div className="flex flex-col gap-sm">
                       {order.items?.map((item, i) => (
                         <div key={i} className="flex items-center gap-md bg-surface-container rounded-lg px-md py-sm">
-                          {item.product?.image && <img src={getImgUrl(item.product.image)} alt={item.product?.name} className="w-10 h-10 rounded object-cover" />}
+                          {item.product?.image && <img src={getImgUrl(item.product.image)} alt={item.product?.name} className="w-10 h-10 rounded object-cover border border-outline-variant/30" />}
                           <div className="flex-1">
                             <div className="text-sm font-medium text-on-surface">{item.product?.name || 'Unknown'}</div>
                             <div className="text-xs text-on-surface-variant">Qty: {item.quantity}</div>
@@ -429,6 +523,7 @@ export const AdminOrders = () => {
             ))}
           </div>
         )}
+      </section>
     </AdminLayout>
   );
 };

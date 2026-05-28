@@ -30,6 +30,28 @@ router.post('/', protect, async (req, res) => {
   }
 });
 
+// GET /api/orders/stats (Admin only)
+router.get('/stats', protect, admin, async (req, res) => {
+  try {
+    const stats = await Order.aggregate([
+      {
+        $group: {
+          _id: { 
+            month: { $month: "$createdAt" }, 
+            year: { $year: "$createdAt" } 
+          },
+          totalSales: { $sum: "$totalAmount" },
+          orderCount: { $sum: 1 }
+        }
+      },
+      { $sort: { "_id.year": -1, "_id.month": -1 } }
+    ]);
+    res.json(stats);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // GET /api/orders/my-orders
 router.get('/my-orders', protect, async (req, res) => {
   try {
