@@ -85,35 +85,18 @@ const About = () => {
 
       {/* Values */}
       <section className="bg-surface-container-low py-xxl">
-        <div className="w-full max-w-container-max mx-auto px-gutter">
-          <div className="text-center mb-xl">
+        <div className="w-full max-w-container-max mx-auto px-gutter text-center">
+          <div className="mb-xl">
             <h2 className="font-headline-lg text-headline-lg text-primary mb-sm">Our Core Values</h2>
             <div className="w-16 h-px bg-primary mx-auto opacity-30"></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-xl">
-            {[
-              { 
-                title: 'Radical Circularity', 
-                desc: 'We source 100% recycled denim and organic fabrics, ensuring that our footprint is light but our impact is profound.',
-                icon: 'cycle'
-              },
-              { 
-                title: 'Timeless Design', 
-                desc: 'We ignore seasonal trends in favor of classic, minimalist silhouettes that remain relevant year after year.',
-                icon: 'history'
-              },
-              { 
-                title: 'Ethical Craft', 
-                desc: 'Every Loom piece is handcrafted with fair-wage labor, prioritizing the well-being of the artisans who bring our vision to life.',
-                icon: 'verified_user'
-              }
-            ].map(val => (
-              <div key={val.title} className="bg-surface p-xl rounded-2xl border border-outline-variant/30 flex flex-col items-center text-center shadow-sm">
-                <span className="material-symbols-outlined text-primary text-[48px] mb-lg opacity-80">{val.icon}</span>
-                <h3 className="font-headline-md text-headline-md text-primary mb-md">{val.title}</h3>
-                <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">{val.desc}</p>
-              </div>
-            ))}
+          <div className="max-w-4xl mx-auto">
+            <h3 className="font-display-md text-display-lg-mobile md:text-display-md text-primary mb-lg tracking-tight">
+              Unique – Transparent – Connected
+            </h3>
+            <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+              LOOM is built on these three core values. We create more than just accessories; we create <span className="text-primary font-bold italic">“Memory Bags”</span> that preserve the stories, emotions, and personal memories of each customer.
+            </p>
           </div>
         </div>
       </section>
