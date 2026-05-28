@@ -432,3 +432,151 @@ export const AdminOrders = () => {
     </AdminLayout>
   );
 };
+
+// ─── Admin Users Page ──────────────────────────────────────────────────────────
+export const AdminUsers = () => {
+  const [name, setName] = useState('');
+  const [pass, setPass] = useState('');
+  const [admins, setAdmins] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(true);
+  const [message, setMessage] = useState({ type: '', text: '' });
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const fetchAdmins = useCallback(async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/admins`, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
+      const data = await res.json();
+      setAdmins(data);
+    } catch (err) { console.error(err); }
+    finally { setFetching(false); }
+  }, [user]);
+
+  useEffect(() => {
+    if (!user || user.role !== 'admin') { navigate('/login'); return; }
+    fetchAdmins();
+  }, [user, navigate, fetchAdmins]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage({ type: '', text: '' });
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/create-admin`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
+        body: JSON.stringify({ name, pass }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setMessage({ type: 'success', text: 'Admin account created successfully!' });
+        setName('');
+        setPass('');
+        fetchAdmins();
+      } else {
+        setMessage({ type: 'error', text: data.message });
+      }
+    } catch (err) {
+      setMessage({ type: 'error', text: 'An error occurred' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (id === user._id) return alert('You cannot delete yourself!');
+    if (!window.confirm('Are you sure you want to delete this admin account?')) return;
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/admins/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
+      if (res.ok) fetchAdmins();
+      else {
+        const data = await res.json();
+        alert(data.message);
+      }
+    } catch (err) { console.error(err); }
+  };
+
+  return (
+    <AdminLayout>
+      <div className="mb-xl">
+        <h1 className="font-headline-lg text-headline-lg text-primary">Admin Management</h1>
+        <p className="text-sm text-on-surface-variant mt-xs">Create and manage administrator accounts</p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2xl">
+        {/* Create Form */}
+        <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-xl shadow-sm h-fit">
+          <h2 className="font-title-lg text-title-lg mb-lg flex items-center gap-sm">
+            <span className="material-symbols-outlined">person_add</span>
+            Add New Admin
+          </h2>
+          <form onSubmit={handleSubmit} className="space-y-lg">
+            <div>
+              <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">Username</label>
+              <input value={name} onChange={e => setName(e.target.value)} required placeholder="Admin username"
+                className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none" />
+            </div>
+            <div>
+              <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">Password</label>
+              <input type="password" value={pass} onChange={e => setPass(e.target.value)} required placeholder="Admin password"
+                className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none" />
+            </div>
+
+            {message.text && (
+              <div className={`p-sm rounded text-sm ${message.type === 'error' ? 'bg-error/10 text-error' : 'bg-primary/10 text-primary'}`}>
+                {message.text}
+              </div>
+            )}
+
+            <button type="submit" disabled={loading}
+              className="w-full bg-primary text-on-primary py-md rounded font-label-caps text-label-caps hover:opacity-90 transition-opacity disabled:opacity-60 flex items-center justify-center gap-sm">
+              {loading ? 'Creating...' : (
+                <>
+                  <span className="material-symbols-outlined text-[18px]">how_to_reg</span>
+                  Create Admin Account
+                </>
+              )}
+            </button>
+          </form>
+        </div>
+
+        {/* Admins List */}
+        <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden shadow-sm">
+          <div className="px-lg py-md border-b border-outline-variant/30 bg-surface-container-low">
+            <h2 className="font-label-caps text-label-caps text-on-surface-variant">Current Administrators</h2>
+          </div>
+          <div className="divide-y divide-outline-variant/20">
+            {fetching ? (
+              <div className="p-xl text-center text-on-surface-variant text-sm">Loading admins...</div>
+            ) : admins.length === 0 ? (
+              <div className="p-xl text-center text-on-surface-variant text-sm">No admins found.</div>
+            ) : admins.map(admin => (
+              <div key={admin._id} className="px-lg py-md flex items-center justify-between hover:bg-surface-container-low/30 transition-colors">
+                <div className="flex items-center gap-md">
+                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                    <span className="material-symbols-outlined">account_circle</span>
+                  </div>
+                  <div>
+                    <div className="font-medium text-on-surface text-sm">{admin.name} {admin._id === user._id && <span className="text-[10px] bg-secondary-container text-on-secondary-container px-1.5 py-0.5 rounded ml-1 font-bold uppercase">You</span>}</div>
+                    <div className="text-xs text-on-surface-variant">ID: {admin._id.slice(-8).toUpperCase()}</div>
+                  </div>
+                </div>
+                {admin._id !== user._id && (
+                  <button onClick={() => handleDelete(admin._id)} className="p-sm text-on-surface-variant hover:text-error transition-colors rounded hover:bg-error-container">
+                    <span className="material-symbols-outlined text-[20px]">delete</span>
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </AdminLayout>
+  );
+};

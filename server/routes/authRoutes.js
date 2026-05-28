@@ -105,4 +105,74 @@ router.post('/favorites', protect, async (req, res) => {
   }
 });
 
+// PUT /api/auth/change-password
+router.put('/change-password', protect, async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  try {
+    const user = await User.findById(req.user.id);
+    if (user && (await bcrypt.compare(currentPassword, user.pass))) {
+      const salt = await bcrypt.genSalt(10);
+      user.pass = await bcrypt.hash(newPassword, salt);
+      await user.save();
+      res.json({ message: 'Password updated successfully' });
+    } else {
+      res.status(401).json({ message: 'Invalid current password' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// POST /api/auth/create-admin (Admin only)
+const { admin } = require('../middleware/auth');
+router.post('/create-admin', protect, admin, async (req, res) => {
+  const { name, pass } = req.body;
+  try {
+    const userExists = await User.findOne({ name });
+    if (userExists) return res.status(400).json({ message: 'User already exists' });
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(pass, salt);
+
+    const user = await User.create({ name, pass: hashedPassword, role: 'admin' });
+
+    if (user) {
+      res.status(201).json({
+        _id: user.id,
+        name: user.name,
+        role: user.role,
+        message: 'Admin account created successfully'
+      });
+    } else {
+      res.status(400).json({ message: 'Invalid admin data' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET /api/auth/admins (Admin only)
+router.get('/admins', protect, admin, async (req, res) => {
+  try {
+    const admins = await User.find({ role: 'admin' }).select('-pass');
+    res.json(admins);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// DELETE /api/auth/admins/:id (Admin only)
+router.delete('/admins/:id', protect, admin, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: 'Admin not found' });
+    if (user.id === req.user.id) return res.status(400).json({ message: 'You cannot delete yourself' });
+
+    await user.deleteOne();
+    res.json({ message: 'Admin removed successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;

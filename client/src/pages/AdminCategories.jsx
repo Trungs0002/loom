@@ -17,6 +17,7 @@ export const AdminLayout = ({ children }) => {
     { to: '/admin/home', icon: 'settings', label: 'Website Settings' },
     { to: '/admin/categories', icon: 'category', label: 'Categories' },
     { to: '/admin/orders', icon: 'shopping_cart', label: 'Orders' },
+    { to: '/admin/users', icon: 'manage_accounts', label: 'Admins' },
   ];
 
   return (

@@ -52,9 +52,9 @@ const Navbar = () => {
             </Link>
           )}
           {user ? (
-            <button onClick={logout} className="font-label-caps text-label-caps transition-colors text-on-surface-variant hover:text-[#081F5C]">
-              Logout
-            </button>
+            <Link to="/profile" className={`font-label-caps text-label-caps transition-colors ${path === '/profile' ? 'text-[#081F5C] border-b-2 border-[#081F5C] pb-1' : 'text-on-surface-variant hover:text-[#081F5C]'}`}>
+              Profile
+            </Link>
           ) : (
             <Link to="/login" className="font-label-caps text-label-caps transition-colors text-on-surface-variant hover:text-[#081F5C]">
               Login
@@ -148,7 +148,7 @@ const Navbar = () => {
             <Link to="/admin/products" onClick={() => setIsMobileMenuOpen(false)} className="font-label-caps text-label-caps text-on-surface-variant hover:text-[#081F5C]">Admin</Link>
           )}
           {user ? (
-            <button onClick={() => { logout(); setIsMobileMenuOpen(false); }} className="text-left font-label-caps text-label-caps text-on-surface-variant hover:text-[#081F5C]">Logout</button>
+            <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="font-label-caps text-label-caps text-on-surface-variant hover:text-[#081F5C]">Profile</Link>
           ) : (
             <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="font-label-caps text-label-caps text-on-surface-variant hover:text-[#081F5C]">Login</Link>
           )}
