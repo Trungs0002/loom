@@ -14,16 +14,27 @@ const Shop = () => {
   const activeCategory = searchParams.get('category') || '';
   const initialSearch = searchParams.get('search') || '';
   const initialSort = searchParams.get('sort') || '';
+  const initialPriceRange = searchParams.get('priceRange') || '';
   const [search, setSearch] = useState(initialSearch);
   const [sortOrder, setSortOrder] = useState(initialSort);
+  const [priceRange, setPriceRange] = useState(initialPriceRange);
   const [categories, setCategories] = useState([]);
   const { user, favorites, toggleFavorite } = useAuth();
   const navigate = useNavigate();
 
-  // Sync search and sort state with searchParams if they change from outside
+  const priceRanges = [
+    { label: 'All Prices', value: '' },
+    { label: 'Under 500,000 VND', value: '0-500000' },
+    { label: '500,000 - 1,000,000 VND', value: '500000-1000000' },
+    { label: '1,000,000 - 2,000,000 VND', value: '1000000-2000000' },
+    { label: 'Over 2,000,000 VND', value: '2000000-999999999' },
+  ];
+
+  // Sync search, sort, and price range state with searchParams if they change from outside
   useEffect(() => {
     setSearch(searchParams.get('search') || '');
     setSortOrder(searchParams.get('sort') || '');
+    setPriceRange(searchParams.get('priceRange') || '');
   }, [searchParams]);
 
   useEffect(() => {
@@ -48,38 +59,49 @@ const Shop = () => {
     fetchCategories();
   }, []);
 
-  const setCategory = (cat) => {
+  const updateSearchParams = (newParams) => {
     const params = {};
-    if (cat) params.category = cat;
+    if (activeCategory) params.category = activeCategory;
     if (search) params.search = search;
     if (sortOrder) params.sort = sortOrder;
-    setSearchParams(params);
+    if (priceRange) params.priceRange = priceRange;
+    
+    setSearchParams({ ...params, ...newParams });
+  };
+
+  const setCategory = (cat) => {
+    updateSearchParams({ category: cat });
   };
 
   const handleSearchChange = (e) => {
     const val = e.target.value;
     setSearch(val);
-    const params = {};
-    if (activeCategory) params.category = activeCategory;
-    if (val) params.search = val;
-    if (sortOrder) params.sort = sortOrder;
-    setSearchParams(params);
+    updateSearchParams({ search: val });
   };
 
   const handleSortChange = (e) => {
     const val = e.target.value;
     setSortOrder(val);
-    const params = {};
-    if (activeCategory) params.category = activeCategory;
-    if (search) params.search = search;
-    if (val) params.sort = val;
-    setSearchParams(params);
+    updateSearchParams({ sort: val });
+  };
+
+  const handlePriceRangeChange = (e) => {
+    const val = e.target.value;
+    setPriceRange(val);
+    updateSearchParams({ priceRange: val });
   };
 
   const filtered = products.filter(p => {
     const matchCat = !activeCategory || p.category?.toLowerCase() === activeCategory.toLowerCase();
     const matchSearch = !search || p.name.toLowerCase().includes(search.toLowerCase());
-    return matchCat && matchSearch;
+    
+    let matchPrice = true;
+    if (priceRange) {
+      const [min, max] = priceRange.split('-').map(Number);
+      matchPrice = p.price >= min && p.price <= max;
+    }
+    
+    return matchCat && matchSearch && matchPrice;
   });
 
   // Apply Sorting
@@ -138,6 +160,15 @@ const Shop = () => {
         </div>
         {/* Search + count */}
         <div className="flex flex-wrap items-center gap-md">
+          <select
+            value={priceRange}
+            onChange={handlePriceRangeChange}
+            className="bg-surface border border-outline-variant/50 rounded-full px-md py-xs text-sm text-on-surface focus:border-primary outline-none cursor-pointer"
+          >
+            {priceRanges.map(range => (
+              <option key={range.value} value={range.value}>{range.label}</option>
+            ))}
+          </select>
           <select
             value={sortOrder}
             onChange={handleSortChange}
