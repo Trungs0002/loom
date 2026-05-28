@@ -1,7 +1,7 @@
 /* eslint-disable */
 import API_BASE, { formatPrice } from '../config';
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { getImgUrl } from './AdminCategories';
@@ -9,6 +9,7 @@ import { getImgUrl } from './AdminCategories';
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('Description');
@@ -22,10 +23,22 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
+        setLoading(true);
         const res = await fetch(`${API_BASE}/api/products/${id}`);
         const data = await res.json();
         setProduct(data);
         setSelectedColorIdx(0);
+
+        // Fetch related products
+        const allRes = await fetch(`${API_BASE}/api/products`);
+        const allData = await allRes.json();
+        
+        const related = allData.filter(p => 
+          p._id !== id && 
+          p.tags?.some(tag => data.tags?.includes(tag))
+        ).slice(0, 4);
+        
+        setRelatedProducts(related);
       } catch (error) {
         console.error('Error fetching product:', error);
       } finally {
@@ -33,6 +46,7 @@ const ProductDetails = () => {
       }
     };
     fetchProduct();
+    window.scrollTo(0, 0);
   }, [id]);
 
   if (loading) return <div className="text-center py-xxl text-on-surface-variant">Loading...</div>;
@@ -233,6 +247,35 @@ const ProductDetails = () => {
           )}
         </div>
       </div>
+
+      {/* Related Products */}
+      {relatedProducts.length > 0 && (
+        <div className="mt-xxl pt-xxl border-t border-outline-variant/20">
+          <h2 className="font-headline-lg text-headline-lg text-primary mb-xl">You May Also Like</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-xl">
+            {relatedProducts.map(p => (
+              <Link key={p._id} to={`/products/${p._id}`} className="group flex flex-col">
+                <div className="bg-surface-container-low rounded-xl overflow-hidden mb-md aspect-[4/5] relative">
+                  <img 
+                    alt={p.name} 
+                    src={getImgUrl(p.colorImages?.[0]?.image || p.image || '')} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                  />
+                  {p.category && (
+                    <div className="absolute top-sm right-sm bg-primary/80 backdrop-blur-sm px-sm py-xs rounded font-label-caps text-label-caps text-on-primary text-[10px] capitalize">
+                      {p.category}
+                    </div>
+                  )}
+                </div>
+                <div className="text-center">
+                  <h3 className="font-headline-md text-[18px] text-primary mb-xs">{p.name}</h3>
+                  <p className="font-body-md text-body-md text-on-surface-variant">{formatPrice(p.price)}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
