@@ -93,7 +93,7 @@ const Collection = () => {
             <Link key={prod._id} to={`/products/${prod._id}`} className="group flex flex-col cursor-pointer">
               <div className="relative w-full aspect-[4/5] bg-surface-container rounded-xl overflow-hidden mb-md border border-outline-variant/20">
                 {prod.onSale && (
-                  <div className="absolute top-sm right-sm z-10 bg-error text-white font-label-caps text-[9px] px-2 py-0.5 rounded shadow-lg">
+                  <div className="absolute bottom-sm left-sm z-10 bg-error text-white font-label-caps text-[9px] px-2 py-0.5 rounded shadow-lg">
                     SALE
                   </div>
                 )}

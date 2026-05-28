@@ -31,6 +31,11 @@ const Favorites = () => {
             return (
               <div key={product._id} className="group flex flex-col bg-white dark:bg-surface-dim rounded-xl overflow-hidden border border-outline-variant/30 hover:shadow-xl transition-all duration-300">
                 <div className="relative aspect-[4/5] overflow-hidden">
+                  {product.onSale && (
+                    <div className="absolute bottom-sm left-sm z-10 bg-error text-white font-label-caps text-[9px] px-2 py-0.5 rounded shadow-lg">
+                      SALE
+                    </div>
+                  )}
                   <Link to={`/products/${product._id}`}>
                     <img 
                       src={getImgUrl(product.colorImages?.[0]?.image || product.image)} 
@@ -45,21 +50,35 @@ const Favorites = () => {
                   >
                     <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
                   </button>
+                  {product.category && (
+                    <div className="absolute top-sm left-sm bg-primary/80 backdrop-blur-sm px-sm py-xs rounded font-label-caps text-label-caps text-on-primary text-[10px] capitalize">
+                      {product.category}
+                    </div>
+                  )}
                 </div>
                 
-                <div className="p-lg flex flex-col flex-grow">
+                <div className="p-lg flex flex-col flex-grow text-center">
                   <div className="mb-md">
-                    <span className="font-label-caps text-[10px] text-on-surface-variant tracking-wider uppercase">{product.category}</span>
                     <Link to={`/products/${product._id}`} className="block">
-                      <h3 className="font-headline-sm text-headline-sm text-primary hover:text-primary/80 transition-colors line-clamp-1">{product.name}</h3>
+                      <h3 className="font-headline-md text-headline-md text-primary hover:text-primary/80 transition-colors line-clamp-1">{product.name}</h3>
                     </Link>
+                    <p className="font-body-md text-body-md text-on-surface-variant mt-xs">
+                      {(product.colorImages?.length ? product.colorImages.map(c => c.color) : product.colors)?.join(', ')}
+                    </p>
                   </div>
                   
-                  <div className="mt-auto flex justify-between items-center">
-                    <span className="font-body-md text-body-md text-on-surface-variant">{formatPrice(product.price)}</span>
+                  <div className="mt-auto flex flex-col items-center gap-md">
+                    <div className="flex flex-col items-center">
+                      <p className="font-body-md text-body-md font-medium text-primary">{formatPrice(product.price)}</p>
+                      {product.onSale && (
+                        <p className="text-[10px] font-body-md text-on-surface-variant line-through opacity-60">
+                          {formatPrice(product.originalPrice)}
+                        </p>
+                      )}
+                    </div>
                     <Link 
                       to={`/products/${product._id}`}
-                      className="text-primary font-label-caps text-label-caps hover:underline"
+                      className="w-full border border-primary text-primary px-lg py-sm rounded-full font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-colors duration-300 text-center"
                     >
                       View Details
                     </Link>

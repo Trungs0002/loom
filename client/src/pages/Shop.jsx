@@ -199,7 +199,7 @@ const Shop = () => {
             <div key={product._id} className="group flex flex-col relative">
               <div className="bg-surface-container-low rounded-xl overflow-hidden mb-md aspect-[4/5] relative">
                 {product.onSale && (
-                  <div className="absolute top-sm right-sm z-10 bg-error text-white font-label-caps text-[9px] px-2 py-0.5 rounded shadow-lg">
+                  <div className="absolute bottom-sm left-sm z-10 bg-error text-white font-label-caps text-[9px] px-2 py-0.5 rounded shadow-lg">
                     SALE
                   </div>
                 )}
@@ -222,7 +222,7 @@ const Shop = () => {
                     Sustainable
                   </div>
                 )}
-                {!product.onSale && product.category && (
+                {product.category && (
                   <div className="absolute top-sm right-sm bg-primary/80 backdrop-blur-sm px-sm py-xs rounded font-label-caps text-label-caps text-on-primary text-[10px] capitalize">
                     {product.category}
                   </div>
