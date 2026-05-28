@@ -9,7 +9,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const { user, logout, favorites } = useAuth();
+  const { user, favorites } = useAuth();
   const navigate = useNavigate();
 
   const handleSearchSubmit = (e) => {
