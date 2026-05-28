@@ -214,6 +214,58 @@ const Profile = () => {
                           {order.status}
                         </div>
                       </div>
+
+                      {/* Order Tracking Progress Bar */}
+                      {order.status !== 'cancelled' ? (
+                        <div className="mb-8 px-2">
+                          <div className="relative flex justify-between items-center w-full">
+                            {/* Line connecting the dots */}
+                            <div className="absolute top-1/2 left-0 w-full h-0.5 bg-surface-container -translate-y-1/2 z-0"></div>
+                            <div 
+                              className="absolute top-1/2 left-0 h-0.5 bg-primary -translate-y-1/2 z-0 transition-all duration-500"
+                              style={{ 
+                                width: order.status === 'pending' ? '0%' : 
+                                       order.status === 'processing' ? '33.33%' : 
+                                       order.status === 'shipped' ? '66.66%' : '100%' 
+                              }}
+                            ></div>
+
+                            {[
+                              { id: 'pending', label: 'Pending', icon: 'pending_actions' },
+                              { id: 'processing', label: 'Processing', icon: 'sync' },
+                              { id: 'shipped', label: 'Shipped', icon: 'local_shipping' },
+                              { id: 'delivered', label: 'Delivered', icon: 'check_circle' }
+                            ].map((step, index, array) => {
+                              const steps = ['pending', 'processing', 'shipped', 'delivered'];
+                              const currentIndex = steps.indexOf(order.status);
+                              const isCompleted = index <= currentIndex;
+                              const isActive = index === currentIndex;
+
+                              return (
+                                <div key={step.id} className="relative z-10 flex flex-col items-center">
+                                  <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
+                                    isActive ? 'bg-primary text-on-primary ring-4 ring-primary/20 scale-110' : 
+                                    isCompleted ? 'bg-primary text-on-primary' : 'bg-surface-container text-on-surface-variant'
+                                  }`}>
+                                    <span className="material-symbols-outlined text-[18px]">{step.icon}</span>
+                                  </div>
+                                  <span className={`text-[10px] font-bold mt-2 absolute -bottom-6 whitespace-nowrap ${
+                                    isActive ? 'text-primary' : isCompleted ? 'text-on-surface' : 'text-on-surface-variant'
+                                  }`}>
+                                    {step.label}
+                                  </span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                          <div className="h-6"></div> {/* Spacer for absolute labels */}
+                        </div>
+                      ) : (
+                        <div className="mb-6 bg-error/5 border border-error/20 rounded-xl p-4 flex items-center gap-3 text-error">
+                          <span className="material-symbols-outlined">cancel</span>
+                          <span className="text-sm font-semibold">This order has been cancelled.</span>
+                        </div>
+                      )}
                       
                       <div className="space-y-3 mb-6 bg-surface-container-low/50 rounded-xl p-4">
                         {order.items.map((item, idx) => (

@@ -67,6 +67,9 @@ router.put('/', protect, admin, async (req, res) => {
       };
       settings.homeEthos = req.body.homeEthos;
       settings.giftPage = req.body.giftPage;
+      settings.shippingPolicyImage = req.body.shippingPolicyImage;
+      settings.returnPolicyImage = req.body.returnPolicyImage;
+      settings.careInstructionsImage = req.body.careInstructionsImage;
       await settings.save();
     } else {
       settings = await HomeSettings.create({
@@ -74,7 +77,10 @@ router.put('/', protect, admin, async (req, res) => {
         collectionBanner: req.body.collectionBanner,
         aboutPage: req.body.aboutPage,
         homeEthos: req.body.homeEthos,
-        giftPage: req.body.giftPage
+        giftPage: req.body.giftPage,
+        shippingPolicyImage: req.body.shippingPolicyImage,
+        returnPolicyImage: req.body.returnPolicyImage,
+        careInstructionsImage: req.body.careInstructionsImage
       });
     }
     res.json(settings);

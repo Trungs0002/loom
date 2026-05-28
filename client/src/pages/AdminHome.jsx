@@ -56,6 +56,9 @@ export const AdminHome = () => {
   const [giftPage, setGiftPage] = useState({ banner: '', product1: '', product2: '' });
   const [products, setProducts] = useState([]);
   const [homeEthos, setHomeEthos] = useState({ image: '', label: '', title: '', description: '' });
+  const [shippingPolicyImage, setShippingPolicyImage] = useState('');
+  const [returnPolicyImage, setReturnPolicyImage] = useState('');
+  const [careInstructionsImage, setCareInstructionsImage] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const { user } = useAuth();
@@ -82,6 +85,9 @@ export const AdminHome = () => {
           product2: data.giftPage?.product2?._id || data.giftPage?.product2 || ''
         });
         setHomeEthos(data.homeEthos || { image: '', label: '', title: '', description: '' });
+        setShippingPolicyImage(data.shippingPolicyImage || '');
+        setReturnPolicyImage(data.returnPolicyImage || '');
+        setCareInstructionsImage(data.careInstructionsImage || '');
       })
       .catch(console.error)
       .finally(() => setLoading(false));
@@ -102,7 +108,10 @@ export const AdminHome = () => {
           collectionBanner,
           aboutPage,
           homeEthos,
-          giftPage
+          giftPage,
+          shippingPolicyImage,
+          returnPolicyImage,
+          careInstructionsImage
         }),
       });
       if (res.ok) alert('Settings updated successfully!');
@@ -393,6 +402,57 @@ export const AdminHome = () => {
                     <option key={p._id} value={p._id}>{p.name}</option>
                   ))}
                 </select>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Policy Images Section */}
+        <section className="flex flex-col gap-lg border-t border-outline-variant/30 pt-xl pb-xxl">
+          <h2 className="font-headline-md text-headline-md text-on-surface">Policy Pages (Images)</h2>
+          <div className="bg-surface-container-low border border-outline-variant/20 rounded-xl p-lg flex flex-col gap-lg">
+            {/* Shipping Policy */}
+            <div className="flex flex-col gap-md">
+              <label className="font-label-caps text-label-caps text-on-surface-variant">Shipping Policy Image</label>
+              <div className="flex items-center gap-md">
+                <div className="w-40 h-24 bg-surface-variant rounded overflow-hidden flex-shrink-0 border border-outline-variant/30">
+                  {shippingPolicyImage ? <img src={getImgUrl(shippingPolicyImage)} alt="shipping policy" className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center opacity-30"><span className="material-symbols-outlined">image</span></div>}
+                </div>
+                <label className="flex items-center justify-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[12px] w-fit">
+                  <span className="material-symbols-outlined text-[18px]">upload</span>
+                  Upload Image
+                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setShippingPolicyImage)} />
+                </label>
+              </div>
+            </div>
+
+            {/* Return Policy */}
+            <div className="flex flex-col gap-md border-t border-outline-variant/20 pt-lg">
+              <label className="font-label-caps text-label-caps text-on-surface-variant">Return & Exchange Policy Image</label>
+              <div className="flex items-center gap-md">
+                <div className="w-40 h-24 bg-surface-variant rounded overflow-hidden flex-shrink-0 border border-outline-variant/30">
+                  {returnPolicyImage ? <img src={getImgUrl(returnPolicyImage)} alt="return policy" className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center opacity-30"><span className="material-symbols-outlined">image</span></div>}
+                </div>
+                <label className="flex items-center justify-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[12px] w-fit">
+                  <span className="material-symbols-outlined text-[18px]">upload</span>
+                  Upload Image
+                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setReturnPolicyImage)} />
+                </label>
+              </div>
+            </div>
+
+            {/* Care Instructions */}
+            <div className="flex flex-col gap-md border-t border-outline-variant/20 pt-lg">
+              <label className="font-label-caps text-label-caps text-on-surface-variant">Care Instructions Image</label>
+              <div className="flex items-center gap-md">
+                <div className="w-40 h-24 bg-surface-variant rounded overflow-hidden flex-shrink-0 border border-outline-variant/30">
+                  {careInstructionsImage ? <img src={getImgUrl(careInstructionsImage)} alt="care instructions" className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center opacity-30"><span className="material-symbols-outlined">image</span></div>}
+                </div>
+                <label className="flex items-center justify-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[12px] w-fit">
+                  <span className="material-symbols-outlined text-[18px]">upload</span>
+                  Upload Image
+                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setCareInstructionsImage)} />
+                </label>
               </div>
             </div>
           </div>

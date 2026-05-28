@@ -1,8 +1,60 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import API_BASE from '../config';
+import { getImgUrl } from './AdminCategories';
 
-const PolicyPage = ({ title, content }) => {
+const PolicyPage = ({ image, title }) => {
   return (
-    <div className="pt-xxl pb-xxl px-gutter max-w-container-max mx-auto">
+    <div className="pt-24 pb-xxl px-gutter max-w-container-max mx-auto">
+      <div className="w-full rounded-2xl overflow-hidden shadow-sm border border-outline-variant/30">
+        {image ? (
+          <img src={getImgUrl(image)} alt={title} className="w-full h-auto object-contain" />
+        ) : (
+          <div className="aspect-video bg-surface-container flex items-center justify-center text-on-surface-variant opacity-50">
+            No policy image uploaded.
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export const ShippingPolicy = () => {
+  const [image, setImage] = useState('');
+  useEffect(() => {
+    fetch(`${API_BASE}/api/home`)
+      .then(r => r.json())
+      .then(data => setImage(data.shippingPolicyImage))
+      .catch(console.error);
+  }, []);
+  return <PolicyPage title="Shipping Policy" image={image} />;
+};
+
+export const ReturnPolicy = () => {
+  const [image, setImage] = useState('');
+  useEffect(() => {
+    fetch(`${API_BASE}/api/home`)
+      .then(r => r.json())
+      .then(data => setImage(data.returnPolicyImage))
+      .catch(console.error);
+  }, []);
+  return <PolicyPage title="Return & Exchange Policy" image={image} />;
+};
+
+export const CareInstructions = () => {
+  const [image, setImage] = useState('');
+  useEffect(() => {
+    fetch(`${API_BASE}/api/home`)
+      .then(r => r.json())
+      .then(data => setImage(data.careInstructionsImage))
+      .catch(console.error);
+  }, []);
+  return <PolicyPage title="Care Instructions" image={image} />;
+};
+
+// Keeping these as text for now or simple placeholders
+const TextPolicyPage = ({ title, content }) => {
+  return (
+    <div className="pt-24 pb-xxl px-gutter max-w-container-max mx-auto">
       <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-xl">{title}</h1>
       <div className="prose prose-lg max-w-3xl font-body-md text-on-surface-variant space-y-md">
         {content.map((text, i) => (
@@ -13,45 +65,8 @@ const PolicyPage = ({ title, content }) => {
   );
 };
 
-export const ShippingPolicy = () => (
-  <PolicyPage 
-    title="Shipping Policy" 
-    content={[
-      "We process orders within 1-2 business days.",
-      "Delivery within Ho Chi Minh City usually takes 1-3 days.",
-      "National shipping across Vietnam typically takes 3-5 business days.",
-      "Shipping costs are calculated at checkout based on your location."
-    ]} 
-  />
-);
-
-export const ReturnPolicy = () => (
-  <PolicyPage 
-    title="Return & Exchange Policy" 
-    content={[
-      "Items can be returned or exchanged within 7 days of receipt.",
-      "The product must be unused, in its original packaging, and with all tags attached.",
-      "Return shipping costs are the responsibility of the customer unless the item arrived damaged.",
-      "Refunds will be processed once we receive and inspect the returned item."
-    ]} 
-  />
-);
-
-export const CareInstructions = () => (
-  <PolicyPage 
-    title="Care Instructions" 
-    content={[
-      "Hand wash cold with mild detergent.",
-      "Do not bleach.",
-      "Lay flat to dry in the shade.",
-      "Iron on low heat if necessary.",
-      "Denim may bleed slightly during the first few washes, so wash separately."
-    ]} 
-  />
-);
-
 export const SizeGuide = () => (
-  <PolicyPage 
+  <TextPolicyPage 
     title="Size Guide" 
     content={[
       "All our bags have dimensions listed on their individual product pages.",
@@ -64,7 +79,7 @@ export const SizeGuide = () => (
 );
 
 export const PaymentMethods = () => (
-  <PolicyPage 
+  <TextPolicyPage 
     title="Payment Methods" 
     content={[
       "Cash on Delivery (COD) - available nationwide in Vietnam.",
