@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 import API_BASE from '../config';
 import { getImgUrl } from '../pages/AdminCategories';
 
@@ -13,7 +14,10 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [logo, setLogo] = useState('');
   const { user, favorites } = useAuth();
+  const { cartItems } = useCart();
   const navigate = useNavigate();
+
+  const cartItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   useEffect(() => {
     fetch(`${API_BASE}/api/home`)
@@ -136,9 +140,14 @@ const Navbar = () => {
               }
             }} 
             aria-label="shopping_bag" 
-            className="text-[#081F5C] p-sm rounded-full hover:bg-surface-container transition-all duration-300 active:scale-95 flex items-center justify-center"
+            className="text-[#081F5C] p-sm rounded-full hover:bg-surface-container transition-all duration-300 active:scale-95 relative flex items-center justify-center"
           >
-            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>shopping_bag</span>
+            <span className="material-symbols-outlined" style={{ fontVariationSettings: cartItemsCount > 0 ? "'FILL' 1" : "'FILL' 0" }}>shopping_bag</span>
+            {cartItemsCount > 0 && (
+              <span className="absolute top-0 right-0 bg-primary text-on-primary text-[9px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-white dark:border-surface-dim">
+                {cartItemsCount}
+              </span>
+            )}
           </Link>
           {/* Mobile Menu Toggle */}
           <button
