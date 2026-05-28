@@ -43,7 +43,7 @@ const Profile = () => {
   const handleChangePassword = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      setMessage({ type: 'error', text: 'Mật khẩu xác nhận không khớp' });
+      setMessage({ type: 'error', text: 'Passwords do not match' });
       return;
     }
 
@@ -58,7 +58,7 @@ const Profile = () => {
       });
       const data = await res.json();
       if (res.ok) {
-        setMessage({ type: 'success', text: 'Cập nhật mật khẩu thành công' });
+        setMessage({ type: 'success', text: 'Password updated successfully' });
         setCurrentPassword('');
         setNewPassword('');
         setConfirmPassword('');
@@ -66,7 +66,7 @@ const Profile = () => {
         setMessage({ type: 'error', text: data.message });
       }
     } catch (error) {
-      setMessage({ type: 'error', text: 'Đã xảy ra lỗi' });
+      setMessage({ type: 'error', text: 'An error occurred' });
     }
   };
 
@@ -77,8 +77,8 @@ const Profile = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="mb-12">
-          <h1 className="text-3xl font-bold text-[#081F5C]">Tài khoản của tôi</h1>
-          <p className="text-on-surface-variant mt-2">Quản lý thông tin cá nhân và xem lại lịch sử mua hàng</p>
+          <h1 className="text-3xl font-bold text-[#081F5C]">My Account</h1>
+          <p className="text-on-surface-variant mt-2">Manage your personal information and view order history</p>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
@@ -102,7 +102,7 @@ const Profile = () => {
                   className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-error/5 text-error hover:bg-error/10 rounded-2xl transition-all font-semibold"
                 >
                   <span className="material-symbols-outlined">logout</span>
-                  Đăng xuất tài khoản
+                  Logout
                 </button>
               </div>
             </section>
@@ -111,11 +111,11 @@ const Profile = () => {
             <section className="bg-white dark:bg-surface-container-low rounded-3xl p-8 shadow-sm border border-outline-variant/30">
               <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
                 <span className="material-symbols-outlined">lock</span>
-                Đổi mật khẩu
+                Change Password
               </h3>
               <form onSubmit={handleChangePassword} className="space-y-5">
                 <div>
-                  <label className="block text-sm font-semibold mb-2">Mật khẩu hiện tại</label>
+                  <label className="block text-sm font-semibold mb-2">Current Password</label>
                   <input 
                     type="password" 
                     className="w-full bg-surface-container border border-outline-variant rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
@@ -125,7 +125,7 @@ const Profile = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold mb-2">Mật khẩu mới</label>
+                  <label className="block text-sm font-semibold mb-2">New Password</label>
                   <input 
                     type="password" 
                     className="w-full bg-surface-container border border-outline-variant rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
@@ -135,7 +135,7 @@ const Profile = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold mb-2">Xác nhận mật khẩu</label>
+                  <label className="block text-sm font-semibold mb-2">Confirm New Password</label>
                   <input 
                     type="password" 
                     className="w-full bg-surface-container border border-outline-variant rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
@@ -155,7 +155,7 @@ const Profile = () => {
                   type="submit"
                   className="w-full bg-[#081F5C] text-white py-3 rounded-2xl hover:bg-[#0a2775] transition-all font-bold shadow-md shadow-primary/10"
                 >
-                  Cập nhật mật khẩu
+                  Update Password
                 </button>
               </form>
             </section>
@@ -167,29 +167,29 @@ const Profile = () => {
               <div className="flex items-center justify-between mb-8">
                 <h3 className="text-xl font-bold flex items-center gap-2">
                   <span className="material-symbols-outlined">local_shipping</span>
-                  Lịch sử đơn hàng
+                  Order History
                 </h3>
                 <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold">
-                  {orders.length} đơn hàng
+                  {orders.length} orders
                 </span>
               </div>
 
               {loading ? (
                 <div className="flex flex-col items-center justify-center py-20 gap-4">
                   <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
-                  <p className="text-on-surface-variant animate-pulse">Đang tải đơn hàng...</p>
+                  <p className="text-on-surface-variant animate-pulse">Loading orders...</p>
                 </div>
               ) : orders.length === 0 ? (
                 <div className="text-center py-20">
                   <div className="w-20 h-20 bg-surface-container mx-auto rounded-full flex items-center justify-center text-on-surface-variant mb-4">
                     <span className="material-symbols-outlined text-4xl">shopping_cart_off</span>
                   </div>
-                  <p className="text-on-surface-variant mb-6 text-lg">Bạn chưa có đơn hàng nào.</p>
+                  <p className="text-on-surface-variant mb-6 text-lg">You don't have any orders yet.</p>
                   <button 
                     onClick={() => navigate('/products')}
                     className="bg-[#081F5C] text-white px-8 py-3 rounded-2xl hover:opacity-90 transition-all font-bold"
                   >
-                    Bắt đầu mua sắm ngay
+                    Start Shopping
                   </button>
                 </div>
               ) : (
@@ -199,11 +199,11 @@ const Profile = () => {
                       <div className="flex flex-wrap justify-between items-start gap-4 mb-4">
                         <div>
                           <p className="font-bold text-primary flex items-center gap-2">
-                            Mã đơn: <span className="text-on-surface select-all">#{order._id.slice(-8).toUpperCase()}</span>
+                            Order ID: <span className="text-on-surface select-all">#{order._id.slice(-8).toUpperCase()}</span>
                           </p>
                           <p className="text-sm text-on-surface-variant mt-1 flex items-center gap-1">
                             <span className="material-symbols-outlined text-sm">calendar_month</span>
-                            {new Date(order.createdAt).toLocaleString('vi-VN')}
+                            {new Date(order.createdAt).toLocaleString('en-US')}
                           </p>
                         </div>
                         <div className={`px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-wider ${
@@ -222,7 +222,7 @@ const Profile = () => {
                               <span className="w-6 h-6 bg-primary/5 rounded flex items-center justify-center text-[10px] font-bold text-primary">
                                 {item.quantity}x
                               </span>
-                              <span className="font-medium text-on-surface">{item.product?.name || 'Sản phẩm không còn tồn tại'}</span>
+                              <span className="font-medium text-on-surface">{item.product?.name || 'Product no longer exists'}</span>
                             </div>
                             <span className="font-semibold">{formatPrice(item.price * item.quantity)}</span>
                           </div>
@@ -230,7 +230,7 @@ const Profile = () => {
                       </div>
                       
                       <div className="flex justify-between items-center pt-4 border-t border-dashed border-outline-variant">
-                        <span className="text-on-surface-variant font-medium">Tổng số tiền:</span>
+                        <span className="text-on-surface-variant font-medium">Total Amount:</span>
                         <span className="text-xl font-bold text-[#081F5C]">{formatPrice(order.totalAmount)}</span>
                       </div>
                     </div>
