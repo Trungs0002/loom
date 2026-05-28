@@ -70,6 +70,7 @@ router.put('/', protect, admin, async (req, res) => {
       settings.shippingPolicyImage = req.body.shippingPolicyImage;
       settings.returnPolicyImage = req.body.returnPolicyImage;
       settings.careInstructionsImage = req.body.careInstructionsImage;
+      settings.headerLogo = req.body.headerLogo;
       await settings.save();
     } else {
       settings = await HomeSettings.create({
@@ -80,7 +81,8 @@ router.put('/', protect, admin, async (req, res) => {
         giftPage: req.body.giftPage,
         shippingPolicyImage: req.body.shippingPolicyImage,
         returnPolicyImage: req.body.returnPolicyImage,
-        careInstructionsImage: req.body.careInstructionsImage
+        careInstructionsImage: req.body.careInstructionsImage,
+        headerLogo: req.body.headerLogo
       });
     }
     res.json(settings);

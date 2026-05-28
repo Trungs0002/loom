@@ -59,6 +59,7 @@ export const AdminHome = () => {
   const [shippingPolicyImage, setShippingPolicyImage] = useState('');
   const [returnPolicyImage, setReturnPolicyImage] = useState('');
   const [careInstructionsImage, setCareInstructionsImage] = useState('');
+  const [headerLogo, setHeaderLogo] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const { user } = useAuth();
@@ -111,7 +112,8 @@ export const AdminHome = () => {
           giftPage,
           shippingPolicyImage,
           returnPolicyImage,
-          careInstructionsImage
+          careInstructionsImage,
+          headerLogo
         }),
       });
       if (res.ok) alert('Settings updated successfully!');
@@ -145,6 +147,29 @@ export const AdminHome = () => {
       </div>
 
       <div className="flex flex-col gap-xxl max-w-4xl">
+        {/* Header Logo Section */}
+        <section className="flex flex-col gap-lg border-b border-outline-variant/30 pb-xl">
+          <h2 className="font-headline-md text-headline-md text-on-surface">Header Logo</h2>
+          <div className="bg-surface-container-low border border-outline-variant/20 rounded-xl p-lg flex flex-col gap-md">
+            <label className="font-label-caps text-label-caps text-on-surface-variant">Logo Image (Horizontal Text Logo)</label>
+            <div className="flex items-center gap-md">
+              <div className="w-48 h-16 bg-surface-variant rounded overflow-hidden flex-shrink-0 border border-outline-variant/30 flex items-center justify-center p-sm">
+                {headerLogo ? <img src={getImgUrl(headerLogo)} alt="header logo" className="max-w-full max-h-full object-contain" /> : <div className="w-full h-full flex items-center justify-center opacity-30"><span className="material-symbols-outlined">image</span></div>}
+              </div>
+              <div className="flex-1 flex flex-col gap-sm">
+                <label className="flex items-center justify-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[12px] w-fit">
+                  <span className="material-symbols-outlined text-[18px]">upload</span>
+                  Upload Logo
+                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setHeaderLogo)} />
+                </label>
+                <input value={headerLogo} onChange={e => setHeaderLogo(e.target.value)}
+                  placeholder="or paste logo image URL" className="bg-transparent border-b border-outline-variant/30 py-xs text-sm text-on-surface focus:border-primary outline-none w-full" />
+              </div>
+            </div>
+            <p className="text-xs text-on-surface-variant opacity-70">Recommended: Transparent background horizontal logo.</p>
+          </div>
+        </section>
+
         {/* Hero Banners Section */}
         <section className="flex flex-col gap-lg">
           <div className="flex items-center justify-between">

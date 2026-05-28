@@ -1,8 +1,18 @@
-/* eslint-disable */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import API_BASE from '../config';
+import { getImgUrl } from '../pages/AdminCategories';
 
 const Footer = () => {
+  const [logo, setLogo] = useState('');
+
+  useEffect(() => {
+    fetch(`${API_BASE}/api/home`)
+      .then(r => r.json())
+      .then(data => setLogo(data.headerLogo))
+      .catch(console.error);
+  }, []);
+
   return (
     <footer className="bg-surface-container-low mt-xxl border-t border-outline-variant/30">
       <div className="px-gutter py-xl md:py-xxl w-full max-w-container-max mx-auto">
@@ -10,9 +20,15 @@ const Footer = () => {
 
           {/* Brand Info */}
           <div className="col-span-1 lg:col-span-1">
-            <Link to="/" className="flex items-center gap-sm mb-sm hover:opacity-80 transition-opacity">
-              <img src="/avatar.png" alt="Loom" className="w-8 h-8 rounded-full object-cover" />
-              <div className="font-headline-lg text-headline-lg text-[#081F5C] tracking-widest">LOOM</div>
+            <Link to="/" className="flex items-center mb-sm hover:opacity-80 transition-opacity h-8">
+              {logo ? (
+                <img src={getImgUrl(logo)} alt="Loom" className="h-full w-auto object-contain" />
+              ) : (
+                <div className="flex items-center gap-sm">
+                  <img src="/avatar.png" alt="Loom" className="w-8 h-8 rounded-full object-cover" />
+                  <div className="font-headline-lg text-headline-lg text-[#081F5C] tracking-widest">LOOM</div>
+                </div>
+              )}
             </Link>
             <p className="font-label-caps text-label-caps text-on-surface mb-md">Crafted from the past, designed for the future.</p>
             <p className="font-body-md text-body-md text-on-surface-variant max-w-sm">

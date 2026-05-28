@@ -1,7 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import API_BASE from '../config';
+import { getImgUrl } from '../pages/AdminCategories';
 
 const Navbar = () => {
   const location = useLocation();
@@ -9,8 +11,16 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [logo, setLogo] = useState('');
   const { user, favorites } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch(`${API_BASE}/api/home`)
+      .then(r => r.json())
+      .then(data => setLogo(data.headerLogo))
+      .catch(console.error);
+  }, []);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -25,11 +35,17 @@ const Navbar = () => {
 
   return (
     <header className="bg-white/90 dark:bg-surface-dim/90 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-outline-variant/30">
-      <div className="flex justify-between items-center px-gutter py-md w-full max-w-container-max mx-auto">
+      <div className="flex justify-between items-center px-gutter py-md w-full max-w-container-max mx-auto h-16">
         {/* Brand Logo */}
-        <Link to="/" className="flex items-center gap-sm hover:opacity-80 transition-opacity duration-300">
-          <img src="/avatar.png" alt="Loom" className="w-8 h-8 rounded-full object-cover" />
-          <span className="font-headline-lg text-headline-lg tracking-widest text-[#081F5C]">LOOM</span>
+        <Link to="/" className="flex items-center hover:opacity-80 transition-opacity duration-300 h-8">
+          {logo ? (
+            <img src={getImgUrl(logo)} alt="Loom" className="h-full w-auto object-contain" />
+          ) : (
+            <div className="flex items-center gap-sm">
+              <img src="/avatar.png" alt="Loom" className="w-8 h-8 rounded-full object-cover" />
+              <span className="font-headline-lg text-headline-lg tracking-widest text-[#081F5C]">LOOM</span>
+            </div>
+          )}
         </Link>
 
         {/* Navigation Links (Desktop) */}

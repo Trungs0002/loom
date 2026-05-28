@@ -35,7 +35,8 @@ const homeSettingsSchema = new mongoose.Schema({
   },
   shippingPolicyImage: { type: String },
   returnPolicyImage: { type: String },
-  careInstructionsImage: { type: String }
+  careInstructionsImage: { type: String },
+  headerLogo: { type: String }
 }, { timestamps: true });
 
 module.exports = mongoose.model('HomeSettings', homeSettingsSchema);
