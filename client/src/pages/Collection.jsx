@@ -92,6 +92,11 @@ const Collection = () => {
           {featuredProducts.map(prod => (
             <Link key={prod._id} to={`/products/${prod._id}`} className="group flex flex-col cursor-pointer">
               <div className="relative w-full aspect-[4/5] bg-surface-container rounded-xl overflow-hidden mb-md border border-outline-variant/20">
+                {prod.onSale && (
+                  <div className="absolute top-sm right-sm z-10 bg-error text-white font-label-caps text-[9px] px-2 py-0.5 rounded shadow-lg">
+                    SALE
+                  </div>
+                )}
                 {prod.tags && prod.tags.includes('New') && <div className="absolute top-sm left-sm bg-surface/90 text-primary font-label-caps text-[10px] px-2 py-1 rounded-full z-10">New</div>}
                 <img className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" alt={prod.name} src={getImgUrl(prod.colorImages?.[0]?.image || prod.image)} />
                 <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
@@ -99,10 +104,18 @@ const Collection = () => {
                   <span className="material-symbols-outlined text-[20px]">shopping_bag</span>
                 </button>
               </div>
-              <div className="flex flex-col text-center">
+              <div className="text-center">
                 <h3 className="font-headline-md text-[18px] text-primary mb-xs">{prod.name}</h3>
-                <p className="font-body-md text-body-md text-on-surface-variant">{formatPrice(prod.price)}</p>
+                <div className="flex flex-col items-center">
+                  <p className="font-body-md text-body-md font-medium text-primary">{formatPrice(prod.price)}</p>
+                  {prod.onSale && (
+                    <p className="text-[10px] font-body-md text-on-surface-variant line-through opacity-60">
+                      {formatPrice(prod.originalPrice)}
+                    </p>
+                  )}
+                </div>
               </div>
+
             </Link>
           ))}
         </div>

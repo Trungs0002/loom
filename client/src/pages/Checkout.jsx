@@ -1,5 +1,5 @@
 /* eslint-disable */
-import API_BASE from '../config';
+import API_BASE, { formatPrice } from '../config';
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -10,6 +10,12 @@ const Checkout = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const total = getCartTotal();
+
+  // Calculate original total to show savings
+  const originalTotal = cartItems.reduce((acc, item) => {
+    return acc + (item.onSale ? (item.originalPrice || item.price) : item.price) * item.quantity;
+  }, 0);
+  const savings = originalTotal - total;
 
   const [formData, setFormData] = useState({
     recipientName: '',
@@ -160,18 +166,23 @@ const Checkout = () => {
           <div className="flex flex-col gap-md">
             {cartItems.map((item, idx) => (
               <div key={idx} className="flex gap-md items-center">
-                <div className="w-16 h-20 bg-surface-container flex-shrink-0 relative overflow-hidden rounded-sm">
+                <div className="w-16 h-20 bg-surface-container flex-shrink-0 relative overflow-hidden rounded-sm border border-outline-variant/20">
                   <img 
                     alt={item.name} 
-                    className="object-cover w-full h-full absolute inset-0" 
+                    className="object-cover w-full h-full" 
                     src={item.image} 
                   />
                 </div>
                 <div className="flex-grow flex flex-col">
                   <span className="font-body-md text-body-md text-primary">{item.name}</span>
-                  <span className="font-label-caps text-label-caps text-on-surface-variant uppercase mt-xs">Qty: {item.quantity}</span>
+                  <span className="font-label-caps text-label-caps text-on-surface-variant uppercase mt-xs text-[10px]">Qty: {item.quantity}</span>
                 </div>
-                <span className="font-body-md text-body-md text-primary">${item.price * item.quantity}</span>
+                <div className="text-right flex flex-col">
+                  <span className="font-body-md text-body-md text-primary">{formatPrice(item.price * item.quantity)}</span>
+                  {item.onSale && (
+                    <span className="text-[10px] line-through opacity-50">{formatPrice((item.originalPrice || item.price) * item.quantity)}</span>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -179,23 +190,36 @@ const Checkout = () => {
           {/* Totals */}
           <div className="flex flex-col gap-sm pt-md border-t border-outline-variant/30">
             <div className="flex justify-between font-body-md text-body-md text-on-surface-variant">
-              <span>Subtotal</span>
-              <span>${total}</span>
+              <span>Items Subtotal</span>
+              {savings > 0 ? (
+                <div className="flex flex-col items-end">
+                  <span className="text-on-surface">{formatPrice(total)}</span>
+                  <span className="text-[10px] line-through opacity-50">{formatPrice(originalTotal)}</span>
+                </div>
+              ) : (
+                <span>{formatPrice(total)}</span>
+              )}
             </div>
+            {savings > 0 && (
+              <div className="flex justify-between font-body-md text-body-md text-error">
+                <span>Total Savings</span>
+                <span>-{formatPrice(savings)}</span>
+              </div>
+            )}
             <div className="flex justify-between font-body-md text-body-md text-on-surface-variant">
               <span>Shipping</span>
-              <span>Free</span>
+              <span className="text-primary">FREE</span>
             </div>
           </div>
           <div className="flex justify-between font-headline-md text-headline-md text-primary pt-md border-t border-outline-variant/30">
-            <span>Total</span>
-            <span>${total}</span>
+            <span>Order Total</span>
+            <span className="text-xl font-bold">{formatPrice(total)}</span>
           </div>
           <button 
             type="submit"
             form="checkout-form"
             disabled={cartItems.length === 0}
-            className={`w-full font-label-caps text-label-caps uppercase py-md px-lg hover:opacity-90 transition-opacity mt-sm tracking-widest ${cartItems.length > 0 ? 'bg-primary text-on-primary' : 'bg-outline-variant text-on-surface-variant cursor-not-allowed'}`}
+            className={`w-full font-label-caps text-label-caps py-md px-lg transition-all duration-300 mt-sm ${cartItems.length > 0 ? 'bg-primary text-on-primary hover:bg-primary-container' : 'bg-outline-variant text-on-surface-variant cursor-not-allowed'}`}
           >
             Place Order
           </button>

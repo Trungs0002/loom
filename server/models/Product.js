@@ -27,6 +27,8 @@ const productSchema = new mongoose.Schema({
   careInstructions: { type: String },
   description: { type: String },
   stock: { type: Number, default: 0 },
+  onSale: { type: Boolean, default: false },
+  originalPrice: { type: Number },
   tags: [{ type: String }],
   wishlist: { type: Boolean, default: false }
 }, { timestamps: true });

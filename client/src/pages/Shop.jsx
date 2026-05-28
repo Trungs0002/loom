@@ -198,6 +198,11 @@ const Shop = () => {
           sortedAndFiltered.map(product => (
             <div key={product._id} className="group flex flex-col relative">
               <div className="bg-surface-container-low rounded-xl overflow-hidden mb-md aspect-[4/5] relative">
+                {product.onSale && (
+                  <div className="absolute top-sm right-sm z-10 bg-error text-white font-label-caps text-[9px] px-2 py-0.5 rounded shadow-lg">
+                    SALE
+                  </div>
+                )}
                 <img alt={product.name} src={mainImg(product)} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 
                 {/* Favorite Button */}
@@ -217,7 +222,7 @@ const Shop = () => {
                     Sustainable
                   </div>
                 )}
-                {product.category && (
+                {!product.onSale && product.category && (
                   <div className="absolute top-sm right-sm bg-primary/80 backdrop-blur-sm px-sm py-xs rounded font-label-caps text-label-caps text-on-primary text-[10px] capitalize">
                     {product.category}
                   </div>
@@ -228,7 +233,14 @@ const Shop = () => {
                 <p className="font-body-md text-body-md text-on-surface-variant mb-xs">
                   {(product.colorImages?.length ? product.colorImages.map(c => c.color) : product.colors)?.join(', ')}
                 </p>
-                <p className="font-body-md text-body-md font-medium mb-md">{formatPrice(product.price)}</p>
+                <div className="flex flex-col items-center mb-md">
+                  <p className="font-body-md text-body-md font-medium text-primary">{formatPrice(product.price)}</p>
+                  {product.onSale && (
+                    <p className="text-[10px] font-body-md text-on-surface-variant line-through opacity-60">
+                      {formatPrice(product.originalPrice)}
+                    </p>
+                  )}
+                </div>
                 <Link to={`/products/${product._id}`} className="mt-auto border border-primary text-primary px-lg py-sm rounded-full font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-colors duration-300 w-full max-w-[200px] mx-auto text-center inline-block">
                   View Details
                 </Link>

@@ -51,6 +51,11 @@ const ProductScroll = ({ title, items }) => {
             className="flex-shrink-0 w-[240px] md:w-[280px] snap-start group"
           >
             <div className="aspect-square bg-surface-container-low rounded-xl overflow-hidden mb-sm border border-outline-variant/20 relative">
+              {prod.onSale && (
+                <div className="absolute top-sm right-sm z-10 bg-error text-white font-label-caps text-[9px] px-2 py-0.5 rounded shadow-lg">
+                  SALE
+                </div>
+              )}
               <img 
                 src={getImgUrl(prod.colorImages?.[0]?.image || prod.image)} 
                 alt={prod.name}
@@ -61,7 +66,14 @@ const ProductScroll = ({ title, items }) => {
               </button>
             </div>
             <h3 className="font-headline-md text-[16px] text-primary mb-xs truncate">{prod.name}</h3>
-            <p className="font-body-md text-body-md text-on-surface-variant">{formatPrice(prod.price)}</p>
+            <div className="flex flex-col">
+              <p className="font-body-md text-body-md font-medium text-primary">{formatPrice(prod.price)}</p>
+              {prod.onSale && (
+                <p className="text-[10px] font-body-md text-on-surface-variant line-through opacity-60">
+                  {formatPrice(prod.originalPrice)}
+                </p>
+              )}
+            </div>
           </Link>
         ))}
       </div>

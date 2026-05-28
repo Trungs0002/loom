@@ -61,6 +61,8 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
     weight: product?.weight || '',
     careInstructions: product?.careInstructions || '',
     tags: product?.tags?.join(', ') || '',
+    onSale: product?.onSale || false,
+    originalPrice: product?.originalPrice || '',
   });
   const [colorImages, setColorImages] = useState(
     product?.colorImages?.length ? product.colorImages : [{ color: '', image: '' }]
@@ -76,7 +78,10 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
       .catch(() => {});
   }, []);
 
-  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = e => {
+    const { name, value, type, checked } = e.target;
+    setForm({ ...form, [name]: type === 'checkbox' ? checked : value });
+  };
   const addColor = () => setColorImages(prev => [...prev, { color: '', image: '' }]);
   const updateColor = (i, val) => setColorImages(prev => prev.map((c, idx) => idx === i ? val : c));
   const removeColor = (i) => setColorImages(prev => prev.filter((_, idx) => idx !== i));
@@ -90,6 +95,8 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
       ...form,
       price: Number(form.price),
       stock: Number(form.stock),
+      originalPrice: form.originalPrice ? Number(form.originalPrice) : undefined,
+      onSale: form.onSale,
       tags: form.tags.split(',').map(s => s.trim()).filter(Boolean),
       colorImages: validColorImages,
       colors: validColorImages.map(c => c.color),
@@ -112,18 +119,10 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
 
   const textFields = [
     { name: 'name', label: 'Product Name', required: true, full: true, placeholder: 'e.g. Dusk Clutch' },
-    { name: 'price', label: 'Price', type: 'number', required: true, placeholder: 'e.g. 459000' },
+    { name: 'price', label: 'Current Price', type: 'number', required: true, placeholder: 'e.g. 259000' },
     { name: 'stock', label: 'Stock Qty', type: 'number', required: true, placeholder: 'e.g. 15' },
-    { name: 'material', label: 'Material', placeholder: 'e.g. Recycled jean/denim from old clothes' },
-    { name: 'innerLining', label: 'Inner Lining', placeholder: 'e.g. Recycled fabric' },
-    { name: 'numberStraps', label: 'Number of Straps', placeholder: 'e.g. No strap / optional detachable chain strap' },
-    { name: 'detachableStrap', label: 'Detachable Strap', placeholder: 'e.g. Yes, if used with chain strap' },
-    { name: 'adjustableStrap', label: 'Adjustable Strap', placeholder: 'e.g. No' },
-    { name: 'closureType', label: 'Closure Type', placeholder: 'e.g. Magnetic flap closure' },
-    { name: 'innerCompartments', label: 'Inner Compartments', placeholder: 'e.g. 1 main compartment, 1 small inner pocket' },
+    { name: 'material', label: 'Material', placeholder: 'e.g. Recycled jean/denim' },
     { name: 'dimensions', label: 'Dimensions', placeholder: 'e.g. 26 x 5 x 13 cm' },
-    { name: 'weight', label: 'Weight', placeholder: 'e.g. 230 g' },
-    { name: 'careInstructions', label: 'Care Instructions', full: true, placeholder: 'e.g. Wipe gently with a soft cloth, avoid machine washing...' },
     { name: 'tags', label: 'Tags (comma-separated)', full: true, placeholder: 'e.g. Clutch, Denim, Recycled' },
   ];
 
@@ -138,6 +137,15 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
         </div>
         <form onSubmit={handleSubmit} className="px-xl py-lg flex flex-col gap-lg">
           {error && <div className="bg-error/10 text-error p-sm rounded text-sm">{error}</div>}
+          
+          <div className="bg-primary/5 border border-primary/10 p-md rounded-xl flex items-center justify-between">
+            <div className="flex items-center gap-sm text-primary">
+              <span className="material-symbols-outlined">sell</span>
+              <span className="font-label-caps text-label-caps">Enable Sale / Discount</span>
+            </div>
+            <input type="checkbox" name="onSale" checked={form.onSale} onChange={handleChange} className="w-5 h-5 accent-primary cursor-pointer" />
+          </div>
+
           <div className="grid grid-cols-2 gap-lg">
             {textFields.map(f => (
               <div key={f.name} className={f.full ? 'col-span-2' : ''}>
@@ -146,7 +154,16 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
                   className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none placeholder:text-on-surface-variant/50" />
               </div>
             ))}
-            {/* Category dropdown — fetched from DB */}
+            
+            {form.onSale && (
+              <div className="col-span-2 bg-surface-container-low border border-outline-variant/30 p-md rounded-xl">
+                <label className="block font-label-caps text-label-caps text-error mb-xs">Original Price (Strikethrough)</label>
+                <input name="originalPrice" type="number" value={form.originalPrice} onChange={handleChange} required placeholder="e.g. 299000"
+                  className="w-full bg-surface-container border border-error/30 rounded px-md py-sm text-sm text-on-surface focus:border-error outline-none" />
+                <p className="text-[10px] text-on-surface-variant mt-xs italic">This price will be shown with a line through it.</p>
+              </div>
+            )}
+
             <div>
               <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">Category</label>
               <select name="category" value={form.category} onChange={handleChange} required
@@ -159,12 +176,11 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
             </div>
             <div className="col-span-2">
               <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">Description</label>
-              <textarea name="description" value={form.description} onChange={handleChange} rows={3} placeholder="e.g. Dusk Clutch is inspired by the calm moment when daylight fades into night..."
-                className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none resize-none placeholder:text-on-surface-variant/50" />
+              <textarea name="description" value={form.description} onChange={handleChange} rows={3} placeholder="Product description..."
+                className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none resize-none" />
             </div>
           </div>
 
-          {/* Color Images */}
           <div>
             <div className="flex items-center justify-between mb-md">
               <label className="font-label-caps text-label-caps text-on-surface-variant">Colors & Images</label>
@@ -178,7 +194,6 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
                   onChange={val => updateColor(i, val)} onRemove={() => removeColor(i)} />
               ))}
             </div>
-            <p className="text-xs text-on-surface-variant mt-sm opacity-70">First color's image = main product image.</p>
           </div>
 
           <div className="flex gap-md justify-end pt-lg border-t border-outline-variant/20">
@@ -249,51 +264,41 @@ export const AdminProducts = () => {
           className="w-full bg-surface-container border border-outline-variant/50 rounded pl-xl pr-md py-sm text-sm text-on-surface focus:border-primary outline-none" />
       </div>
 
-      <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden">
+      <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden shadow-sm">
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="border-b border-outline-variant/30 bg-surface-container-low text-on-surface-variant font-label-caps text-label-caps">
               <th className="px-lg py-md">Product</th>
-              <th className="px-lg py-md">Category</th>
-              <th className="px-lg py-md">Colors</th>
               <th className="px-lg py-md">Price</th>
-              <th className="px-lg py-md">Stock</th>
               <th className="px-lg py-md text-right">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-outline-variant/20">
             {loading ? (
-              <tr><td colSpan="6" className="px-lg py-xl text-center text-on-surface-variant">Loading...</td></tr>
+              <tr><td colSpan="3" className="px-lg py-xl text-center text-on-surface-variant">Loading...</td></tr>
             ) : filtered.length === 0 ? (
-              <tr><td colSpan="6" className="px-lg py-xl text-center text-on-surface-variant">No products found.</td></tr>
+              <tr><td colSpan="3" className="px-lg py-xl text-center text-on-surface-variant">No products found.</td></tr>
             ) : filtered.map(product => (
               <tr key={product._id} className="hover:bg-surface-container-low/50 transition-colors group">
                 <td className="px-lg py-md">
                   <div className="flex items-center gap-md">
-                    <div className="w-12 h-12 bg-surface-variant rounded overflow-hidden flex-shrink-0">
+                    <div className="w-12 h-12 bg-surface-variant rounded overflow-hidden flex-shrink-0 relative">
+                      {product.onSale && <span className="absolute top-0 left-0 bg-error text-white text-[8px] px-1 font-bold">SALE</span>}
                       {product.colorImages?.[0]?.image || product.image
                         ? <img alt={product.name} className="w-full h-full object-cover" src={getImgUrl(product.colorImages?.[0]?.image || product.image)} />
                         : <span className="flex items-center justify-center w-full h-full material-symbols-outlined text-outline text-[20px]">image</span>}
                     </div>
                     <div>
                       <div className="font-medium text-on-surface text-sm">{product.name}</div>
-                      <div className="text-xs text-on-surface-variant">{product._id.slice(-8)}</div>
+                      <div className="text-xs text-on-surface-variant capitalize">{product.category}</div>
                     </div>
                   </div>
                 </td>
-                <td className="px-lg py-md text-on-surface-variant text-sm capitalize">{product.category || '—'}</td>
                 <td className="px-lg py-md">
-                  <div className="flex gap-xs flex-wrap">
-                    {(product.colorImages?.length ? product.colorImages : product.colors?.map(c => ({ color: c })) || []).map((ci, i) => (
-                      <span key={i} className="inline-block px-2 py-0.5 bg-surface-container text-on-surface-variant rounded-full text-[10px] font-label-caps">{ci.color}</span>
-                    ))}
+                  <div className="flex flex-col">
+                    <span className="font-medium text-primary text-sm">{formatPrice(product.price)}</span>
+                    {product.onSale && <span className="text-[10px] text-on-surface-variant line-through">{formatPrice(product.originalPrice)}</span>}
                   </div>
-                </td>
-                <td className="px-lg py-md font-medium text-primary">{formatPrice(product.price)}</td>
-                <td className="px-lg py-md">
-                  <span className={`inline-flex px-2 py-1 rounded font-label-caps text-[10px] ${product.stock > 10 ? 'bg-tertiary-fixed text-on-tertiary-fixed' : product.stock > 0 ? 'bg-surface-variant text-on-surface-variant' : 'bg-error-container text-on-error-container'}`}>
-                    {product.stock > 0 ? `${product.stock} in stock` : 'Out of Stock'}
-                  </span>
                 </td>
                 <td className="px-lg py-md text-right">
                   <div className="flex items-center justify-end gap-sm opacity-0 group-hover:opacity-100 transition-opacity">
@@ -376,13 +381,11 @@ export const AdminOrders = () => {
 
   return (
     <AdminLayout>
-      {/* Page Header */}
       <div className="mb-2xl">
         <h1 className="font-headline-lg text-headline-lg text-primary">Orders</h1>
         <p className="text-sm text-on-surface-variant mt-xs">{orders.length} total orders managed</p>
       </div>
 
-      {/* Sales Stats Overview */}
       {!loading && stats.length > 0 && (
         <section className="mb-xxl border-b border-outline-variant/20 pb-xxl">
           <h2 className="font-title-lg text-title-lg mb-xl flex items-center gap-sm">
@@ -390,7 +393,6 @@ export const AdminOrders = () => {
             Sales Performance
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-xl">
-            {/* Total Revenue Card */}
             <div className="bg-primary/5 border border-primary/10 rounded-3xl p-xl flex flex-col justify-between">
               <div>
                 <p className="font-label-caps text-label-caps text-primary opacity-70 mb-sm">Life-time Revenue</p>
@@ -404,7 +406,6 @@ export const AdminOrders = () => {
               </p>
             </div>
 
-            {/* Current Month Card */}
             <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-3xl p-xl shadow-sm flex flex-col justify-between">
               <div>
                 <p className="font-label-caps text-label-caps text-on-surface-variant mb-sm">
@@ -420,7 +421,6 @@ export const AdminOrders = () => {
               </p>
             </div>
 
-            {/* Avg Order Value Card */}
             <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-3xl p-xl shadow-sm flex flex-col justify-between md:col-span-2 lg:col-span-1">
               <div>
                 <p className="font-label-caps text-label-caps text-on-surface-variant mb-sm">Avg. Order Value</p>
@@ -440,7 +440,6 @@ export const AdminOrders = () => {
         </section>
       )}
 
-      {/* Orders List Section */}
       <section>
         <h2 className="font-title-lg text-title-lg mb-lg flex items-center gap-sm">
           <span className="material-symbols-outlined">list_alt</span>

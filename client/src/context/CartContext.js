@@ -22,6 +22,8 @@ export const CartProvider = ({ children }) => {
         product: product._id, 
         name: product.name,
         price: product.price,
+        originalPrice: product.originalPrice,
+        onSale: product.onSale,
         image: product.image,
         color: product.colors?.[0] || '',
         quantity 

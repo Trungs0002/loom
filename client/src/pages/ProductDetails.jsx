@@ -72,6 +72,8 @@ const ProductDetails = () => {
       _id: product._id,
       name: product.name,
       price: product.price,
+      originalPrice: product.originalPrice,
+      onSale: product.onSale,
       image: currentImage,
       colors: [currentColor],
     }, quantity);
@@ -128,10 +130,22 @@ const ProductDetails = () => {
             {product.tags?.map(tag => (
               <span key={tag} className="inline-block bg-surface-container text-primary font-label-caps text-label-caps px-md py-xs rounded-full mb-md tracking-wider mr-sm text-[11px]">{tag}</span>
             ))}
-            <h1 className="font-headline-lg text-headline-lg text-primary mb-sm">{product.name}</h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant">
-              {formatPrice(product.price)}
-            </p>
+            <div className="flex items-center gap-sm mb-sm">
+              <h1 className="font-headline-lg text-headline-lg text-primary">{product.name}</h1>
+              {product.onSale && (
+                <span className="bg-error text-white text-[10px] font-black px-2 py-0.5 rounded shadow-sm tracking-widest uppercase">Sale</span>
+              )}
+            </div>
+            <div className="flex items-baseline gap-md">
+              <p className="font-headline-lg text-headline-lg text-on-surface">
+                {formatPrice(product.price)}
+              </p>
+              {product.onSale && (
+                <p className="font-body-md text-body-md text-on-surface-variant line-through opacity-50">
+                  {formatPrice(product.originalPrice)}
+                </p>
+              )}
+            </div>
           </div>
 
           {/* Color selector */}
