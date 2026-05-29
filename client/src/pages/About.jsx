@@ -83,20 +83,63 @@ const About = () => {
         </div>
       </section>
 
-      {/* Values */}
-      <section className="bg-surface-container-low py-xxl">
-        <div className="w-full max-w-container-max mx-auto px-gutter text-center">
-          <div className="mb-xl">
-            <h2 className="font-headline-lg text-headline-lg text-primary mb-sm">Our Core Values</h2>
-            <div className="w-16 h-px bg-primary mx-auto opacity-30"></div>
+      {/* Values - Compact & Viewport Optimized */}
+      <section className="bg-white py-xl md:py-xxl">
+        <div className="w-full max-w-container-max mx-auto px-gutter flex flex-col gap-lg md:gap-xl">
+          <div className="text-center">
+            <span className="font-label-caps text-label-caps text-secondary tracking-[0.3em] block mb-xs text-[10px]">THE FOUNDATION</span>
+            <h2 className="font-display-md text-display-lg-mobile text-primary">Our Core Values</h2>
+            <div className="w-16 h-1 bg-[#081F5C] mx-auto mt-md rounded-full opacity-30"></div>
           </div>
-          <div className="max-w-4xl mx-auto">
-            <h3 className="font-display-md text-display-lg-mobile md:text-display-md text-primary mb-lg tracking-tight">
-              Unique – Transparent – Connected
-            </h3>
-            <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-              LOOM is built on these three core values. We create more than just accessories; we create <span className="text-primary font-bold italic">“Memory Bags”</span> that preserve the stories, emotions, and personal memories of each customer.
-            </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-md md:gap-lg">
+            {[
+              { 
+                title: 'Unique', 
+                desc: 'Every bag is a one-of-a-kind statement, crafted from history.',
+                icon: 'auto_awesome',
+                bg: 'bg-[#081F5C]',
+                text: 'text-white'
+              },
+              { 
+                title: 'Transparent', 
+                desc: 'Full visibility into our sustainable and ethical production.',
+                icon: 'visibility',
+                bg: 'bg-surface-container-high',
+                text: 'text-primary'
+              },
+              { 
+                title: 'Connected', 
+                desc: 'Bridging past memories and future style via recycled denim.',
+                icon: 'hub',
+                bg: 'bg-secondary',
+                text: 'text-white'
+              }
+            ].map((val, i) => (
+              <div key={val.title} className={`${val.bg} ${val.text} p-lg rounded-[1.5rem] flex flex-col gap-md shadow-lg hover:-translate-y-1 transition-all duration-300 group`}>
+                <div className={`w-12 h-12 rounded-xl ${val.text === 'text-white' ? 'bg-white/10' : 'bg-primary/10'} backdrop-blur-md flex items-center justify-center`}>
+                  <span className="material-symbols-outlined text-[24px]">{val.icon}</span>
+                </div>
+                <div>
+                  <h3 className="font-headline-md text-xl mb-xs uppercase tracking-wide">{val.title}</h3>
+                  <p className="font-body-md opacity-80 leading-snug text-xs">{val.desc}</p>
+                </div>
+                <div className="mt-auto opacity-10 font-display-md text-2xl text-right">0{i+1}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Memory Bags Feature Card - Compact */}
+          <div className="bg-[#081F5C]/5 border-l-4 border-[#081F5C] rounded-2xl p-lg md:p-xl flex flex-col md:flex-row items-center gap-lg relative">
+            <div className="md:w-1/4 text-center md:text-left">
+              <span className="text-secondary font-label-caps text-[10px] tracking-[0.2em] mb-xs inline-block">PHILOSOPHY</span>
+              <h3 className="font-display-md text-3xl text-primary italic">“Memory Bags”</h3>
+            </div>
+            <div className="md:w-3/4 md:border-l border-outline-variant/30 md:pl-lg">
+              <p className="font-body-lg text-base md:text-lg text-on-surface leading-relaxed">
+                LOOM is built on these three core values. We create pieces that <span className="text-primary font-bold">preserve the stories, emotions, and personal memories</span> of each customer.
+              </p>
+            </div>
           </div>
         </div>
       </section>
