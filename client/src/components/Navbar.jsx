@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
@@ -12,19 +12,11 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [logo, setLogo] = useState('');
-  const { user, favorites } = useAuth();
+  const { user, favorites, headerLogo } = useAuth();
   const { cartItems } = useCart();
   const navigate = useNavigate();
 
   const cartItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-
-  useEffect(() => {
-    fetch(`${API_BASE}/api/home`)
-      .then(r => r.json())
-      .then(data => setLogo(data.headerLogo))
-      .catch(console.error);
-  }, []);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -42,13 +34,8 @@ const Navbar = () => {
       <div className="flex justify-between items-center px-gutter py-md w-full max-w-container-max mx-auto h-16">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center hover:opacity-80 transition-opacity duration-300 h-8">
-          {logo ? (
-            <img src={getImgUrl(logo)} alt="Loom" className="h-full w-auto object-contain" />
-          ) : (
-            <div className="flex items-center gap-sm">
-              <img src="/avatar.png" alt="Loom" className="w-8 h-8 rounded-full object-cover" />
-              <span className="font-headline-lg text-headline-lg tracking-widest text-[#081F5C]">LOOM</span>
-            </div>
+          {headerLogo && (
+            <img src={getImgUrl(headerLogo)} alt="Loom" className="h-full w-auto object-contain" />
           )}
         </Link>
 

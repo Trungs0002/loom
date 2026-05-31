@@ -9,6 +9,15 @@ export const AuthProvider = ({ children }) => {
     return savedUser ? JSON.parse(savedUser) : null;
   });
   const [favorites, setFavorites] = useState([]);
+  const [headerLogo, setHeaderLogo] = useState('');
+
+  const fetchSettings = useCallback(async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/home`);
+      const data = await res.json();
+      if (data && data.headerLogo) setHeaderLogo(data.headerLogo);
+    } catch (error) { console.error('Error fetching settings:', error); }
+  }, []);
 
   const fetchFavorites = useCallback(async () => {
     if (!user || !user.token) return;
@@ -28,12 +37,13 @@ export const AuthProvider = ({ children }) => {
   }, [user]);
 
   useEffect(() => {
+    fetchSettings();
     if (user && user.token) {
       fetchFavorites();
     } else {
       setFavorites([]);
     }
-  }, [user, fetchFavorites]);
+  }, [user, fetchFavorites, fetchSettings]);
 
   const login = async (name, pass) => {
     const res = await fetch(`${API_BASE}/api/auth/login`, {
@@ -93,7 +103,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, favorites, login, register, logout, toggleFavorite }}>
+    <AuthContext.Provider value={{ user, favorites, headerLogo, fetchSettings, login, register, logout, toggleFavorite }}>
       {children}
     </AuthContext.Provider>
   );

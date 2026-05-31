@@ -1,7 +1,7 @@
 /* eslint-disable */
 import API_BASE, { formatPrice } from '../config';
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { AdminLayout, uploadImage, getImgUrl } from './AdminCategories';
 
@@ -751,12 +751,14 @@ export const AdminAnalytics = () => {
           <div className="flex flex-col gap-lg">
             {data.topProducts.map((p, i) => (
               <div key={i} className="flex items-center gap-md group">
-                <div className="w-16 h-16 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 relative shadow-sm">
+                <Link to={`/products/${p.productDetails._id}`} className="w-16 h-16 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 relative shadow-sm block">
                   <img src={getImgUrl(p.productDetails.colorImages?.[0]?.image || p.productDetails.image)} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />
                   <div className="absolute top-0 left-0 bg-primary text-on-primary text-[8px] px-1 font-bold rounded-br-lg">#{i+1}</div>
-                </div>
+                </Link>
                 <div className="flex-1 overflow-hidden">
-                  <p className="font-bold text-sm text-on-surface truncate uppercase tracking-tighter">{p.productDetails.name}</p>
+                  <Link to={`/products/${p.productDetails._id}`} className="block hover:underline decoration-primary/50">
+                    <p className="font-bold text-sm text-on-surface truncate uppercase tracking-tighter">{p.productDetails.name}</p>
+                  </Link>
                   <p className="text-[10px] text-on-surface-variant uppercase tracking-widest opacity-60">{p.productDetails.category}</p>
                   <div className="flex items-center gap-sm mt-xs">
                     <div className="flex-1 h-1.5 bg-surface-container rounded-full overflow-hidden">

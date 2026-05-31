@@ -7,37 +7,60 @@ import { useAuth } from '../context/AuthContext';
 // ─── Shared Admin Layout ──────────────────────────────────────────────────────
 export const AdminLayout = ({ children }) => {
   const location = useLocation();
-  const { user, logout } = useAuth();
+  const { user, logout, headerLogo } = useAuth();
   const navigate = useNavigate();
   const path = location.pathname;
   const handleLogout = () => { logout(); navigate('/login'); };
 
-  const navItems = [
-    { to: '/admin/dashboard', icon: 'dashboard', label: 'Dashboard' },
-    { to: '/admin/products', icon: 'inventory_2', label: 'Products' },
-    { to: '/admin/home', icon: 'settings', label: 'Website Settings' },
-    { to: '/admin/categories', icon: 'category', label: 'Categories' },
-    { to: '/admin/orders', icon: 'shopping_cart', label: 'Orders' },
-    { to: '/admin/users', icon: 'manage_accounts', label: 'Admins' },
+  const sections = [
+    {
+      title: 'Analytics',
+      items: [
+        { to: '/admin/dashboard', icon: 'dashboard', label: 'Dashboard' },
+        { to: '/admin/orders', icon: 'shopping_cart', label: 'Orders' },
+      ]
+    },
+    {
+      title: 'Catalog',
+      items: [
+        { to: '/admin/products', icon: 'inventory_2', label: 'Products' },
+        { to: '/admin/categories', icon: 'category', label: 'Categories' },
+      ]
+    },
+    {
+      title: 'Management',
+      items: [
+        { to: '/admin/users', icon: 'manage_accounts', label: 'Admins' },
+        { to: '/admin/home', icon: 'settings', label: 'Website Settings' },
+      ]
+    }
   ];
 
   return (
     <div className="bg-background text-on-background min-h-screen flex w-full">
       <aside className="w-64 bg-surface-container-low min-h-screen border-r border-outline-variant/30 px-lg py-xl flex flex-col sticky top-0 h-screen">
         <div className="mb-xxl">
-          <Link to="/" className="flex items-center gap-sm">
-            <img src="/avatar.png" alt="Loom" className="w-8 h-8 rounded-full object-cover" />
-            <span className="font-headline-lg text-headline-lg tracking-widest text-primary">LOOM</span>
+          <Link to="/" className="flex items-center h-8">
+            {headerLogo && (
+              <img src={getImgUrl(headerLogo)} alt="Loom" className="h-full w-auto object-contain" />
+            )}
           </Link>
-          <div className="font-label-caps text-label-caps text-on-surface-variant mt-xs">Admin Panel</div>
+          <div className="font-label-caps text-[10px] font-bold text-on-surface-variant mt-xs tracking-wider opacity-60">Admin Panel</div>
         </div>
-        <nav className="flex-1 flex flex-col gap-sm">
-          {navItems.map(item => (
-            <Link key={item.to} to={item.to}
-              className={`flex items-center gap-md px-md py-sm rounded transition-colors ${path === item.to ? 'bg-primary text-on-primary' : 'text-on-surface-variant hover:bg-surface-variant'}`}>
-              <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
-              <span className="font-label-caps text-label-caps">{item.label}</span>
-            </Link>
+        <nav className="flex-1 flex flex-col gap-xl overflow-y-auto no-scrollbar">
+          {sections.map(section => (
+            <div key={section.title} className="flex flex-col gap-sm">
+              <h3 className="px-md text-[10px] font-bold text-on-surface-variant/40 uppercase tracking-[0.2em]">{section.title}</h3>
+              <div className="flex flex-col gap-xs">
+                {section.items.map(item => (
+                  <Link key={item.to} to={item.to}
+                    className={`flex items-center gap-md px-md py-sm rounded transition-colors ${path === item.to ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:bg-surface-variant'}`}>
+                    <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
+                    <span className="font-label-caps text-[11px] font-medium">{item.label}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
           ))}
         </nav>
         <div className="mt-auto border-t border-outline-variant/30 pt-lg">

@@ -51,7 +51,7 @@ const Checkout = () => {
         ...formData,
         items,
         totalAmount: total,
-        paymentMethod: 'Cash on Delivery'
+        paymentMethod: 'Cash on Delivery (COD)'
       };
 
       const res = await fetch(`${API_BASE}/api/orders`, {
@@ -149,7 +149,7 @@ const Checkout = () => {
             <div className="flex items-center gap-md p-md border border-outline-variant/30 bg-surface-container-low rounded-DEFAULT cursor-not-allowed opacity-90">
               <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 0" }}>local_shipping</span>
               <div className="flex-grow">
-                <h3 className="font-body-md text-body-md font-medium text-primary">Cash on Delivery</h3>
+                <h3 className="font-body-md text-body-md font-medium text-primary">Cash on Delivery (COD)</h3>
                 <p className="font-label-caps text-label-caps text-on-surface-variant lowercase mt-xs">Pay when you receive your order.</p>
               </div>
               <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
