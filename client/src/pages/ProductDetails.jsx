@@ -30,24 +30,30 @@ const ProductDetails = () => {
       const res = await fetch(`${API_BASE}/api/products/${id}`);
       const data = await res.json();
       setProduct(data);
-    } catch (error) { console.error(error); }
+      return data;
+    } catch (error) { 
+      console.error(error); 
+      return null;
+    }
   };
 
   useEffect(() => {
     const init = async () => {
       try {
         setLoading(true);
-        await fetchProduct();
+        const currentProductData = await fetchProduct();
         setSelectedColorIdx(0);
 
-        // Fetch related products
-        const allRes = await fetch(`${API_BASE}/api/products`);
-        const allData = await allRes.json();
-        const related = allData.filter(p => 
-          p._id !== id && 
-          p.tags?.some(tag => product?.tags?.includes(tag))
-        ).slice(0, 4);
-        setRelatedProducts(related);
+        if (currentProductData) {
+          // Fetch related products
+          const allRes = await fetch(`${API_BASE}/api/products`);
+          const allData = await allRes.json();
+          const related = allData.filter(p => 
+            p._id !== id && 
+            p.tags?.some(tag => currentProductData.tags?.includes(tag))
+          ).slice(0, 4);
+          setRelatedProducts(related);
+        }
       } catch (error) {
         console.error('Error fetching product:', error);
       } finally {
