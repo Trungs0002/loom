@@ -14,30 +14,39 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('Description');
   const [selectedColorIdx, setSelectedColorIdx] = useState(0);
+  const [rating, setRating] = useState(5);
+  const [comment, setComment] = useState('');
+  const [submittingReview, setSubmittingReview] = useState(false);
+  const [reviewMessage, setReviewMessage] = useState('');
+  const [showReviewForm, setShowReviewForm] = useState(false);
   const { addToCart } = useCart();
   const { user, favorites, toggleFavorite } = useAuth();
   const navigate = useNavigate();
 
   const isFavorited = favorites.some(f => (f._id || f) === id);
 
+  const fetchProduct = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/products/${id}`);
+      const data = await res.json();
+      setProduct(data);
+    } catch (error) { console.error(error); }
+  };
+
   useEffect(() => {
-    const fetchProduct = async () => {
+    const init = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`${API_BASE}/api/products/${id}`);
-        const data = await res.json();
-        setProduct(data);
+        await fetchProduct();
         setSelectedColorIdx(0);
 
         // Fetch related products
         const allRes = await fetch(`${API_BASE}/api/products`);
         const allData = await allRes.json();
-        
         const related = allData.filter(p => 
           p._id !== id && 
-          p.tags?.some(tag => data.tags?.includes(tag))
+          p.tags?.some(tag => product?.tags?.includes(tag))
         ).slice(0, 4);
-        
         setRelatedProducts(related);
       } catch (error) {
         console.error('Error fetching product:', error);
@@ -45,9 +54,40 @@ const ProductDetails = () => {
         setLoading(false);
       }
     };
-    fetchProduct();
+    init();
     window.scrollTo(0, 0);
   }, [id]);
+
+  const submitReview = async (e) => {
+    e.preventDefault();
+    if (!user) { alert('Please login to write a review'); return; }
+    setSubmittingReview(true);
+    setReviewMessage('');
+    try {
+      const res = await fetch(`${API_BASE}/api/products/${id}/reviews`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        },
+        body: JSON.stringify({ rating, comment })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setReviewMessage('Review submitted successfully!');
+        setComment('');
+        setRating(5);
+        setShowReviewForm(false);
+        fetchProduct(); // Refresh product data to show new review
+      } else {
+        setReviewMessage(data.message || 'Failed to submit review');
+      }
+    } catch (err) {
+      setReviewMessage('An error occurred');
+    } finally {
+      setSubmittingReview(false);
+    }
+  };
 
   if (loading) return <div className="text-center py-xxl text-on-surface-variant">Loading...</div>;
   if (!product) return <div className="text-center py-xxl text-on-surface-variant">Product not found</div>;
@@ -235,7 +275,7 @@ const ProductDetails = () => {
       {/* Tabs */}
       <div className="mt-xxl pt-xl border-t border-outline-variant/20">
         <div className="flex gap-xl border-b border-outline-variant/20 mb-lg">
-          {['Description', 'Details'].map(tab => (
+          {['Description', 'Details', 'Reviews'].map(tab => (
             <button key={tab} onClick={() => setActiveTab(tab)}
               className={`font-label-caps text-label-caps pb-sm transition-colors ${activeTab === tab ? 'text-primary border-b-2 border-primary' : 'text-on-surface-variant hover:text-primary border-b-2 border-transparent'}`}>
               {tab}
@@ -257,6 +297,89 @@ const ProductDetails = () => {
               {product.weight && <p><span className="font-bold text-primary">Weight:</span> {product.weight}</p>}
               {product.careInstructions && <p><span className="font-bold text-primary">Care instructions:</span> {product.careInstructions}</p>}
               {product.tags?.length > 0 && <p><span className="font-bold text-primary">Tags:</span> {product.tags.join(', ')}</p>}
+            </div>
+          )}
+          {activeTab === 'Reviews' && (
+            <div className="text-on-surface-variant">
+              {/* Review Summary */}
+              <div className="flex flex-col md:flex-row md:items-center gap-xl mb-xl">
+                <div className="text-center md:text-left">
+                  <div className="text-5xl font-bold text-primary mb-xs">{product.rating?.toFixed(1) || '0.0'}</div>
+                  <div className="flex gap-xs justify-center md:justify-start text-primary mb-xs">
+                    {[1, 2, 3, 4, 5].map(star => (
+                      <span key={star} className="material-symbols-outlined" style={{ fontVariationSettings: star <= product.rating ? "'FILL' 1" : "'FILL' 0" }}>star</span>
+                    ))}
+                  </div>
+                  <p className="text-xs font-label-caps opacity-70 italic">Based on {product.numReviews || 0} reviews</p>
+                </div>
+                <div className="h-px w-full md:w-px md:h-16 bg-outline-variant/30"></div>
+                <div className="flex-grow">
+                  {!showReviewForm ? (
+                    <>
+                      <p className="font-body-md italic mb-md opacity-70 text-sm">
+                        {product.reviews?.length > 0 ? "Share your thoughts with other customers." : "No reviews yet. Be the first to share your experience with this LOOM bag!"}
+                      </p>
+                      <button 
+                        onClick={() => setShowReviewForm(true)}
+                        className="bg-surface-container border border-outline-variant text-primary font-label-caps text-label-caps px-lg py-sm rounded-full hover:bg-primary hover:text-on-primary transition-all shadow-sm"
+                      >
+                        Write a Review
+                      </button>
+                    </>
+                  ) : (
+                    <form onSubmit={submitReview} className="flex flex-col gap-md bg-surface-container/50 p-lg rounded-2xl border border-outline-variant/30">
+                      <div className="flex items-center justify-between">
+                        <span className="font-label-caps text-label-caps text-primary">Your Rating</span>
+                        <div className="flex gap-xs text-primary">
+                          {[1, 2, 3, 4, 5].map(star => (
+                            <button key={star} type="button" onClick={() => setRating(star)} className="hover:scale-110 transition-transform">
+                              <span className="material-symbols-outlined" style={{ fontVariationSettings: star <= rating ? "'FILL' 1" : "'FILL' 0" }}>star</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      <textarea
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        placeholder="Write your review here..."
+                        className="w-full bg-surface-container border border-outline-variant/50 rounded-xl px-md py-sm text-sm outline-none focus:border-primary min-h-[100px] resize-none"
+                        required
+                      />
+                      {reviewMessage && <p className={`text-xs ${reviewMessage.includes('successfully') ? 'text-primary' : 'text-error'}`}>{reviewMessage}</p>}
+                      <div className="flex gap-md">
+                        <button type="submit" disabled={submittingReview} className="bg-primary text-on-primary font-label-caps text-label-caps px-lg py-sm rounded-full hover:opacity-90 transition-opacity disabled:opacity-50 flex-grow">
+                          {submittingReview ? 'Submitting...' : 'Submit Review'}
+                        </button>
+                        <button type="button" onClick={() => setShowReviewForm(false)} className="bg-transparent border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-lg py-sm rounded-full hover:bg-surface-container transition-colors">
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
+                  )}
+                </div>
+              </div>
+
+              {/* Reviews List */}
+              {product.reviews?.length > 0 && (
+                <div className="space-y-lg">
+                  {product.reviews.map((rev, i) => (
+                    <div key={i} className="border-t border-outline-variant/20 pt-lg">
+                      <div className="flex justify-between items-start mb-sm">
+                        <div>
+                          <p className="font-headline-sm text-primary">{rev.name}</p>
+                          <div className="flex gap-xs text-primary mt-xs">
+                            {[1, 2, 3, 4, 5].map(star => (
+                              <span key={star} className="material-symbols-outlined text-sm" style={{ fontVariationSettings: star <= rev.rating ? "'FILL' 1" : "'FILL' 0" }}>star</span>
+                            ))}
+                          </div>
+                        </div>
+                        <span className="text-[10px] font-label-caps opacity-50">{new Date(rev.createdAt).toLocaleDateString('vi-VN')}</span>
+                      </div>
+                      <p className="font-body-md text-on-surface-variant text-sm leading-relaxed">{rev.comment}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>

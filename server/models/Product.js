@@ -5,10 +5,22 @@ const colorImageSchema = new mongoose.Schema({
   image: { type: String, required: true }
 }, { _id: false });
 
+const reviewSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  rating: { type: Number, required: true },
+  comment: { type: String, required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' }
+}, { timestamps: true });
+
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
   price: { type: Number, required: true },
   category: { type: String, required: true },
+  // ... rest of fields ...
+  reviews: [reviewSchema],
+  rating: { type: Number, required: true, default: 0 },
+  numReviews: { type: Number, required: true, default: 0 },
+  // ... rest of fields ...
   // Legacy single image (used as fallback if colorImages not set)
   image: { type: String },
   // Color-specific images
