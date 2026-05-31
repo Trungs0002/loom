@@ -579,7 +579,7 @@ export const AdminUsers = () => {
         <p className="text-sm text-on-surface-variant mt-xs">Create and manage administrator accounts</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2xl">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-xl lg:gap-xxl">
         {/* Create Form */}
         <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-xl shadow-sm h-fit">
           <h2 className="font-title-lg text-title-lg mb-lg flex items-center gap-sm">
