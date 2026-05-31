@@ -696,7 +696,7 @@ export const AdminAnalytics = () => {
               <div className="w-10 h-10 bg-primary/5 rounded-lg flex items-center justify-center shadow-sm">
                 <span className="material-symbols-outlined text-primary text-[24px]">{kpi.icon}</span>
               </div>
-              <span className="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-widest">Live Stats</span>
+              <span className="text-[9px] text-on-surface-variant/40 uppercase tracking-widest">Live Stats</span>
             </div>
             <div>
               <p className="font-label-caps text-[10px] text-on-surface-variant mb-xs uppercase tracking-tight">{kpi.label}</p>
@@ -737,7 +737,7 @@ export const AdminAnalytics = () => {
               );
             })}
           </div>
-          <div className="mt-12 text-center text-[10px] font-black text-on-surface-variant/40 uppercase tracking-widest">Monthly Gross Revenue Comparison</div>
+          <div className="mt-12 text-center text-[10px] text-on-surface-variant/40 uppercase tracking-widest">Monthly Gross Revenue Comparison</div>
         </div>
 
         {/* Top Selling Products */}
@@ -751,8 +751,8 @@ export const AdminAnalytics = () => {
           <div className="flex flex-col gap-lg">
             {data.topProducts.map((p, i) => (
               <div key={i} className="flex items-center gap-md group">
-                <div className="w-12 h-16 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 relative shadow-sm">
-                  <img src={getImgUrl(p.productDetails.colorImages?.[0]?.image || p.productDetails.image)} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <div className="w-16 h-16 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 relative shadow-sm">
+                  <img src={getImgUrl(p.productDetails.colorImages?.[0]?.image || p.productDetails.image)} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />
                   <div className="absolute top-0 left-0 bg-primary text-on-primary text-[8px] px-1 font-bold rounded-br-lg">#{i+1}</div>
                 </div>
                 <div className="flex-1 overflow-hidden">
@@ -762,7 +762,7 @@ export const AdminAnalytics = () => {
                     <div className="flex-1 h-1.5 bg-surface-container rounded-full overflow-hidden">
                       <div className="h-full bg-primary" style={{ width: `${(p.count / data.topProducts[0].count) * 100}%` }}></div>
                     </div>
-                    <span className="text-[10px] font-black text-primary uppercase">{p.count} Sold</span>
+                    <span className="text-[10px] text-primary uppercase">{p.count} Sold</span>
                   </div>
                 </div>
               </div>
