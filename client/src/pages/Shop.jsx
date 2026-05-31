@@ -12,12 +12,14 @@ const Shop = () => {
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCategory = searchParams.get('category') || '';
+  const activeBagType = searchParams.get('bagType') || '';
   const initialSearch = searchParams.get('search') || '';
   const initialSort = searchParams.get('sort') || '';
   const initialPriceRange = searchParams.get('priceRange') || '';
   const [search, setSearch] = useState(initialSearch);
   const [sortOrder, setSortOrder] = useState(initialSort);
   const [priceRange, setPriceRange] = useState(initialPriceRange);
+  const [bagType, setBagType] = useState(activeBagType);
   const [categories, setCategories] = useState([]);
   const { user, favorites, toggleFavorite } = useAuth();
   const navigate = useNavigate();
@@ -30,11 +32,18 @@ const Shop = () => {
     { label: 'Over 2,000,000 VND', value: '2000000-999999999' },
   ];
 
-  // Sync search, sort, and price range state with searchParams if they change from outside
+  // Dynamic bag types from tags - Only include tags ending with "bag"
+  const bagTypes = Array.from(new Set(
+    products.flatMap(p => p.tags || [])
+      .filter(tag => tag.toLowerCase().endsWith('bag'))
+  )).sort();
+
+  // Sync state with searchParams
   useEffect(() => {
     setSearch(searchParams.get('search') || '');
     setSortOrder(searchParams.get('sort') || '');
     setPriceRange(searchParams.get('priceRange') || '');
+    setBagType(searchParams.get('bagType') || '');
   }, [searchParams]);
 
   useEffect(() => {
@@ -65,6 +74,7 @@ const Shop = () => {
     if (search) params.search = search;
     if (sortOrder) params.sort = sortOrder;
     if (priceRange) params.priceRange = priceRange;
+    if (bagType) params.bagType = bagType;
     
     setSearchParams({ ...params, ...newParams });
   };
@@ -91,9 +101,16 @@ const Shop = () => {
     updateSearchParams({ priceRange: val });
   };
 
+  const handleBagTypeChange = (e) => {
+    const val = e.target.value;
+    setBagType(val);
+    updateSearchParams({ bagType: val });
+  };
+
   const filtered = products.filter(p => {
     const matchCat = !activeCategory || p.category?.toLowerCase() === activeCategory.toLowerCase();
     const matchSearch = !search || p.name.toLowerCase().includes(search.toLowerCase());
+    const matchBagType = !bagType || p.tags?.some(t => t.toLowerCase() === bagType.toLowerCase());
     
     let matchPrice = true;
     if (priceRange) {
@@ -101,7 +118,7 @@ const Shop = () => {
       matchPrice = p.price >= min && p.price <= max;
     }
     
-    return matchCat && matchSearch && matchPrice;
+    return matchCat && matchSearch && matchPrice && matchBagType;
   });
 
   // Apply Sorting
@@ -160,6 +177,16 @@ const Shop = () => {
         </div>
         {/* Search + count */}
         <div className="flex flex-wrap items-center gap-md">
+          <select
+            value={bagType}
+            onChange={handleBagTypeChange}
+            className="bg-surface border border-outline-variant/50 rounded-full px-md py-xs text-sm text-on-surface focus:border-primary outline-none cursor-pointer capitalize"
+          >
+            <option value="">All Types</option>
+            {bagTypes.map(type => (
+              <option key={type} value={type}>{type}</option>
+            ))}
+          </select>
           <select
             value={priceRange}
             onChange={handlePriceRangeChange}
