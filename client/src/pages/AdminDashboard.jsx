@@ -5,129 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { AdminLayout, uploadImage, getImgUrl } from './AdminCategories';
 
-// ─── Admin Analytics Dashboard ────────────────────────────────────────────────
-export const AdminAnalytics = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const { user } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user || user.role !== 'admin') { navigate('/login'); return; }
-    fetch(`${API_BASE}/api/orders/dashboard-stats`, {
-      headers: { Authorization: `Bearer ${user.token}` }
-    })
-      .then(r => r.json())
-      .then(d => setData(d))
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, [user, navigate]);
-
-  if (loading) return <AdminLayout><div className="text-center py-xxl">Loading Analytics...</div></AdminLayout>;
-  if (!data) return <AdminLayout><div className="text-center py-xxl text-error">Failed to load data</div></AdminLayout>;
-
-  // Chart Logic (Simple SVG Bar Chart)
-  const maxSale = Math.max(...data.monthlySales.map(m => m.amount), 1);
-  const getMonthLabel = (m) => new Date(0, m-1).toLocaleString('en-US', { month: 'short' });
-
-  return (
-    <AdminLayout>
-      <div className="mb-xxl">
-        <h1 className="font-headline-lg text-headline-lg text-primary">Business Overview</h1>
-        <p className="text-sm text-on-surface-variant mt-xs">Real-time performance metrics and sales trends</p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg mb-xxl">
-        {[
-          { label: 'Total Revenue', value: formatPrice(data.totalRevenue), icon: 'payments' },
-          { label: 'Total Orders', value: data.ordersCount, icon: 'shopping_bag' },
-          { label: 'Total Products', value: data.productsCount, icon: 'inventory_2' },
-          { label: 'Total Users', value: data.usersCount, icon: 'group' }
-        ].map((kpi, i) => (
-          <div key={i} className="bg-surface-container-lowest p-xl rounded-3xl border border-outline-variant/30 shadow-sm flex flex-col gap-sm">
-            <div className="flex items-center justify-between mb-xs">
-              <div className="w-10 h-10 bg-primary/5 rounded-xl flex items-center justify-center shadow-sm">
-                <span className="material-symbols-outlined text-primary text-[24px]">{kpi.icon}</span>
-              </div>
-              <span className="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-widest">Live Stats</span>
-            </div>
-            <div>
-              <p className="font-label-caps text-[10px] text-on-surface-variant mb-xs uppercase tracking-tight">{kpi.label}</p>
-              <h3 className="text-2xl font-bold text-on-surface">{kpi.value}</h3>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-xl">
-        {/* Sales Trend Chart */}
-        <div className="lg:col-span-8 bg-surface-container-lowest border border-outline-variant/30 rounded-[2.5rem] p-xl md:p-xxl shadow-sm">
-          <div className="flex items-center justify-between mb-xl">
-            <h2 className="font-title-lg text-title-lg text-primary flex items-center gap-sm">
-              <span className="material-symbols-outlined">trending_up</span>
-              Sales Trend (Last 6 Months)
-            </h2>
-          </div>
-          
-          <div className="relative h-64 flex items-end gap-md md:gap-xl px-md border-b border-l border-outline-variant/30 pb-2">
-            {data.monthlySales.map((m, i) => {
-              const height = (m.amount / maxSale) * 100;
-              return (
-                <div key={i} className="flex-1 flex flex-col items-center group relative h-full justify-end">
-                  {/* Tooltip */}
-                  <div className="absolute bottom-full mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-primary text-on-primary text-[10px] py-1 px-2 rounded whitespace-nowrap z-10 pointer-events-none">
-                    {formatPrice(m.amount)}
-                  </div>
-                  {/* Bar */}
-                  <div 
-                    className="w-full bg-primary/20 group-hover:bg-primary rounded-t-lg transition-all duration-500 ease-out relative overflow-hidden"
-                    style={{ height: `${height}%` }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent"></div>
-                  </div>
-                  {/* Label */}
-                  <span className="absolute -bottom-8 text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">
-                    {getMonthLabel(m._id.month)} '{String(m._id.year).slice(-2)}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-          <div className="mt-12 text-center text-xs text-on-surface-variant opacity-60 italic">Monthly gross revenue including discounts</div>
-        </div>
-
-        {/* Top Selling Products */}
-        <div className="lg:col-span-4 bg-surface-container-lowest border border-outline-variant/30 rounded-[2.5rem] p-xl shadow-sm h-fit">
-          <h2 className="font-title-lg text-title-lg text-primary mb-xl flex items-center gap-sm">
-            <span className="material-symbols-outlined">workspace_premium</span>
-            Top Sellers
-          </h2>
-          <div className="flex flex-col gap-lg">
-            {data.topProducts.map((p, i) => (
-              <div key={i} className="flex items-center gap-md group">
-                <div className="w-12 h-16 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 relative">
-                  <img src={getImgUrl(p.productDetails.colorImages?.[0]?.image || p.productDetails.image)} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                  <div className="absolute top-0 left-0 bg-primary text-on-primary text-[8px] px-1 font-bold">#{i+1}</div>
-                </div>
-                <div className="flex-1 overflow-hidden">
-                  <p className="font-medium text-sm text-on-surface truncate">{p.productDetails.name}</p>
-                  <p className="text-[10px] text-on-surface-variant uppercase tracking-widest">{p.productDetails.category}</p>
-                  <div className="flex items-center gap-sm mt-xs">
-                    <div className="flex-1 h-1 bg-surface-container rounded-full overflow-hidden">
-                      <div className="h-full bg-primary" style={{ width: `${(p.count / data.topProducts[0].count) * 100}%` }}></div>
-                    </div>
-                    <span className="text-[10px] font-bold text-primary">{p.count} sold</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </AdminLayout>
-  );
-};
-
 // ─── Color Image Row ───────────────────────────────────────────────────────────
 const ColorImageRow = ({ entry, onChange, onRemove, token }) => {
   const [uploading, setUploading] = useState(false);
@@ -461,6 +338,8 @@ export const AdminOrders = () => {
   const [stats, setStats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -494,157 +373,131 @@ export const AdminOrders = () => {
     if (res.ok) setOrders(prev => prev.map(o => o._id === orderId ? { ...o, status } : o));
   };
 
-  const fmt = d => new Date(d).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  const filteredOrders = orders.filter(o => {
+    const matchesSearch = 
+      o._id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      o.recipientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      o.phone.includes(searchTerm);
+    const matchesStatus = statusFilter === 'all' || o.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
 
-  const getMonthName = (monthNumber) => {
-    const date = new Date();
-    date.setMonth(monthNumber - 1);
-    return date.toLocaleString('en-US', { month: 'long' });
-  };
+  const fmt = d => new Date(d).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
   return (
     <AdminLayout>
-      <div className="mb-2xl">
+      <div className="mb-xl">
         <h1 className="font-headline-lg text-headline-lg text-primary">Orders</h1>
-        <p className="text-sm text-on-surface-variant mt-xs">{orders.length} total orders managed</p>
+        <p className="text-sm text-on-surface-variant mt-xs">Manage and track customer purchases</p>
       </div>
 
       {!loading && stats.length > 0 && (
-        <section className="mb-xxl border-b border-outline-variant/20 pb-xxl">
-          <h2 className="font-title-lg text-title-lg mb-xl flex items-center gap-sm">
-            <span className="material-symbols-outlined">analytics</span>
-            Sales Performance
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-xl">
-            <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-3xl p-xl shadow-sm flex flex-col justify-between">
-              <div>
-                <p className="font-label-caps text-label-caps text-on-surface-variant mb-sm">Life-time Revenue</p>
-                <h3 className="text-3xl font-bold text-on-surface">
-                  {formatPrice(stats.reduce((acc, curr) => acc + curr.totalSales, 0))}
-                </h3>
-              </div>
-              <p className="text-xs text-on-surface-variant mt-lg flex items-center gap-xs">
-                <span className="material-symbols-outlined text-[14px]">payments</span>
-                All-time business total
-              </p>
+        <section className="mb-xxl">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+            <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-lg shadow-sm">
+              <p className="text-[10px] font-label-caps text-on-surface-variant mb-1">Total Revenue</p>
+              <h3 className="text-xl font-bold text-primary">{formatPrice(stats.reduce((acc, curr) => acc + curr.totalSales, 0))}</h3>
             </div>
-
-            <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-3xl p-xl shadow-sm flex flex-col justify-between">
-              <div>
-                <p className="font-label-caps text-label-caps text-on-surface-variant mb-sm">
-                  {getMonthName(stats[0]?._id.month)} {stats[0]?._id.year}
-                </p>
-                <h3 className="text-3xl font-bold text-on-surface">
-                  {formatPrice(stats[0]?.totalSales || 0)}
-                </h3>
-              </div>
-              <p className="text-xs text-secondary mt-lg font-bold flex items-center gap-xs">
-                <span className="material-symbols-outlined text-[14px]">shopping_cart</span>
-                {stats[0]?.orderCount || 0} Orders this month
-              </p>
+            <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-lg shadow-sm">
+              <p className="text-[10px] font-label-caps text-on-surface-variant mb-1">Orders this month</p>
+              <h3 className="text-xl font-bold text-on-surface">{stats[0]?.orderCount || 0} Orders</h3>
             </div>
-
-            <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-3xl p-xl shadow-sm flex flex-col justify-between md:col-span-2 lg:col-span-1">
-              <div>
-                <p className="font-label-caps text-label-caps text-on-surface-variant mb-sm">Avg. Order Value</p>
-                <h3 className="text-3xl font-bold text-on-surface">
-                  {formatPrice(
-                    stats.reduce((acc, curr) => acc + curr.totalSales, 0) / 
-                    stats.reduce((acc, curr) => acc + curr.orderCount, 0) || 0
-                  )}
-                </h3>
-              </div>
-              <p className="text-xs text-on-surface-variant mt-lg flex items-center gap-xs">
-                <span className="material-symbols-outlined text-[14px]">trending_up</span>
-                Efficiency per transaction
-              </p>
+            <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-lg shadow-sm">
+              <p className="text-[10px] font-label-caps text-on-surface-variant mb-1">Avg. Order Value</p>
+              <h3 className="text-xl font-bold text-on-surface">
+                {formatPrice(stats.reduce((acc, curr) => acc + curr.totalSales, 0) / stats.reduce((acc, curr) => acc + curr.orderCount, 0) || 0)}
+              </h3>
             </div>
           </div>
         </section>
       )}
 
       <section>
-        <h2 className="font-title-lg text-title-lg mb-lg flex items-center gap-sm">
-          <span className="material-symbols-outlined">list_alt</span>
-          Recent Orders
-        </h2>
-        {loading ? (
-          <div className="flex flex-col items-center justify-center py-20 gap-4">
-            <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
-            <p className="text-on-surface-variant animate-pulse">Loading orders...</p>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-md mb-lg">
+          <div className="relative w-full md:w-80">
+            <span className="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+            <input value={searchTerm} onChange={e => setSearchTerm(e.target.value)} placeholder="Search ID, Name, Phone..."
+              className="w-full bg-surface-container border border-outline-variant/50 rounded px-xl py-sm text-sm text-on-surface focus:border-primary outline-none" />
           </div>
-        ) : orders.length === 0 ? (
-          <div className="text-center py-20 bg-surface-container-lowest border border-outline-variant/30 rounded-3xl">
-            <p className="text-on-surface-variant">No orders yet.</p>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-lg">
-            {orders.map(order => (
-              <div key={order._id} className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden shadow-sm">
-                <div className="flex items-center justify-between px-lg py-md cursor-pointer hover:bg-surface-container-low/50 transition-colors"
-                  onClick={() => setExpanded(expanded === order._id ? null : order._id)}>
-                  <div className="flex items-center gap-xl">
-                    <div>
-                      <div className="font-medium text-on-surface text-sm">#{order._id.slice(-8).toUpperCase()}</div>
-                      <div className="text-xs text-on-surface-variant">{fmt(order.createdAt)}</div>
-                    </div>
-                    <div>
-                      <div className="font-medium text-on-surface text-sm">{order.recipientName}</div>
-                      <div className="text-xs text-on-surface-variant">{order.phone}</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-lg">
-                    <div className="text-right">
-                      <div className="font-medium text-primary">{formatPrice(order.totalAmount)}</div>
-                      <div className="text-xs text-on-surface-variant">{order.items?.length} item(s)</div>
-                    </div>
-                    <select value={order.status}
-                      onChange={e => { e.stopPropagation(); updateStatus(order._id, e.target.value); }}
-                      onClick={e => e.stopPropagation()}
-                      className={`font-label-caps text-[10px] px-2 py-1 rounded border-0 outline-none cursor-pointer ${statusColors[order.status] || ''}`}>
-                      {['pending', 'processing', 'shipped', 'delivered', 'cancelled'].map(s => (
-                        <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>
-                      ))}
-                    </select>
-                    <span className="material-symbols-outlined text-on-surface-variant text-[20px] transition-transform"
-                      style={{ transform: expanded === order._id ? 'rotate(180deg)' : 'none' }}>expand_more</span>
-                  </div>
-                </div>
-                {expanded === order._id && (
-                  <div className="border-t border-outline-variant/20 px-lg py-md bg-surface-container-low/30">
-                    <div className="grid grid-cols-2 gap-xl mb-lg">
-                      <div>
-                        <div className="font-label-caps text-label-caps text-on-surface-variant mb-xs">Shipping Address</div>
-                        <div className="text-sm text-on-surface">{order.address}</div>
-                        {order.note && <div className="text-xs text-on-surface-variant mt-xs italic">Note: {order.note}</div>}
-                      </div>
-                      <div>
-                        <div className="font-label-caps text-label-caps text-on-surface-variant mb-xs">Payment</div>
-                        <div className="text-sm text-on-surface">{order.paymentMethod}</div>
-                      </div>
-                    </div>
-                    <div className="font-label-caps text-label-caps text-on-surface-variant mb-sm">Order Items</div>
-                    <div className="flex flex-col gap-sm">
-                      {order.items?.map((item, i) => (
-                        <div key={i} className="flex items-center gap-md bg-surface-container rounded-lg px-md py-sm">
-                          {item.product?.image && <img src={getImgUrl(item.product.image)} alt={item.product?.name} className="w-10 h-10 rounded object-cover border border-outline-variant/30" />}
-                          <div className="flex-1">
-                            <div className="text-sm font-medium text-on-surface">{item.product?.name || 'Unknown'}</div>
-                            <div className="text-xs text-on-surface-variant">Qty: {item.quantity}</div>
-                          </div>
-                          <div className="font-medium text-primary text-sm">{formatPrice(item.price * item.quantity)}</div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex justify-end mt-md pt-md border-t border-outline-variant/20">
-                      <div className="font-headline-md text-headline-md text-primary">Total: {formatPrice(order.totalAmount)}</div>
-                    </div>
-                  </div>
-                )}
-              </div>
+          
+          <div className="flex gap-xs overflow-x-auto no-scrollbar pb-xs md:pb-0">
+            {['all', 'pending', 'processing', 'shipped', 'delivered', 'cancelled'].map(s => (
+              <button key={s} onClick={() => setStatusFilter(s)}
+                className={`px-4 py-1.5 rounded text-[10px] font-label-caps uppercase transition-colors whitespace-nowrap ${statusFilter === s ? 'bg-primary text-on-primary' : 'bg-surface-container text-on-surface-variant hover:bg-surface-variant'}`}>
+                {s}
+              </button>
             ))}
           </div>
-        )}
+        </div>
+
+        {loading ? <div className="text-center py-xl text-on-surface-variant">Loading...</div>
+          : filteredOrders.length === 0 ? <div className="text-center py-xl bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-on-surface-variant">No orders found.</div>
+          : (
+            <div className="flex flex-col gap-sm">
+              {filteredOrders.map(order => (
+                <div key={order._id} className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden hover:border-primary/30 transition-colors">
+                  <div className="flex items-center justify-between px-lg py-md cursor-pointer hover:bg-surface-container-low/30 transition-colors"
+                    onClick={() => setExpanded(expanded === order._id ? null : order._id)}>
+                    <div className="flex items-center gap-xl">
+                      <div>
+                        <div className="font-bold text-on-surface text-sm uppercase">#{order._id.slice(-8)}</div>
+                        <div className="text-[11px] text-on-surface-variant">{fmt(order.createdAt)}</div>
+                      </div>
+                      <div>
+                        <div className="font-medium text-on-surface text-sm">{order.recipientName}</div>
+                        <div className="text-[11px] text-on-surface-variant">{order.phone}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-lg">
+                      <div className="text-right hidden sm:block">
+                        <div className="font-bold text-primary text-sm">{formatPrice(order.totalAmount)}</div>
+                        <div className="text-[10px] text-on-surface-variant">{order.items?.length} item(s)</div>
+                      </div>
+                      <select value={order.status}
+                        onChange={e => { e.stopPropagation(); updateStatus(order._id, e.target.value); }}
+                        onClick={e => e.stopPropagation()}
+                        className={`font-label-caps text-[10px] px-3 py-1 rounded border border-outline-variant/30 outline-none cursor-pointer ${statusColors[order.status] || ''}`}>
+                        {['pending', 'processing', 'shipped', 'delivered', 'cancelled'].map(s => (
+                          <option key={s} value={s}>{s.toUpperCase()}</option>
+                        ))}
+                      </select>
+                      <span className="material-symbols-outlined text-on-surface-variant text-[20px] transition-transform"
+                        style={{ transform: expanded === order._id ? 'rotate(180deg)' : 'none' }}>expand_more</span>
+                    </div>
+                  </div>
+                  {expanded === order._id && (
+                    <div className="border-t border-outline-variant/20 px-lg py-md bg-surface-container-low/20">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-lg mb-lg">
+                        <div>
+                          <div className="font-label-caps text-[10px] text-on-surface-variant mb-xs">Shipping Information</div>
+                          <div className="text-sm text-on-surface font-medium">{order.recipientName}</div>
+                          <div className="text-xs text-on-surface-variant mt-xs leading-relaxed">{order.address}</div>
+                          {order.note && <div className="mt-sm text-xs italic text-secondary-container">Note: {order.note}</div>}
+                        </div>
+                        <div>
+                          <div className="font-label-caps text-[10px] text-on-surface-variant mb-xs">Payment & Details</div>
+                          <div className="text-sm text-on-surface">{order.paymentMethod}</div>
+                          <div className="text-xs text-on-surface-variant mt-xs">ID: {order._id}</div>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-xs">
+                        {order.items?.map((item, i) => (
+                          <div key={i} className="flex items-center gap-md bg-surface-container/50 rounded-lg px-md py-sm">
+                            {item.product?.image && <img src={getImgUrl(item.product.image)} alt={item.product?.name} className="w-10 h-10 rounded object-cover" />}
+                            <div className="flex-1 overflow-hidden">
+                              <div className="text-sm font-medium text-on-surface truncate">{item.product?.name || 'Unknown'}</div>
+                              <div className="text-[10px] text-on-surface-variant">Qty: {item.quantity}</div>
+                            </div>
+                            <div className="font-bold text-primary text-sm">{formatPrice(item.price * item.quantity)}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
       </section>
     </AdminLayout>
   );
@@ -789,6 +642,129 @@ export const AdminUsers = () => {
                     <span className="material-symbols-outlined text-[20px]">delete</span>
                   </button>
                 )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </AdminLayout>
+  );
+};
+
+// ─── Admin Analytics Dashboard ────────────────────────────────────────────────
+export const AdminAnalytics = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user || user.role !== 'admin') { navigate('/login'); return; }
+    fetch(`${API_BASE}/api/orders/dashboard-stats`, {
+      headers: { Authorization: `Bearer ${user.token}` }
+    })
+      .then(r => r.json())
+      .then(d => setData(d))
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, [user, navigate]);
+
+  if (loading) return <AdminLayout><div className="text-center py-xxl text-on-surface-variant">Loading analytics...</div></AdminLayout>;
+  if (!data) return <AdminLayout><div className="text-center py-xxl text-error font-bold">Failed to load analytics data.</div></AdminLayout>;
+
+  // Chart Logic (Simple SVG Bar Chart)
+  const maxSale = Math.max(...data.monthlySales.map(m => m.amount), 1);
+  const getMonthLabel = (m) => new Date(0, m-1).toLocaleString('en-US', { month: 'short' });
+
+  return (
+    <AdminLayout>
+      <div className="mb-2xl">
+        <h1 className="font-headline-lg text-headline-lg text-primary">Dashboard Overview</h1>
+        <p className="text-sm text-on-surface-variant mt-xs">Real-time performance metrics and sales trends</p>
+      </div>
+
+      {/* KPI Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg mb-xxl">
+        {[
+          { label: 'Total Revenue', value: formatPrice(data.totalRevenue), icon: 'payments' },
+          { label: 'Total Orders', value: data.ordersCount, icon: 'shopping_bag' },
+          { label: 'Total Products', value: data.productsCount, icon: 'inventory_2' },
+          { label: 'Total Users', value: data.usersCount, icon: 'group' }
+        ].map((kpi, i) => (
+          <div key={i} className="bg-surface-container-lowest p-xl rounded-3xl border border-outline-variant/30 shadow-sm flex flex-col gap-sm hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between mb-xs">
+              <div className="w-10 h-10 bg-primary/5 rounded-xl flex items-center justify-center shadow-sm">
+                <span className="material-symbols-outlined text-primary text-[24px]">{kpi.icon}</span>
+              </div>
+              <span className="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-widest">Live Stats</span>
+            </div>
+            <div>
+              <p className="font-label-caps text-[10px] text-on-surface-variant mb-xs uppercase tracking-tight">{kpi.label}</p>
+              <h3 className="text-2xl font-black text-on-surface tracking-tighter">{kpi.value}</h3>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-xl">
+        {/* Sales Trend Chart */}
+        <div className="lg:col-span-8 bg-surface-container-lowest border border-outline-variant/30 rounded-[2.5rem] p-xl md:p-xxl shadow-sm flex flex-col">
+          <div className="flex items-center justify-between mb-xl">
+            <h2 className="font-title-lg text-title-lg text-primary flex items-center gap-sm">
+              <span className="material-symbols-outlined">trending_up</span>
+              Sales Trend (6 Months)
+            </h2>
+          </div>
+          
+          <div className="flex-grow flex items-end gap-md md:gap-xl px-md border-b border-l border-outline-variant/30 pb-2 h-64 min-h-[250px]">
+            {data.monthlySales.map((m, i) => {
+              const height = (m.amount / maxSale) * 100;
+              return (
+                <div key={i} className="flex-1 flex flex-col items-center group relative h-full justify-end">
+                  <div className="absolute bottom-full mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-primary text-on-primary text-[10px] py-1 px-2 rounded whitespace-nowrap z-10 pointer-events-none shadow-lg">
+                    {formatPrice(m.amount)}
+                  </div>
+                  <div 
+                    className="w-full bg-primary/10 group-hover:bg-primary/90 rounded-t-xl transition-all duration-700 ease-out relative overflow-hidden"
+                    style={{ height: `${height}%` }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent"></div>
+                  </div>
+                  <span className="absolute -bottom-8 text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">
+                    {getMonthLabel(m._id.month)} '{String(m._id.year).slice(-2)}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-12 text-center text-[10px] font-black text-on-surface-variant/40 uppercase tracking-widest">Monthly Gross Revenue Comparison</div>
+        </div>
+
+        {/* Top Selling Products */}
+        <div className="lg:col-span-4 bg-surface-container-lowest border border-outline-variant/30 rounded-[2.5rem] p-xl shadow-sm h-fit">
+          <div className="flex items-center justify-between mb-xl">
+            <h2 className="font-title-lg text-title-lg text-primary flex items-center gap-sm">
+              <span className="material-symbols-outlined">workspace_premium</span>
+              Top Sellers
+            </h2>
+          </div>
+          <div className="flex flex-col gap-lg">
+            {data.topProducts.map((p, i) => (
+              <div key={i} className="flex items-center gap-md group">
+                <div className="w-12 h-16 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 relative shadow-sm">
+                  <img src={getImgUrl(p.productDetails.colorImages?.[0]?.image || p.productDetails.image)} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <div className="absolute top-0 left-0 bg-primary text-on-primary text-[8px] px-1 font-bold rounded-br-lg">#{i+1}</div>
+                </div>
+                <div className="flex-1 overflow-hidden">
+                  <p className="font-bold text-sm text-on-surface truncate uppercase tracking-tighter">{p.productDetails.name}</p>
+                  <p className="text-[10px] text-on-surface-variant uppercase tracking-widest opacity-60">{p.productDetails.category}</p>
+                  <div className="flex items-center gap-sm mt-xs">
+                    <div className="flex-1 h-1.5 bg-surface-container rounded-full overflow-hidden">
+                      <div className="h-full bg-primary" style={{ width: `${(p.count / data.topProducts[0].count) * 100}%` }}></div>
+                    </div>
+                    <span className="text-[10px] font-black text-primary uppercase">{p.count} Sold</span>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
