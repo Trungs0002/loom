@@ -32,11 +32,17 @@ const Shop = () => {
     { label: 'Over 2,000,000 VND', value: '2000000-999999999' },
   ];
 
-  // Dynamic bag types from tags - Only include tags ending with "bag"
-  const bagTypes = Array.from(new Set(
-    products.flatMap(p => p.tags || [])
-      .filter(tag => tag.toLowerCase().endsWith('bag'))
-  )).sort();
+  // Dynamic bag types from tags - Only include tags ending with "bag" AND having >= 3 products
+  const bagTagCounts = products.flatMap(p => p.tags || [])
+    .filter(tag => tag.toLowerCase().endsWith('bag'))
+    .reduce((acc, tag) => {
+      acc[tag] = (acc[tag] || 0) + 1;
+      return acc;
+    }, {});
+
+  const bagTypes = Object.keys(bagTagCounts)
+    .filter(tag => bagTagCounts[tag] >= 3)
+    .sort();
 
   // Sync state with searchParams
   useEffect(() => {
