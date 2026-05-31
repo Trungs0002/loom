@@ -22,7 +22,7 @@ const BannerRow = ({ banner, onChange, onRemove, token }) => {
         <span className="material-symbols-outlined text-[20px]">delete</span>
       </button>
       
-      <div className="grid grid-cols-1 gap-lg">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
         <div className="flex flex-col gap-sm">
           <label className="font-label-caps text-label-caps text-on-surface-variant">Banner Image</label>
           <div className="flex items-center gap-md">
@@ -38,6 +38,24 @@ const BannerRow = ({ banner, onChange, onRemove, token }) => {
               <input value={banner.image} onChange={e => onChange({ ...banner, image: e.target.value })}
                 placeholder="or paste URL" className="bg-transparent border-b border-outline-variant/30 py-xs text-xs text-on-surface focus:border-primary outline-none" />
             </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-md">
+          <div className="flex flex-col gap-xs">
+            <label className="font-label-caps text-label-caps text-[10px] text-on-surface-variant">Title</label>
+            <input value={banner.title || ''} onChange={e => onChange({ ...banner, title: e.target.value })}
+              placeholder="e.g. Recycled Excellence" className="bg-transparent border-b border-outline-variant/30 py-xs text-sm text-on-surface focus:border-primary outline-none" />
+          </div>
+          <div className="flex flex-col gap-xs">
+            <label className="font-label-caps text-label-caps text-[10px] text-on-surface-variant">Subtitle</label>
+            <input value={banner.subtitle || ''} onChange={e => onChange({ ...banner, subtitle: e.target.value })}
+              placeholder="e.g. Crafted for the future" className="bg-transparent border-b border-outline-variant/30 py-xs text-sm text-on-surface focus:border-primary outline-none" />
+          </div>
+          <div className="flex flex-col gap-xs">
+            <label className="font-label-caps text-label-caps text-[10px] text-on-surface-variant">Link URL</label>
+            <input value={banner.link || ''} onChange={e => onChange({ ...banner, link: e.target.value })}
+              placeholder="e.g. /collection" className="bg-transparent border-b border-outline-variant/30 py-xs text-sm text-on-surface focus:border-primary outline-none" />
           </div>
         </div>
       </div>
@@ -79,7 +97,11 @@ export const AdminHome = () => {
       .then(data => {
         setBanners(data.banners || []);
         setCollectionBanner(data.collectionBanner || '');
-        setAboutPage(data.aboutPage || {});
+        setHeaderLogo(data.headerLogo || '');
+        setAboutPage(prev => ({
+          ...prev,
+          ...(data.aboutPage || {})
+        }));
         setGiftPage({
           banner: data.giftPage?.banner || '',
           product1: data.giftPage?.product1?._id || data.giftPage?.product1 || '',
@@ -443,11 +465,15 @@ export const AdminHome = () => {
                 <div className="w-40 h-24 bg-surface-variant rounded overflow-hidden flex-shrink-0 border border-outline-variant/30">
                   {shippingPolicyImage ? <img src={getImgUrl(shippingPolicyImage)} alt="shipping policy" className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center opacity-30"><span className="material-symbols-outlined">image</span></div>}
                 </div>
-                <label className="flex items-center justify-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[12px] w-fit">
-                  <span className="material-symbols-outlined text-[18px]">upload</span>
-                  Upload Image
-                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setShippingPolicyImage)} />
-                </label>
+                <div className="flex-1 flex flex-col gap-sm">
+                  <label className="flex items-center justify-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[12px] w-fit">
+                    <span className="material-symbols-outlined text-[18px]">upload</span>
+                    Upload Image
+                    <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setShippingPolicyImage)} />
+                  </label>
+                  <input value={shippingPolicyImage} onChange={e => setShippingPolicyImage(e.target.value)}
+                    placeholder="or paste image URL" className="bg-transparent border-b border-outline-variant/30 py-xs text-sm text-on-surface focus:border-primary outline-none w-full" />
+                </div>
               </div>
             </div>
 
@@ -458,11 +484,15 @@ export const AdminHome = () => {
                 <div className="w-40 h-24 bg-surface-variant rounded overflow-hidden flex-shrink-0 border border-outline-variant/30">
                   {returnPolicyImage ? <img src={getImgUrl(returnPolicyImage)} alt="return policy" className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center opacity-30"><span className="material-symbols-outlined">image</span></div>}
                 </div>
-                <label className="flex items-center justify-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[12px] w-fit">
-                  <span className="material-symbols-outlined text-[18px]">upload</span>
-                  Upload Image
-                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setReturnPolicyImage)} />
-                </label>
+                <div className="flex-1 flex flex-col gap-sm">
+                  <label className="flex items-center justify-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[12px] w-fit">
+                    <span className="material-symbols-outlined text-[18px]">upload</span>
+                    Upload Image
+                    <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setReturnPolicyImage)} />
+                  </label>
+                  <input value={returnPolicyImage} onChange={e => setReturnPolicyImage(e.target.value)}
+                    placeholder="or paste image URL" className="bg-transparent border-b border-outline-variant/30 py-xs text-sm text-on-surface focus:border-primary outline-none w-full" />
+                </div>
               </div>
             </div>
 
@@ -473,11 +503,15 @@ export const AdminHome = () => {
                 <div className="w-40 h-24 bg-surface-variant rounded overflow-hidden flex-shrink-0 border border-outline-variant/30">
                   {careInstructionsImage ? <img src={getImgUrl(careInstructionsImage)} alt="care instructions" className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center opacity-30"><span className="material-symbols-outlined">image</span></div>}
                 </div>
-                <label className="flex items-center justify-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[12px] w-fit">
-                  <span className="material-symbols-outlined text-[18px]">upload</span>
-                  Upload Image
-                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setCareInstructionsImage)} />
-                </label>
+                <div className="flex-1 flex flex-col gap-sm">
+                  <label className="flex items-center justify-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[12px] w-fit">
+                    <span className="material-symbols-outlined text-[18px]">upload</span>
+                    Upload Image
+                    <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setCareInstructionsImage)} />
+                  </label>
+                  <input value={careInstructionsImage} onChange={e => setCareInstructionsImage(e.target.value)}
+                    placeholder="or paste image URL" className="bg-transparent border-b border-outline-variant/30 py-xs text-sm text-on-surface focus:border-primary outline-none w-full" />
+                </div>
               </div>
             </div>
           </div>
