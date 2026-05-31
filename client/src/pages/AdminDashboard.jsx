@@ -335,7 +335,6 @@ const statusColors = {
 
 export const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
-  const [stats, setStats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -349,20 +348,13 @@ export const AdminOrders = () => {
       const d = await res.json();
       setOrders(Array.isArray(d) ? d : []);
     } catch (err) { console.error(err); }
-  }, [user]);
-
-  const fetchStats = useCallback(async () => {
-    try {
-      const res = await fetch(`${API_BASE}/api/orders/stats`, { headers: { Authorization: `Bearer ${user.token}` } });
-      const d = await res.json();
-      setStats(Array.isArray(d) ? d : []);
-    } catch (err) { console.error(err); }
+    finally { setLoading(false); }
   }, [user]);
 
   useEffect(() => {
     if (!user || user.role !== 'admin') { navigate('/login'); return; }
-    Promise.all([fetchOrders(), fetchStats()]).finally(() => setLoading(false));
-  }, [user, navigate, fetchOrders, fetchStats]);
+    fetchOrders();
+  }, [user, navigate, fetchOrders]);
 
   const updateStatus = async (orderId, status) => {
     const res = await fetch(`${API_BASE}/api/orders/${orderId}/status`, {
@@ -382,31 +374,46 @@ export const AdminOrders = () => {
     return matchesSearch && matchesStatus;
   });
 
+  // Operational KPIs
+  const pendingCount = orders.filter(o => o.status === 'pending').length;
+  const processingCount = orders.filter(o => o.status === 'processing').length;
+  const todayCount = orders.filter(o => {
+    const d = new Date(o.createdAt);
+    const now = new Date();
+    return d.getDate() === now.getDate() && d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  }).length;
+
   const fmt = d => new Date(d).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
   return (
     <AdminLayout>
       <div className="mb-xl">
-        <h1 className="font-headline-lg text-headline-lg text-primary">Orders</h1>
-        <p className="text-sm text-on-surface-variant mt-xs">Manage and track customer purchases</p>
+        <h1 className="font-headline-lg text-headline-lg text-primary">Order Management</h1>
+        <p className="text-sm text-on-surface-variant mt-xs">Fulfillment queue and processing</p>
       </div>
 
-      {!loading && stats.length > 0 && (
+      {!loading && (
         <section className="mb-xxl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
-            <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-lg shadow-sm">
-              <p className="text-[10px] font-label-caps text-on-surface-variant mb-1">Total Revenue</p>
-              <h3 className="text-xl font-bold text-primary">{formatPrice(stats.reduce((acc, curr) => acc + curr.totalSales, 0))}</h3>
+            {/* Pending KPI */}
+            <div className={`bg-surface-container-lowest border rounded-xl p-lg shadow-sm ${pendingCount > 0 ? 'border-amber-500/50' : 'border-outline-variant/30'}`}>
+              <div className="flex justify-between items-start mb-1">
+                <p className="text-[10px] font-label-caps text-on-surface-variant">Pending Review</p>
+                {pendingCount > 0 && <span className="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></span>}
+              </div>
+              <h3 className={`text-xl font-bold ${pendingCount > 0 ? 'text-amber-600' : 'text-on-surface'}`}>{pendingCount} Orders</h3>
             </div>
+            
+            {/* Processing KPI */}
             <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-lg shadow-sm">
-              <p className="text-[10px] font-label-caps text-on-surface-variant mb-1">Orders this month</p>
-              <h3 className="text-xl font-bold text-on-surface">{stats[0]?.orderCount || 0} Orders</h3>
+              <p className="text-[10px] font-label-caps text-on-surface-variant mb-1">In Preparation</p>
+              <h3 className="text-xl font-bold text-primary">{processingCount} Orders</h3>
             </div>
+
+            {/* Today's KPI */}
             <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-lg shadow-sm">
-              <p className="text-[10px] font-label-caps text-on-surface-variant mb-1">Avg. Order Value</p>
-              <h3 className="text-xl font-bold text-on-surface">
-                {formatPrice(stats.reduce((acc, curr) => acc + curr.totalSales, 0) / stats.reduce((acc, curr) => acc + curr.orderCount, 0) || 0)}
-              </h3>
+              <p className="text-[10px] font-label-caps text-on-surface-variant mb-1">New Orders Today</p>
+              <h3 className="text-xl font-bold text-on-surface">{todayCount} Orders</h3>
             </div>
           </div>
         </section>
