@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Order = require('../models/Order');
+const Product = require('../models/Product');
+const User = require('../models/User');
 const { protect, admin } = require('../middleware/auth');
 
 // POST /api/orders
@@ -30,10 +32,71 @@ router.post('/', protect, async (req, res) => {
   }
 });
 
+// GET /api/orders/dashboard-stats (Admin only)
+router.get('/dashboard-stats', protect, admin, async (req, res) => {
+  try {
+    const totalRevenue = await Order.aggregate([
+      { $match: { status: { $ne: 'cancelled' } } },
+      { $group: { _id: null, total: { $sum: '$totalAmount' } } }
+    ]);
+
+    const ordersCount = await Order.countDocuments();
+    const productsCount = await Product.countDocuments();
+    const usersCount = await User.countDocuments();
+
+    // Sales by month (last 6 months)
+    const monthlySales = await Order.aggregate([
+      { $match: { status: { $ne: 'cancelled' } } },
+      {
+        $group: {
+          _id: { month: { $month: "$createdAt" }, year: { $year: "$createdAt" } },
+          amount: { $sum: "$totalAmount" }
+        }
+      },
+      { $sort: { "_id.year": -1, "_id.month": -1 } },
+      { $limit: 6 }
+    ]);
+
+    // Top selling products (by quantity)
+    const topProducts = await Order.aggregate([
+      { $unwind: "$items" },
+      {
+        $group: {
+          _id: "$items.product",
+          count: { $sum: "$items.quantity" }
+        }
+      },
+      { $sort: { count: -1 } },
+      { $limit: 5 },
+      {
+        $lookup: {
+          from: "products",
+          localField: "_id",
+          foreignField: "_id",
+          as: "productDetails"
+        }
+      },
+      { $unwind: "$productDetails" }
+    ]);
+
+    res.json({
+      totalRevenue: totalRevenue[0]?.total || 0,
+      ordersCount,
+      productsCount,
+      usersCount,
+      monthlySales: monthlySales.reverse(),
+      topProducts
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // GET /api/orders/stats (Admin only)
 router.get('/stats', protect, admin, async (req, res) => {
   try {
     const stats = await Order.aggregate([
+      { $match: { status: { $ne: 'cancelled' } } },
       {
         $group: {
           _id: { 

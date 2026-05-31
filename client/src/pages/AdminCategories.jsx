@@ -13,6 +13,7 @@ export const AdminLayout = ({ children }) => {
   const handleLogout = () => { logout(); navigate('/login'); };
 
   const navItems = [
+    { to: '/admin/dashboard', icon: 'dashboard', label: 'Dashboard' },
     { to: '/admin/products', icon: 'inventory_2', label: 'Products' },
     { to: '/admin/home', icon: 'settings', label: 'Website Settings' },
     { to: '/admin/categories', icon: 'category', label: 'Categories' },

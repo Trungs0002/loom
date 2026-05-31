@@ -5,6 +5,129 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { AdminLayout, uploadImage, getImgUrl } from './AdminCategories';
 
+// ─── Admin Analytics Dashboard ────────────────────────────────────────────────
+export const AdminAnalytics = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user || user.role !== 'admin') { navigate('/login'); return; }
+    fetch(`${API_BASE}/api/orders/dashboard-stats`, {
+      headers: { Authorization: `Bearer ${user.token}` }
+    })
+      .then(r => r.json())
+      .then(d => setData(d))
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, [user, navigate]);
+
+  if (loading) return <AdminLayout><div className="text-center py-xxl">Loading Analytics...</div></AdminLayout>;
+  if (!data) return <AdminLayout><div className="text-center py-xxl text-error">Failed to load data</div></AdminLayout>;
+
+  // Chart Logic (Simple SVG Bar Chart)
+  const maxSale = Math.max(...data.monthlySales.map(m => m.amount), 1);
+  const getMonthLabel = (m) => new Date(0, m-1).toLocaleString('en-US', { month: 'short' });
+
+  return (
+    <AdminLayout>
+      <div className="mb-xxl">
+        <h1 className="font-headline-lg text-headline-lg text-primary">Business Overview</h1>
+        <p className="text-sm text-on-surface-variant mt-xs">Real-time performance metrics and sales trends</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg mb-xxl">
+        {[
+          { label: 'Total Revenue', value: formatPrice(data.totalRevenue), icon: 'payments' },
+          { label: 'Total Orders', value: data.ordersCount, icon: 'shopping_bag' },
+          { label: 'Total Products', value: data.productsCount, icon: 'inventory_2' },
+          { label: 'Total Users', value: data.usersCount, icon: 'group' }
+        ].map((kpi, i) => (
+          <div key={i} className="bg-surface-container-lowest p-xl rounded-3xl border border-outline-variant/30 shadow-sm flex flex-col gap-sm">
+            <div className="flex items-center justify-between mb-xs">
+              <div className="w-10 h-10 bg-primary/5 rounded-xl flex items-center justify-center shadow-sm">
+                <span className="material-symbols-outlined text-primary text-[24px]">{kpi.icon}</span>
+              </div>
+              <span className="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-widest">Live Stats</span>
+            </div>
+            <div>
+              <p className="font-label-caps text-[10px] text-on-surface-variant mb-xs uppercase tracking-tight">{kpi.label}</p>
+              <h3 className="text-2xl font-bold text-on-surface">{kpi.value}</h3>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-xl">
+        {/* Sales Trend Chart */}
+        <div className="lg:col-span-8 bg-surface-container-lowest border border-outline-variant/30 rounded-[2.5rem] p-xl md:p-xxl shadow-sm">
+          <div className="flex items-center justify-between mb-xl">
+            <h2 className="font-title-lg text-title-lg text-primary flex items-center gap-sm">
+              <span className="material-symbols-outlined">trending_up</span>
+              Sales Trend (Last 6 Months)
+            </h2>
+          </div>
+          
+          <div className="relative h-64 flex items-end gap-md md:gap-xl px-md border-b border-l border-outline-variant/30 pb-2">
+            {data.monthlySales.map((m, i) => {
+              const height = (m.amount / maxSale) * 100;
+              return (
+                <div key={i} className="flex-1 flex flex-col items-center group relative h-full justify-end">
+                  {/* Tooltip */}
+                  <div className="absolute bottom-full mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-primary text-on-primary text-[10px] py-1 px-2 rounded whitespace-nowrap z-10 pointer-events-none">
+                    {formatPrice(m.amount)}
+                  </div>
+                  {/* Bar */}
+                  <div 
+                    className="w-full bg-primary/20 group-hover:bg-primary rounded-t-lg transition-all duration-500 ease-out relative overflow-hidden"
+                    style={{ height: `${height}%` }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent"></div>
+                  </div>
+                  {/* Label */}
+                  <span className="absolute -bottom-8 text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">
+                    {getMonthLabel(m._id.month)} '{String(m._id.year).slice(-2)}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-12 text-center text-xs text-on-surface-variant opacity-60 italic">Monthly gross revenue including discounts</div>
+        </div>
+
+        {/* Top Selling Products */}
+        <div className="lg:col-span-4 bg-surface-container-lowest border border-outline-variant/30 rounded-[2.5rem] p-xl shadow-sm h-fit">
+          <h2 className="font-title-lg text-title-lg text-primary mb-xl flex items-center gap-sm">
+            <span className="material-symbols-outlined">workspace_premium</span>
+            Top Sellers
+          </h2>
+          <div className="flex flex-col gap-lg">
+            {data.topProducts.map((p, i) => (
+              <div key={i} className="flex items-center gap-md group">
+                <div className="w-12 h-16 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 relative">
+                  <img src={getImgUrl(p.productDetails.colorImages?.[0]?.image || p.productDetails.image)} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <div className="absolute top-0 left-0 bg-primary text-on-primary text-[8px] px-1 font-bold">#{i+1}</div>
+                </div>
+                <div className="flex-1 overflow-hidden">
+                  <p className="font-medium text-sm text-on-surface truncate">{p.productDetails.name}</p>
+                  <p className="text-[10px] text-on-surface-variant uppercase tracking-widest">{p.productDetails.category}</p>
+                  <div className="flex items-center gap-sm mt-xs">
+                    <div className="flex-1 h-1 bg-surface-container rounded-full overflow-hidden">
+                      <div className="h-full bg-primary" style={{ width: `${(p.count / data.topProducts[0].count) * 100}%` }}></div>
+                    </div>
+                    <span className="text-[10px] font-bold text-primary">{p.count} sold</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </AdminLayout>
+  );
+};
+
 // ─── Color Image Row ───────────────────────────────────────────────────────────
 const ColorImageRow = ({ entry, onChange, onRemove, token }) => {
   const [uploading, setUploading] = useState(false);
@@ -393,10 +516,10 @@ export const AdminOrders = () => {
             Sales Performance
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-xl">
-            <div className="bg-primary/5 border border-primary/10 rounded-3xl p-xl flex flex-col justify-between">
+            <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-3xl p-xl shadow-sm flex flex-col justify-between">
               <div>
-                <p className="font-label-caps text-label-caps text-primary opacity-70 mb-sm">Life-time Revenue</p>
-                <h3 className="text-3xl font-bold text-primary">
+                <p className="font-label-caps text-label-caps text-on-surface-variant mb-sm">Life-time Revenue</p>
+                <h3 className="text-3xl font-bold text-on-surface">
                   {formatPrice(stats.reduce((acc, curr) => acc + curr.totalSales, 0))}
                 </h3>
               </div>
