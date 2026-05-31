@@ -19,6 +19,9 @@ const ProductDetails = () => {
   const [submittingReview, setSubmittingReview] = useState(false);
   const [reviewMessage, setReviewMessage] = useState('');
   const [showReviewForm, setShowReviewForm] = useState(false);
+  const [zoomPos, setZoomPos] = useState({ x: 0, y: 0 });
+  const [isZooming, setIsZooming] = useState(false);
+  const [showFullImage, setShowFullImage] = useState(false);
   const { addToCart } = useCart();
   const { user, favorites, toggleFavorite } = useAuth();
   const navigate = useNavigate();
@@ -137,18 +140,57 @@ const ProductDetails = () => {
   };
 
 
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = ((e.pageX - left - window.scrollX) / width) * 100;
+    const y = ((e.pageY - top - window.scrollY) / height) * 100;
+    setZoomPos({ x, y });
+  };
+
   return (
     <div className="flex-grow w-full max-w-container-max mx-auto px-gutter py-xxl">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-xxl mb-xxl">
         {/* Left: Images */}
         <div className="md:col-span-7 flex flex-col gap-gutter">
-          {/* Main image */}
-          <div className="bg-surface-container-low w-full aspect-square overflow-hidden rounded-xl">
+          {/* Main image with Zoom */}
+          <div 
+            className="bg-surface-container-low w-full aspect-square overflow-hidden rounded-xl relative cursor-zoom-in group/zoom"
+            onMouseEnter={() => setIsZooming(true)}
+            onMouseLeave={() => setIsZooming(false)}
+            onMouseMove={handleMouseMove}
+            onClick={() => setShowFullImage(true)}
+          >
             <img
               alt={`${product.name} - ${currentColor}`}
-              className="w-full h-full object-cover transition-all duration-500"
+              className={`w-full h-full object-cover transition-transform duration-200 ease-out ${isZooming ? 'scale-[2.5]' : 'scale-100'}`}
               src={currentImage}
+              style={{
+                transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`
+              }}
             />
+            {!isZooming && (
+              <div className="absolute bottom-md right-md bg-white/50 backdrop-blur-md p-xs rounded-full opacity-0 group-hover/zoom:opacity-100 transition-opacity">
+                <span className="material-symbols-outlined text-[20px] text-primary">zoom_in</span>
+              </div>
+            )}
+
+            {/* Zoom Minimap (PiP) */}
+            {isZooming && (
+              <div className="absolute bottom-4 left-4 w-28 md:w-32 aspect-square bg-white border border-outline-variant/30 rounded-lg overflow-hidden shadow-2xl z-20 hidden sm:block animate-in fade-in zoom-in-95 duration-200">
+                <div className="relative w-full h-full">
+                  <img src={currentImage} className="w-full h-full object-cover" alt="minimap" />
+                  <div 
+                    className="absolute border-[1px] border-primary bg-primary/5 pointer-events-none transition-all duration-200 ease-out"
+                    style={{
+                      width: '40%', // 1 / 2.5 (scale)
+                      height: '40%',
+                      left: `${Math.max(0, Math.min(60, zoomPos.x - 20))}%`,
+                      top: `${Math.max(0, Math.min(60, zoomPos.y - 20))}%`
+                    }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
           {/* Thumbnail strip — one per color */}
           {colorImages.length > 1 && (
@@ -417,6 +459,27 @@ const ProductDetails = () => {
               </Link>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Fullscreen Image Modal */}
+      {showFullImage && (
+        <div 
+          className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center p-md animate-in fade-in duration-300"
+          onClick={() => setShowFullImage(false)}
+        >
+          <button 
+            className="absolute top-xl right-xl text-white hover:rotate-90 transition-transform duration-300 z-10"
+            onClick={() => setShowFullImage(false)}
+          >
+            <span className="material-symbols-outlined text-4xl">close</span>
+          </button>
+          <img 
+            src={currentImage} 
+            alt={product.name} 
+            className="max-w-full max-h-full object-contain shadow-2xl animate-in zoom-in-95 duration-300"
+            onClick={(e) => e.stopPropagation()} 
+          />
         </div>
       )}
     </div>
