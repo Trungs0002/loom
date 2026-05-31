@@ -678,29 +678,29 @@ export const AdminAnalytics = () => {
 
   return (
     <AdminLayout>
-      <div className="mb-2xl">
+      <div className="mb-xl">
         <h1 className="font-headline-lg text-headline-lg text-primary">Dashboard Overview</h1>
         <p className="text-sm text-on-surface-variant mt-xs">Real-time performance metrics and sales trends</p>
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg mb-xxl">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg mb-xl">
         {[
           { label: 'Total Revenue', value: formatPrice(data.totalRevenue), icon: 'payments' },
           { label: 'Total Orders', value: data.ordersCount, icon: 'shopping_bag' },
           { label: 'Total Products', value: data.productsCount, icon: 'inventory_2' },
           { label: 'Total Users', value: data.usersCount, icon: 'group' }
         ].map((kpi, i) => (
-          <div key={i} className="bg-surface-container-lowest p-xl rounded-3xl border border-outline-variant/30 shadow-sm flex flex-col gap-sm hover:shadow-md transition-shadow">
+          <div key={i} className="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/30 shadow-sm flex flex-col gap-sm hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between mb-xs">
-              <div className="w-10 h-10 bg-primary/5 rounded-xl flex items-center justify-center shadow-sm">
+              <div className="w-10 h-10 bg-primary/5 rounded-lg flex items-center justify-center shadow-sm">
                 <span className="material-symbols-outlined text-primary text-[24px]">{kpi.icon}</span>
               </div>
               <span className="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-widest">Live Stats</span>
             </div>
             <div>
               <p className="font-label-caps text-[10px] text-on-surface-variant mb-xs uppercase tracking-tight">{kpi.label}</p>
-              <h3 className="text-2xl font-black text-on-surface tracking-tighter">{kpi.value}</h3>
+              <h3 className="text-xl font-bold text-on-surface tracking-tighter">{kpi.value}</h3>
             </div>
           </div>
         ))}
@@ -708,7 +708,7 @@ export const AdminAnalytics = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-xl">
         {/* Sales Trend Chart */}
-        <div className="lg:col-span-8 bg-surface-container-lowest border border-outline-variant/30 rounded-[2.5rem] p-xl md:p-xxl shadow-sm flex flex-col">
+        <div className="lg:col-span-8 bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-xl shadow-sm flex flex-col">
           <div className="flex items-center justify-between mb-xl">
             <h2 className="font-title-lg text-title-lg text-primary flex items-center gap-sm">
               <span className="material-symbols-outlined">trending_up</span>
@@ -725,7 +725,7 @@ export const AdminAnalytics = () => {
                     {formatPrice(m.amount)}
                   </div>
                   <div 
-                    className="w-full bg-primary/10 group-hover:bg-primary/90 rounded-t-xl transition-all duration-700 ease-out relative overflow-hidden"
+                    className="w-full bg-primary/10 group-hover:bg-primary/90 rounded-t-lg transition-all duration-700 ease-out relative overflow-hidden"
                     style={{ height: `${height}%` }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent"></div>
@@ -741,7 +741,7 @@ export const AdminAnalytics = () => {
         </div>
 
         {/* Top Selling Products */}
-        <div className="lg:col-span-4 bg-surface-container-lowest border border-outline-variant/30 rounded-[2.5rem] p-xl shadow-sm h-fit">
+        <div className="lg:col-span-4 bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-xl shadow-sm h-fit">
           <div className="flex items-center justify-between mb-xl">
             <h2 className="font-title-lg text-title-lg text-primary flex items-center gap-sm">
               <span className="material-symbols-outlined">workspace_premium</span>
