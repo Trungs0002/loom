@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
-import API_BASE from '../config';
 import { getImgUrl } from '../pages/AdminCategories';
 
 const Navbar = () => {
