@@ -22,7 +22,7 @@ const BannerRow = ({ banner, onChange, onRemove, token }) => {
         <span className="material-symbols-outlined text-[20px]">delete</span>
       </button>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
+      <div className="grid grid-cols-1 gap-lg">
         <div className="flex flex-col gap-sm">
           <label className="font-label-caps text-label-caps text-on-surface-variant">Banner Image</label>
           <div className="flex items-center gap-md">
@@ -38,24 +38,6 @@ const BannerRow = ({ banner, onChange, onRemove, token }) => {
               <input value={banner.image} onChange={e => onChange({ ...banner, image: e.target.value })}
                 placeholder="or paste URL" className="bg-transparent border-b border-outline-variant/30 py-xs text-xs text-on-surface focus:border-primary outline-none" />
             </div>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-md">
-          <div className="flex flex-col gap-xs">
-            <label className="font-label-caps text-label-caps text-[10px] text-on-surface-variant">Title</label>
-            <input value={banner.title || ''} onChange={e => onChange({ ...banner, title: e.target.value })}
-              placeholder="e.g. Recycled Excellence" className="bg-transparent border-b border-outline-variant/30 py-xs text-sm text-on-surface focus:border-primary outline-none" />
-          </div>
-          <div className="flex flex-col gap-xs">
-            <label className="font-label-caps text-label-caps text-[10px] text-on-surface-variant">Subtitle</label>
-            <input value={banner.subtitle || ''} onChange={e => onChange({ ...banner, subtitle: e.target.value })}
-              placeholder="e.g. Crafted for the future" className="bg-transparent border-b border-outline-variant/30 py-xs text-sm text-on-surface focus:border-primary outline-none" />
-          </div>
-          <div className="flex flex-col gap-xs">
-            <label className="font-label-caps text-label-caps text-[10px] text-on-surface-variant">Link URL</label>
-            <input value={banner.link || ''} onChange={e => onChange({ ...banner, link: e.target.value })}
-              placeholder="e.g. /collection" className="bg-transparent border-b border-outline-variant/30 py-xs text-sm text-on-surface focus:border-primary outline-none" />
           </div>
         </div>
       </div>
