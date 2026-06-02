@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import API_BASE, { formatPrice } from '../config';
+import { generateInvoiceHTML } from '../components/InvoiceTemplate';
 
 const Profile = () => {
   const { user, logout } = useAuth();
@@ -12,6 +13,13 @@ const Profile = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState({ type: '', text: '' });
+
+  const handlePrint = (order) => {
+    const invoiceHTML = generateInvoiceHTML(order);
+    const printWindow = window.open('', '_blank', 'width=800,height=600');
+    printWindow.document.write(invoiceHTML);
+    printWindow.document.close();
+  };
 
   useEffect(() => {
     if (!user) {
@@ -282,8 +290,17 @@ const Profile = () => {
                       </div>
                       
                       <div className="flex justify-between items-center pt-4 border-t border-dashed border-outline-variant">
-                        <span className="text-on-surface-variant font-medium">Total Amount:</span>
-                        <span className="text-xl font-bold text-[#081F5C]">{formatPrice(order.totalAmount)}</span>
+                        <div className="flex flex-col">
+                          <span className="text-on-surface-variant font-medium">Total Amount:</span>
+                          <span className="text-xl font-bold text-[#081F5C]">{formatPrice(order.totalAmount)}</span>
+                        </div>
+                        <button 
+                          onClick={() => handlePrint(order)}
+                          className="flex items-center gap-2 py-2 px-4 border border-primary text-primary hover:bg-primary/5 rounded-xl transition-all font-bold text-sm"
+                        >
+                          <span className="material-symbols-outlined text-sm">print</span>
+                          Print Invoice
+                        </button>
                       </div>
                     </div>
                   ))}

@@ -4,12 +4,14 @@ import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { generateInvoiceHTML } from '../components/InvoiceTemplate';
 
 const Checkout = () => {
   const { cartItems, getCartTotal, clearCart } = useCart();
   const { user } = useAuth();
   const navigate = useNavigate();
   const total = getCartTotal();
+  const [orderSuccess, setOrderSuccess] = useState(null);
 
   // Calculate original total to show savings
   const originalTotal = cartItems.reduce((acc, item) => {
@@ -26,6 +28,13 @@ const Checkout = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handlePrint = (order) => {
+    const invoiceHTML = generateInvoiceHTML(order);
+    const printWindow = window.open('', '_blank', 'width=800,height=600');
+    printWindow.document.write(invoiceHTML);
+    printWindow.document.close();
   };
 
   const handlePlaceOrder = async (e) => {
@@ -64,9 +73,19 @@ const Checkout = () => {
       });
 
       if (res.ok) {
+        const data = await res.json();
+        // Since the backend might not populate product details in the response immediately,
+        // we attach the cart item names to the order data for the invoice
+        const orderForInvoice = {
+          ...data,
+          items: data.items.map((item, idx) => ({
+            ...item,
+            product: { name: cartItems[idx].name }
+          }))
+        };
+        
         clearCart();
-        alert('Order placed successfully!');
-        navigate('/');
+        setOrderSuccess(orderForInvoice);
       } else {
         const errorData = await res.json();
         alert(`Error placing order: ${errorData.message}`);
@@ -76,6 +95,36 @@ const Checkout = () => {
       alert('Network error while placing order');
     }
   };
+
+  if (orderSuccess) {
+    return (
+      <main className="flex-grow w-full max-w-2xl mx-auto px-gutter py-xxl flex flex-col items-center text-center">
+        <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-6">
+          <span className="material-symbols-outlined text-5xl">check_circle</span>
+        </div>
+        <h1 className="font-headline-lg text-headline-lg text-primary mb-sm">Order Successful!</h1>
+        <p className="font-body-md text-body-md text-on-surface-variant mb-xl">
+          Thank you for your purchase. Your order ID is <span className="font-bold text-primary">#{orderSuccess._id.toUpperCase()}</span>.
+        </p>
+        
+        <div className="w-full flex flex-col gap-sm">
+          <button 
+            onClick={() => handlePrint(orderSuccess)}
+            className="w-full bg-primary text-on-primary font-label-caps py-md px-lg rounded-DEFAULT hover:bg-primary-container transition-all flex items-center justify-center gap-2"
+          >
+            <span className="material-symbols-outlined">print</span>
+            Print Invoice
+          </button>
+          <button 
+            onClick={() => navigate('/')}
+            className="w-full border border-outline text-primary font-label-caps py-md px-lg rounded-DEFAULT hover:bg-surface-container transition-all"
+          >
+            Continue Shopping
+          </button>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="flex-grow w-full max-w-container-max mx-auto px-gutter py-xxl grid grid-cols-1 lg:grid-cols-12 gap-xxl">
