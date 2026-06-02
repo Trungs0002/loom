@@ -8,7 +8,7 @@ import { generateInvoiceHTML } from '../components/InvoiceTemplate';
 
 const Checkout = () => {
   const { cartItems, getCartTotal, clearCart } = useCart();
-  const { user } = useAuth();
+  const { user, headerLogo } = useAuth();
   const navigate = useNavigate();
   const total = getCartTotal();
   const [orderSuccess, setOrderSuccess] = useState(null);
@@ -31,8 +31,8 @@ const Checkout = () => {
   };
 
   const handlePrint = (order) => {
-    const invoiceHTML = generateInvoiceHTML(order);
-    const printWindow = window.open('', '_blank', 'width=800,height=600');
+    const invoiceHTML = generateInvoiceHTML(order, headerLogo);
+    const printWindow = window.open('', '_blank', 'width=900,height=950,scrollbars=yes');
     printWindow.document.write(invoiceHTML);
     printWindow.document.close();
   };

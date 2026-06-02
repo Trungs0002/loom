@@ -1,15 +1,28 @@
-import { formatPrice } from '../config';
+import API_BASE, { formatPrice } from '../config';
 
-export const generateInvoiceHTML = (order) => {
-  const date = new Date(order.createdAt || Date.now()).toLocaleString('vi-VN');
+export const getImgUrl = (path) => {
+  if (!path) return '';
+  if (path.startsWith('http')) return path;
+  return `${API_BASE}${path}`;
+};
+
+export const generateInvoiceHTML = (order, headerLogo = '') => {
+  const date = new Date(order.createdAt || Date.now()).toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
   const orderId = order._id ? order._id.toUpperCase() : 'N/A';
+  const logoUrl = headerLogo ? getImgUrl(headerLogo) : '';
 
   const itemsHTML = order.items.map(item => `
     <tr>
-      <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.product?.name || 'Sản phẩm'}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">${formatPrice(item.price)}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">${formatPrice(item.price * item.quantity)}</td>
+      <td style="padding: 12px 10px; border-bottom: 1px solid #eee;">${item.product?.name || 'Product'}</td>
+      <td style="padding: 12px 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
+      <td style="padding: 12px 10px; border-bottom: 1px solid #eee; text-align: right;">${formatPrice(item.price)}</td>
+      <td style="padding: 12px 10px; border-bottom: 1px solid #eee; text-align: right;">${formatPrice(item.price * item.quantity)}</td>
     </tr>
   `).join('');
 
@@ -18,57 +31,69 @@ export const generateInvoiceHTML = (order) => {
     <html>
     <head>
       <meta charset="utf-8">
-      <title>Hóa đơn #${orderId}</title>
+      <title>Invoice #${orderId}</title>
       <style>
-        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; }
-        .invoice-box { max-width: 800px; margin: auto; padding: 30px; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); }
-        .header { display: flex; justify-content: space-between; margin-bottom: 40px; }
-        .logo { font-size: 28px; font-weight: bold; color: #081F5C; letter-spacing: 5px; }
+        body { font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; }
+        .invoice-box { max-width: 800px; margin: auto; padding: 40px; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); background: #fff; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; }
+        .logo { max-height: 50px; }
+        .logo-text { font-size: 32px; font-weight: bold; color: #081F5C; letter-spacing: 8px; margin: 0; }
         .invoice-title { text-align: right; }
-        .details { display: flex; justify-content: space-between; margin-bottom: 30px; }
+        .invoice-title h2 { margin: 0; color: #081F5C; font-size: 24px; letter-spacing: 2px; }
+        .details { display: flex; justify-content: space-between; margin-bottom: 40px; font-size: 14px; }
         .details div { flex: 1; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
-        th { background: #f8f8f8; padding: 10px; text-align: left; border-bottom: 2px solid #eee; }
-        .total { text-align: right; font-size: 20px; font-weight: bold; color: #081F5C; }
-        .footer { text-align: center; margin-top: 50px; font-size: 12px; color: #777; border-top: 1px solid #eee; padding-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
+        th { background: #081F5C; color: #fff; padding: 12px 10px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .total-section { display: flex; justify-content: flex-end; }
+        .total-table { width: 250px; }
+        .total-table td { padding: 10px 0; }
+        .total-label { font-weight: bold; color: #777; }
+        .total-amount { text-align: right; font-size: 24px; font-weight: bold; color: #081F5C; }
+        .footer { text-align: center; margin-top: 60px; font-size: 12px; color: #999; border-top: 1px solid #eee; padding-top: 30px; }
         @media print {
           .no-print { display: none; }
           body { padding: 0; }
-          .invoice-box { border: none; box-shadow: none; }
+          .invoice-box { border: none; box-shadow: none; width: 100%; max-width: none; }
         }
       </style>
     </head>
     <body>
       <div class="invoice-box">
         <div class="header">
-          <div class="logo">LOOM</div>
+          <div class="logo-container">
+            ${logoUrl ? `<img src="${logoUrl}" alt="LOOM" class="logo">` : `<h1 class="logo-text">LOOM</h1>`}
+          </div>
           <div class="invoice-title">
-            <h2 style="margin: 0;">HÓA ĐƠN BÁN HÀNG</h2>
-            <p style="margin: 5px 0;">Mã đơn: #${orderId}</p>
-            <p style="margin: 5px 0;">Ngày: ${date}</p>
+            <h2>SALES INVOICE</h2>
+            <p style="margin: 5px 0; color: #777;">Order ID: #${orderId}</p>
+            <p style="margin: 5px 0; color: #777;">Date: ${date}</p>
           </div>
         </div>
 
         <div class="details">
           <div>
-            <strong>Thông tin khách hàng:</strong><br>
-            Tên: ${order.recipientName}<br>
-            SĐT: ${order.phone}<br>
-            Địa chỉ: ${order.address}
+            <strong style="color: #081F5C; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Customer Details</strong><br>
+            <p style="margin: 10px 0 0 0;">
+              Name: ${order.recipientName}<br>
+              Phone: ${order.phone}<br>
+              Address: ${order.address}
+            </p>
           </div>
           <div style="text-align: right;">
-            <strong>Phương thức thanh toán:</strong><br>
-            ${order.paymentMethod || 'Thanh toán khi nhận hàng (COD)'}
+            <strong style="color: #081F5C; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Payment Method</strong><br>
+            <p style="margin: 10px 0 0 0;">
+              ${order.paymentMethod || 'Cash on Delivery (COD)'}
+            </p>
           </div>
         </div>
 
         <table>
           <thead>
             <tr>
-              <th>Sản phẩm</th>
-              <th style="text-align: center;">SL</th>
-              <th style="text-align: right;">Đơn giá</th>
-              <th style="text-align: right;">Thành tiền</th>
+              <th style="border-top-left-radius: 4px;">Product</th>
+              <th style="text-align: center;">Qty</th>
+              <th style="text-align: right;">Unit Price</th>
+              <th style="text-align: right; border-top-right-radius: 4px;">Subtotal</th>
             </tr>
           </thead>
           <tbody>
@@ -76,17 +101,25 @@ export const generateInvoiceHTML = (order) => {
           </tbody>
         </table>
 
-        <div class="total">
-          Tổng cộng: ${formatPrice(order.totalAmount)}
+        <div class="total-section">
+          <table class="total-table">
+            <tr>
+              <td class="total-label">Grand Total</td>
+              <td class="total-amount">${formatPrice(order.totalAmount)}</td>
+            </tr>
+          </table>
         </div>
 
         <div class="footer">
-          <p>Cảm ơn bạn đã mua sắm tại LOOM!</p>
-          <p>Mọi thắc mắc vui lòng liên hệ hotline: 1900 xxxx</p>
+          <p>Thank you for shopping at LOOM!</p>
+          <p>For any inquiries, please contact our support at support@loom.com</p>
+          <p>&copy; ${new Date().getFullYear()} LOOM Studio. All rights reserved.</p>
         </div>
       </div>
-      <div class="no-print" style="text-align: center; margin-top: 20px;">
-        <button onclick="window.print()" style="padding: 10px 20px; background: #081F5C; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">In hóa đơn</button>
+      <div class="no-print" style="text-align: center; margin-top: 30px;">
+        <button onclick="window.print()" style="padding: 12px 30px; background: #081F5C; color: white; border: none; border-radius: 30px; cursor: pointer; font-weight: bold; font-size: 14px; box-shadow: 0 4px 15px rgba(8, 31, 92, 0.2); transition: transform 0.2s;">
+          Print Invoice
+        </button>
       </div>
     </body>
     </html>

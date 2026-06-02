@@ -5,7 +5,7 @@ import API_BASE, { formatPrice } from '../config';
 import { generateInvoiceHTML } from '../components/InvoiceTemplate';
 
 const Profile = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, headerLogo } = useAuth();
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,8 +15,8 @@ const Profile = () => {
   const [message, setMessage] = useState({ type: '', text: '' });
 
   const handlePrint = (order) => {
-    const invoiceHTML = generateInvoiceHTML(order);
-    const printWindow = window.open('', '_blank', 'width=800,height=600');
+    const invoiceHTML = generateInvoiceHTML(order, headerLogo);
+    const printWindow = window.open('', '_blank', 'width=900,height=950,scrollbars=yes');
     printWindow.document.write(invoiceHTML);
     printWindow.document.close();
   };
