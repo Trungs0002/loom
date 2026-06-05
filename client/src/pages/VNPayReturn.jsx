@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import API_BASE from '../config';
 
 const VNPayReturn = () => {
     const location = useLocation();
