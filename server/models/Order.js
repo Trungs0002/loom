@@ -12,8 +12,18 @@ const orderSchema = new mongoose.Schema({
     price: { type: Number, required: true }
   }],
   totalAmount: { type: Number, required: true },
-  paymentMethod: { type: String, default: 'Thanh toán khi nhận hàng' },
-  status: { type: String, enum: ['pending', 'processing', 'shipped', 'delivered', 'cancelled'], default: 'pending' }
+  paymentMethod: { type: String, default: 'Cash on Delivery (COD)' },
+  status: { type: String, enum: ['pending', 'processing', 'shipped', 'delivered', 'cancelled'], default: 'pending' },
+  history: [{
+    status: String,
+    changedAt: { type: Date, default: Date.now },
+    user: String
+  }],
+  comments: [{
+    text: String,
+    author: String,
+    createdAt: { type: Date, default: Date.now }
+  }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('Order', orderSchema);

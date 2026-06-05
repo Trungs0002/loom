@@ -4,7 +4,27 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-// ─── Shared Admin Layout ──────────────────────────────────────────────────────
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+export const getImgUrl = (path) => {
+  if (!path) return '';
+  if (path.startsWith('http')) return path;
+  return `${API_BASE}${path}`;
+};
+
+export const uploadImage = async (file, token) => {
+  const fd = new FormData();
+  fd.append('image', file);
+  const res = await fetch(`${API_BASE}/api/upload`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
+    body: fd,
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || 'Upload failed');
+  return data.url;
+};
+
+// ─── Shared Admin Layout (Reverted to Original Style) ─────────────────────────
 export const AdminLayout = ({ children }) => {
   const location = useLocation();
   const { user, logout, headerLogo } = useAuth();
@@ -37,16 +57,24 @@ export const AdminLayout = ({ children }) => {
   ];
 
   return (
-    <div className="bg-background text-on-background min-h-screen flex w-full">
+    <div className="bg-background text-on-background min-h-screen flex w-full font-sans">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+        body { font-family: 'DM Sans', sans-serif !important; }
+      `}</style>
+      
       <aside className="w-64 bg-surface-container-low min-h-screen border-r border-outline-variant/30 px-lg py-xl flex flex-col sticky top-0 h-screen">
-        <div className="mb-xxl">
+        <div className="mb-xxl flex flex-col gap-xs">
           <Link to="/" className="flex items-center h-8">
-            {headerLogo && (
+            {headerLogo ? (
               <img src={getImgUrl(headerLogo)} alt="Loom" className="h-full w-auto object-contain" />
+            ) : (
+              <span className="text-primary font-bold text-xl tracking-widest">LOOM</span>
             )}
           </Link>
           <div className="font-label-caps text-[10px] font-bold text-on-surface-variant mt-xs tracking-wider opacity-60">Admin Panel</div>
         </div>
+
         <nav className="flex-1 flex flex-col gap-xl overflow-y-auto no-scrollbar">
           {sections.map(section => (
             <div key={section.title} className="flex flex-col gap-sm">
@@ -63,8 +91,9 @@ export const AdminLayout = ({ children }) => {
             </div>
           ))}
         </nav>
+
         <div className="mt-auto border-t border-outline-variant/30 pt-lg">
-          <div className="font-body-md text-sm text-on-surface-variant mb-sm truncate">{user?.name}</div>
+          <div className="font-body-md text-sm text-on-surface-variant mb-sm truncate font-medium">{user?.name}</div>
           <button onClick={handleLogout} className="flex items-center gap-sm text-on-surface-variant hover:text-error transition-colors font-label-caps text-label-caps">
             <span className="material-symbols-outlined text-[18px]">logout</span> Logout
           </button>
@@ -73,26 +102,6 @@ export const AdminLayout = ({ children }) => {
       <main className="flex-1 p-xl overflow-x-hidden">{children}</main>
     </div>
   );
-};
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-export const getImgUrl = (path) => {
-  if (!path) return '';
-  if (path.startsWith('http')) return path;
-  return `${API_BASE}${path}`;
-};
-
-export const uploadImage = async (file, token) => {
-  const fd = new FormData();
-  fd.append('image', file);
-  const res = await fetch(`${API_BASE}/api/upload`, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${token}` },
-    body: fd,
-  });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.message || 'Upload failed');
-  return data.url;
 };
 
 // ─── Category Modal ───────────────────────────────────────────────────────────
@@ -157,7 +166,7 @@ const CategoryModal = ({ category, onClose, onSave, token }) => {
             <div className="flex items-center gap-md">
               {image && <img src={getImgUrl(image)} alt={name} className="w-16 h-16 rounded-lg object-cover border border-outline-variant/30" />}
               <div className="flex flex-col gap-sm flex-1">
-                <label className={`flex items-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-sm ${uploading ? 'opacity-50' : ''}`}>
+                <label className={`flex items-center justify-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-sm ${uploading ? 'opacity-50' : ''}`}>
                   <span className="material-symbols-outlined text-[18px]">upload</span>
                   {uploading ? 'Uploading...' : 'Upload Image'}
                   <input type="file" accept="image/*" className="hidden" onChange={handleFile} disabled={uploading} />
@@ -220,7 +229,7 @@ export const AdminCategories = () => {
           <p className="text-sm text-on-surface-variant mt-xs">{categories.length} total</p>
         </div>
         <button onClick={() => setModal('add')}
-          className="flex items-center gap-sm bg-primary text-on-primary font-label-caps text-label-caps px-lg py-md rounded hover:opacity-90 transition-opacity">
+          className="flex items-center gap-sm bg-primary text-on-primary font-label-caps text-label-caps px-lg py-md rounded-xl hover:opacity-90 transition-opacity">
           <span className="material-symbols-outlined text-[18px]">add</span> Add Category
         </button>
       </div>

@@ -140,9 +140,41 @@ router.put('/:id/status', protect, admin, async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
     if (order) {
+      const oldStatus = order.status;
       order.status = req.body.status || order.status;
+      
+      // Log history if status changed
+      if (oldStatus !== order.status) {
+        order.history.push({
+          status: order.status,
+          user: req.user.name,
+          changedAt: Date.now()
+        });
+      }
+
       const updatedOrder = await order.save();
       res.json(updatedOrder);
+    } else {
+      res.status(404).json({ message: 'Order not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// POST /api/orders/:id/comments
+router.post('/:id/comments', protect, admin, async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+    if (order) {
+      const comment = {
+        text: req.body.text,
+        author: req.user.name,
+        createdAt: Date.now()
+      };
+      order.comments.push(comment);
+      await order.save();
+      res.status(201).json(comment);
     } else {
       res.status(404).json({ message: 'Order not found' });
     }

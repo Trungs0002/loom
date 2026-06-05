@@ -5,43 +5,41 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { AdminLayout, uploadImage, getImgUrl } from './AdminCategories';
 
-// ─── Color Image Row ───────────────────────────────────────────────────────────
+// ─── Shared Color Image Row ──────────────────────────────────────────────────
 const ColorImageRow = ({ entry, onChange, onRemove, token }) => {
   const [uploading, setUploading] = useState(false);
   const handleFile = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
     setUploading(true);
-    try { onChange({ ...entry, image: await uploadImage(file, token) }); }
+    try { 
+      const url = await uploadImage(file, token);
+      onChange({ ...entry, image: url }); 
+    }
     catch (err) { alert(err.message); }
     finally { setUploading(false); }
   };
   return (
-    <div className="flex items-center gap-md bg-surface-container rounded-lg px-md py-sm">
+    <div className="flex items-center gap-4 bg-slate-50 rounded-lg px-4 py-2 border border-slate-200">
       <input value={entry.color} onChange={e => onChange({ ...entry, color: e.target.value })}
         placeholder="Color name"
-        className="w-28 bg-transparent border-b border-outline-variant/50 py-xs text-sm text-on-surface focus:border-primary outline-none" />
-      <div className="flex items-center gap-sm flex-1">
-        {entry.image && <img src={getImgUrl(entry.image)} alt={entry.color} className="w-10 h-10 rounded object-cover border border-outline-variant/30" />}
-        <label className={`flex items-center gap-xs px-md py-xs rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[11px] ${uploading ? 'opacity-50' : ''}`}>
+        className="w-32 bg-white border border-slate-200 rounded px-2 py-1 text-xs text-slate-900 outline-none focus:border-primary" />
+      <div className="flex items-center gap-3 flex-1">
+        {entry.image && <img src={getImgUrl(entry.image)} alt={entry.color} className="w-8 h-8 rounded border border-slate-200 object-cover" />}
+        <label className={`flex items-center gap-2 px-3 py-1.5 rounded border border-slate-200 cursor-pointer hover:bg-white transition-colors text-[10px] font-bold text-slate-600 ${uploading ? 'opacity-50' : ''}`}>
           <span className="material-symbols-outlined text-[16px]">upload</span>
-          {uploading ? 'Uploading...' : entry.image ? 'Change' : 'Upload'}
+          {uploading ? 'Syncing...' : 'Upload Asset'}
           <input type="file" accept="image/*" className="hidden" onChange={handleFile} disabled={uploading} />
         </label>
-        {!entry.image && (
-          <input value={entry.image} onChange={e => onChange({ ...entry, image: e.target.value })}
-            placeholder="or paste URL"
-            className="flex-1 bg-transparent border-b border-outline-variant/50 py-xs text-sm text-on-surface focus:border-primary outline-none" />
-        )}
       </div>
-      <button type="button" onClick={onRemove} className="text-on-surface-variant hover:text-error transition-colors">
-        <span className="material-symbols-outlined text-[18px]">close</span>
+      <button type="button" onClick={onRemove} className="text-slate-400 hover:text-red-500 transition-colors">
+        <span className="material-symbols-outlined text-[18px]">delete</span>
       </button>
     </div>
   );
 };
 
-// ─── Product Form Modal ────────────────────────────────────────────────────────
+// ─── Product Modal ───────────────────────────────────────────────────────────
 const ProductModal = ({ product, onClose, onSave, token }) => {
   const isEdit = !!product?._id;
   const [form, setForm] = useState({
@@ -51,31 +49,18 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
     stock: product?.stock || '',
     description: product?.description || '',
     material: product?.material || '',
-    innerLining: product?.innerLining || '',
-    numberStraps: product?.numberStraps || '',
-    detachableStrap: product?.detachableStrap || '',
-    adjustableStrap: product?.adjustableStrap || '',
-    closureType: product?.closureType || '',
-    innerCompartments: product?.innerCompartments || '',
     dimensions: product?.dimensions || '',
-    weight: product?.weight || '',
-    careInstructions: product?.careInstructions || '',
     tags: product?.tags?.join(', ') || '',
     onSale: product?.onSale || false,
     originalPrice: product?.originalPrice || '',
   });
-  const [colorImages, setColorImages] = useState(
-    product?.colorImages?.length ? product.colorImages : [{ color: '', image: '' }]
-  );
+  const [colorImages, setColorImages] = useState(product?.colorImages?.length ? product.colorImages : [{ color: '', image: '' }]);
   const [categories, setCategories] = useState([]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetch(`${API_BASE}/api/categories`)
-      .then(r => r.json())
-      .then(setCategories)
-      .catch(() => {});
+    fetch(`${API_BASE}/api/categories`).then(r => r.json()).then(setCategories).catch(() => {});
   }, []);
 
   const handleChange = e => {
@@ -117,92 +102,84 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
     finally { setSaving(false); }
   };
 
-  const textFields = [
-    { name: 'name', label: 'Product Name', required: true, full: true, placeholder: 'e.g. Dusk Clutch' },
-    { name: 'price', label: 'Current Price', type: 'number', required: true, placeholder: 'e.g. 259000' },
-    { name: 'stock', label: 'Stock Qty', type: 'number', required: true, placeholder: 'e.g. 15' },
-    { name: 'material', label: 'Material', placeholder: 'e.g. Recycled jean/denim' },
-    { name: 'dimensions', label: 'Dimensions', placeholder: 'e.g. 26 x 5 x 13 cm' },
-    { name: 'tags', label: 'Tags (comma-separated)', full: true, placeholder: 'e.g. Clutch, Denim, Recycled' },
-  ];
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-md">
-      <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
-        <div className="flex justify-between items-center px-xl py-lg border-b border-outline-variant/20">
-          <h2 className="font-headline-md text-headline-md text-primary">{isEdit ? 'Edit Product' : 'Add New Product'}</h2>
-          <button type="button" onClick={onClose} className="text-on-surface-variant hover:text-primary transition-colors">
-            <span className="material-symbols-outlined">close</span>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+      <div className="bg-white rounded-xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col border border-slate-200">
+        <div className="flex justify-between items-center px-6 py-4 border-b border-slate-100 bg-slate-50/50">
+          <h2 className="text-base font-bold text-slate-800 tracking-tight">{isEdit ? 'Edit Asset' : 'New Product Entry'}</h2>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 transition-colors">
+            <span className="material-symbols-outlined text-[20px]">close</span>
           </button>
         </div>
-        <form onSubmit={handleSubmit} className="px-xl py-lg flex flex-col gap-lg">
-          {error && <div className="bg-error/10 text-error p-sm rounded text-sm">{error}</div>}
+        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-6">
+          {error && <div className="bg-red-50 text-red-600 p-3 rounded-lg text-xs font-medium border border-red-100">{error}</div>}
           
-          <div className="bg-primary/5 border border-primary/10 p-md rounded-xl flex items-center justify-between">
-            <div className="flex items-center gap-sm text-primary">
-              <span className="material-symbols-outlined">sell</span>
-              <span className="font-label-caps text-label-caps">Enable Sale / Discount</span>
+          <div className="grid grid-cols-2 gap-6">
+            <div className="col-span-2 space-y-1.5">
+              <label className="text-xs font-semibold text-slate-700">Product Name</label>
+              <input name="name" value={form.name} onChange={handleChange} required placeholder="e.g. Recycled Jean Clutch"
+                className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm text-slate-900 focus:border-primary focus:ring-1 focus:ring-primary outline-none" />
             </div>
-            <input type="checkbox" name="onSale" checked={form.onSale} onChange={handleChange} className="w-5 h-5 accent-primary cursor-pointer" />
-          </div>
 
-          <div className="grid grid-cols-2 gap-lg">
-            {textFields.map(f => (
-              <div key={f.name} className={f.full ? 'col-span-2' : ''}>
-                <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">{f.label}</label>
-                <input name={f.name} type={f.type || 'text'} value={form[f.name]} onChange={handleChange} required={f.required} placeholder={f.placeholder}
-                  className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none placeholder:text-on-surface-variant/50" />
-              </div>
-            ))}
-            
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-slate-700">Category</label>
+              <select name="category" value={form.category} onChange={handleChange} required
+                className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm text-slate-900 focus:border-primary outline-none capitalize">
+                <option value="">— Select —</option>
+                {categories.map(c => <option key={c._id} value={c.name}>{c.name}</option>)}
+              </select>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-slate-700">Stock Qty</label>
+              <input name="stock" type="number" value={form.stock} onChange={handleChange} required
+                className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm text-slate-900 focus:border-primary outline-none" />
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-slate-700">Base Price (VND)</label>
+              <input name="price" type="number" value={form.price} onChange={handleChange} required
+                className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm text-slate-900 focus:border-primary outline-none" />
+            </div>
+
+            <div className="flex items-center gap-3 pt-6">
+              <input type="checkbox" id="onSale" name="onSale" checked={form.onSale} onChange={handleChange} className="w-4 h-4 accent-primary" />
+              <label htmlFor="onSale" className="text-xs font-bold text-slate-700 uppercase tracking-wide">Enable Sale Pricing</label>
+            </div>
+
             {form.onSale && (
-              <div className="col-span-2 bg-surface-container-low border border-outline-variant/30 p-md rounded-xl">
-                <label className="block font-label-caps text-label-caps text-error mb-xs">Original Price (Strikethrough)</label>
-                <input name="originalPrice" type="number" value={form.originalPrice} onChange={handleChange} required placeholder="e.g. 299000"
-                  className="w-full bg-surface-container border border-error/30 rounded px-md py-sm text-sm text-on-surface focus:border-error outline-none" />
-                <p className="text-[10px] text-on-surface-variant mt-xs italic">This price will be shown with a line through it.</p>
+              <div className="col-span-2 bg-red-50/50 p-4 rounded-lg border border-red-100 space-y-1.5">
+                <label className="text-xs font-bold text-red-700 uppercase tracking-wide">Original Price (Strikethrough)</label>
+                <input name="originalPrice" type="number" value={form.originalPrice} onChange={handleChange} required
+                  className="w-full bg-white border border-red-200 rounded-lg px-4 py-2 text-sm text-slate-900 focus:border-red-500 outline-none" />
               </div>
             )}
 
-            <div>
-              <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">Category</label>
-              <select name="category" value={form.category} onChange={handleChange} required
-                className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none capitalize">
-                <option value="">— Select category —</option>
-                {categories.map(c => (
-                  <option key={c._id} value={c.name} className="capitalize">{c.name}</option>
-                ))}
-              </select>
-            </div>
-            <div className="col-span-2">
-              <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">Description</label>
-              <textarea name="description" value={form.description} onChange={handleChange} rows={3} placeholder="Product description..."
-                className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none resize-none" />
+            <div className="col-span-2 space-y-1.5">
+              <label className="text-xs font-semibold text-slate-700">Description</label>
+              <textarea name="description" value={form.description} onChange={handleChange} rows={2}
+                className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm text-slate-900 focus:border-primary outline-none resize-none" />
             </div>
           </div>
 
-          <div>
-            <div className="flex items-center justify-between mb-md">
-              <label className="font-label-caps text-label-caps text-on-surface-variant">Colors & Images</label>
-              <button type="button" onClick={addColor} className="flex items-center gap-xs text-primary font-label-caps text-[11px] hover:opacity-70">
-                <span className="material-symbols-outlined text-[16px]">add</span> Add Color
-              </button>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <label className="text-xs font-bold text-slate-800 uppercase tracking-widest">Variants & Imagery</label>
+              <button type="button" onClick={addColor} className="text-xs font-bold text-primary hover:underline">Add Variant</button>
             </div>
-            <div className="flex flex-col gap-sm">
+            <div className="space-y-3">
               {colorImages.map((entry, i) => (
-                <ColorImageRow key={i} entry={entry} token={token}
-                  onChange={val => updateColor(i, val)} onRemove={() => removeColor(i)} />
+                <ColorImageRow key={i} entry={entry} token={token} onChange={val => updateColor(i, val)} onRemove={() => removeColor(i)} />
               ))}
             </div>
           </div>
-
-          <div className="flex gap-md justify-end pt-lg border-t border-outline-variant/20">
-            <button type="button" onClick={onClose} className="px-lg py-sm border border-outline-variant/50 rounded font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-variant">Cancel</button>
-            <button type="submit" disabled={saving} className="px-lg py-sm bg-primary text-on-primary rounded font-label-caps text-label-caps hover:opacity-90 disabled:opacity-60">
-              {saving ? 'Saving...' : isEdit ? 'Update' : 'Add Product'}
-            </button>
-          </div>
         </form>
+        <div className="px-6 py-4 border-t border-slate-100 bg-slate-50/50 flex justify-end gap-3">
+          <button type="button" onClick={onClose} className="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-100 transition-colors">Dismiss</button>
+          <button onClick={handleSubmit} disabled={saving} className="px-8 py-2 bg-primary text-white rounded-lg text-sm font-bold hover:bg-primary-dark shadow-lg shadow-primary/20 transition-all disabled:opacity-50">
+            {saving ? 'Syncing...' : 'Save Product Record'}
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -231,7 +208,7 @@ export const AdminProducts = () => {
   }, [user, navigate, fetchProducts]);
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Delete this product?')) return;
+    if (!window.confirm('Erase this record permanently?')) return;
     const res = await fetch(`${API_BASE}/api/products/${id}`, {
       method: 'DELETE', headers: { Authorization: `Bearer ${user.token}` },
     });
@@ -247,98 +224,306 @@ export const AdminProducts = () => {
 
   return (
     <AdminLayout>
-      <div className="flex justify-between items-center mb-xl">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="font-headline-lg text-headline-lg text-primary">Products</h1>
-          <p className="text-sm text-on-surface-variant mt-xs">{products.length} total</p>
+          <h1 className="text-2xl font-bold text-slate-800 tracking-tight">Products</h1>
+          <p className="text-sm text-slate-500 font-medium">Inventory management and catalog control</p>
         </div>
         <button onClick={() => setModal('add')}
-          className="flex items-center gap-sm bg-primary text-on-primary font-label-caps text-label-caps px-lg py-md rounded hover:opacity-90 transition-opacity">
+          className="flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-primary-dark transition-all shadow-lg shadow-primary/20">
           <span className="material-symbols-outlined text-[18px]">add</span> Add Product
         </button>
       </div>
 
-      <div className="relative mb-lg w-full max-w-sm">
-        <span className="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
-        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search products..."
-          className="w-full bg-surface-container border border-outline-variant/50 rounded pl-xl pr-md py-sm text-sm text-on-surface focus:border-primary outline-none" />
-      </div>
+      <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden mb-8">
+        <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+          <div className="relative w-full max-w-xs">
+            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Filter catalog..."
+              className="w-full bg-white border border-slate-200 rounded-lg pl-10 pr-4 py-1.5 text-sm text-slate-900 focus:border-primary outline-none transition-all" />
+          </div>
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{filtered.length} records shown</span>
+        </div>
 
-      <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden shadow-sm">
-        <table className="w-full text-left border-collapse">
-          <thead>
-            <tr className="border-b border-outline-variant/30 bg-surface-container-low text-on-surface-variant font-label-caps text-label-caps">
-              <th className="px-lg py-md">Product</th>
-              <th className="px-lg py-md">Price</th>
-              <th className="px-lg py-md text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-outline-variant/20">
-            {loading ? (
-              <tr><td colSpan="3" className="px-lg py-xl text-center text-on-surface-variant">Loading...</td></tr>
-            ) : filtered.length === 0 ? (
-              <tr><td colSpan="3" className="px-lg py-xl text-center text-on-surface-variant">No products found.</td></tr>
-            ) : filtered.map(product => (
-              <tr key={product._id} className="hover:bg-surface-container-low/50 transition-colors group">
-                <td className="px-lg py-md">
-                  <div className="flex items-center gap-md">
-                    <div className="w-12 h-12 bg-surface-variant rounded overflow-hidden flex-shrink-0 relative">
-                      {product.onSale && <span className="absolute top-0 left-0 bg-error text-white text-[8px] px-1 font-bold">SALE</span>}
-                      {product.colorImages?.[0]?.image || product.image
-                        ? <img alt={product.name} className="w-full h-full object-cover" src={getImgUrl(product.colorImages?.[0]?.image || product.image)} />
-                        : <span className="flex items-center justify-center w-full h-full material-symbols-outlined text-outline text-[20px]">image</span>}
-                    </div>
-                    <div>
-                      <div className="font-medium text-on-surface text-sm">{product.name}</div>
-                      <div className="text-xs text-on-surface-variant capitalize">{product.category}</div>
-                    </div>
-                  </div>
-                </td>
-                <td className="px-lg py-md">
-                  <div className="flex flex-col">
-                    <span className="font-medium text-primary text-sm">{formatPrice(product.price)}</span>
-                    {product.onSale && <span className="text-[10px] text-on-surface-variant line-through">{formatPrice(product.originalPrice)}</span>}
-                  </div>
-                </td>
-                <td className="px-lg py-md text-right">
-                  <div className="flex items-center justify-end gap-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button onClick={() => setModal(product)} className="p-sm text-on-surface-variant hover:text-primary transition-colors rounded hover:bg-surface-variant">
-                      <span className="material-symbols-outlined text-[20px]">edit</span>
-                    </button>
-                    <button onClick={() => handleDelete(product._id)} className="p-sm text-on-surface-variant hover:text-error transition-colors rounded hover:bg-error-container">
-                      <span className="material-symbols-outlined text-[20px]">delete</span>
-                    </button>
-                  </div>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-slate-50/50 text-slate-500 font-bold text-[10px] uppercase tracking-widest border-b border-slate-100">
+                <th className="px-6 py-4">Product Details</th>
+                <th className="px-6 py-4">Category</th>
+                <th className="px-6 py-4">Inventory</th>
+                <th className="px-6 py-4">Pricing</th>
+                <th className="px-6 py-4 text-right">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {loading ? (
+                <tr><td colSpan="5" className="px-6 py-12 text-center text-slate-400 italic text-sm">Accessing database...</td></tr>
+              ) : filtered.length === 0 ? (
+                <tr><td colSpan="5" className="px-6 py-12 text-center text-slate-400 italic text-sm">No results match your query</td></tr>
+              ) : filtered.map(product => (
+                <tr key={product._id} className="hover:bg-slate-50 transition-colors group">
+                  <td className="px-6 py-4">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-14 bg-slate-100 rounded-lg overflow-hidden border border-slate-200 relative flex-shrink-0 flex items-center justify-center">
+                        {product.onSale && <span className="absolute top-0 left-0 bg-red-600 text-white text-[7px] px-1.5 font-bold rounded-br-sm shadow-sm">SALE</span>}
+                        <img alt={product.name} className="w-full h-full object-contain" src={getImgUrl(product.colorImages?.[0]?.image || product.image)} />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-bold text-slate-800 truncate">{product.name}</p>
+                        <p className="text-[10px] text-slate-400 font-medium truncate uppercase">ID: {product._id.slice(-8)}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 capitalize text-sm text-slate-600 font-medium">{product.category}</td>
+                  <td className="px-6 py-4">
+                    <span className={`text-xs font-bold ${product.stock < 5 ? 'text-red-600' : 'text-slate-700'}`}>{product.stock} units</span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="flex flex-col">
+                      <span className="text-sm font-bold text-primary">{formatPrice(product.price)}</span>
+                      {product.onSale && <span className="text-[10px] text-slate-400 line-through font-medium">{formatPrice(product.originalPrice)}</span>}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-right">
+                    <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button onClick={() => setModal(product)} className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-primary hover:bg-white hover:shadow-md transition-all">
+                        <span className="material-symbols-outlined text-[20px]">edit</span>
+                      </button>
+                      <button onClick={() => handleDelete(product._id)} className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-300 hover:text-red-500 hover:bg-white hover:shadow-md transition-all">
+                        <span className="material-symbols-outlined text-[20px]">delete</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      {modal && (
-        <ProductModal product={modal === 'add' ? null : modal} onClose={() => setModal(null)}
-          onSave={handleSave} token={user?.token} />
-      )}
+      {modal && <ProductModal product={modal === 'add' ? null : modal} onClose={() => setModal(null)} onSave={handleSave} token={user?.token} />}
     </AdminLayout>
   );
 };
 
-// ─── Admin Orders Page ─────────────────────────────────────────────────────────
-const statusColors = {
-  pending: 'bg-surface-variant text-on-surface-variant',
-  processing: 'bg-primary-fixed text-on-primary-fixed',
-  shipped: 'bg-tertiary-fixed text-on-tertiary-fixed',
-  delivered: 'bg-secondary-fixed text-on-secondary-fixed',
-  cancelled: 'bg-error-container text-on-error-container',
+// ─── Order Detail Modal (Inspect Mode) ────────────────────────────────────────
+const OrderDetailModal = ({ order, onClose, onUpdateStatus, token }) => {
+  if (!order) return null;
+  const [commentText, setCommentText] = useState('');
+  const [localComments, setLocalComments] = useState(order.comments || []);
+  const navigate = useNavigate();
+  const fmt = d => new Date(d).toLocaleString('en-US', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+  const handleAddComment = async (e) => {
+    e.preventDefault();
+    if (!commentText.trim()) return;
+    try {
+      const res = await fetch(`${API_BASE}/api/orders/${order._id}/comments`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ text: commentText }),
+      });
+      if (res.ok) {
+        const newComment = await res.json();
+        setLocalComments([...localComments, newComment]);
+        setCommentText('');
+      }
+    } catch (err) { console.error(err); }
+  };
+
+  const statusOrderArr = ['pending', 'processing', 'shipped', 'delivered', 'cancelled'];
+  const currentIndex = statusOrderArr.indexOf(order.status);
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 md:p-8" onClick={onClose}>
+      <div className="bg-white rounded-2xl w-full max-w-7xl max-h-[92vh] overflow-hidden shadow-2xl flex flex-col border border-slate-200" onClick={e => e.stopPropagation()}>
+        
+        <div className="flex justify-between items-center px-8 py-5 bg-slate-50 border-b border-slate-200">
+          <div className="flex items-center gap-6">
+            <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
+              <span className="material-symbols-outlined text-[24px]">assignment</span>
+            </div>
+            <div>
+              <div className="flex items-center gap-3">
+                <h2 className="text-xl font-bold text-slate-800 uppercase tracking-tight">Order #{order._id.slice(-8)}</h2>
+                <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${
+                  order.status === 'delivered' ? 'bg-green-100 text-green-700' :
+                  order.status === 'cancelled' ? 'bg-red-100 text-red-700' : 'bg-primary/10 text-primary'
+                }`}>
+                  {order.status}
+                </span>
+              </div>
+              <p className="text-xs text-slate-400 font-medium mt-0.5 uppercase tracking-wide">Fulfillment Inspector</p>
+            </div>
+          </div>
+          <button onClick={onClose} className="w-10 h-10 rounded-full hover:bg-white hover:shadow-md transition-all flex items-center justify-center text-slate-400 hover:text-slate-600">
+            <span className="material-symbols-outlined text-[24px]">close</span>
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div className="lg:col-span-8 space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Customer Details</h3>
+                <div className="space-y-2">
+                  <p className="text-base font-bold text-slate-800">{order.recipientName}</p>
+                  <p className="text-sm text-slate-600 flex items-center gap-2"><span className="material-symbols-outlined text-[18px] opacity-40">call</span> {order.phone}</p>
+                  <p className="text-sm text-slate-600 flex items-start gap-2 leading-relaxed"><span className="material-symbols-outlined text-[18px] opacity-40 mt-0.5">location_on</span> {order.address}</p>
+                </div>
+              </div>
+              <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-4">
+                <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Transaction Context</h3>
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-slate-500 font-medium">Payment Method</span>
+                  <span className="font-bold text-slate-800 uppercase text-xs">{order.paymentMethod}</span>
+                </div>
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-slate-500 font-medium">Entry Date</span>
+                  <span className="font-bold text-slate-800 text-xs">{fmt(order.createdAt)}</span>
+                </div>
+                {order.note && <div className="p-3 bg-white border border-slate-100 rounded-lg text-xs italic text-slate-500">"{order.note}"</div>}
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                <span className="material-symbols-outlined text-[16px]">inventory</span> Inventory Verification
+              </h3>
+              <div className="space-y-3">
+                {order.items?.map((item, idx) => {
+                  const product = item.product || {};
+                  const stock = product.stock || 0;
+                  const isAvailable = stock >= item.quantity;
+                  return (
+                    <div key={idx} className="flex items-center gap-6 bg-white border border-slate-100 rounded-xl p-4 hover:border-primary/30 transition-all shadow-sm">
+                      <div className="w-16 h-20 bg-slate-50 rounded-lg overflow-hidden flex-shrink-0 border border-slate-100 flex items-center justify-center p-2">
+                        {product.image && <img src={getImgUrl(product.image)} className="max-w-full max-h-full object-contain" alt={product.name} />}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-bold text-slate-800 uppercase tracking-tight mb-2 truncate">{product.name || 'Legacy Product'}</p>
+                        <div className="flex items-center gap-8">
+                          <div>
+                            <p className="text-[9px] font-bold text-slate-400 uppercase mb-0.5">Ordered</p>
+                            <p className="text-sm font-bold text-primary">{item.quantity} Units</p>
+                          </div>
+                          <div>
+                            <p className="text-[9px] font-bold text-slate-400 uppercase mb-0.5">In-Stock</p>
+                            <p className={`text-sm font-bold ${stock < item.quantity ? 'text-red-600' : 'text-slate-800'}`}>{stock} Units</p>
+                          </div>
+                          <div className="ml-auto">
+                            {isAvailable ? (
+                              <span className="flex items-center gap-2 text-[10px] font-bold text-green-600 uppercase tracking-wide bg-green-50 px-3 py-1.5 rounded-full border border-green-100">
+                                <span className="material-symbols-outlined text-[16px]">check_circle</span> Ready
+                              </span>
+                            ) : (
+                              <button onClick={() => navigate(`/admin/products?search=${encodeURIComponent(product.name || '')}`)}
+                                className="flex items-center gap-2 text-[10px] font-bold text-red-600 uppercase tracking-wide bg-red-50 px-3 py-1.5 rounded-full border border-red-100 hover:bg-red-600 hover:text-white transition-all shadow-sm">
+                                <span className="material-symbols-outlined text-[16px]">warning</span> Restock
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="space-y-4 pt-4 border-t border-slate-100">
+              <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                <span className="material-symbols-outlined text-[16px]">history</span> Operational Logs
+              </h3>
+              <div className="space-y-3 pl-8 border-l-2 border-slate-50">
+                {order.history?.length > 0 ? order.history.map((h, i) => (
+                  <div key={i} className="flex items-center gap-4 text-xs relative">
+                    <div className="w-3 h-3 rounded-full bg-white border-2 border-primary absolute -left-[35px] shadow-sm"></div>
+                    <span className="font-bold text-primary uppercase w-20">{h.status}</span>
+                    <span className="text-slate-500 font-medium">Stage advanced by <span className="font-bold text-slate-800">{h.user}</span></span>
+                    <span className="ml-auto text-[10px] font-bold text-slate-300 uppercase">{fmt(h.changedAt)}</span>
+                  </div>
+                )) : <p className="text-xs text-slate-400 italic">No operational transitions recorded.</p>}
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-4 flex flex-col gap-6">
+            <div className="bg-slate-50 rounded-xl border border-slate-200 flex flex-col h-[500px] shadow-inner overflow-hidden">
+              <div className="px-5 py-4 border-b border-slate-200 bg-white flex justify-between items-center">
+                <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[18px]">forum</span> Internal Discussion
+                </h3>
+                <span className="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded-full">{localComments.length}</span>
+              </div>
+              <div className="flex-1 overflow-y-auto p-5 space-y-4 no-scrollbar">
+                {localComments.map((c, i) => (
+                  <div key={i} className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm space-y-1.5">
+                    <div className="flex justify-between items-center">
+                      <span className="text-[10px] font-bold text-primary uppercase">{c.author}</span>
+                      <span className="text-[8px] font-bold text-slate-300 uppercase">{new Date(c.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                    </div>
+                    <p className="text-sm text-slate-700 font-medium leading-relaxed">{c.text}</p>
+                  </div>
+                ))}
+              </div>
+              <form onSubmit={handleAddComment} className="p-4 bg-white border-t border-slate-200">
+                <div className="relative">
+                  <input value={commentText} onChange={e => setCommentText(e.target.value)} placeholder="Type a note..."
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-4 pr-10 py-2.5 text-sm outline-none focus:border-primary transition-all font-medium" />
+                  <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors">
+                    <span className="material-symbols-outlined">send</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div className="px-8 py-6 bg-slate-50 border-t border-slate-200 flex justify-between items-center">
+          <div className="space-y-0.5">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Liquid Order Value</p>
+            <p className="text-3xl font-bold text-primary tracking-tighter">{formatPrice(order.totalAmount)}</p>
+          </div>
+          <div className="flex gap-4 items-center">
+            <button onClick={onClose} className="px-6 py-2.5 rounded-lg text-sm font-bold text-slate-500 hover:bg-white hover:shadow-md transition-all">Dismiss</button>
+            <div className="h-8 w-[1px] bg-slate-200 mx-2"></div>
+
+            {currentIndex > 0 && order.status !== 'cancelled' && (
+              <button onClick={() => { onUpdateStatus(order._id, statusOrderArr[currentIndex - 1]); onClose(); }}
+                className="px-6 py-2.5 border border-slate-300 rounded-lg text-xs font-bold text-slate-600 hover:bg-white hover:shadow-md transition-all flex items-center gap-2 uppercase tracking-wide">
+                <span className="material-symbols-outlined text-[18px]">undo</span> Move Back
+              </button>
+            )}
+
+            {currentIndex < 3 && order.status !== 'cancelled' && (
+              <button onClick={() => { onUpdateStatus(order._id, statusOrderArr[currentIndex + 1]); onClose(); }}
+                className="px-8 py-2.5 bg-primary text-white rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-primary-dark shadow-lg shadow-primary/20 transition-all flex items-center gap-2">
+                Next Stage <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+              </button>
+            )}
+
+            {order.status === 'delivered' && (
+              <span className="flex items-center gap-2 text-xs font-bold text-green-600 uppercase tracking-widest bg-green-50 px-6 py-2.5 rounded-lg border border-green-100 shadow-sm">
+                <span className="material-symbols-outlined text-[20px]">check_circle</span> Process Completed
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
+
+// ─── Admin Orders Page (Kanban Board) ──────────────────────────────────────────
+const statusOrder = ['pending', 'processing', 'shipped', 'delivered', 'cancelled'];
 
 export const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [expanded, setExpanded] = useState(null);
+  const [selectedOrder, setSelectedOrder] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -362,150 +547,81 @@ export const AdminOrders = () => {
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
       body: JSON.stringify({ status }),
     });
-    if (res.ok) setOrders(prev => prev.map(o => o._id === orderId ? { ...o, status } : o));
+    if (res.ok) fetchOrders();
   };
 
-  const filteredOrders = orders.filter(o => {
-    const matchesSearch = 
-      o._id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      o.recipientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      o.phone.includes(searchTerm);
-    const matchesStatus = statusFilter === 'all' || o.status === statusFilter;
-    return matchesSearch && matchesStatus;
-  });
-
-  // Operational KPIs
-  const pendingCount = orders.filter(o => o.status === 'pending').length;
-  const processingCount = orders.filter(o => o.status === 'processing').length;
-  const todayCount = orders.filter(o => {
-    const d = new Date(o.createdAt);
-    const now = new Date();
-    return d.getDate() === now.getDate() && d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
-  }).length;
-
-  const fmt = d => new Date(d).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  const filteredOrders = orders.filter(o => 
+    o._id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    o.recipientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (o.phone && o.phone.includes(searchTerm))
+  );
 
   return (
     <AdminLayout>
-      <div className="mb-xl">
-        <h1 className="font-headline-lg text-headline-lg text-primary">Order Management</h1>
-        <p className="text-sm text-on-surface-variant mt-xs">Fulfillment queue and processing</p>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-800 tracking-tight uppercase">Fulfillment</h1>
+          <p className="text-sm text-slate-500 font-medium italic">Operational pipeline and order queue</p>
+        </div>
+        <div className="relative w-full max-w-xs">
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+          <input value={searchTerm} onChange={e => setSearchTerm(e.target.value)} placeholder="Filter queue..."
+            className="w-full bg-white border border-slate-200 rounded-lg pl-10 pr-4 py-2 text-sm text-slate-900 focus:border-primary outline-none transition-all shadow-sm" />
+        </div>
       </div>
 
-      {!loading && (
-        <section className="mb-xxl">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
-            {/* Pending KPI */}
-            <div className={`bg-surface-container-lowest border rounded-xl p-lg shadow-sm ${pendingCount > 0 ? 'border-amber-500/50' : 'border-outline-variant/30'}`}>
-              <div className="flex justify-between items-start mb-1">
-                <p className="text-[10px] font-label-caps text-on-surface-variant">Pending Review</p>
-                {pendingCount > 0 && <span className="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></span>}
-              </div>
-              <h3 className={`text-xl font-bold ${pendingCount > 0 ? 'text-amber-600' : 'text-on-surface'}`}>{pendingCount} Orders</h3>
-            </div>
-            
-            {/* Processing KPI */}
-            <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-lg shadow-sm">
-              <p className="text-[10px] font-label-caps text-on-surface-variant mb-1">In Preparation</p>
-              <h3 className="text-xl font-bold text-primary">{processingCount} Orders</h3>
-            </div>
-
-            {/* Today's KPI */}
-            <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-lg shadow-sm">
-              <p className="text-[10px] font-label-caps text-on-surface-variant mb-1">New Orders Today</p>
-              <h3 className="text-xl font-bold text-on-surface">{todayCount} Orders</h3>
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section>
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-md mb-lg">
-          <div className="relative w-full md:w-80">
-            <span className="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
-            <input value={searchTerm} onChange={e => setSearchTerm(e.target.value)} placeholder="Search ID, Name, Phone..."
-              className="w-full bg-surface-container border border-outline-variant/50 rounded px-xl py-sm text-sm text-on-surface focus:border-primary outline-none" />
-          </div>
-          
-          <div className="flex gap-xs overflow-x-auto no-scrollbar pb-xs md:pb-0">
-            {['all', 'pending', 'processing', 'shipped', 'delivered', 'cancelled'].map(s => (
-              <button key={s} onClick={() => setStatusFilter(s)}
-                className={`px-4 py-1.5 rounded text-[10px] font-label-caps uppercase transition-colors whitespace-nowrap ${statusFilter === s ? 'bg-primary text-on-primary' : 'bg-surface-container text-on-surface-variant hover:bg-surface-variant'}`}>
-                {s}
-              </button>
-            ))}
-          </div>
+      {loading ? (
+        <div className="flex flex-col items-center justify-center py-20 gap-4 opacity-50">
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-slate-300 border-t-primary"></div>
+          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Scanning Board...</p>
         </div>
-
-        {loading ? <div className="text-center py-xl text-on-surface-variant">Loading...</div>
-          : filteredOrders.length === 0 ? <div className="text-center py-xl bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-on-surface-variant">No orders found.</div>
-          : (
-            <div className="flex flex-col gap-sm">
-              {filteredOrders.map(order => (
-                <div key={order._id} className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden hover:border-primary/30 transition-colors">
-                  <div className="flex items-center justify-between px-lg py-md cursor-pointer hover:bg-surface-container-low/30 transition-colors"
-                    onClick={() => setExpanded(expanded === order._id ? null : order._id)}>
-                    <div className="flex items-center gap-xl">
-                      <div>
-                        <div className="font-bold text-on-surface text-sm uppercase">#{order._id.slice(-8)}</div>
-                        <div className="text-[11px] text-on-surface-variant">{fmt(order.createdAt)}</div>
-                      </div>
-                      <div>
-                        <div className="font-medium text-on-surface text-sm">{order.recipientName}</div>
-                        <div className="text-[11px] text-on-surface-variant">{order.phone}</div>
-                      </div>
+      ) : (
+        <div className="flex gap-6 overflow-x-auto pb-8 min-h-[75vh] items-stretch custom-scrollbar">
+          <style>{`
+            .custom-scrollbar::-webkit-scrollbar { height: 10px; display: block !important; }
+            .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.03); border-radius: 20px; }
+            .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 20px; border: 3px solid white; shadow-lg; }
+            .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+          `}</style>
+          {statusOrder.map(status => (
+            <div key={status} className="flex-shrink-0 w-80 bg-slate-100/50 rounded-xl flex flex-col border border-slate-200 shadow-inner overflow-hidden"
+              onDragOver={e => e.preventDefault()} onDrop={e => { const id = e.dataTransfer.getData('orderId'); if (id) updateStatus(id, status); }}>
+              <div className="px-5 py-3 flex items-center justify-between bg-white/80 backdrop-blur-sm border-b border-slate-200">
+                <h2 className="text-[10px] font-bold uppercase tracking-widest text-slate-500">{status}</h2>
+                <span className="bg-slate-200 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">{filteredOrders.filter(o => o.status === status).length}</span>
+              </div>
+              <div className="flex-1 p-3 space-y-3 overflow-y-auto no-scrollbar max-h-[calc(100vh-280px)]">
+                {filteredOrders.filter(o => o.status === status).map(order => (
+                  <div key={order._id} draggable onDragStart={e => e.dataTransfer.setData('orderId', order._id)} onClick={() => setSelectedOrder(order)}
+                    className="bg-white border border-slate-200 rounded-lg p-5 shadow-sm cursor-grab active:cursor-grabbing hover:border-primary hover:shadow-md transition-all group">
+                    <div className="flex justify-between items-start mb-4">
+                      <span className="text-[9px] font-bold text-slate-300 uppercase tracking-tighter border-b border-slate-100 pb-0.5">#{order._id.slice(-6)}</span>
+                      <span className="text-[8px] font-bold text-slate-400 uppercase">{new Date(order.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                     </div>
-                    <div className="flex items-center gap-lg">
-                      <div className="text-right hidden sm:block">
-                        <div className="font-bold text-primary text-sm">{formatPrice(order.totalAmount)}</div>
-                        <div className="text-[10px] text-on-surface-variant">{order.items?.length} item(s)</div>
+                    <div className="font-bold text-slate-800 text-sm mb-1 group-hover:text-primary transition-colors truncate uppercase tracking-tight">{order.recipientName}</div>
+                    <div className="text-[10px] text-slate-400 font-medium mb-5 flex items-center gap-1 truncate"><span className="material-symbols-outlined text-[12px]">location_on</span> {order.address}</div>
+                    <div className="flex justify-between items-center border-t border-slate-50 pt-4">
+                      <div className="flex flex-col">
+                        <span className="text-[8px] font-bold text-slate-300 uppercase mb-0.5 tracking-widest">Liquid Value</span>
+                        <span className="text-xs font-bold text-primary">{formatPrice(order.totalAmount)}</span>
                       </div>
-                      <select value={order.status}
-                        onChange={e => { e.stopPropagation(); updateStatus(order._id, e.target.value); }}
-                        onClick={e => e.stopPropagation()}
-                        className={`font-label-caps text-[10px] px-3 py-1 rounded border border-outline-variant/30 outline-none cursor-pointer ${statusColors[order.status] || ''}`}>
-                        {['pending', 'processing', 'shipped', 'delivered', 'cancelled'].map(s => (
-                          <option key={s} value={s}>{s.toUpperCase()}</option>
-                        ))}
-                      </select>
-                      <span className="material-symbols-outlined text-on-surface-variant text-[20px] transition-transform"
-                        style={{ transform: expanded === order._id ? 'rotate(180deg)' : 'none' }}>expand_more</span>
-                    </div>
-                  </div>
-                  {expanded === order._id && (
-                    <div className="border-t border-outline-variant/20 px-lg py-md bg-surface-container-low/20">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-lg mb-lg">
-                        <div>
-                          <div className="font-label-caps text-[10px] text-on-surface-variant mb-xs">Shipping Information</div>
-                          <div className="text-sm text-on-surface font-medium">{order.recipientName}</div>
-                          <div className="text-xs text-on-surface-variant mt-xs leading-relaxed">{order.address}</div>
-                          {order.note && <div className="mt-sm text-xs italic text-secondary-container">Note: {order.note}</div>}
-                        </div>
-                        <div>
-                          <div className="font-label-caps text-[10px] text-on-surface-variant mb-xs">Payment & Details</div>
-                          <div className="text-sm text-on-surface">{order.paymentMethod}</div>
-                          <div className="text-xs text-on-surface-variant mt-xs">ID: {order._id}</div>
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-xs">
-                        {order.items?.map((item, i) => (
-                          <div key={i} className="flex items-center gap-md bg-surface-container/50 rounded-lg px-md py-sm">
-                            {item.product?.image && <img src={getImgUrl(item.product.image)} alt={item.product?.name} className="w-10 h-10 rounded object-cover" />}
-                            <div className="flex-1 overflow-hidden">
-                              <div className="text-sm font-medium text-on-surface truncate">{item.product?.name || 'Unknown'}</div>
-                              <div className="text-[10px] text-on-surface-variant">Qty: {item.quantity}</div>
-                            </div>
-                            <div className="font-bold text-primary text-sm">{formatPrice(item.price * item.quantity)}</div>
+                      <div className="flex -space-x-2.5">
+                        {order.items?.slice(0, 3).map((item, idx) => (
+                          <div key={idx} className="w-8 h-8 rounded-full border-2 border-white bg-slate-50 overflow-hidden shadow-sm ring-1 ring-slate-100">
+                            {item.product?.image && <img src={getImgUrl(item.product.image)} className="w-full h-full object-cover" />}
                           </div>
                         ))}
                       </div>
                     </div>
-                  )}
-                </div>
-              ))}
+                  </div>
+                ))}
+              </div>
             </div>
-          )}
-      </section>
+          ))}
+        </div>
+      )}
+
+      {selectedOrder && <OrderDetailModal order={selectedOrder} onClose={() => setSelectedOrder(null)} onUpdateStatus={updateStatus} token={user?.token} />}
     </AdminLayout>
   );
 };
@@ -523,9 +639,7 @@ export const AdminUsers = () => {
 
   const fetchAdmins = useCallback(async () => {
     try {
-      const res = await fetch(`${API_BASE}/api/auth/admins`, {
-        headers: { Authorization: `Bearer ${user.token}` },
-      });
+      const res = await fetch(`${API_BASE}/api/auth/admins`, { headers: { Authorization: `Bearer ${user.token}` } });
       const data = await res.json();
       setAdmins(data);
     } catch (err) { console.error(err); }
@@ -549,103 +663,78 @@ export const AdminUsers = () => {
       });
       const data = await res.json();
       if (res.ok) {
-        setMessage({ type: 'success', text: 'Admin account created successfully!' });
-        setName('');
-        setPass('');
-        fetchAdmins();
+        setMessage({ type: 'success', text: 'Account provisioned successfully' });
+        setName(''); setPass(''); fetchAdmins();
       } else {
         setMessage({ type: 'error', text: data.message });
       }
-    } catch (err) {
-      setMessage({ type: 'error', text: 'An error occurred' });
-    } finally {
-      setLoading(false);
-    }
+    } catch (err) { setMessage({ type: 'error', text: 'Network request failed' }); }
+    finally { setLoading(false); }
   };
 
   const handleDelete = async (id) => {
-    if (id === user._id) return alert('You cannot delete yourself!');
-    if (!window.confirm('Are you sure you want to delete this admin account?')) return;
+    if (id === user._id) return alert('Self-termination restricted');
+    if (!window.confirm('Revoke access for this administrator?')) return;
     try {
       const res = await fetch(`${API_BASE}/api/auth/admins/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${user.token}` },
       });
       if (res.ok) fetchAdmins();
-      else {
-        const data = await res.json();
-        alert(data.message);
-      }
     } catch (err) { console.error(err); }
   };
 
   return (
     <AdminLayout>
-      <div className="mb-xl">
-        <h1 className="font-headline-lg text-headline-lg text-primary">Admin Management</h1>
-        <p className="text-sm text-on-surface-variant mt-xs">Create and manage administrator accounts</p>
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-slate-800 tracking-tight uppercase font-black">Personnel</h1>
+        <p className="text-sm text-slate-500 font-medium italic opacity-70">Manage administrative access control</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-xl lg:gap-xxl">
-        {/* Create Form */}
-        <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-xl shadow-sm h-fit">
-          <h2 className="font-title-lg text-title-lg mb-lg flex items-center gap-sm">
-            <span className="material-symbols-outlined">person_add</span>
-            Add New Admin
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="bg-white border border-slate-200 rounded-xl p-8 shadow-sm h-fit">
+          <h2 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2 uppercase tracking-tight">
+            <span className="material-symbols-outlined text-primary">person_add</span> Provision Access
           </h2>
-          <form onSubmit={handleSubmit} className="space-y-lg">
-            <div>
-              <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">Username</label>
-              <input value={name} onChange={e => setName(e.target.value)} required placeholder="Admin username"
-                className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none" />
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Username</label>
+              <input value={name} onChange={e => setName(e.target.value)} required placeholder="User alias"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-900 focus:border-primary outline-none" />
             </div>
-            <div>
-              <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">Password</label>
-              <input type="password" value={pass} onChange={e => setPass(e.target.value)} required placeholder="Admin password"
-                className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none" />
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Secret Token</label>
+              <input type="password" value={pass} onChange={e => setPass(e.target.value)} required placeholder="Password phrase"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-900 focus:border-primary outline-none" />
             </div>
-
-            {message.text && (
-              <div className={`p-sm rounded text-sm ${message.type === 'error' ? 'bg-error/10 text-error' : 'bg-primary/10 text-primary'}`}>
-                {message.text}
-              </div>
-            )}
-
+            {message.text && <div className={`p-4 rounded-lg text-xs font-bold ${message.type === 'error' ? 'bg-red-50 text-red-600 border border-red-100' : 'bg-green-50 text-green-600 border border-green-100'}`}>{message.text}</div>}
             <button type="submit" disabled={loading}
-              className="w-full bg-primary text-on-primary py-md rounded font-label-caps text-label-caps hover:opacity-90 transition-opacity disabled:opacity-60 flex items-center justify-center gap-sm">
-              {loading ? 'Creating...' : (
-                <>
-                  <span className="material-symbols-outlined text-[18px]">how_to_reg</span>
-                  Create Admin Account
-                </>
-              )}
+              className="w-full bg-primary text-white py-3 rounded-lg font-bold uppercase tracking-widest text-xs hover:bg-primary-dark shadow-lg shadow-primary/20 transition-all disabled:opacity-50">
+              {loading ? 'Provisioning...' : 'Activate Account'}
             </button>
           </form>
         </div>
 
-        {/* Admins List */}
-        <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden shadow-sm">
-          <div className="px-lg py-md border-b border-outline-variant/30 bg-surface-container-low">
-            <h2 className="font-label-caps text-label-caps text-on-surface-variant">Current Administrators</h2>
+        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col">
+          <div className="px-6 py-4 border-b border-slate-100 bg-slate-50/50">
+            <h2 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Authorized Personnel</h2>
           </div>
-          <div className="divide-y divide-outline-variant/20">
+          <div className="divide-y divide-slate-100 overflow-y-auto no-scrollbar max-h-[450px]">
             {fetching ? (
-              <div className="p-xl text-center text-on-surface-variant text-sm">Loading admins...</div>
-            ) : admins.length === 0 ? (
-              <div className="p-xl text-center text-on-surface-variant text-sm">No admins found.</div>
+              <div className="p-12 text-center text-slate-400 italic text-sm animate-pulse">Scanning records...</div>
             ) : admins.map(admin => (
-              <div key={admin._id} className="px-lg py-md flex items-center justify-between hover:bg-surface-container-low/30 transition-colors">
-                <div className="flex items-center gap-md">
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                    <span className="material-symbols-outlined">account_circle</span>
+              <div key={admin._id} className="px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-400 border border-white shadow-sm">
+                    <span className="material-symbols-outlined text-[20px]">account_circle</span>
                   </div>
                   <div>
-                    <div className="font-medium text-on-surface text-sm">{admin.name} {admin._id === user._id && <span className="text-[10px] bg-secondary-container text-on-secondary-container px-1.5 py-0.5 rounded ml-1 font-bold uppercase">You</span>}</div>
-                    <div className="text-xs text-on-surface-variant">ID: {admin._id.slice(-8).toUpperCase()}</div>
+                    <p className="text-sm font-bold text-slate-800 uppercase tracking-tight">{admin.name} {admin._id === user._id && <span className="text-[8px] bg-primary/10 text-primary px-1.5 py-0.5 rounded ml-1 font-bold uppercase tracking-widest">OWNER</span>}</p>
+                    <p className="text-[10px] text-slate-400 font-medium">SID: {admin._id.slice(-8).toUpperCase()}</p>
                   </div>
                 </div>
                 {admin._id !== user._id && (
-                  <button onClick={() => handleDelete(admin._id)} className="p-sm text-on-surface-variant hover:text-error transition-colors rounded hover:bg-error-container">
+                  <button onClick={() => handleDelete(admin._id)} className="p-sm text-slate-400 hover:text-red-600 transition-colors rounded hover:bg-red-50">
                     <span className="material-symbols-outlined text-[20px]">delete</span>
                   </button>
                 )}
@@ -658,7 +747,7 @@ export const AdminUsers = () => {
   );
 };
 
-// ─── Admin Analytics Dashboard ────────────────────────────────────────────────
+// ─── Admin Analytics Dashboard ───────────────────────────────────────────────
 export const AdminAnalytics = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -667,111 +756,93 @@ export const AdminAnalytics = () => {
 
   useEffect(() => {
     if (!user || user.role !== 'admin') { navigate('/login'); return; }
-    fetch(`${API_BASE}/api/orders/dashboard-stats`, {
-      headers: { Authorization: `Bearer ${user.token}` }
-    })
-      .then(r => r.json())
-      .then(d => setData(d))
-      .catch(console.error)
-      .finally(() => setLoading(false));
+    fetch(`${API_BASE}/api/orders/dashboard-stats`, { headers: { Authorization: `Bearer ${user.token}` } })
+      .then(r => r.json()).then(setData).catch(console.error).finally(() => setLoading(false));
   }, [user, navigate]);
 
-  if (loading) return <AdminLayout><div className="text-center py-xxl text-on-surface-variant">Loading analytics...</div></AdminLayout>;
-  if (!data) return <AdminLayout><div className="text-center py-xxl text-error font-bold">Failed to load analytics data.</div></AdminLayout>;
+  if (loading) return <AdminLayout><div className="text-center py-24 italic text-slate-400 animate-pulse text-sm">Synchronizing business metrics...</div></AdminLayout>;
+  if (!data) return <AdminLayout><div className="text-center py-24 text-red-500 font-bold text-sm uppercase tracking-widest">Data Stream Link Failed</div></AdminLayout>;
 
-  // Chart Logic (Simple SVG Bar Chart)
   const maxSale = Math.max(...data.monthlySales.map(m => m.amount), 1);
   const getMonthLabel = (m) => new Date(0, m-1).toLocaleString('en-US', { month: 'short' });
 
   return (
     <AdminLayout>
-      <div className="mb-xl">
-        <h1 className="font-headline-lg text-headline-lg text-primary">Dashboard Overview</h1>
-        <p className="text-sm text-on-surface-variant mt-xs">Real-time performance metrics and sales trends</p>
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-800 tracking-tight uppercase font-black">Overview</h1>
+          <p className="text-sm text-slate-500 font-medium italic opacity-70">Real-time performance metrics</p>
+        </div>
+        <div className="bg-green-50 border border-green-100 rounded-full px-4 py-1.5 flex items-center gap-2">
+          <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+          <span className="text-[10px] font-bold text-green-600 uppercase tracking-widest">Network Active</span>
+        </div>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg mb-xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {[
-          { label: 'Total Revenue', value: formatPrice(data.totalRevenue), icon: 'payments' },
-          { label: 'Total Orders', value: data.ordersCount, icon: 'shopping_bag' },
-          { label: 'Total Products', value: data.productsCount, icon: 'inventory_2' },
-          { label: 'Total Users', value: data.usersCount, icon: 'group' }
+          { label: 'Gross Revenue', value: formatPrice(data.totalRevenue), icon: 'payments' },
+          { label: 'Volume Orders', value: data.ordersCount, icon: 'shopping_bag' },
+          { label: 'Active Catalog', value: data.productsCount, icon: 'inventory_2' },
+          { label: 'Admin Personnel', value: data.usersCount, icon: 'group' }
         ].map((kpi, i) => (
-          <div key={i} className="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/30 shadow-sm flex flex-col gap-sm hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between mb-xs">
-              <div className="w-10 h-10 bg-primary/5 rounded-lg flex items-center justify-center shadow-sm">
-                <span className="material-symbols-outlined text-primary text-[24px]">{kpi.icon}</span>
+          <div key={i} className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col gap-4 hover:shadow-md transition-all group">
+            <div className="flex items-center justify-between">
+              <div className="w-10 h-10 bg-slate-50 rounded-lg flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all border border-slate-100 shadow-sm">
+                <span className="material-symbols-outlined text-[20px]">{kpi.icon}</span>
               </div>
-              <span className="text-[9px] text-on-surface-variant/40 uppercase tracking-widest">Live Stats</span>
+              <span className="text-[8px] font-bold text-slate-300 uppercase tracking-widest">Real-time</span>
             </div>
             <div>
-              <p className="font-label-caps text-[10px] text-on-surface-variant mb-xs uppercase tracking-tight">{kpi.label}</p>
-              <h3 className="text-xl font-bold text-on-surface tracking-tighter">{kpi.value}</h3>
+              <p className="text-[10px] font-bold text-slate-400 mb-0.5 uppercase tracking-widest">{kpi.label}</p>
+              <h3 className="text-xl font-bold text-slate-800 tracking-tight">{kpi.value}</h3>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-xl">
-        {/* Sales Trend Chart */}
-        <div className="lg:col-span-8 bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-xl shadow-sm flex flex-col">
-          <div className="flex items-center justify-between mb-xl">
-            <h2 className="font-title-lg text-title-lg text-primary flex items-center gap-sm">
-              <span className="material-symbols-outlined">trending_up</span>
-              Sales Trend (6 Months)
-            </h2>
-          </div>
-          
-          <div className="flex-grow flex items-end gap-md md:gap-xl px-md border-b border-l border-outline-variant/30 pb-2 h-64 min-h-[250px]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="lg:col-span-8 bg-white border border-slate-200 rounded-xl p-8 shadow-sm flex flex-col relative overflow-hidden">
+          <h2 className="text-base font-bold text-slate-800 flex items-center gap-2 uppercase tracking-tight mb-8">
+            <span className="material-symbols-outlined text-primary">trending_up</span> Revenue Trajectory
+          </h2>
+          <div className="flex-grow flex items-end gap-3 md:gap-6 px-4 border-b border-l border-slate-100 pb-4 h-64 min-h-[300px]">
             {data.monthlySales.map((m, i) => {
               const height = (m.amount / maxSale) * 100;
               return (
                 <div key={i} className="flex-1 flex flex-col items-center group relative h-full justify-end">
-                  <div className="absolute bottom-full mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-primary text-on-primary text-[10px] py-1 px-2 rounded whitespace-nowrap z-10 pointer-events-none shadow-lg">
-                    {formatPrice(m.amount)}
+                  <div className="absolute bottom-full mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-slate-800 text-white text-[10px] font-bold py-1.5 px-3 rounded-lg shadow-xl z-20 whitespace-nowrap">{formatPrice(m.amount)}</div>
+                  <div className="w-full bg-slate-100 group-hover:bg-primary rounded-t-lg transition-all duration-700 relative overflow-hidden" style={{ height: `${height}%` }}>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent"></div>
                   </div>
-                  <div 
-                    className="w-full bg-primary/10 group-hover:bg-primary/90 rounded-t-lg transition-all duration-700 ease-out relative overflow-hidden"
-                    style={{ height: `${height}%` }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent"></div>
-                  </div>
-                  <span className="absolute -bottom-8 text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">
-                    {getMonthLabel(m._id.month)} '{String(m._id.year).slice(-2)}
-                  </span>
+                  <span className="absolute -bottom-10 text-[10px] font-bold text-slate-400 uppercase tracking-widest">{getMonthLabel(m._id.month)}</span>
                 </div>
               );
             })}
           </div>
-          <div className="mt-12 text-center text-[10px] text-on-surface-variant/40 uppercase tracking-widest">Monthly Gross Revenue Comparison</div>
+          <p className="mt-16 text-center text-[10px] font-bold text-slate-300 uppercase tracking-widest italic font-medium">6-Month Automated Revenue Analysis</p>
         </div>
 
-        {/* Top Selling Products */}
-        <div className="lg:col-span-4 bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-xl shadow-sm h-fit">
-          <div className="flex items-center justify-between mb-xl">
-            <h2 className="font-title-lg text-title-lg text-primary flex items-center gap-sm">
-              <span className="material-symbols-outlined">workspace_premium</span>
-              Top Sellers
-            </h2>
-          </div>
-          <div className="flex flex-col gap-lg">
+        <div className="lg:col-span-4 bg-white border border-slate-200 rounded-xl p-8 shadow-sm h-fit">
+          <h2 className="text-base font-bold text-slate-800 flex items-center gap-2 uppercase tracking-tight mb-8 font-black">
+            <span className="material-symbols-outlined text-secondary">workspace_premium</span> Top Assets
+          </h2>
+          <div className="space-y-6">
             {data.topProducts.map((p, i) => (
-              <div key={i} className="flex items-center gap-md group">
-                <Link to={`/products/${p.productDetails._id}`} className="w-16 h-16 bg-surface-container rounded-lg overflow-hidden flex-shrink-0 relative shadow-sm block">
-                  <img src={getImgUrl(p.productDetails.colorImages?.[0]?.image || p.productDetails.image)} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />
-                  <div className="absolute top-0 left-0 bg-primary text-on-primary text-[8px] px-1 font-bold rounded-br-lg">#{i+1}</div>
+              <div key={i} className="flex items-center gap-4 group">
+                <Link to={`/products/${p.productDetails._id}`} className="w-16 h-16 bg-slate-50 rounded-xl overflow-hidden flex-shrink-0 relative shadow-sm block border border-slate-100">
+                  <img src={getImgUrl(p.productDetails.colorImages?.[0]?.image || p.productDetails.image)} className="w-full h-full object-contain group-hover:scale-110 transition-all duration-500" />
+                  <div className="absolute top-0 left-0 bg-slate-800 text-white text-[8px] px-1.5 py-0.5 font-bold rounded-br-lg shadow-md">#{i+1}</div>
                 </Link>
-                <div className="flex-1 overflow-hidden">
-                  <Link to={`/products/${p.productDetails._id}`} className="block hover:underline decoration-primary/50">
-                    <p className="font-bold text-sm text-on-surface truncate uppercase tracking-tighter">{p.productDetails.name}</p>
+                <div className="flex-1 min-w-0">
+                  <Link to={`/products/${p.productDetails._id}`} className="block hover:underline decoration-primary/30">
+                    <p className="text-sm font-bold text-slate-800 truncate uppercase tracking-tight mb-1">{p.productDetails.name}</p>
                   </Link>
-                  <p className="text-[10px] text-on-surface-variant uppercase tracking-widest opacity-60">{p.productDetails.category}</p>
-                  <div className="flex items-center gap-sm mt-xs">
-                    <div className="flex-1 h-1.5 bg-surface-container rounded-full overflow-hidden">
-                      <div className="h-full bg-primary" style={{ width: `${(p.count / data.topProducts[0].count) * 100}%` }}></div>
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-primary/60" style={{ width: `${(p.count / data.topProducts[0].count) * 100}%` }}></div>
                     </div>
-                    <span className="text-[10px] text-primary uppercase">{p.count} Sold</span>
+                    <span className="text-[9px] font-bold text-primary uppercase tracking-widest whitespace-nowrap">{p.count} Sold</span>
                   </div>
                 </div>
               </div>
