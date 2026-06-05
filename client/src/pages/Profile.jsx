@@ -15,8 +15,8 @@ const Profile = () => {
   const [message, setMessage] = useState({ type: '', text: '' });
 
   const handlePrint = (order) => {
-    const invoiceHTML = generateInvoiceHTML(order, headerLogo);
-    const printWindow = window.open('', '_blank', 'width=900,height=950,scrollbars=yes');
+    const invoiceHTML = generateInvoiceHTML(order, user);
+    const printWindow = window.open('', '_blank', 'width=1200,height=1500,scrollbars=yes');
     printWindow.document.write(invoiceHTML);
     printWindow.document.close();
   };
