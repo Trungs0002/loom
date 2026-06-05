@@ -25,6 +25,8 @@ const Checkout = () => {
     address: '',
     note: ''
   });
+  const [paymentMethod, setPaymentMethod] = useState('COD');
+  const [processing, setProcessing] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -49,6 +51,7 @@ const Checkout = () => {
       return;
     }
 
+    setProcessing(true);
     try {
       const items = cartItems.map(item => ({
         product: item.product,
@@ -60,7 +63,7 @@ const Checkout = () => {
         ...formData,
         items,
         totalAmount: total,
-        paymentMethod: 'Cash on Delivery (COD)'
+        paymentMethod: paymentMethod === 'COD' ? 'Cash on Delivery (COD)' : 'VNPay Online'
       };
 
       const res = await fetch(`${API_BASE}/api/orders`, {
@@ -74,8 +77,30 @@ const Checkout = () => {
 
       if (res.ok) {
         const data = await res.json();
-        // Since the backend might not populate product details in the response immediately,
-        // we attach the cart item names to the order data for the invoice
+        
+        if (paymentMethod === 'VNPAY') {
+          // Create VNPay payment URL
+          const vnpayRes = await fetch(`${API_BASE}/api/payment/create-vnpay-url`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${user.token}`
+            },
+            body: JSON.stringify({
+              orderId: data._id,
+              amount: total
+            })
+          });
+
+          if (vnpayRes.ok) {
+            const { paymentUrl } = await vnpayRes.json();
+            window.location.href = paymentUrl; // Redirect to VNPay
+            return;
+          } else {
+            alert('Failed to initialize VNPay payment. Your order was created as COD.');
+          }
+        }
+
         const orderForInvoice = {
           ...data,
           items: data.items.map((item, idx) => ({
@@ -93,6 +118,8 @@ const Checkout = () => {
     } catch (error) {
       console.error("Error placing order:", error);
       alert('Network error while placing order');
+    } finally {
+      setProcessing(false);
     }
   };
 
@@ -194,14 +221,31 @@ const Checkout = () => {
         {/* Payment Method */}
         <section className="flex flex-col gap-lg mt-md">
           <h2 className="font-headline-md text-headline-md text-primary pb-sm border-b border-outline-variant/30">Payment Method</h2>
-          <div className="mt-sm">
-            <div className="flex items-center gap-md p-md border border-outline-variant/30 bg-surface-container-low rounded-DEFAULT cursor-not-allowed opacity-90">
-              <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 0" }}>local_shipping</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-md mt-sm">
+            {/* COD Option */}
+            <div 
+              onClick={() => setPaymentMethod('COD')}
+              className={`flex items-center gap-md p-md border rounded-DEFAULT cursor-pointer transition-all ${paymentMethod === 'COD' ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-outline-variant/30 bg-surface-container-low hover:border-primary/50'}`}
+            >
+              <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: `'FILL' ${paymentMethod === 'COD' ? 1 : 0}` }}>local_shipping</span>
               <div className="flex-grow">
                 <h3 className="font-body-md text-body-md font-medium text-primary">Cash on Delivery (COD)</h3>
-                <p className="font-label-caps text-label-caps text-on-surface-variant lowercase mt-xs">Pay when you receive your order.</p>
+                <p className="font-label-caps text-[10px] text-on-surface-variant lowercase mt-xs">Pay when you receive.</p>
               </div>
-              <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+              {paymentMethod === 'COD' && <span className="material-symbols-outlined text-primary">check_circle</span>}
+            </div>
+
+            {/* VNPay Option */}
+            <div 
+              onClick={() => setPaymentMethod('VNPAY')}
+              className={`flex items-center gap-md p-md border rounded-DEFAULT cursor-pointer transition-all ${paymentMethod === 'VNPAY' ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-outline-variant/30 bg-surface-container-low hover:border-primary/50'}`}
+            >
+              <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: `'FILL' ${paymentMethod === 'VNPAY' ? 1 : 0}` }}>account_balance_wallet</span>
+              <div className="flex-grow">
+                <h3 className="font-body-md text-body-md font-medium text-primary">VNPay / E-Wallet</h3>
+                <p className="font-label-caps text-[10px] text-on-surface-variant lowercase mt-xs">Secure online payment.</p>
+              </div>
+              {paymentMethod === 'VNPAY' && <span className="material-symbols-outlined text-primary">check_circle</span>}
             </div>
           </div>
         </section>

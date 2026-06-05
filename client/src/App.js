@@ -22,6 +22,7 @@ import Register from './pages/Register';
 import Favorites from './pages/Favorites';
 import Gift from './pages/Gift';
 import Profile from './pages/Profile';
+import VNPayReturn from './pages/VNPayReturn';
 import { AdminProducts, AdminOrders, AdminUsers, AdminAnalytics } from './pages/AdminDashboard';
 import { AdminCategories } from './pages/AdminCategories';
 import { AdminHome } from './pages/AdminHome';
@@ -83,6 +84,7 @@ const App = () => {
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/gift" element={<Gift />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/vnpay-return" element={<VNPayReturn />} />
               <Route path="/admin/dashboard" element={<AdminAnalytics />} />
               <Route path="/admin/products" element={<AdminProducts />} />
               <Route path="/admin/home" element={<AdminHome />} />

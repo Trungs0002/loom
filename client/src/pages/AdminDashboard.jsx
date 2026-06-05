@@ -380,6 +380,13 @@ const OrderDetailModal = ({ order, onClose, onUpdateStatus, token }) => {
                   <span className="font-bold text-slate-800 uppercase text-xs">{order.paymentMethod}</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
+                  <span className="text-slate-500 font-medium">Payment Status</span>
+                  <span className={`font-bold uppercase text-xs ${
+                    order.paymentStatus === 'Paid' ? 'text-green-600' : 
+                    order.paymentStatus === 'Failed' ? 'text-red-600' : 'text-amber-600'
+                  }`}>{order.paymentStatus || 'Pending'}</span>
+                </div>
+                <div className="flex justify-between items-center text-sm">
                   <span className="text-slate-500 font-medium">Entry Date</span>
                   <span className="font-bold text-slate-800 text-xs">{fmt(order.createdAt)}</span>
                 </div>
