@@ -5,7 +5,7 @@ import API_BASE, { formatPrice } from '../config';
 import { generateInvoiceHTML } from '../components/InvoiceTemplate';
 
 const Profile = () => {
-  const { user, logout, headerLogo } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
