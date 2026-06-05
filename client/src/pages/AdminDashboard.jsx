@@ -267,7 +267,7 @@ export const AdminProducts = () => {
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-14 bg-slate-100 rounded-lg overflow-hidden border border-slate-200 relative flex-shrink-0 flex items-center justify-center">
                         {product.onSale && <span className="absolute top-0 left-0 bg-red-600 text-white text-[7px] px-1.5 font-bold rounded-br-sm shadow-sm">SALE</span>}
-                        <img alt={product.name} className="w-full h-full object-contain" src={getImgUrl(product.colorImages?.[0]?.image || product.image)} />
+                        <img alt={product.name} className="w-full h-full object-cover" src={getImgUrl(product.colorImages?.[0]?.image || product.image)} />
                       </div>
                       <div className="min-w-0">
                         <p className="text-sm font-bold text-slate-800 truncate">{product.name}</p>
@@ -399,7 +399,7 @@ const OrderDetailModal = ({ order, onClose, onUpdateStatus, token }) => {
                   return (
                     <div key={idx} className="flex items-center gap-6 bg-white border border-slate-100 rounded-xl p-4 hover:border-primary/30 transition-all shadow-sm">
                       <div className="w-16 h-20 bg-slate-50 rounded-lg overflow-hidden flex-shrink-0 border border-slate-100 flex items-center justify-center p-2">
-                        {product.image && <img src={getImgUrl(product.image)} className="max-w-full max-h-full object-contain" alt={product.name} />}
+                        {product.image && <img src={getImgUrl(product.image)} className="max-w-full max-h-full object-cover" alt={product.name} />}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-slate-800 uppercase tracking-tight mb-2 truncate">{product.name || 'Legacy Product'}</p>
@@ -831,7 +831,7 @@ export const AdminAnalytics = () => {
             {data.topProducts.map((p, i) => (
               <div key={i} className="flex items-center gap-4 group">
                 <Link to={`/products/${p.productDetails._id}`} className="w-16 h-16 bg-slate-50 rounded-xl overflow-hidden flex-shrink-0 relative shadow-sm block border border-slate-100">
-                  <img src={getImgUrl(p.productDetails.colorImages?.[0]?.image || p.productDetails.image)} className="w-full h-full object-contain group-hover:scale-110 transition-all duration-500" />
+                  <img src={getImgUrl(p.productDetails.colorImages?.[0]?.image || p.productDetails.image)} className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" />
                   <div className="absolute top-0 left-0 bg-slate-800 text-white text-[8px] px-1.5 py-0.5 font-bold rounded-br-lg shadow-md">#{i+1}</div>
                 </Link>
                 <div className="flex-1 min-w-0">
