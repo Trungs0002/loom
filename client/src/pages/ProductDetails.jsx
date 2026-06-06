@@ -40,6 +40,7 @@ const ProductDetails = () => {
   const [embroideryPos, setEmbroideryPos] = useState({ x: 50, y: 70 });
   const [enlargedPreview, setEnlargedPreview] = useState(null);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [hasPurchased, setHasPurchased] = useState(false);
 
   const { addToCart } = useCart();
   const { user, favorites, toggleFavorite } = useAuth();
@@ -86,6 +87,21 @@ const ProductDetails = () => {
             p.tags?.some(tag => currentProductData.tags?.includes(tag))
           ).slice(0, 4);
           setRelatedProducts(related);
+
+          // Check if user has purchased this product
+          if (user) {
+            try {
+              const purchaseRes = await fetch(`${API_BASE}/api/orders/check-purchase/${id}`, {
+                headers: { 'Authorization': `Bearer ${user.token}` }
+              });
+              if (purchaseRes.ok) {
+                const purchaseData = await purchaseRes.json();
+                setHasPurchased(purchaseData.hasPurchased);
+              }
+            } catch (err) {
+              console.error('Error checking purchase status:', err);
+            }
+          }
         }
       } catch (error) {
         console.error('Error fetching product:', error);
@@ -95,7 +111,7 @@ const ProductDetails = () => {
     };
     init();
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [id, user]);
 
   const submitReview = async (e) => {
     e.preventDefault();
@@ -605,7 +621,17 @@ const ProductDetails = () => {
                 </div>
                 <div className="h-px w-full md:w-px md:h-20 bg-outline-variant/30 hidden md:block"></div>
                 <div className="flex-grow">
-                  {!showReviewForm ? (
+                  {!user ? (
+                    <div className="text-center md:text-left">
+                      <p className="font-label-caps text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60 mb-2">Login to share your experience</p>
+                      <button onClick={() => navigate('/login')} className="bg-primary text-on-primary font-label-caps text-label-caps px-xl py-md rounded-full hover:bg-[#081F5C] shadow-lg transition-all uppercase tracking-widest font-black text-[11px]">Login to Review</button>
+                    </div>
+                  ) : !hasPurchased ? (
+                    <div className="text-center md:text-left">
+                      <p className="font-label-caps text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60 mb-2">Exclusive for verified owners</p>
+                      <button disabled className="bg-outline-variant text-on-surface-variant cursor-not-allowed font-label-caps text-label-caps px-xl py-md rounded-full uppercase tracking-widest font-black text-[11px]">Purchase to review</button>
+                    </div>
+                  ) : !showReviewForm ? (
                     <button onClick={() => setShowReviewForm(true)} className="bg-primary text-on-primary font-label-caps text-label-caps px-xl py-md rounded-full hover:bg-[#081F5C] shadow-lg transition-all uppercase tracking-widest font-black text-[11px]">Write Experience</button>
                   ) : (
                     <form onSubmit={submitReview} className="flex flex-col gap-md animate-in fade-in duration-500">

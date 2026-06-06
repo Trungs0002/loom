@@ -125,6 +125,20 @@ router.get('/my-orders', protect, async (req, res) => {
   }
 });
 
+// GET /api/orders/check-purchase/:productId
+router.get('/check-purchase/:productId', protect, async (req, res) => {
+  try {
+    const orders = await Order.find({
+      user: req.user._id,
+      'items.product': req.params.productId,
+      status: { $ne: 'cancelled' }
+    });
+    res.json({ hasPurchased: orders.length > 0 });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // GET /api/orders
 router.get('/', protect, admin, async (req, res) => {
   try {

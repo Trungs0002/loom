@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
+const Order = require('../models/Order');
 const { protect, admin } = require('../middleware/auth');
 
 // GET /api/products
@@ -74,12 +75,24 @@ router.post('/:id/reviews', protect, async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (product) {
+      // Check if user has already reviewed the product
       const alreadyReviewed = product.reviews.find(
         (r) => r.user.toString() === req.user._id.toString()
       );
 
       if (alreadyReviewed) {
         return res.status(400).json({ message: 'Product already reviewed' });
+      }
+
+      // Check if user has purchased the product
+      const orders = await Order.find({
+        user: req.user._id,
+        'items.product': req.params.id,
+        status: { $ne: 'cancelled' }
+      });
+
+      if (orders.length === 0) {
+        return res.status(403).json({ message: 'You must purchase this product before reviewing it' });
       }
 
       const review = {
