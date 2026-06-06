@@ -48,13 +48,6 @@ const AppLayout = ({ children }) => {
     <div className="flex flex-col min-h-screen bg-background text-on-background selection:bg-secondary-container selection:text-on-secondary-container">
       {/* Hide default Navbar for Admin and Auth pages */}
       {!isAdmin && !isAuth && <Navbar />}
-      
-      {/* Auth specific minimalist header */}
-      {isAuth && (
-        <header className="w-full flex justify-center py-xl bg-transparent absolute top-0 left-0 right-0 z-10">
-          <a href="/" className="font-headline-lg text-headline-lg tracking-widest text-primary">LOOM</a>
-        </header>
-      )}
 
       {children}
       
