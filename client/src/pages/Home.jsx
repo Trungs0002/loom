@@ -117,6 +117,7 @@ const Home = () => {
   }, [banners.length]);
 
   const bestSellers = products.slice(0, 6);
+  const saleProducts = products.filter(p => p.onSale).slice(0, 8);
   const bestForJune = products.slice().reverse().slice(0, 6);
 
   return (
@@ -148,6 +149,13 @@ const Home = () => {
 
       {/* Best Sellers Carousel */}
       <ProductScroll title="Best Sellers" items={bestSellers} />
+
+      {/* On Sale Section - New */}
+      {saleProducts.length > 0 && (
+        <div className="bg-error/5 py-8 my-8 border-y border-error/10">
+          <ProductScroll title="Limited Offers" items={saleProducts} />
+        </div>
+      )}
 
       {/* Best for June Carousel */}
       <ProductScroll title="Best for June" items={bestForJune} />
