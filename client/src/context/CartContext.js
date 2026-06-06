@@ -10,7 +10,7 @@ export const CartProvider = ({ children }) => {
     // Migration/Fix: Ensure all items have basePrice and customFee
     return items.map(item => {
       if (item.basePrice === undefined) {
-        const fee = item.isCustomized ? 50000 : 0;
+        const fee = item.isCustomized ? 89000 : 0;
         return {
           ...item,
           basePrice: item.price - fee,
@@ -68,7 +68,7 @@ export const CartProvider = ({ children }) => {
       }
 
       const basePrice = product.price;
-      const customFee = isCustom ? 50000 : 0;
+      const customFee = isCustom ? 89000 : 0;
       const finalPrice = basePrice + customFee;
 
       return [...prev, { 

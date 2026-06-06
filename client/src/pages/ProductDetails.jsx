@@ -11,6 +11,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const fabricPreviewRef = useRef(null);
   const placementPreviewRef = useRef(null);
+  const mainImageRef = useRef(null); // Ref for auto-scrolling
   const [product, setProduct] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -252,7 +253,7 @@ const ProductDetails = () => {
     setIsPickingPosition(false);
   };
 
-  const displayPrice = isCustomized ? product.price + 50000 : product.price;
+  const displayPrice = isCustomized ? product.price + 89000 : product.price;
 
   return (
     <div className="flex-grow w-full max-w-container-max mx-auto px-gutter py-xxl">
@@ -260,6 +261,7 @@ const ProductDetails = () => {
         {/* Left: Images */}
         <div className="md:col-span-7 flex flex-col gap-gutter">
           <div 
+            ref={mainImageRef}
             className={`bg-surface-container-low w-full aspect-square overflow-hidden rounded-xl relative group/zoom ${isPickingPosition ? 'cursor-crosshair' : 'cursor-zoom-in'}`}
             onMouseEnter={() => !isPickingPosition && setIsZooming(true)}
             onMouseLeave={() => !isPickingPosition && setIsZooming(false)}
@@ -356,7 +358,7 @@ const ProductDetails = () => {
                   </div>
                   <div className="text-left">
                     <h3 className="font-label-caps text-xs text-primary font-black uppercase tracking-widest">Personalize this piece</h3>
-                    <p className="text-[10px] text-on-surface-variant opacity-60 mt-0.5">Add bespoke hand-embroidery (+{formatPrice(50000)})</p>
+                    <p className="text-[10px] text-on-surface-variant opacity-60 mt-0.5">Add bespoke hand-embroidery (+{formatPrice(89000)})</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-primary opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
@@ -427,7 +429,12 @@ const ProductDetails = () => {
                   <div className="flex items-center justify-between mb-2">
                     <label className="text-[10px] font-bold text-primary uppercase tracking-widest font-black">Layout Visualizations</label>
                     <button 
-                      onClick={() => setIsPickingPosition(!isPickingPosition)}
+                      onClick={() => {
+                        setIsPickingPosition(!isPickingPosition);
+                        if (!isPickingPosition) {
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                      }}
                       className={`px-4 py-1.5 rounded-full border text-[9px] font-black uppercase tracking-widest transition-all flex items-center gap-2 ${isPickingPosition ? 'bg-primary text-white border-primary animate-pulse' : 'bg-white text-primary border-primary/30 hover:border-primary hover:shadow-sm'}`}
                     >
                       <span className="material-symbols-outlined text-[16px]">{isPickingPosition ? 'done_all' : 'ads_click'}</span>
@@ -534,7 +541,7 @@ const ProductDetails = () => {
 
                 <div className="mt-md p-md bg-primary/5 rounded-xl border border-primary/10 flex items-center justify-between shadow-sm">
                   <span className="text-xs font-bold text-primary uppercase tracking-widest opacity-60">Service Fee</span>
-                  <span className="font-headline-lg text-lg text-primary font-bold tracking-tight">+ {formatPrice(50000)}</span>
+                  <span className="font-headline-lg text-lg text-primary font-bold tracking-tight">+ {formatPrice(89000)}</span>
                 </div>
               </div>
             )}
