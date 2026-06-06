@@ -139,13 +139,13 @@ export const AdminHome = () => {
 
   return (
     <AdminLayout>
-      <div className="flex justify-between items-center mb-xl">
-        <div>
-          <h1 className="font-headline-lg text-headline-lg text-primary">Website Settings</h1>
-          <p className="text-sm text-on-surface-variant mt-xs">Manage your homepage, collection, and about page content</p>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-xl">
+        <div className="space-y-1.5">
+          <h1 className="font-headline-lg text-headline-lg text-primary font-normal">Website Settings</h1>
+          <p className="text-sm text-on-surface-variant">Manage your homepage, collection, and about page content</p>
         </div>
         <button onClick={handleSave} disabled={saving}
-          className="bg-primary text-on-primary font-label-caps text-label-caps px-xl py-md rounded hover:opacity-90 transition-opacity disabled:opacity-50">
+          className="bg-primary text-on-primary font-label-caps text-label-caps px-xl py-md rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50">
           {saving ? 'Saving...' : 'Save All Settings'}
         </button>
       </div>

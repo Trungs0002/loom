@@ -223,16 +223,20 @@ export const AdminCategories = () => {
 
   return (
     <AdminLayout>
-      <div className="flex justify-between items-center mb-xl">
-        <div>
-          <h1 className="font-headline-lg text-headline-lg text-primary">Categories</h1>
-          <p className="text-sm text-on-surface-variant mt-xs">{categories.length} total</p>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-xl">
+        <div className="space-y-1.5">
+          <h1 className="font-headline-lg text-headline-lg text-primary font-normal">Categories</h1>
+          <p className="text-sm text-on-surface-variant">Organize and manage your product collections</p>
+          <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-primary/5 text-primary border border-primary/10 uppercase tracking-widest mt-3">
+            {categories.length} Total Collections
+          </div>
         </div>
         <button onClick={() => setModal('add')}
           className="flex items-center gap-sm bg-primary text-on-primary font-label-caps text-label-caps px-lg py-md rounded-xl hover:opacity-90 transition-opacity">
           <span className="material-symbols-outlined text-[18px]">add</span> Add Category
         </button>
       </div>
+
 
       {loading ? (
         <div className="text-center py-xl text-on-surface-variant">Loading...</div>

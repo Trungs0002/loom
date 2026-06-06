@@ -293,13 +293,16 @@ export const AdminProducts = () => {
 
   return (
     <AdminLayout>
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-800 tracking-tight">Products</h1>
-          <p className="text-sm text-slate-500 font-medium">Inventory management and catalog control</p>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-xl">
+        <div className="space-y-1.5">
+          <h1 className="font-headline-lg text-headline-lg text-primary font-normal">Products</h1>
+          <p className="text-sm text-on-surface-variant">Inventory management and catalog control</p>
+          <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-primary/5 text-primary border border-primary/10 uppercase tracking-widest mt-2">
+            {products.length} Items in Catalog
+          </div>
         </div>
         <button onClick={() => setModal('add')}
-          className="flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-primary-dark transition-all shadow-lg shadow-primary/20">
+          className="flex items-center gap-sm bg-primary text-on-primary font-label-caps text-label-caps px-lg py-md rounded-xl hover:opacity-90 transition-opacity">
           <span className="material-symbols-outlined text-[18px]">add</span> Add Product
         </button>
       </div>
@@ -311,7 +314,6 @@ export const AdminProducts = () => {
             <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Filter catalog..."
               className="w-full bg-white border border-slate-200 rounded-lg pl-10 pr-4 py-1.5 text-sm text-slate-900 focus:border-primary outline-none transition-all" />
           </div>
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{filtered.length} records shown</span>
         </div>
 
         <div className="overflow-x-auto">
@@ -781,10 +783,13 @@ export const AdminOrders = () => {
 
   return (
     <AdminLayout>
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-800 tracking-tight uppercase">Fulfillment</h1>
-          <p className="text-sm text-slate-500 font-medium italic">Operational pipeline and order queue</p>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-xl">
+        <div className="space-y-1.5">
+          <h1 className="font-headline-lg text-headline-lg text-primary font-normal">Fulfillment</h1>
+          <p className="text-sm text-on-surface-variant">Operational pipeline and order queue</p>
+          <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-primary/5 text-primary border border-primary/10 uppercase tracking-widest mt-2">
+            {filteredOrders.length} Active Orders
+          </div>
         </div>
         <div className="relative w-full max-w-xs">
           <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
@@ -814,30 +819,62 @@ export const AdminOrders = () => {
                 <span className="bg-slate-200 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">{filteredOrders.filter(o => o.status === status).length}</span>
               </div>
               <div className="flex-1 p-3 space-y-3 overflow-y-auto no-scrollbar max-h-[calc(100vh-280px)]">
-                {filteredOrders.filter(o => o.status === status).map(order => (
-                  <div key={order._id} draggable onDragStart={e => e.dataTransfer.setData('orderId', order._id)} onClick={() => setSelectedOrder(order)}
-                    className="bg-white border border-slate-200 rounded-lg p-5 shadow-sm cursor-grab active:cursor-grabbing hover:border-primary hover:shadow-md transition-all group">
-                    <div className="flex justify-between items-start mb-4">
-                      <span className="text-[9px] font-bold text-slate-300 uppercase tracking-tighter border-b border-slate-100 pb-0.5">#{order._id.slice(-6)}</span>
-                      <span className="text-[8px] font-bold text-slate-400 uppercase">{new Date(order.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                    </div>
-                    <div className="font-bold text-slate-800 text-sm mb-1 group-hover:text-primary transition-colors truncate uppercase tracking-tight">{order.recipientName}</div>
-                    <div className="text-[10px] text-slate-400 font-medium mb-5 flex items-center gap-1 truncate"><span className="material-symbols-outlined text-[12px]">location_on</span> {order.address}</div>
-                    <div className="flex justify-between items-center border-t border-slate-50 pt-4">
-                      <div className="flex flex-col">
-                        <span className="text-[8px] font-bold text-slate-300 uppercase mb-0.5 tracking-widest">Liquid Value</span>
-                        <span className="text-xs font-bold text-primary">{formatPrice(order.totalAmount)}</span>
+                {filteredOrders.filter(o => o.status === status).map((order, idx) => {
+                  const currentIdx = statusOrder.indexOf(status);
+                  const prevStatus = currentIdx > 0 && status !== 'cancelled' ? statusOrder[currentIdx - 1] : null;
+                  const nextStatus = currentIdx < 3 && status !== 'cancelled' ? statusOrder[currentIdx + 1] : null;
+
+                  return (
+                    <div 
+                      key={order._id} 
+                      draggable 
+                      onDragStart={e => e.dataTransfer.setData('orderId', order._id)} 
+                      onClick={() => setSelectedOrder(order)}
+                      className="relative bg-white border border-slate-200 rounded-lg p-5 shadow-sm cursor-grab active:cursor-grabbing hover:border-primary hover:shadow-xl hover:-translate-y-2 active:scale-[0.98] transition-all duration-500 group animate-in fade-in slide-in-from-top-4"
+                      style={{ animationDelay: `${idx * 50}ms`, animationFillMode: 'both' }}
+                    >
+                      <div className="flex justify-between items-start mb-4">
+                        <span className="text-[9px] font-bold text-slate-300 uppercase tracking-tighter border-b border-slate-100 pb-0.5">#{order._id.slice(-6)}</span>
+                        <span className="text-[8px] font-bold text-slate-400 uppercase">{new Date(order.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                       </div>
-                      <div className="flex -space-x-2.5">
-                        {order.items?.slice(0, 3).map((item, idx) => (
-                          <div key={idx} className="w-8 h-8 rounded-full border-2 border-white bg-slate-50 overflow-hidden shadow-sm ring-1 ring-slate-100">
-                            {item.product?.image && <img src={getImgUrl(item.product.image)} className="w-full h-full object-cover" />}
-                          </div>
-                        ))}
+                      <div className="font-bold text-slate-800 text-sm mb-1 group-hover:text-primary transition-colors truncate uppercase tracking-tight">{order.recipientName}</div>
+                      <div className="text-[10px] text-slate-400 font-medium mb-5 flex items-center gap-1 truncate"><span className="material-symbols-outlined text-[12px]">location_on</span> {order.address}</div>
+                      <div className="flex justify-between items-center border-t border-slate-50 pt-4">
+                        <div className="flex flex-col">
+                          <span className="text-[8px] font-bold text-slate-300 uppercase mb-0.5 tracking-widest">Liquid Value</span>
+                          <span className="text-xs font-bold text-primary">{formatPrice(order.totalAmount)}</span>
+                        </div>
+                        <div className="flex -space-x-2.5">
+                          {order.items?.slice(0, 3).map((item, idx) => (
+                            <div key={idx} className="w-8 h-8 rounded-full border-2 border-white bg-slate-50 overflow-hidden shadow-sm ring-1 ring-slate-100">
+                              {item.product?.image && <img src={getImgUrl(item.product.image)} className="w-full h-full object-cover" />}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Quick Move Overlay */}
+                      <div className="absolute inset-x-0 bottom-0 p-1.5 bg-slate-900/95 backdrop-blur-md flex gap-1 opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 rounded-b-lg z-10 border-t border-white/10">
+                        {prevStatus && (
+                          <button 
+                            onClick={(e) => { e.stopPropagation(); updateStatus(order._id, prevStatus); }}
+                            className="flex-1 flex items-center justify-center gap-1 py-1 text-[8px] font-black text-white/70 uppercase hover:text-white hover:bg-white/10 rounded transition-all"
+                          >
+                            <span className="material-symbols-outlined text-[12px]">west</span> Move to {prevStatus}
+                          </button>
+                        )}
+                        {nextStatus && (
+                          <button 
+                            onClick={(e) => { e.stopPropagation(); updateStatus(order._id, nextStatus); }}
+                            className="flex-1 flex items-center justify-center gap-1 py-1 text-[8px] font-black text-primary hover:text-white hover:bg-primary rounded transition-all"
+                          >
+                            Move to {nextStatus} <span className="material-symbols-outlined text-[12px]">east</span>
+                          </button>
+                        )}
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           ))}
@@ -909,10 +946,14 @@ export const AdminUsers = () => {
 
   return (
     <AdminLayout>
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-slate-800 tracking-tight uppercase font-black">Personnel</h1>
-        <p className="text-sm text-slate-500 font-medium italic opacity-70">Manage administrative access control</p>
+      <div className="mb-xl">
+        <h1 className="font-headline-lg text-headline-lg text-primary font-normal">Personnel</h1>
+        <p className="text-sm text-on-surface-variant mt-1">Manage administrative access control</p>
+        <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-primary/5 text-primary border border-primary/10 uppercase tracking-widest mt-3">
+          {admins.length} Authorized Administrators
+        </div>
       </div>
+
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="bg-white border border-slate-200 rounded-xl p-8 shadow-sm h-fit">
@@ -991,10 +1032,10 @@ export const AdminAnalytics = () => {
 
   return (
     <AdminLayout>
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-800 tracking-tight uppercase font-black">Overview</h1>
-          <p className="text-sm text-slate-500 font-medium italic opacity-70">Real-time performance metrics</p>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-xl">
+        <div className="space-y-1.5">
+          <h1 className="font-headline-lg text-headline-lg text-primary font-normal">Overview</h1>
+          <p className="text-sm text-on-surface-variant">Real-time performance metrics and business health</p>
         </div>
         <div className="bg-green-50 border border-green-100 rounded-full px-4 py-1.5 flex items-center gap-2">
           <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
