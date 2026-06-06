@@ -346,6 +346,17 @@ const ProductDetails = () => {
               <p className="font-headline-lg text-headline-lg text-on-surface">{formatPrice(product.price)}</p>
               {product.onSale && <p className="font-body-md text-body-md text-on-surface-variant line-through opacity-50">{formatPrice(product.originalPrice)}</p>}
             </div>
+
+            {/* Product Tags */}
+            {product.tags && product.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-4">
+                {product.tags.map((tag, idx) => (
+                  <span key={idx} className="bg-primary/5 text-primary text-[9px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full border border-primary/10">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Color selector */}
@@ -602,11 +613,19 @@ const ProductDetails = () => {
         <div className="max-w-3xl py-md text-sm leading-relaxed text-on-surface-variant">
           {activeTab === 'Description' && <p>{product.description || '—'}</p>}
           {activeTab === 'Details' && (
-            <div className="space-y-md">
-              {product.material && <p><span className="font-bold text-primary uppercase text-[10px] tracking-widest mr-2">Material:</span> {product.material}</p>}
-              {product.innerLining && <p><span className="font-bold text-primary uppercase text-[10px] tracking-widest mr-2">Inner lining:</span> {product.innerLining}</p>}
-              {product.dimensions && <p><span className="font-bold text-primary uppercase text-[10px] tracking-widest mr-2">Size:</span> {product.dimensions}</p>}
-              {product.careInstructions && <p><span className="font-bold text-primary uppercase text-[10px] tracking-widest mr-2">Care:</span> {product.careInstructions}</p>}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+              <div className="space-y-4">
+                {product.material && <p><span className="font-bold text-primary uppercase text-[10px] tracking-widest block mb-1">Material</span><span className="opacity-80">{product.material}</span></p>}
+                {product.innerLining && <p><span className="font-bold text-primary uppercase text-[10px] tracking-widest block mb-1">Inner lining</span><span className="opacity-80">{product.innerLining}</span></p>}
+                {product.closureType && <p><span className="font-bold text-primary uppercase text-[10px] tracking-widest block mb-1">Closure</span><span className="opacity-80">{product.closureType}</span></p>}
+                {product.innerCompartments && <p><span className="font-bold text-primary uppercase text-[10px] tracking-widest block mb-1">Storage</span><span className="opacity-80">{product.innerCompartments}</span></p>}
+              </div>
+              <div className="space-y-4">
+                {product.dimensions && <p><span className="font-bold text-primary uppercase text-[10px] tracking-widest block mb-1">Size</span><span className="opacity-80">{product.dimensions}</span></p>}
+                {product.weight && <p><span className="font-bold text-primary uppercase text-[10px] tracking-widest block mb-1">Weight</span><span className="opacity-80">{product.weight}</span></p>}
+                {product.numberStraps && <p><span className="font-bold text-primary uppercase text-[10px] tracking-widest block mb-1">Straps</span><span className="opacity-80">{product.numberStraps} {product.detachableStrap === 'Yes' && '(Detachable)'} {product.adjustableStrap === 'Yes' && '(Adjustable)'}</span></p>}
+                {product.careInstructions && <p><span className="font-bold text-primary uppercase text-[10px] tracking-widest block mb-1">Care</span><span className="opacity-80">{product.careInstructions}</span></p>}
+              </div>
             </div>
           )}
           {activeTab === 'Reviews' && (

@@ -49,7 +49,15 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
     stock: product?.stock || '',
     description: product?.description || '',
     material: product?.material || '',
+    innerLining: product?.innerLining || '',
+    numberStraps: product?.numberStraps || '',
+    detachableStrap: product?.detachableStrap || '',
+    adjustableStrap: product?.adjustableStrap || '',
+    closureType: product?.closureType || '',
+    innerCompartments: product?.innerCompartments || '',
     dimensions: product?.dimensions || '',
+    weight: product?.weight || '',
+    careInstructions: product?.careInstructions || '',
     tags: product?.tags?.join(', ') || '',
     onSale: product?.onSale || false,
     originalPrice: product?.originalPrice || '',
@@ -159,6 +167,67 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
               <label className="text-xs font-semibold text-slate-700">Description</label>
               <textarea name="description" value={form.description} onChange={handleChange} rows={2}
                 className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm text-slate-900 focus:border-primary outline-none resize-none" />
+            </div>
+
+            <div className="col-span-2 pt-4 border-t border-slate-100">
+              <h3 className="text-xs font-bold text-slate-800 uppercase tracking-widest mb-4">Technical Specifications</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase">Material</label>
+                  <input name="material" value={form.material} onChange={handleChange} placeholder="e.g. Recycled Denim"
+                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:border-primary outline-none" />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase">Inner Lining</label>
+                  <input name="innerLining" value={form.innerLining} onChange={handleChange} placeholder="e.g. Cotton Canvas"
+                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:border-primary outline-none" />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase">Number of Straps</label>
+                  <input name="numberStraps" value={form.numberStraps} onChange={handleChange} placeholder="e.g. 1"
+                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:border-primary outline-none" />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase">Detachable Strap</label>
+                  <input name="detachableStrap" value={form.detachableStrap} onChange={handleChange} placeholder="Yes/No"
+                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:border-primary outline-none" />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase">Adjustable Strap</label>
+                  <input name="adjustableStrap" value={form.adjustableStrap} onChange={handleChange} placeholder="Yes/No"
+                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:border-primary outline-none" />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase">Closure Type</label>
+                  <input name="closureType" value={form.closureType} onChange={handleChange} placeholder="e.g. Zipper"
+                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:border-primary outline-none" />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase">Inner Compartments</label>
+                  <input name="innerCompartments" value={form.innerCompartments} onChange={handleChange} placeholder="e.g. 2 slots"
+                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:border-primary outline-none" />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase">Dimensions</label>
+                  <input name="dimensions" value={form.dimensions} onChange={handleChange} placeholder="e.g. 20 x 15 x 5 cm"
+                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:border-primary outline-none" />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase">Weight</label>
+                  <input name="weight" value={form.weight} onChange={handleChange} placeholder="e.g. 300g"
+                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:border-primary outline-none" />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase">Care Instructions</label>
+                  <input name="careInstructions" value={form.careInstructions} onChange={handleChange} placeholder="e.g. Hand wash only"
+                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:border-primary outline-none" />
+                </div>
+                <div className="col-span-2 space-y-1.5">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase">Tags (comma separated)</label>
+                  <input name="tags" value={form.tags} onChange={handleChange} placeholder="e.g. sustainable, eco-friendly, clutch"
+                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:border-primary outline-none" />
+                </div>
+              </div>
             </div>
           </div>
 
