@@ -19,6 +19,9 @@ const Checkout = () => {
   }, 0);
   const savings = originalTotal - total;
 
+  const shippingCost = total > 500000 ? 0 : 30000;
+  const orderTotal = total + shippingCost;
+
   const [formData, setFormData] = useState({
     recipientName: '',
     phone: '',
@@ -71,7 +74,8 @@ const Checkout = () => {
           customPreviewFabric: item.customPreviewFabric,
           customPreviewPlacement: item.customPreviewPlacement
         })),
-        totalAmount: total,
+        totalAmount: orderTotal,
+        shippingCost: shippingCost,
         paymentMethod: paymentMethod === 'COD' ? 'Cash on Delivery (COD)' : 'VNPay Online'
       };
 
@@ -97,7 +101,7 @@ const Checkout = () => {
             },
             body: JSON.stringify({
               orderId: data._id,
-              amount: total
+              amount: orderTotal
             })
           });
 
@@ -333,12 +337,14 @@ const Checkout = () => {
             )}
             <div className="flex justify-between font-body-md text-body-md text-on-surface-variant">
               <span>Shipping</span>
-              <span className="text-primary">FREE</span>
+              <span>
+                {shippingCost === 0 ? 'FREE' : formatPrice(shippingCost)}
+              </span>
             </div>
           </div>
           <div className="flex justify-between font-headline-md text-headline-md text-primary pt-md border-t border-outline-variant/30">
             <span>Order Total</span>
-            <span className="text-xl font-bold">{formatPrice(total)}</span>
+            <span className="text-xl font-bold">{formatPrice(orderTotal)}</span>
           </div>
           <button 
             type="submit"

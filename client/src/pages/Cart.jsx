@@ -19,6 +19,9 @@ const Cart = () => {
   }, 0);
   const savings = originalItemsSubtotal - itemsSubtotal;
 
+  const shippingCost = total > 500000 ? 0 : 30000;
+  const orderTotal = total + shippingCost;
+
   return (
     <main className="w-full max-w-container-max mx-auto px-gutter py-xxl flex flex-col gap-xxl min-h-screen">
       <header className="flex flex-col gap-sm pt-8">
@@ -195,13 +198,15 @@ const Cart = () => {
 
               <div className="flex justify-between items-center font-body-md text-body-md text-on-surface-variant">
                 <span>Shipping</span>
-                <span className="text-primary font-medium">FREE</span>
+                <span>
+                  {shippingCost === 0 ? 'FREE' : formatPrice(shippingCost)}
+                </span>
               </div>
             </div>
             
             <div className="border-t border-outline-variant/30 pt-md flex justify-between items-center font-headline-md text-headline-md text-[#081F5C]">
               <span>Order Total</span>
-              <span className="text-2xl font-bold">{formatPrice(total)}</span>
+              <span className="text-2xl font-bold">{formatPrice(orderTotal)}</span>
             </div>
 
             <Link to={cartItems.length > 0 ? "/checkout" : "#"} className={`w-full font-label-caps text-label-caps py-md mt-sm transition-colors duration-300 flex justify-center items-center gap-sm group ${cartItems.length > 0 ? 'bg-primary text-on-primary hover:bg-primary-container' : 'bg-outline-variant text-on-surface-variant cursor-not-allowed'}`}>
