@@ -312,6 +312,8 @@ const OrderDetailModal = ({ order, onClose, onUpdateStatus, token }) => {
   if (!order) return null;
   const [commentText, setCommentText] = useState('');
   const [localComments, setLocalComments] = useState(order.comments || []);
+  const [expandedDesign, setExpandedDesign] = useState(null); // Track index of item being inspected
+  const [enlargedImage, setEnlargedImage] = useState(null); // Fullscreen image viewer
   const navigate = useNavigate();
   const fmt = d => new Date(d).toLocaleString('en-US', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
@@ -405,32 +407,145 @@ const OrderDetailModal = ({ order, onClose, onUpdateStatus, token }) => {
                   const isAvailable = stock >= item.quantity;
                   return (
                     <div key={idx} className="flex items-center gap-6 bg-white border border-slate-100 rounded-xl p-4 hover:border-primary/30 transition-all shadow-sm">
-                      <div className="w-16 h-20 bg-slate-50 rounded-lg overflow-hidden flex-shrink-0 border border-slate-100 flex items-center justify-center p-2">
-                        {product.image && <img src={getImgUrl(product.image)} className="max-w-full max-h-full object-cover" alt={product.name} />}
+                      <div 
+                        className="w-24 h-24 bg-slate-50 rounded-lg overflow-hidden flex-shrink-0 border border-slate-100 flex items-center justify-center cursor-zoom-in group/img relative"
+                        onClick={() => setEnlargedImage(getImgUrl(product.image))}
+                      >
+                        {product.image && <img src={getImgUrl(product.image)} className="w-full h-full object-cover transition-transform group-hover/img:scale-110" alt={product.name} />}
+                        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+                          <span className="material-symbols-outlined text-white text-sm">zoom_in</span>
+                        </div>
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-slate-800 uppercase tracking-tight mb-2 truncate">{product.name || 'Legacy Product'}</p>
-                        <div className="flex items-center gap-8">
-                          <div>
-                            <p className="text-[9px] font-bold text-slate-400 uppercase mb-0.5">Ordered</p>
-                            <p className="text-sm font-bold text-primary">{item.quantity} Units</p>
+                        <div className="flex flex-wrap items-center gap-y-4 gap-x-8">
+                          <div className="flex items-center gap-8">
+                            <div>
+                              <p className="text-[9px] font-bold text-slate-400 uppercase mb-0.5">Ordered</p>
+                              <p className="text-sm font-bold text-primary">{item.quantity} Units</p>
+                            </div>
+                            <div className="flex items-end gap-3">
+                              <div>
+                                <div className="text-[10px] font-bold text-slate-400 uppercase mb-0.5">In-Stock</div>
+                                <p className={`text-sm font-bold ${stock < item.quantity ? 'text-red-600' : 'text-slate-800'}`}>{stock} Units</p>
+                              </div>
+                              {isAvailable && (
+                                <span className="flex items-center gap-1.5 text-[8px] font-black text-green-600 uppercase bg-green-50 px-2 py-0.5 rounded border border-green-100 mb-1 whitespace-nowrap">
+                                  <span className="material-symbols-outlined text-[14px]">check_circle</span> Ready to pack
+                                </span>
+                              )}
+                            </div>
                           </div>
-                          <div>
-                            <p className="text-[9px] font-bold text-slate-400 uppercase mb-0.5">In-Stock</p>
-                            <p className={`text-sm font-bold ${stock < item.quantity ? 'text-red-600' : 'text-slate-800'}`}>{stock} Units</p>
-                          </div>
-                          <div className="ml-auto">
-                            {isAvailable ? (
-                              <span className="flex items-center gap-2 text-[10px] font-bold text-green-600 uppercase tracking-wide bg-green-50 px-3 py-1.5 rounded-full border border-green-100">
-                                <span className="material-symbols-outlined text-[16px]">check_circle</span> Ready
-                              </span>
-                            ) : (
+                          
+                          {/* Simplified Admin Customization Detail */}
+                          {item.isCustomized && (
+                            <div className="min-w-0">
+                              <button 
+                                onClick={() => setExpandedDesign(expandedDesign === idx ? null : idx)}
+                                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border font-bold text-[10px] uppercase tracking-widest transition-all ${
+                                  expandedDesign === idx ? 'bg-slate-800 text-white border-slate-800' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                                }`}
+                              >
+                                <span className="material-symbols-outlined text-[16px]">{expandedDesign === idx ? 'expand_less' : 'expand_more'}</span>
+                                {expandedDesign === idx ? 'Hide Custom' : 'View Custom Design'}
+                              </button>
+
+                              {expandedDesign === idx && (
+                                <div className="mt-3 bg-slate-50 border border-slate-200 rounded-xl p-4 animate-in fade-in duration-300 w-full max-w-2xl">
+                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    {/* Text Info */}
+                                    <div className="space-y-3">
+                                      <div className="flex flex-col gap-1">
+                                        <span className="text-[9px] font-bold text-slate-400 uppercase">Custom Name</span>
+                                        <p className="text-sm font-bold text-slate-900 border-b border-slate-200 pb-1 italic">"{item.customName}"</p>
+                                      </div>
+                                      <div className="grid grid-cols-2 gap-4">
+                                        <div className="flex flex-col gap-1">
+                                          <span className="text-[9px] font-bold text-slate-400 uppercase">Font</span>
+                                          <p className="text-xs text-slate-700">{item.fontFamily === 'Mrs Saint Delafield' ? 'Cursive' : 'Formal'}</p>
+                                        </div>
+                                        <div className="flex flex-col gap-1">
+                                          <span className="text-[9px] font-bold text-slate-400 uppercase">Style</span>
+                                          <p className="text-xs text-slate-700">
+                                            {[item.fontWeight === 'bold' && 'Bold', item.fontStyle === 'italic' && 'Italic'].filter(Boolean).join(', ') || 'Normal'}
+                                          </p>
+                                        </div>
+                                      </div>
+                                      {(item.selectedIconLeft || item.selectedIconRight) && (
+                                        <div className="flex gap-4 border-t border-slate-200 pt-2">
+                                          {item.selectedIconLeft && (
+                                            <div className="flex flex-col gap-1">
+                                              <span className="text-[9px] font-bold text-slate-400 uppercase">Icon Left</span>
+                                              <span className="material-symbols-outlined text-slate-700 text-[18px]">{item.selectedIconLeft}</span>
+                                            </div>
+                                          )}
+                                          {item.selectedIconRight && (
+                                            <div className="flex flex-col gap-1">
+                                              <span className="text-[9px] font-bold text-slate-400 uppercase">Icon Right</span>
+                                              <span className="material-symbols-outlined text-slate-700 text-[18px]">{item.selectedIconRight}</span>
+                                            </div>
+                                          )}
+                                        </div>
+                                      )}
+                                      <div className="flex flex-col gap-1 border-t border-slate-200 pt-2">
+                                        <span className="text-[9px] font-bold text-slate-400 uppercase">Coordinates</span>
+                                        <p className="text-[10px] font-mono text-slate-500">X: {Math.round(item.embroideryPos?.x)}% | Y: {Math.round(item.embroideryPos?.y)}%</p>
+                                      </div>
+                                    </div>
+
+                                    {/* Previews */}
+                                    <div className="grid grid-cols-2 gap-3">
+                                      <div className="space-y-1">
+                                        <span className="text-[8px] font-bold text-slate-400 uppercase px-1">Macro</span>
+                                        <div 
+                                          className="aspect-square bg-white rounded border border-slate-200 overflow-hidden cursor-zoom-in group/zoom relative"
+                                          onClick={() => item.customPreviewFabric && setEnlargedImage(item.customPreviewFabric)}
+                                        >
+                                          {item.customPreviewFabric ? (
+                                            <>
+                                              <img src={item.customPreviewFabric} className="w-full h-full object-cover transition-transform group-hover/zoom:scale-110" />
+                                              <div className="absolute inset-0 bg-black/5 opacity-0 group-hover/zoom:opacity-100 transition-opacity flex items-center justify-center">
+                                                <span className="material-symbols-outlined text-white text-sm">zoom_in</span>
+                                              </div>
+                                            </>
+                                          ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-[10px] text-slate-300">N/A</div>
+                                          )}
+                                        </div>
+                                      </div>
+                                      <div className="space-y-1">
+                                        <span className="text-[8px] font-bold text-slate-400 uppercase px-1">Placement</span>
+                                        <div 
+                                          className="aspect-square bg-white rounded border border-slate-200 overflow-hidden cursor-zoom-in group/zoom relative"
+                                          onClick={() => item.customPreviewPlacement && setEnlargedImage(item.customPreviewPlacement)}
+                                        >
+                                          {item.customPreviewPlacement ? (
+                                            <>
+                                              <img src={item.customPreviewPlacement} className="w-full h-full object-cover transition-transform group-hover/zoom:scale-110" />
+                                              <div className="absolute inset-0 bg-black/5 opacity-0 group-hover/zoom:opacity-100 transition-opacity flex items-center justify-center">
+                                                <span className="material-symbols-outlined text-white text-sm">zoom_in</span>
+                                              </div>
+                                            </>
+                                          ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-[10px] text-slate-300">N/A</div>
+                                          )}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          {!isAvailable && (
+                            <div className="flex-grow flex justify-end">
                               <button onClick={() => navigate(`/admin/products?search=${encodeURIComponent(product.name || '')}`)}
                                 className="flex items-center gap-2 text-[10px] font-bold text-red-600 uppercase tracking-wide bg-red-50 px-3 py-1.5 rounded-full border border-red-100 hover:bg-red-600 hover:text-white transition-all shadow-sm">
                                 <span className="material-symbols-outlined text-[16px]">warning</span> Restock
                               </button>
-                            )}
-                          </div>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -519,6 +634,38 @@ const OrderDetailModal = ({ order, onClose, onUpdateStatus, token }) => {
           </div>
         </div>
       </div>
+
+      {/* Fullscreen Image Viewer / Lightbox */}
+      {enlargedImage && (
+        <div 
+          className="fixed inset-0 z-[200] bg-slate-900/95 backdrop-blur-md flex flex-col items-center justify-center p-4 md:p-12 animate-in fade-in duration-300" 
+          onClick={(e) => { e.stopPropagation(); setEnlargedImage(null); }}
+        >
+          <div className="absolute top-6 right-6 flex gap-4">
+            <button 
+              onClick={(e) => { e.stopPropagation(); window.open(enlargedImage, '_blank'); }}
+              className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all border border-white/10"
+              title="Open Original"
+            >
+              <span className="material-symbols-outlined">open_in_new</span>
+            </button>
+            <button 
+              onClick={(e) => { e.stopPropagation(); setEnlargedImage(null); }}
+              className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all border border-white/10"
+            >
+              <span className="material-symbols-outlined text-[32px]">close</span>
+            </button>
+          </div>
+          <div className="relative w-full h-full flex items-center justify-center pointer-events-none">
+            <img 
+              src={enlargedImage} 
+              className="max-w-full max-h-full object-contain shadow-2xl animate-in zoom-in-95 duration-500 pointer-events-auto cursor-zoom-out" 
+              alt="Enlarged view" 
+              onClick={e => { e.stopPropagation(); setEnlargedImage(null); }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

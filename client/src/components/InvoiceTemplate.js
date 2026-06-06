@@ -18,14 +18,34 @@ export const generateInvoiceHTML = (order, user = null) => {
 
   // Item Rows (Max 5 shown based on coordinates provided)
   const itemRowsY = [735, 776, 817, 858, 899];
-  const itemsHTML = order.items.slice(0, 5).map((item, index) => `
-    <div class="field item-row" style="top: ${itemRowsY[index]}px;">
-      <span class="item-desc">${item.product?.name || 'Sản phẩm'}</span>
-      <span class="item-qty">${item.quantity}</span>
-      <span class="item-price">${formatPrice(item.price)}</span>
-      <span class="item-amount">${formatPrice(item.price * item.quantity)}</span>
-    </div>
-  `).join('');
+  let currentRowIndex = 0;
+  let itemsHTML = '';
+
+  order.items.forEach((item) => {
+    if (currentRowIndex < 5) {
+      itemsHTML += `
+        <div class="field item-row" style="top: ${itemRowsY[currentRowIndex]}px;">
+          <span class="item-desc">${item.product?.name || 'Sản phẩm'}</span>
+          <span class="item-qty">${item.quantity}</span>
+          <span class="item-price">${formatPrice(item.price)}</span>
+          <span class="item-amount">${formatPrice(item.price * item.quantity)}</span>
+        </div>
+      `;
+      currentRowIndex++;
+    }
+
+    if (item.isCustomized && currentRowIndex < 5) {
+      itemsHTML += `
+        <div class="field item-row" style="top: ${itemRowsY[currentRowIndex]}px; font-style: italic; color: #666;">
+          <span class="item-desc" style="padding-left: 20px;">+ Service Fee: Embroidery [${item.customName}]</span>
+          <span class="item-qty">1</span>
+          <span class="item-price">${formatPrice(50000)}</span>
+          <span class="item-amount">${formatPrice(50000)}</span>
+        </div>
+      `;
+      currentRowIndex++;
+    }
+  });
 
   return `
     <!DOCTYPE html>

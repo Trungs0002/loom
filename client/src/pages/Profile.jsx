@@ -277,14 +277,62 @@ const Profile = () => {
                       
                       <div className="space-y-3 mb-6 bg-surface-container-low/50 rounded-xl p-4">
                         {order.items.map((item, idx) => (
-                          <div key={idx} className="flex justify-between items-center text-sm">
-                            <div className="flex items-center gap-3">
-                              <span className="w-6 h-6 bg-primary/5 rounded flex items-center justify-center text-[10px] font-bold text-primary">
-                                {item.quantity}x
-                              </span>
-                              <span className="font-medium text-on-surface">{item.product?.name || 'Product no longer exists'}</span>
+                          <div key={idx} className="flex flex-col gap-2 pb-2 last:pb-0 last:border-b-0 border-b border-outline-variant/10">
+                            <div className="flex justify-between items-center text-sm">
+                              <div className="flex items-center gap-3">
+                                <span className="w-6 h-6 bg-primary/5 rounded flex items-center justify-center text-[10px] font-bold text-primary">
+                                  {item.quantity}x
+                                </span>
+                                <span className="font-medium text-on-surface">{item.product?.name || 'Product'}</span>
+                              </div>
+                              <span className="font-semibold">{formatPrice(item.price * item.quantity)}</span>
                             </div>
-                            <span className="font-semibold">{formatPrice(item.price * item.quantity)}</span>
+                            
+                            {/* Advanced User Customization Display */}
+                            {item.isCustomized && (
+                              <div className="ml-9 mt-2 flex flex-col gap-2 bg-white/50 px-4 py-3 rounded-xl border border-primary/5">
+                                <div className="flex items-center gap-3">
+                                  {item.selectedIconLeft && (
+                                    <span className="material-symbols-outlined text-primary text-[18px]">{item.selectedIconLeft}</span>
+                                  )}
+                                  <span 
+                                    className={`text-sm font-bold text-[#081F5C]`}
+                                    style={{ 
+                                      fontWeight: item.fontWeight,
+                                      fontStyle: item.fontStyle,
+                                      fontFamily: item.fontFamily === 'Mrs Saint Delafield' ? 'cursive' : 'serif'
+                                    }}
+                                  >
+                                    "{item.customName}"
+                                  </span>
+                                  {item.selectedIconRight && (
+                                    <span className="material-symbols-outlined text-primary text-[18px]">{item.selectedIconRight}</span>
+                                  )}
+                                </div>
+
+                                {/* Design Previews for User */}
+                                <div className="flex gap-2 mt-1">
+                                  {item.customPreviewFabric && (
+                                    <div className="w-16 aspect-square rounded-lg border border-primary/10 overflow-hidden shadow-sm bg-white">
+                                      <img src={item.customPreviewFabric} className="w-full h-full object-cover" alt="fabric detail" />
+                                    </div>
+                                  )}
+                                  {item.customPreviewPlacement && (
+                                    <div className="w-16 aspect-square rounded-lg border border-primary/10 overflow-hidden shadow-sm bg-white">
+                                      <img src={item.customPreviewPlacement} className="w-full h-full object-cover" alt="overall placement" />
+                                    </div>
+                                  )}
+                                </div>
+                                <div className="flex items-center justify-between">
+                                  <span className="text-[8px] font-black text-primary/30 uppercase tracking-[0.2em]">
+                                    {item.fontFamily === 'Mrs Saint Delafield' ? 'Signature Style' : 'Formal Style'} 
+                                    {item.fontWeight === 'bold' ? ' • Bold' : ''} 
+                                    {item.fontStyle === 'italic' ? ' • Italic' : ''}
+                                  </span>
+                                  <span className="text-[9px] font-bold text-secondary uppercase tracking-widest bg-secondary/5 px-2 py-0.5 rounded">Customized</span>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         ))}
                       </div>

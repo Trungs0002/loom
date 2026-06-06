@@ -32,4 +32,21 @@ router.post('/', protect, admin, upload.single('image'), (req, res) => {
   res.json({ url: req.file.path });
 });
 
+// POST /api/upload/base64 (protected)
+// This is for customization previews during checkout
+router.post('/base64', protect, async (req, res) => {
+  try {
+    const { image } = req.body;
+    if (!image) return res.status(400).json({ message: 'No image data' });
+
+    const uploadResponse = await cloudinary.uploader.upload(image, {
+      folder: 'loom_custom',
+    });
+
+    res.json({ url: uploadResponse.secure_url });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;

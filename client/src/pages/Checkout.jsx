@@ -53,15 +53,24 @@ const Checkout = () => {
 
     setProcessing(true);
     try {
-      const items = cartItems.map(item => ({
-        product: item.product,
-        quantity: item.quantity,
-        price: item.price
-      }));
-
       const payload = {
         ...formData,
-        items,
+        items: cartItems.map(item => ({
+          product: item.product,
+          quantity: item.quantity,
+          price: item.price,
+          isCustomized: item.isCustomized || false,
+          customName: item.customName || '',
+          selectedIconLeft: item.selectedIconLeft || null,
+          selectedIconRight: item.selectedIconRight || null,
+          iconPosition: item.iconPosition || 'before',
+          fontFamily: item.fontFamily || 'Mrs Saint Delafield',
+          fontWeight: item.fontWeight || 'normal',
+          fontStyle: item.fontStyle || 'normal',
+          embroideryPos: item.embroideryPos || { x: 50, y: 50 },
+          customPreviewFabric: item.customPreviewFabric,
+          customPreviewPlacement: item.customPreviewPlacement
+        })),
         totalAmount: total,
         paymentMethod: paymentMethod === 'COD' ? 'Cash on Delivery (COD)' : 'VNPay Online'
       };
@@ -255,27 +264,50 @@ const Checkout = () => {
       <div className="lg:col-span-5 xl:col-span-4">
         <div className="bg-surface-container-low p-lg rounded-DEFAULT flex flex-col gap-lg sticky top-[100px]">
           <h2 className="font-headline-md text-headline-md text-primary pb-sm border-b border-outline-variant/30">Order Summary</h2>
-          {/* Items list */}
           <div className="flex flex-col gap-md">
             {cartItems.map((item, idx) => (
-              <div key={idx} className="flex gap-md items-center">
-                <div className="w-16 h-20 bg-surface-container flex-shrink-0 relative overflow-hidden rounded-sm border border-outline-variant/20">
-                  <img 
-                    alt={item.name} 
-                    className="object-cover w-full h-full" 
-                    src={item.image} 
-                  />
+              <div key={idx} className="flex flex-col gap-sm pb-md border-b border-outline-variant/10 last:border-0">
+                <div className="flex gap-md items-center">
+                  <div className="w-16 h-20 bg-surface-container flex-shrink-0 relative overflow-hidden rounded-sm border border-outline-variant/20">
+                    <img 
+                      alt={item.name} 
+                      className="object-cover w-full h-full" 
+                      src={item.image} 
+                    />
+                  </div>
+                  <div className="flex-grow flex flex-col">
+                    <span className="font-body-md text-body-md text-primary font-medium">{item.name}</span>
+                    <span className="font-label-caps text-on-surface-variant uppercase mt-xs text-[10px] opacity-70">
+                      Qty: {item.quantity} • {item.color}
+                    </span>
+                  </div>
+                  <div className="text-right flex flex-col">
+                    <span className="font-body-md text-body-md text-primary">{formatPrice(item.price * item.quantity)}</span>
+                    {item.onSale && (
+                      <span className="text-[10px] line-through opacity-50">{formatPrice((item.originalPrice || item.price) * item.quantity)}</span>
+                    )}
+                  </div>
                 </div>
-                <div className="flex-grow flex flex-col">
-                  <span className="font-body-md text-body-md text-primary">{item.name}</span>
-                  <span className="font-label-caps text-label-caps text-on-surface-variant uppercase mt-xs text-[10px]">Qty: {item.quantity}</span>
-                </div>
-                <div className="text-right flex flex-col">
-                  <span className="font-body-md text-body-md text-primary">{formatPrice(item.price * item.quantity)}</span>
-                  {item.onSale && (
-                    <span className="text-[10px] line-through opacity-50">{formatPrice((item.originalPrice || item.price) * item.quantity)}</span>
-                  )}
-                </div>
+
+                {/* Compact Customization Display for Checkout */}
+                {item.isCustomized && (
+                  <div className="ml-20 bg-surface-container-lowest/60 rounded-xl p-3 border border-outline-variant/10 flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-primary text-[12px]">edit_note</span>
+                      <span className="font-label-caps text-[8px] tracking-widest text-primary/60 uppercase font-bold">Bespoke Design</span>
+                    </div>
+                    <div className="flex items-center gap-2 px-1">
+                      {item.selectedIconLeft && <span className="material-symbols-outlined text-[16px] text-primary/40">{item.selectedIconLeft}</span>}
+                      <span 
+                        className={`text-lg ${item.fontFamily === 'Mrs Saint Delafield' ? 'font-signature' : 'font-formal'} text-primary`}
+                        style={{ fontWeight: item.fontWeight, fontStyle: item.fontStyle }}
+                      >
+                        {item.customName}
+                      </span>
+                      {item.selectedIconRight && <span className="material-symbols-outlined text-[16px] text-primary/40">{item.selectedIconRight}</span>}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
