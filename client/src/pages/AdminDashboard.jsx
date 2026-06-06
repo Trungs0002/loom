@@ -111,15 +111,15 @@ const ProductModal = ({ product, onClose, onSave, token }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
-      <div className="bg-white rounded-xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col border border-slate-200">
-        <div className="flex justify-between items-center px-6 py-4 border-b border-slate-100 bg-slate-50/50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-2 sm:p-4">
+      <div className="bg-white rounded-xl w-full max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden shadow-2xl flex flex-col border border-slate-200">
+        <div className="flex justify-between items-center px-4 sm:px-6 py-4 border-b border-slate-100 bg-slate-50/50">
           <h2 className="text-base font-bold text-slate-800 tracking-tight">{isEdit ? 'Edit Asset' : 'New Product Entry'}</h2>
           <button onClick={onClose} className="text-slate-400 hover:text-slate-600 transition-colors">
             <span className="material-symbols-outlined text-[20px]">close</span>
           </button>
         </div>
-        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
           {error && <div className="bg-red-50 text-red-600 p-3 rounded-lg text-xs font-medium border border-red-100">{error}</div>}
           
           <div className="grid grid-cols-2 gap-6">
@@ -308,8 +308,8 @@ export const AdminProducts = () => {
       </div>
 
       <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden mb-8">
-        <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
-          <div className="relative w-full max-w-xs">
+        <div className="p-4 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-50/50 gap-4">
+          <div className="relative w-full sm:max-w-xs">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
             <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Filter catalog..."
               className="w-full bg-white border border-slate-200 rounded-lg pl-10 pr-4 py-1.5 text-sm text-slate-900 focus:border-primary outline-none transition-all" />
@@ -357,7 +357,7 @@ export const AdminProducts = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex items-center justify-end gap-1">
                       <button onClick={() => setModal(product)} className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-primary hover:bg-white hover:shadow-md transition-all">
                         <span className="material-symbols-outlined text-[20px]">edit</span>
                       </button>
@@ -409,36 +409,36 @@ const OrderDetailModal = ({ order, onClose, onUpdateStatus, token }) => {
   const currentIndex = statusOrderArr.indexOf(order.status);
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 md:p-8" onClick={onClose}>
-      <div className="bg-white rounded-2xl w-full max-w-7xl max-h-[92vh] overflow-hidden shadow-2xl flex flex-col border border-slate-200" onClick={e => e.stopPropagation()}>
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-2 sm:p-4 md:p-8" onClick={onClose}>
+      <div className="bg-white rounded-2xl w-full max-w-7xl max-h-[95vh] sm:max-h-[92vh] overflow-hidden shadow-2xl flex flex-col border border-slate-200" onClick={e => e.stopPropagation()}>
         
-        <div className="flex justify-between items-center px-8 py-5 bg-slate-50 border-b border-slate-200">
-          <div className="flex items-center gap-6">
-            <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
-              <span className="material-symbols-outlined text-[24px]">assignment</span>
+        <div className="flex justify-between items-center px-4 sm:px-8 py-4 sm:py-5 bg-slate-50 border-b border-slate-200">
+          <div className="flex items-center gap-3 sm:gap-6">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
+              <span className="material-symbols-outlined text-[20px] sm:text-[24px]">assignment</span>
             </div>
             <div>
-              <div className="flex items-center gap-3">
-                <h2 className="text-xl font-bold text-slate-800 uppercase tracking-tight">Order #{order._id.slice(-8)}</h2>
-                <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${
+              <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                <h2 className="text-base sm:text-xl font-bold text-slate-800 uppercase tracking-tight">Order #{order._id.slice(-8)}</h2>
+                <span className={`w-fit px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[8px] sm:text-[10px] font-bold uppercase tracking-widest ${
                   order.status === 'delivered' ? 'bg-green-100 text-green-700' :
                   order.status === 'cancelled' ? 'bg-red-100 text-red-700' : 'bg-primary/10 text-primary'
                 }`}>
                   {order.status}
                 </span>
               </div>
-              <p className="text-xs text-slate-400 font-medium mt-0.5 uppercase tracking-wide">Fulfillment Inspector</p>
+              <p className="hidden sm:block text-xs text-slate-400 font-medium mt-0.5 uppercase tracking-wide">Fulfillment Inspector</p>
             </div>
           </div>
-          <button onClick={onClose} className="w-10 h-10 rounded-full hover:bg-white hover:shadow-md transition-all flex items-center justify-center text-slate-400 hover:text-slate-600">
-            <span className="material-symbols-outlined text-[24px]">close</span>
+          <button onClick={onClose} className="w-8 h-8 sm:w-10 sm:h-10 rounded-full hover:bg-white hover:shadow-md transition-all flex items-center justify-center text-slate-400 hover:text-slate-600">
+            <span className="material-symbols-outlined text-[20px] sm:text-[24px]">close</span>
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-8 space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-slate-50 p-6 rounded-xl border border-slate-200">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+          <div className="lg:col-span-8 space-y-6 sm:space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+              <div className="bg-slate-50 p-4 sm:p-6 rounded-xl border border-slate-200">
                 <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Customer Details</h3>
                 <div className="space-y-2">
                   <p className="text-base font-bold text-slate-800">{order.recipientName}</p>
@@ -446,22 +446,22 @@ const OrderDetailModal = ({ order, onClose, onUpdateStatus, token }) => {
                   <p className="text-sm text-slate-600 flex items-start gap-2 leading-relaxed"><span className="material-symbols-outlined text-[18px] opacity-40 mt-0.5">location_on</span> {order.address}</p>
                 </div>
               </div>
-              <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-4">
+              <div className="bg-slate-50 p-4 sm:p-6 rounded-xl border border-slate-200 space-y-4">
                 <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Transaction Context</h3>
-                <div className="flex justify-between items-center text-sm">
-                  <span className="text-slate-500 font-medium">Payment Method</span>
-                  <span className="font-bold text-slate-800 uppercase text-xs">{order.paymentMethod}</span>
+                <div className="flex justify-between items-center text-sm gap-2">
+                  <span className="text-slate-500 font-medium truncate">Payment Method</span>
+                  <span className="font-bold text-slate-800 uppercase text-[10px] sm:text-xs whitespace-nowrap">{order.paymentMethod}</span>
                 </div>
-                <div className="flex justify-between items-center text-sm">
+                <div className="flex justify-between items-center text-sm gap-2">
                   <span className="text-slate-500 font-medium">Payment Status</span>
-                  <span className={`font-bold uppercase text-xs ${
+                  <span className={`font-bold uppercase text-[10px] sm:text-xs ${
                     order.paymentStatus === 'Paid' ? 'text-green-600' : 
                     order.paymentStatus === 'Failed' ? 'text-red-600' : 'text-amber-600'
                   }`}>{order.paymentStatus || 'Pending'}</span>
                 </div>
-                <div className="flex justify-between items-center text-sm">
+                <div className="flex justify-between items-center text-sm gap-2">
                   <span className="text-slate-500 font-medium">Entry Date</span>
-                  <span className="font-bold text-slate-800 text-xs">{fmt(order.createdAt)}</span>
+                  <span className="font-bold text-slate-800 text-[10px] sm:text-xs">{fmt(order.createdAt)}</span>
                 </div>
                 {order.note && <div className="p-3 bg-white border border-slate-100 rounded-lg text-xs italic text-slate-500">"{order.note}"</div>}
               </div>
@@ -477,9 +477,9 @@ const OrderDetailModal = ({ order, onClose, onUpdateStatus, token }) => {
                   const stock = product.stock || 0;
                   const isAvailable = stock >= item.quantity;
                   return (
-                    <div key={idx} className="flex items-center gap-6 bg-white border border-slate-100 rounded-xl p-4 hover:border-primary/30 transition-all shadow-sm">
+                    <div key={idx} className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 bg-white border border-slate-100 rounded-xl p-4 hover:border-primary/30 transition-all shadow-sm">
                       <div 
-                        className="w-24 h-24 bg-slate-50 rounded-lg overflow-hidden flex-shrink-0 border border-slate-100 flex items-center justify-center cursor-zoom-in group/img relative"
+                        className="w-full sm:w-24 aspect-square sm:h-24 bg-slate-50 rounded-lg overflow-hidden flex-shrink-0 border border-slate-100 flex items-center justify-center cursor-zoom-in group/img relative"
                         onClick={() => setEnlargedImage(getImgUrl(product.image))}
                       >
                         {product.image && <img src={getImgUrl(product.image)} className="w-full h-full object-cover transition-transform group-hover/img:scale-110" alt={product.name} />}
@@ -489,8 +489,8 @@ const OrderDetailModal = ({ order, onClose, onUpdateStatus, token }) => {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-slate-800 uppercase tracking-tight mb-2 truncate">{product.name || 'Legacy Product'}</p>
-                        <div className="flex flex-wrap items-center gap-y-4 gap-x-8">
-                          <div className="flex items-center gap-8">
+                        <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-y-4 gap-x-8">
+                          <div className="flex items-center gap-6 sm:gap-8">
                             <div>
                               <p className="text-[9px] font-bold text-slate-400 uppercase mb-0.5">Ordered</p>
                               <p className="text-sm font-bold text-primary">{item.quantity} Units</p>
@@ -513,7 +513,7 @@ const OrderDetailModal = ({ order, onClose, onUpdateStatus, token }) => {
                             <div className="min-w-0">
                               <button 
                                 onClick={() => setExpandedDesign(expandedDesign === idx ? null : idx)}
-                                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border font-bold text-[10px] uppercase tracking-widest transition-all ${
+                                className={`w-full sm:w-auto flex items-center justify-center gap-2 px-3 py-1.5 rounded-lg border font-bold text-[10px] uppercase tracking-widest transition-all ${
                                   expandedDesign === idx ? 'bg-slate-800 text-white border-slate-800' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
                                 }`}
                               >
@@ -522,8 +522,8 @@ const OrderDetailModal = ({ order, onClose, onUpdateStatus, token }) => {
                               </button>
 
                               {expandedDesign === idx && (
-                                <div className="mt-3 bg-slate-50 border border-slate-200 rounded-xl p-4 animate-in fade-in duration-300 w-full max-w-2xl">
-                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="mt-3 bg-slate-50 border border-slate-200 rounded-xl p-3 sm:p-4 animate-in fade-in duration-300 w-full max-w-2xl">
+                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                                     {/* Text Info */}
                                     <div className="space-y-3">
                                       <div className="flex flex-col gap-1">
@@ -612,7 +612,7 @@ const OrderDetailModal = ({ order, onClose, onUpdateStatus, token }) => {
                           {!isAvailable && (
                             <div className="flex-grow flex justify-end">
                               <button onClick={() => navigate(`/admin/products?search=${encodeURIComponent(product.name || '')}`)}
-                                className="flex items-center gap-2 text-[10px] font-bold text-red-600 uppercase tracking-wide bg-red-50 px-3 py-1.5 rounded-full border border-red-100 hover:bg-red-600 hover:text-white transition-all shadow-sm">
+                                className="w-full sm:w-auto flex items-center justify-center gap-2 text-[10px] font-bold text-red-600 uppercase tracking-wide bg-red-50 px-3 py-1.5 rounded-full border border-red-100 hover:bg-red-600 hover:text-white transition-all shadow-sm">
                                 <span className="material-symbols-outlined text-[16px]">warning</span> Restock
                               </button>
                             </div>
@@ -629,13 +629,13 @@ const OrderDetailModal = ({ order, onClose, onUpdateStatus, token }) => {
               <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
                 <span className="material-symbols-outlined text-[16px]">history</span> Operational Logs
               </h3>
-              <div className="space-y-3 pl-8 border-l-2 border-slate-50">
+              <div className="space-y-3 pl-4 sm:pl-8 border-l-2 border-slate-50">
                 {order.history?.length > 0 ? order.history.map((h, i) => (
-                  <div key={i} className="flex items-center gap-4 text-xs relative">
-                    <div className="w-3 h-3 rounded-full bg-white border-2 border-primary absolute -left-[35px] shadow-sm"></div>
+                  <div key={i} className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-xs relative">
+                    <div className="hidden sm:block w-3 h-3 rounded-full bg-white border-2 border-primary absolute -left-[35px] shadow-sm"></div>
                     <span className="font-bold text-primary uppercase w-20">{h.status}</span>
                     <span className="text-slate-500 font-medium">Stage advanced by <span className="font-bold text-slate-800">{h.user}</span></span>
-                    <span className="ml-auto text-[10px] font-bold text-slate-300 uppercase">{fmt(h.changedAt)}</span>
+                    <span className="sm:ml-auto text-[10px] font-bold text-slate-300 uppercase">{fmt(h.changedAt)}</span>
                   </div>
                 )) : <p className="text-xs text-slate-400 italic">No operational transitions recorded.</p>}
               </div>
@@ -643,16 +643,16 @@ const OrderDetailModal = ({ order, onClose, onUpdateStatus, token }) => {
           </div>
 
           <div className="lg:col-span-4 flex flex-col gap-6">
-            <div className="bg-slate-50 rounded-xl border border-slate-200 flex flex-col h-[500px] shadow-inner overflow-hidden">
+            <div className="bg-slate-50 rounded-xl border border-slate-200 flex flex-col h-[400px] sm:h-[500px] shadow-inner overflow-hidden">
               <div className="px-5 py-4 border-b border-slate-200 bg-white flex justify-between items-center">
                 <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
                   <span className="material-symbols-outlined text-[18px]">forum</span> Internal Discussion
                 </h3>
                 <span className="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded-full">{localComments.length}</span>
               </div>
-              <div className="flex-1 overflow-y-auto p-5 space-y-4 no-scrollbar">
+              <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 no-scrollbar">
                 {localComments.map((c, i) => (
-                  <div key={i} className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm space-y-1.5">
+                  <div key={i} className="bg-white p-3 sm:p-4 rounded-xl border border-slate-100 shadow-sm space-y-1.5">
                     <div className="flex justify-between items-center">
                       <span className="text-[10px] font-bold text-primary uppercase">{c.author}</span>
                       <span className="text-[8px] font-bold text-slate-300 uppercase">{new Date(c.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
@@ -674,32 +674,32 @@ const OrderDetailModal = ({ order, onClose, onUpdateStatus, token }) => {
           </div>
         </div>
 
-        <div className="px-8 py-6 bg-slate-50 border-t border-slate-200 flex justify-between items-center">
-          <div className="space-y-0.5">
+        <div className="px-4 sm:px-8 py-5 sm:py-6 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
+          <div className="space-y-0.5 text-center sm:text-left">
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Liquid Order Value</p>
-            <p className="text-3xl font-bold text-primary tracking-tighter">{formatPrice(order.totalAmount)}</p>
+            <p className="text-2xl sm:text-3xl font-bold text-primary tracking-tighter">{formatPrice(order.totalAmount)}</p>
           </div>
-          <div className="flex gap-4 items-center">
-            <button onClick={onClose} className="px-6 py-2.5 rounded-lg text-sm font-bold text-slate-500 hover:bg-white hover:shadow-md transition-all">Dismiss</button>
-            <div className="h-8 w-[1px] bg-slate-200 mx-2"></div>
+          <div className="flex flex-wrap gap-2 sm:gap-4 items-center justify-center">
+            <button onClick={onClose} className="px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg text-sm font-bold text-slate-500 hover:bg-white hover:shadow-md transition-all">Dismiss</button>
+            <div className="hidden sm:block h-8 w-[1px] bg-slate-200 mx-2"></div>
 
             {currentIndex > 0 && order.status !== 'cancelled' && (
               <button onClick={() => { onUpdateStatus(order._id, statusOrderArr[currentIndex - 1]); onClose(); }}
-                className="px-6 py-2.5 border border-slate-300 rounded-lg text-xs font-bold text-slate-600 hover:bg-white hover:shadow-md transition-all flex items-center gap-2 uppercase tracking-wide">
-                <span className="material-symbols-outlined text-[18px]">undo</span> Move Back
+                className="px-4 sm:px-6 py-2 sm:py-2.5 border border-slate-300 rounded-lg text-[10px] sm:text-xs font-bold text-slate-600 hover:bg-white hover:shadow-md transition-all flex items-center gap-2 uppercase tracking-wide">
+                <span className="material-symbols-outlined text-[16px] sm:text-[18px]">undo</span> Move Back
               </button>
             )}
 
             {currentIndex < 3 && order.status !== 'cancelled' && (
               <button onClick={() => { onUpdateStatus(order._id, statusOrderArr[currentIndex + 1]); onClose(); }}
-                className="px-8 py-2.5 bg-primary text-white rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-primary-dark shadow-lg shadow-primary/20 transition-all flex items-center gap-2">
-                Next Stage <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+                className="px-6 sm:px-8 py-2 sm:py-2.5 bg-primary text-white rounded-lg text-[10px] sm:text-xs font-bold uppercase tracking-widest hover:bg-primary-dark shadow-lg shadow-primary/20 transition-all flex items-center gap-2">
+                Next Stage <span className="material-symbols-outlined text-[18px] sm:text-[20px]">arrow_forward</span>
               </button>
             )}
 
             {order.status === 'delivered' && (
-              <span className="flex items-center gap-2 text-xs font-bold text-green-600 uppercase tracking-widest bg-green-50 px-6 py-2.5 rounded-lg border border-green-100 shadow-sm">
-                <span className="material-symbols-outlined text-[20px]">check_circle</span> Process Completed
+              <span className="flex items-center gap-2 text-[10px] sm:text-xs font-bold text-green-600 uppercase tracking-widest bg-green-50 px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg border border-green-100 shadow-sm">
+                <span className="material-symbols-outlined text-[18px] sm:text-[20px]">check_circle</span> Process Completed
               </span>
             )}
           </div>

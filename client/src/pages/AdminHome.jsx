@@ -145,23 +145,23 @@ export const AdminHome = () => {
           <p className="text-sm text-on-surface-variant">Manage your homepage, collection, and about page content</p>
         </div>
         <button onClick={handleSave} disabled={saving}
-          className="bg-primary text-on-primary font-label-caps text-label-caps px-xl py-md rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50">
+          className="w-full md:w-auto bg-primary text-on-primary font-label-caps text-label-caps px-xl py-md rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50">
           {saving ? 'Saving...' : 'Save All Settings'}
         </button>
       </div>
 
-      <div className="flex flex-col gap-xxl max-w-4xl">
+      <div className="flex flex-col gap-xl sm:gap-xxl max-w-4xl">
         {/* Header Logo Section */}
         <section className="flex flex-col gap-lg border-b border-outline-variant/30 pb-xl">
           <h2 className="font-headline-md text-headline-md text-on-surface">Header Logo</h2>
-          <div className="bg-surface-container-low border border-outline-variant/20 rounded-xl p-lg flex flex-col gap-md">
+          <div className="bg-surface-container-low border border-outline-variant/20 rounded-xl p-4 sm:p-lg flex flex-col gap-md">
             <label className="font-label-caps text-label-caps text-on-surface-variant">Logo Image (Horizontal Text Logo)</label>
-            <div className="flex items-center gap-md">
-              <div className="w-48 h-16 bg-surface-variant rounded overflow-hidden flex-shrink-0 border border-outline-variant/30 flex items-center justify-center p-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-md">
+              <div className="w-full sm:w-48 h-16 bg-surface-variant rounded overflow-hidden flex-shrink-0 border border-outline-variant/30 flex items-center justify-center p-sm">
                 {headerLogo ? <img src={getImgUrl(headerLogo)} alt="header logo" className="max-w-full max-h-full object-contain" /> : <div className="w-full h-full flex items-center justify-center opacity-30"><span className="material-symbols-outlined">image</span></div>}
               </div>
               <div className="flex-1 flex flex-col gap-sm">
-                <label className="flex items-center justify-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[12px] w-fit">
+                <label className="flex items-center justify-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[12px] w-full sm:w-fit">
                   <span className="material-symbols-outlined text-[18px]">upload</span>
                   Upload Logo
                   <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setHeaderLogo)} />
@@ -170,7 +170,7 @@ export const AdminHome = () => {
                   placeholder="or paste logo image URL" className="bg-transparent border-b border-outline-variant/30 py-xs text-sm text-on-surface focus:border-primary outline-none w-full" />
               </div>
             </div>
-            <p className="text-xs text-on-surface-variant opacity-70">Recommended: Transparent background horizontal logo.</p>
+            <p className="text-[10px] sm:text-xs text-on-surface-variant opacity-70">Recommended: Transparent background horizontal logo.</p>
           </div>
         </section>
 

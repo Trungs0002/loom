@@ -30,6 +30,7 @@ export const AdminLayout = ({ children }) => {
   const { user, logout, headerLogo } = useAuth();
   const navigate = useNavigate();
   const path = location.pathname;
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const handleLogout = () => { logout(); navigate('/login'); };
 
   const sections = [
@@ -57,21 +58,39 @@ export const AdminLayout = ({ children }) => {
   ];
 
   return (
-    <div className="bg-background text-on-background min-h-screen flex w-full font-sans">
+    <div className="bg-background text-on-background min-h-screen flex w-full font-sans relative">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
         body { font-family: 'DM Sans', sans-serif !important; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
       `}</style>
+
+      {/* Mobile Backdrop */}
+      {isMobileOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm"
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
       
-      <aside className="w-64 bg-surface-container-low min-h-screen border-r border-outline-variant/30 px-lg py-xl flex flex-col sticky top-0 h-screen">
+      {/* Sidebar */}
+      <aside className={`
+        fixed inset-y-0 left-0 z-50 w-64 bg-surface-container-low border-r border-outline-variant/30 px-lg py-xl flex flex-col transition-transform duration-300 lg:sticky lg:translate-x-0 h-screen
+        ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}
+      `}>
         <div className="mb-xxl flex flex-col gap-xs">
-          <Link to="/" className="flex items-center h-8">
-            {headerLogo ? (
-              <img src={getImgUrl(headerLogo)} alt="Loom" className="h-full w-auto object-contain" />
-            ) : (
-              <span className="text-primary font-bold text-xl tracking-widest">LOOM</span>
-            )}
-          </Link>
+          <div className="flex items-center justify-between">
+            <Link to="/" className="flex items-center h-8">
+              {headerLogo ? (
+                <img src={getImgUrl(headerLogo)} alt="Loom" className="h-full w-auto object-contain" />
+              ) : (
+                <span className="text-primary font-bold text-xl tracking-widest uppercase">LOOM</span>
+              )}
+            </Link>
+            <button onClick={() => setIsMobileOpen(false)} className="lg:hidden text-on-surface-variant hover:text-primary p-1">
+              <span className="material-symbols-outlined">close</span>
+            </button>
+          </div>
           <div className="font-label-caps text-[10px] font-bold text-on-surface-variant mt-xs tracking-wider opacity-60">Admin Panel</div>
         </div>
 
@@ -81,8 +100,12 @@ export const AdminLayout = ({ children }) => {
               <h3 className="px-md text-[10px] font-bold text-on-surface-variant/40 uppercase tracking-[0.2em]">{section.title}</h3>
               <div className="flex flex-col gap-xs">
                 {section.items.map(item => (
-                  <Link key={item.to} to={item.to}
-                    className={`flex items-center gap-md px-md py-sm rounded transition-colors ${path === item.to ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:bg-surface-variant'}`}>
+                  <Link 
+                    key={item.to} 
+                    to={item.to}
+                    onClick={() => setIsMobileOpen(false)}
+                    className={`flex items-center gap-md px-md py-sm rounded transition-colors ${path === item.to ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:bg-surface-variant'}`}
+                  >
                     <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
                     <span className="font-label-caps text-[11px] font-medium">{item.label}</span>
                   </Link>
@@ -99,7 +122,26 @@ export const AdminLayout = ({ children }) => {
           </button>
         </div>
       </aside>
-      <main className="flex-1 p-xl overflow-x-hidden">{children}</main>
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Mobile Header Bar */}
+        <header className="lg:hidden flex items-center justify-between p-md border-b border-outline-variant/30 bg-surface-container-low sticky top-0 z-30">
+          <button onClick={() => setIsMobileOpen(true)} className="p-2 text-on-surface-variant hover:text-primary">
+            <span className="material-symbols-outlined">menu</span>
+          </button>
+          <Link to="/" className="h-6">
+            {headerLogo ? (
+              <img src={getImgUrl(headerLogo)} alt="Loom" className="h-full w-auto object-contain" />
+            ) : (
+              <span className="text-primary font-bold text-lg tracking-widest uppercase">LOOM</span>
+            )}
+          </Link>
+          <div className="w-10" /> {/* Spacer */}
+        </header>
+
+        <main className="flex-1 p-md md:p-xl overflow-x-hidden">{children}</main>
+      </div>
     </div>
   );
 };
@@ -144,43 +186,45 @@ const CategoryModal = ({ category, onClose, onSave, token }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-md">
-      <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl w-full max-w-md shadow-2xl">
-        <div className="flex justify-between items-center px-xl py-lg border-b border-outline-variant/20">
-          <h2 className="font-headline-md text-headline-md text-primary">{isEdit ? 'Edit Category' : 'Add Category'}</h2>
-          <button onClick={onClose} className="text-on-surface-variant hover:text-primary transition-colors">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-2 sm:p-4">
+      <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl w-full max-w-md shadow-2xl max-h-[95vh] flex flex-col overflow-hidden">
+        <div className="flex justify-between items-center px-4 sm:px-xl py-4 sm:py-lg border-b border-outline-variant/20">
+          <h2 className="font-headline-md text-base sm:text-headline-md text-primary">{isEdit ? 'Edit Category' : 'Add Category'}</h2>
+          <button onClick={onClose} className="text-on-surface-variant hover:text-primary transition-colors p-1">
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
-        <form onSubmit={handleSubmit} className="px-xl py-lg flex flex-col gap-lg">
-          {error && <div className="bg-error/10 text-error p-sm rounded text-sm">{error}</div>}
+        <form onSubmit={handleSubmit} className="p-4 sm:px-xl sm:py-lg flex flex-col gap-6 sm:gap-lg overflow-y-auto">
+          {error && <div className="bg-error/10 text-error p-sm rounded text-xs font-bold">{error}</div>}
 
           <div>
             <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">Category Name</label>
             <input value={name} onChange={e => setName(e.target.value)} required placeholder="e.g. Moonlight"
-              className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none" />
+              className="w-full bg-surface-container border border-outline-variant/50 rounded px-4 py-2.5 text-sm text-on-surface focus:border-primary outline-none" />
           </div>
 
           <div>
-            <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">Image</label>
-            <div className="flex items-center gap-md">
-              {image && <img src={getImgUrl(image)} alt={name} className="w-16 h-16 rounded-lg object-cover border border-outline-variant/30" />}
-              <div className="flex flex-col gap-sm flex-1">
-                <label className={`flex items-center justify-center gap-xs px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-sm ${uploading ? 'opacity-50' : ''}`}>
+            <label className="block font-label-caps text-label-caps text-on-surface-variant mb-xs">Image Asset</label>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="w-full sm:w-24 h-24 sm:h-24 rounded-xl overflow-hidden bg-surface-variant border border-outline-variant/30 flex-shrink-0 flex items-center justify-center">
+                {image ? <img src={getImgUrl(image)} alt={name} className="w-full h-full object-cover" /> : <span className="material-symbols-outlined opacity-30 text-3xl">image</span>}
+              </div>
+              <div className="flex flex-col gap-2 flex-1">
+                <label className={`flex items-center justify-center gap-2 px-md py-sm rounded border border-outline-variant/50 cursor-pointer hover:bg-surface-variant transition-colors font-label-caps text-label-caps text-on-surface-variant text-[12px] ${uploading ? 'opacity-50' : ''}`}>
                   <span className="material-symbols-outlined text-[18px]">upload</span>
                   {uploading ? 'Uploading...' : 'Upload Image'}
                   <input type="file" accept="image/*" className="hidden" onChange={handleFile} disabled={uploading} />
                 </label>
                 <input value={image} onChange={e => setImage(e.target.value)} placeholder="or paste image URL"
-                  className="w-full bg-surface-container border border-outline-variant/50 rounded px-md py-sm text-sm text-on-surface focus:border-primary outline-none" />
+                  className="bg-transparent border-b border-outline-variant/30 py-1.5 text-xs text-on-surface focus:border-primary outline-none w-full" />
               </div>
             </div>
           </div>
 
-          <div className="flex gap-md justify-end pt-md border-t border-outline-variant/20">
-            <button type="button" onClick={onClose} className="px-lg py-sm border border-outline-variant/50 rounded font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-variant transition-colors">Cancel</button>
-            <button type="submit" disabled={saving} className="px-lg py-sm bg-primary text-on-primary rounded font-label-caps text-label-caps hover:opacity-90 disabled:opacity-60">
-              {saving ? 'Saving...' : isEdit ? 'Update' : 'Add'}
+          <div className="flex gap-3 justify-end pt-6 border-t border-outline-variant/20">
+            <button type="button" onClick={onClose} className="px-6 py-2 border border-outline-variant/50 rounded-xl font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-variant transition-colors text-[11px]">Cancel</button>
+            <button type="submit" disabled={saving} className="px-8 py-2 bg-primary text-on-primary rounded-xl font-label-caps text-label-caps hover:opacity-90 disabled:opacity-60 text-[11px]">
+              {saving ? 'Saving...' : isEdit ? 'Update Entry' : 'Add Collection'}
             </button>
           </div>
         </form>
