@@ -2,37 +2,70 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import API_BASE from '../config';
 
-const STEPS = [
-  {
-    question: 'Bạn muốn tầm giá nào?',
-    key: 'price',
-    options: [
-      { label: 'Dưới 500k', value: 450000, price_min: 0,      price_max: 499999 },
-      { label: '500k–650k', value: 575000, price_min: 500000, price_max: 650000 },
-      { label: 'Trên 650k', value: 700000, price_min: 650001, price_max: Infinity },
-    ],
-  },
-  {
-    question: 'Bạn thích loại túi gì?',
-    key: 'category',
-    options: [
-      { label: 'Túi xách', value: 'Handbag' },
-      { label: 'Đeo chéo', value: 'Sling' },
-      { label: 'Clutch',   value: 'Clutch' },
-      { label: 'Tote',     value: 'Tote' },
-    ],
-  },
-  {
-    question: 'Màu yêu thích?',
-    key: 'color',
-    options: [
-      { label: 'Xanh Navy', value: 'Blue' },
-      { label: 'Đen',       value: 'Black' },
-      { label: 'Be',        value: 'Beige' },
-      { label: 'Đỏ',        value: 'Red' },
-    ],
-  },
-];
+const STEPS_LANG = {
+  vi: [
+    {
+      question: 'Bạn muốn tầm giá nào?',
+      key: 'price',
+      options: [
+        { label: 'Dưới 500k', value: 450000, price_min: 0,      price_max: 499999 },
+        { label: '500k–650k', value: 575000, price_min: 500000, price_max: 650000 },
+        { label: 'Trên 650k', value: 700000, price_min: 650001, price_max: Infinity },
+      ],
+    },
+    {
+      question: 'Bạn thích loại túi gì?',
+      key: 'category',
+      options: [
+        { label: 'Túi xách', value: 'Handbag' },
+        { label: 'Đeo chéo', value: 'Sling' },
+        { label: 'Clutch',   value: 'Clutch' },
+        { label: 'Tote',     value: 'Tote' },
+      ],
+    },
+    {
+      question: 'Màu yêu thích?',
+      key: 'color',
+      options: [
+        { label: 'Xanh Navy', value: 'Blue' },
+        { label: 'Đen',       value: 'Black' },
+        { label: 'Be',        value: 'Beige' },
+        { label: 'Đỏ',        value: 'Red' },
+      ],
+    },
+  ],
+  en: [
+    {
+      question: 'What is your budget range?',
+      key: 'price',
+      options: [
+        { label: 'Under 500k', value: 450000, price_min: 0,      price_max: 499999 },
+        { label: '500k–650k', value: 575000, price_min: 500000, price_max: 650000 },
+        { label: 'Over 650k', value: 700000, price_min: 650001, price_max: Infinity },
+      ],
+    },
+    {
+      question: 'What type of bag do you prefer?',
+      key: 'category',
+      options: [
+        { label: 'Handbag', value: 'Handbag' },
+        { label: 'Sling bag', value: 'Sling' },
+        { label: 'Clutch',   value: 'Clutch' },
+        { label: 'Tote bag',     value: 'Tote' },
+      ],
+    },
+    {
+      question: 'Your favorite color?',
+      key: 'color',
+      options: [
+        { label: 'Navy Blue', value: 'Blue' },
+        { label: 'Black',       value: 'Black' },
+        { label: 'Beige',        value: 'Beige' },
+        { label: 'Red',        value: 'Red' },
+      ],
+    },
+  ]
+};
 
 const STYLE_INJECT = `
 @keyframes chatFadeIn {
@@ -53,10 +86,12 @@ const BotBubble = ({ text }) => (
   </div>
 );
 
-const UserBubble = ({ text }) => (
+const UserBubble = ({ text, lang }) => (
   <div className="flex flex-col items-end animate-chat-bubble">
-    <span className="text-[9px] text-on-surface-variant font-label-caps tracking-widest uppercase mb-1 mr-1">Bạn</span>
-    <div className="max-w-[85%] px-4 py-2.5 rounded-2xl rounded-tr-none text-sm text-white bg-primary leading-relaxed font-body-md shadow-none">
+    <span className="text-[9px] text-on-surface-variant font-label-caps tracking-widest uppercase mb-1 mr-1">
+      {lang === 'vi' ? 'Bạn' : 'You'}
+    </span>
+    <div className="max-w-[85%] px-4 py-2.5 rounded-2xl rounded-tl-none text-sm text-white bg-primary leading-relaxed font-body-md shadow-none">
       {text}
     </div>
   </div>
@@ -71,9 +106,24 @@ const OptionButton = ({ label, onClick }) => (
   </button>
 );
 
-const ProductCard = ({ product }) => {
+const translateAttr = (val, lang) => {
+  if (lang !== 'vi') return val;
+  const dict = {
+    'Handbag': 'Túi xách',
+    'Sling': 'Đeo chéo',
+    'Clutch': 'Clutch',
+    'Tote': 'Tote',
+    'Blue': 'Xanh Navy',
+    'Black': 'Đen',
+    'Beige': 'Be',
+    'Red': 'Đỏ'
+  };
+  return dict[val] || val;
+};
+
+const ProductCard = ({ product, lang }) => {
   const [imgError, setImgError] = useState(false);
-  const fmt = (p) => p.toLocaleString('vi-VN') + ' ₫';
+  const fmt = (p) => p.toLocaleString('vi-VN') + ' VND';
 
   return (
     <div className="bg-white rounded-2xl border border-outline-variant/20 p-3.5 flex gap-3.5 items-center hover:border-outline transition-colors duration-300">
@@ -91,24 +141,29 @@ const ProductCard = ({ product }) => {
       )}
       <div className="flex-1 min-w-0">
         <p className="font-headline-lg text-sm text-primary truncate leading-snug">{product.name}</p>
-        <p className="text-[11px] text-on-surface-variant font-body-md mt-0.5">{product.category} · {product.color}</p>
+        <p className="text-[11px] text-on-surface-variant font-body-md mt-0.5">
+          {translateAttr(product.category, lang)} · {translateAttr(product.color, lang)}
+        </p>
         <p className="text-xs font-semibold text-primary mt-1">{fmt(product.price)}</p>
       </div>
       <Link
         to={product.id ? `/products/${product.id}` : '/products'}
         className="text-[10px] font-semibold font-label-caps tracking-widest uppercase border-b border-primary text-primary pb-0.5 hover:opacity-70 transition-opacity"
       >
-        Xem
+        {lang === 'vi' ? 'Xem' : 'View'}
       </Link>
     </div>
   );
 };
 
 const ChatWidget = () => {
+  const [lang, setLang]             = useState(() => localStorage.getItem('loom_chat_lang') || 'en');
   const [isOpen, setIsOpen]         = useState(false);
   const [step, setStep]             = useState(0);
   const [selections, setSelections] = useState({});
-  const [messages, setMessages]     = useState([{ from: 'bot', text: STEPS[0].question }]);
+  const [messages, setMessages]     = useState(() => [
+    { from: 'bot', text: STEPS_LANG[localStorage.getItem('loom_chat_lang') || 'en'][0].question }
+  ]);
   const [results, setResults]       = useState(null);
   const [loading, setLoading]       = useState(false);
   const [error, setError]           = useState(null);
@@ -116,6 +171,20 @@ const ChatWidget = () => {
   const bottomRef                   = useRef(null);
 
   const teaserTimeoutRef            = useRef(null);
+
+  useEffect(() => {
+    localStorage.setItem('loom_chat_lang', lang);
+  }, [lang]);
+
+  const handleLangChange = (newLang) => {
+    setLang(newLang);
+    setStep(0);
+    setSelections({});
+    setResults(null);
+    setError(null);
+    setLoading(false);
+    setMessages([{ from: 'bot', text: STEPS_LANG[newLang][0].question }]);
+  };
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -167,19 +236,20 @@ const ChatWidget = () => {
   };
 
   const handleSelect = async (opt) => {
-    const key          = STEPS[step].key;
+    const steps        = STEPS_LANG[lang];
+    const key          = steps[step].key;
     const extra        = opt.price_min !== undefined ? { price_min: opt.price_min, price_max: opt.price_max } : {};
     const newSelections = { ...selections, [key]: opt.value, ...extra };
     const newMessages   = [...messages, { from: 'user', text: opt.label }];
 
-    if (step < STEPS.length - 1) {
-      setMessages([...newMessages, { from: 'bot', text: STEPS[step + 1].question }]);
+    if (step < steps.length - 1) {
+      setMessages([...newMessages, { from: 'bot', text: steps[step + 1].question }]);
       setSelections(newSelections);
       setStep(step + 1);
       return;
     }
 
-    setMessages([...newMessages, { from: 'bot', text: '⏳ Đang tìm túi phù hợp...' }]);
+    setMessages([...newMessages, { from: 'bot', text: lang === 'vi' ? '⏳ Đang tìm túi phù hợp...' : '⏳ Finding matching bags...' }]);
     setSelections(newSelections);
     setLoading(true);
     setError(null);
@@ -194,10 +264,10 @@ const ChatWidget = () => {
       if (data.recommendations?.length) {
         setResults(data.recommendations);
       } else {
-        setError('Không tìm được sản phẩm phù hợp. Thử lại nhé!');
+        setError(lang === 'vi' ? 'Không tìm được sản phẩm phù hợp. Thử lại nhé!' : 'No matching products found. Please try again!');
       }
     } catch {
-      setError('Không thể kết nối dịch vụ tư vấn. Vui lòng thử lại.');
+      setError(lang === 'vi' ? 'Không thể kết nối dịch vụ tư vấn. Vui lòng thử lại.' : 'Unable to connect to the consultation service. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -209,7 +279,7 @@ const ChatWidget = () => {
     setResults(null);
     setError(null);
     setLoading(false);
-    setMessages([{ from: 'bot', text: STEPS[0].question }]);
+    setMessages([{ from: 'bot', text: STEPS_LANG[lang][0].question }]);
   };
 
   return (
@@ -225,9 +295,11 @@ const ChatWidget = () => {
           <div className="absolute top-1/2 -translate-y-1/2 -right-1.5 w-3 h-3 bg-white border-t border-r border-outline-variant/30 rotate-45"></div>
           
           <div className="flex-1 min-w-0 z-10">
-            <p className="text-secondary font-semibold text-[10px] font-label-caps tracking-widest uppercase">Trợ lý ảo</p>
+            <p className="text-secondary font-semibold text-[10px] font-label-caps tracking-widest uppercase">
+              {lang === 'vi' ? 'Trợ lý ảo' : 'AI Assistant'}
+            </p>
             <p className="text-primary/80 text-xs font-body-md mt-1 leading-normal">
-              Bạn đang phân vân? Hãy để AI hỗ trợ chọn túi phù hợp nhé!
+              {lang === 'vi' ? 'Bạn đang phân vân? Hãy để AI hỗ trợ chọn túi phù hợp nhé!' : 'Confused? Let AI help you choose the perfect bag!'}
             </p>
           </div>
           <button 
@@ -239,7 +311,7 @@ const ChatWidget = () => {
               setShowTeaser(false);
             }}
             className="text-on-surface-variant/60 hover:text-primary transition-colors flex-shrink-0 z-10 self-start"
-            aria-label="Đóng gợi ý"
+            aria-label={lang === 'vi' ? 'Đóng gợi ý' : 'Close suggestion'}
           >
             <span className="material-symbols-outlined text-[16px]">close</span>
           </button>
@@ -249,7 +321,7 @@ const ChatWidget = () => {
       <button
         onClick={handleToggle}
         className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 bg-primary text-white"
-        aria-label="Mở tư vấn chọn túi"
+        aria-label={lang === 'vi' ? 'Mở tư vấn chọn túi' : 'Open bag consultation'}
       >
         <span className="material-symbols-outlined text-[24px]">
           {isOpen ? 'close' : 'chat'}
@@ -264,18 +336,37 @@ const ChatWidget = () => {
           <div className="flex items-center justify-between px-6 py-4 flex-shrink-0 bg-secondary border-b border-outline-variant/10 shadow-sm">
             <div className="flex flex-col">
               <span className="text-white font-headline-lg text-lg tracking-wide">
-                Tư vấn chọn túi
+                {lang === 'vi' ? 'Tư vấn chọn túi' : 'Find Your Bag'}
               </span>
               <span className="text-[10px] text-white/85 font-label-caps tracking-widest uppercase mt-0.5">
                 Loom Assistant
               </span>
             </div>
-            <button 
-              onClick={handleClose}
-              className="text-white/80 hover:text-white p-1 rounded-full hover:bg-white/10 transition-all flex items-center justify-center"
-            >
-              <span className="material-symbols-outlined text-[20px]">close</span>
-            </button>
+            
+            <div className="flex items-center gap-3">
+              {/* Language Switcher */}
+              <div className="flex gap-1 text-[9px] border border-white/20 rounded-full p-0.5 bg-white/5 font-label-caps">
+                <button 
+                  onClick={() => handleLangChange('vi')} 
+                  className={`px-2 py-0.5 rounded-full transition-all ${lang === 'vi' ? 'bg-white text-secondary font-bold' : 'text-white/60 hover:text-white'}`}
+                >
+                  VI
+                </button>
+                <button 
+                  onClick={() => handleLangChange('en')} 
+                  className={`px-2 py-0.5 rounded-full transition-all ${lang === 'en' ? 'bg-white text-secondary font-bold' : 'text-white/60 hover:text-white'}`}
+                >
+                  EN
+                </button>
+              </div>
+
+              <button 
+                onClick={handleClose}
+                className="text-white/80 hover:text-white p-1 rounded-full hover:bg-white/10 transition-all flex items-center justify-center"
+              >
+                <span className="material-symbols-outlined text-[20px]">close</span>
+              </button>
+            </div>
           </div>
 
           {/* Conversation Area */}
@@ -283,12 +374,12 @@ const ChatWidget = () => {
             {messages.map((msg, i) =>
               msg.from === 'bot'
                 ? <BotBubble key={i} text={msg.text} />
-                : <UserBubble key={i} text={msg.text} />
+                : <UserBubble key={i} text={msg.text} lang={lang} />
             )}
 
             {!loading && !results && !error && (
               <div className="flex flex-wrap gap-2 pt-2 justify-start animate-chat-bubble">
-                {STEPS[step].options.map(opt => (
+                {STEPS_LANG[lang][step].options.map(opt => (
                   <OptionButton key={opt.label} label={opt.label} onClick={() => handleSelect(opt)} />
                 ))}
               </div>
@@ -312,9 +403,9 @@ const ChatWidget = () => {
 
             {results && (
               <div className="space-y-4 pt-2 animate-chat-bubble">
-                <BotBubble text={`Đây là gợi ý các mẫu túi lý tưởng nhất cho bạn:`} />
+                <BotBubble text={lang === 'vi' ? 'Đây là gợi ý các mẫu túi lý tưởng nhất cho bạn:' : 'Here are the most ideal bag recommendations for you:'} />
                 <div className="space-y-2 mt-2">
-                  {results.map((p, i) => <ProductCard key={i} product={p} />)}
+                  {results.map((p, i) => <ProductCard key={i} product={p} lang={lang} />)}
                 </div>
                 <div>
                   <button
@@ -322,7 +413,7 @@ const ChatWidget = () => {
                     className="w-full mt-2 py-2.5 rounded-full text-xs font-semibold font-label-caps tracking-widest uppercase border border-primary text-primary bg-white hover:bg-primary hover:text-white active:scale-95 transition-all duration-300 shadow-sm flex items-center justify-center gap-1.5"
                   >
                     <span className="material-symbols-outlined text-[16px]">restart_alt</span>
-                    Tư vấn lại
+                    {lang === 'vi' ? 'Chat lại từ đầu' : 'Restart Chat'}
                   </button>
                 </div>
               </div>
