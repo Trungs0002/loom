@@ -30,7 +30,8 @@ const orderRoutes = require('./routes/orderRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const homeRoutes = require('./routes/homeRoutes');
-const paymentRoutes = require('./routes/paymentRoutes');
+const paymentRoutes   = require('./routes/paymentRoutes');
+const recommendRoutes = require('./routes/recommendRoutes');
 
 app.use('/api/products', productRoutes);
 app.use('/api/auth', authRoutes);
@@ -39,6 +40,7 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/home', homeRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use(recommendRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

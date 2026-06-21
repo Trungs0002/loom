@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import ChatWidget from './components/ChatWidget';
 
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
@@ -53,6 +54,9 @@ const AppLayout = ({ children }) => {
       
       {/* Hide default Footer for Admin page (Admin has its own layout) */}
       {!isAdmin && <Footer />}
+
+      {/* ChatWidget nổi — ẩn trên trang admin */}
+      {!isAdmin && <ChatWidget />}
     </div>
   );
 };

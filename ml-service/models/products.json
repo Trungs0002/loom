@@ -1,0 +1,4232 @@
+[
+  {
+    "id":10017413,
+    "name":"DKNY Unisex Black & Grey Printed Medium Trolley Bag",
+    "brand":"DKNY",
+    "price":3524000,
+    "color":"Black",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017421,
+    "name":"DKNY Unisex Black Large Trolley Bag",
+    "brand":"DKNY",
+    "price":5208000,
+    "color":"Black",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10000911,
+    "name":"Kenneth Cole Women Navy Blue Solid Backpack",
+    "brand":"Kenneth Cole",
+    "price":739000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017427,
+    "name":"DKNY Unisex Black Medium Trolley Bag",
+    "brand":"DKNY",
+    "price":3996000,
+    "color":"Black",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017423,
+    "name":"DKNY Unisex Gold & White Printed Cabin Trolley Bag",
+    "brand":"DKNY",
+    "price":4320000,
+    "color":"White",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017447,
+    "name":"DKNY Unisex Gold & White Printed Large Trolley Bag",
+    "brand":"DKNY",
+    "price":4868000,
+    "color":"White",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017417,
+    "name":"DKNY Unisex Black Large Trolley Bag",
+    "brand":"DKNY",
+    "price":4198000,
+    "color":"Black",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017441,
+    "name":"DKNY Unisex Silver Medium Trolley Bag",
+    "brand":"DKNY",
+    "price":3712000,
+    "color":"Silver",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017439,
+    "name":"DKNY Unisex Maroon Solid Leather Backpack with Pouch",
+    "brand":"DKNY",
+    "price":2930000,
+    "color":"Maroon",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017415,
+    "name":"DKNY Unisex Black & Grey Printed Cabin Trolley Bag",
+    "brand":"DKNY",
+    "price":3240000,
+    "color":"Black",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017457,
+    "name":"DKNY Unisex Black Medium Trolley Bag",
+    "brand":"DKNY",
+    "price":7440000,
+    "color":"Black",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017453,
+    "name":"DKNY Unisex Purple Medium Trolley Bag",
+    "brand":"DKNY",
+    "price":7440000,
+    "color":"Purple",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017459,
+    "name":"DKNY Unisex Silver Cabin Trolley Bag",
+    "brand":"DKNY",
+    "price":4010000,
+    "color":"Silver",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017429,
+    "name":"DKNY Unisex Black Solid Leather Backpack with Pouch",
+    "brand":"DKNY",
+    "price":3906000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017433,
+    "name":"DKNY Unisex Purple Large Trolley Bag",
+    "brand":"DKNY",
+    "price":9330000,
+    "color":"Purple",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017409,
+    "name":"DKNY Unisex Black Medium Trolley Bag",
+    "brand":"DKNY",
+    "price":3712000,
+    "color":"Black",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017425,
+    "name":"DKNY Unisex Black & Grey Printed Large Trolley Bag",
+    "brand":"DKNY",
+    "price":3982000,
+    "color":"Black",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017443,
+    "name":"DKNY Unisex Silver Medium Trolley Bag",
+    "brand":"DKNY",
+    "price":4662000,
+    "color":"Silver",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10000921,
+    "name":"Kenneth Cole Women Pink Solid Backpack",
+    "brand":"Kenneth Cole",
+    "price":739000,
+    "color":"Pink",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017437,
+    "name":"DKNY Unisex Purple Cabin Trolley Bag",
+    "brand":"DKNY",
+    "price":6630000,
+    "color":"Purple",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017455,
+    "name":"DKNY Unisex Silver-Toned Textured Cabin Trolley Bag",
+    "brand":"DKNY",
+    "price":4212000,
+    "color":"Red",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017449,
+    "name":"DKNY Unisex Black Cabin Trolley Bag",
+    "brand":"DKNY",
+    "price":4010000,
+    "color":"Black",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017419,
+    "name":"DKNY Unisex Gold-Toned & White Striped Medium Trolley Bag",
+    "brand":"DKNY",
+    "price":4306000,
+    "color":"White",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10000915,
+    "name":"Kenneth Cole Women Brown Solid Backpack",
+    "brand":"Kenneth Cole",
+    "price":682000,
+    "color":"Brown",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017451,
+    "name":"DKNY Unisex Black Cabin Trolley Bag",
+    "brand":"DKNY",
+    "price":6630000,
+    "color":"Black",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017445,
+    "name":"DKNY Unisex Silver Large Trolley Bag",
+    "brand":"DKNY",
+    "price":5132000,
+    "color":"Silver",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10017461,
+    "name":"DKNY Unisex Black & Grey Printed Large Trolley Bag",
+    "brand":"DKNY",
+    "price":9330000,
+    "color":"Black",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10035409,
+    "name":"Anekaant Blue PrintedShoulder Bag",
+    "brand":"Anekaant",
+    "price":135000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10025329,
+    "name":"DKNY Women Navy-Blue Printed Toiletry Bag",
+    "brand":"DKNY",
+    "price":2862000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10035423,
+    "name":"Anekaant Women Black Solid Handheld Bag",
+    "brand":"Anekaant",
+    "price":136000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10035431,
+    "name":"Anekaant Pink Quilted Shoulder Bag",
+    "brand":"Anekaant",
+    "price":174000,
+    "color":"Pink",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10035419,
+    "name":"Anekaant Turquoise Blue Self Design Sling Bag",
+    "brand":"Anekaant",
+    "price":216000,
+    "color":"Blue",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10035381,
+    "name":"Anekaant Women Black & Pink Printed Sling Bag",
+    "brand":"Anekaant",
+    "price":144000,
+    "color":"Black",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10021085,
+    "name":"IT Luggage Blue Textured Bubble Spin Cabin Trolley Suitcase",
+    "brand":"IT luggage",
+    "price":1560000,
+    "color":"Blue",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10035405,
+    "name":"Anekaant Beige & Off-White Self Design Shoulder Bag",
+    "brand":"Anekaant",
+    "price":270000,
+    "color":"White",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10025345,
+    "name":"DKNY Grey Solid Shoulder Bag",
+    "brand":"DKNY",
+    "price":2316000,
+    "color":"Grey",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10021521,
+    "name":"Puma Unisex Grey & Black Brand Logo Backpack",
+    "brand":"Puma",
+    "price":414000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10035387,
+    "name":"Anekaant Yellow Solid Shoulder Bag",
+    "brand":"Anekaant",
+    "price":247000,
+    "color":"Yellow",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10035427,
+    "name":"Anekaant Blue & Off-White Self Design Shoulder Bag",
+    "brand":"Anekaant",
+    "price":247000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10035383,
+    "name":"Anekaant Multicoloured Self Design Sling Bag",
+    "brand":"Anekaant",
+    "price":240000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10051483,
+    "name":"Calvin Klein Unisex Red Medium Trolley Suitcase",
+    "brand":"Calvin Klein",
+    "price":3038000,
+    "color":"Red",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10051487,
+    "name":"Calvin Klein Unisex Red Large Trolley Suitcase",
+    "brand":"Calvin Klein",
+    "price":3564000,
+    "color":"Red",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10051481,
+    "name":"Calvin Klein Unisex Black Large Trolley Bag",
+    "brand":"Calvin Klein",
+    "price":3564000,
+    "color":"Black",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10051479,
+    "name":"Calvin Klein Unisex Red Cabin Trolley Bag",
+    "brand":"Calvin Klein",
+    "price":2727000,
+    "color":"Red",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105895,
+    "name":"Genie Women Pink & Grey Floral Print 14 inches Small Backpack",
+    "brand":"Genie",
+    "price":243000,
+    "color":"Pink",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105845,
+    "name":"Genie Women Pink Textured 15 inches Small Backpack",
+    "brand":"Genie",
+    "price":496000,
+    "color":"Red",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10075753,
+    "name":"URBAN TRIBE Unisex Blue & Grey Solid Backpack",
+    "brand":"URBAN TRIBE",
+    "price":300000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10082677,
+    "name":"MBOSS Black Textured Sling Bag",
+    "brand":"MBOSS",
+    "price":252000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073687,
+    "name":"ELLE Red Striped Shoulder Bag",
+    "brand":"ELLE",
+    "price":413000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073665,
+    "name":"ELLE Olive Green Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":369000,
+    "color":"Green",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097193,
+    "name":"GIORDANO Blue Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":440000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073681,
+    "name":"ELLE Pink Striped Shoulder Bag",
+    "brand":"ELLE",
+    "price":413000,
+    "color":"Pink",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10066959,
+    "name":"Mochi Gold-Toned Embellished Clutch",
+    "brand":"Mochi",
+    "price":297000,
+    "color":"Gold",
+    "category":"Clutch",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073685,
+    "name":"ELLE Beige Self Design Shoulder Bag",
+    "brand":"ELLE",
+    "price":395000,
+    "color":"Beige",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097267,
+    "name":"GIORDANO Blue Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":419000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097253,
+    "name":"GIORDANO Yellow Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":1287000,
+    "color":"Yellow",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073959,
+    "name":"Anekaant Multicoloured Textured Clutch",
+    "brand":"Anekaant",
+    "price":255000,
+    "color":"Red",
+    "category":"Clutch",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073635,
+    "name":"ELLE Beige Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":449000,
+    "color":"Beige",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073637,
+    "name":"ELLE Brown Textured Shoulder Bag",
+    "brand":"ELLE",
+    "price":377000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073623,
+    "name":"ELLE Red Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":431000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097195,
+    "name":"GIORDANO Brown Embellished Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":482000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105833,
+    "name":"Genie Women Charcoal Grey Animal Textured 15 inches Small Backpack",
+    "brand":"Genie",
+    "price":313000,
+    "color":"Red",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097201,
+    "name":"GIORDANO Maroon Textured Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":419000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105877,
+    "name":"Genie Women Purple & Coral Pink Geometric Pattern 17 inches Laptop Backpack with Pouch",
+    "brand":"Genie",
+    "price":323000,
+    "color":"Pink",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097211,
+    "name":"GIORDANO Orange Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":450000,
+    "color":"Orange",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073669,
+    "name":"ELLE Blue & Off-White Colourblocked Shoulder Bag",
+    "brand":"ELLE",
+    "price":449000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073639,
+    "name":"ELLE Grey Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":431000,
+    "color":"Grey",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10074201,
+    "name":"URBAN TRIBE Unisex Taupe & Beige Solid Backpack",
+    "brand":"URBAN TRIBE",
+    "price":570000,
+    "color":"Beige",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10074713,
+    "name":"Mochi Pink Solid Handheld Bag",
+    "brand":"Mochi",
+    "price":268000,
+    "color":"Pink",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097251,
+    "name":"GIORDANO Women Black Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":440000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097307,
+    "name":"GIORDANO Red Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":412000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10066975,
+    "name":"Mochi Gold-Toned Embellished Clutch",
+    "brand":"Mochi",
+    "price":507000,
+    "color":"Gold",
+    "category":"Clutch",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10098361,
+    "name":"KLEIO Beige Textured Sling Bag",
+    "brand":"KLEIO",
+    "price":184000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10098367,
+    "name":"KLEIO Peach-Coloured Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":184000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073693,
+    "name":"ELLE Blue Textured Handheld Bag",
+    "brand":"ELLE",
+    "price":454000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105867,
+    "name":"Genie Women Brown Leopard Patterned 15 inches Small Backpack",
+    "brand":"Genie",
+    "price":470000,
+    "color":"Brown",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073683,
+    "name":"ELLE Purple & White Colourblocked Shoulder Bag",
+    "brand":"ELLE",
+    "price":449000,
+    "color":"White",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097237,
+    "name":"GIORDANO Yellow Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":419000,
+    "color":"Yellow",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097243,
+    "name":"GIORDANO Pink Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":419000,
+    "color":"Pink",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105815,
+    "name":"Genius Unisex Grey & Black Printed 21 inches Large Overnighter Backpack",
+    "brand":"Genius",
+    "price":530000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097289,
+    "name":"GIORDANO Brown & Red Colourblocked Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":440000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073749,
+    "name":"GIORDANO Women Yellow Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":407000,
+    "color":"Yellow",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105861,
+    "name":"Genie Women Black Printed 17inches Medium Laptop Backpack with Pouch",
+    "brand":"Genie",
+    "price":473000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105823,
+    "name":"Genie Women Pink 15 inches Solid Small Backpack",
+    "brand":"Genie",
+    "price":249000,
+    "color":"Pink",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073667,
+    "name":"ELLE Yellow Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":402000,
+    "color":"Yellow",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10098377,
+    "name":"KLEIO Women Yellow Textured Sling Bag",
+    "brand":"KLEIO",
+    "price":184000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105863,
+    "name":"Genie Women Blue Printed 16 inches Medium Backpack",
+    "brand":"Genie",
+    "price":600000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097219,
+    "name":"GIORDANO Pink Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":440000,
+    "color":"Pink",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097249,
+    "name":"GIORDANO Maroon & Navy Blue Colourblocked Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":419000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073735,
+    "name":"GIORDANO Yellow Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":609000,
+    "color":"Yellow",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105871,
+    "name":"Genie Women Grey 15 inches Solid Small Backpack",
+    "brand":"Genie",
+    "price":249000,
+    "color":"Grey",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073633,
+    "name":"ELLE Peach-Coloured Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":431000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073771,
+    "name":"GIORDANO Mustard Brown Solid Handheld Bag",
+    "brand":"GIORDANO",
+    "price":359000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10068639,
+    "name":"GIORDANO Blue Solid Handheld Bag",
+    "brand":"GIORDANO",
+    "price":407000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10074751,
+    "name":"Mochi Tan Brown Solid Handheld Bag",
+    "brand":"Mochi",
+    "price":268000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073627,
+    "name":"ELLE Brown Colourblocked Shoulder Bag",
+    "brand":"ELLE",
+    "price":377000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073971,
+    "name":"Anekaant Multicoloured Embroidered Clutch",
+    "brand":"Anekaant",
+    "price":231000,
+    "color":"Red",
+    "category":"Clutch",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105881,
+    "name":"Genie Women Blue Textured 15 inches Small Backpack",
+    "brand":"Genie",
+    "price":382000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10068627,
+    "name":"GIORDANO Tan Brown Solid Sling Bag",
+    "brand":"GIORDANO",
+    "price":394000,
+    "color":"Brown",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073679,
+    "name":"ELLE Purple & Beige Self Design Shoulder Bag",
+    "brand":"ELLE",
+    "price":395000,
+    "color":"Beige",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073675,
+    "name":"ELLE Peach-Coloured Textured Shoulder Bag",
+    "brand":"ELLE",
+    "price":431000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10068687,
+    "name":"GIORDANO Pink Solid Handheld Bag",
+    "brand":"GIORDANO",
+    "price":576000,
+    "color":"Pink",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097287,
+    "name":"GIORDANO Orange Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":482000,
+    "color":"Orange",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097213,
+    "name":"GIORDANO Brown Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":482000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073621,
+    "name":"ELLE Navy Blue Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":449000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073641,
+    "name":"ELLE Red Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":431000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105821,
+    "name":"Genie Women Navy Blue 15 inches Solid Small Backpack",
+    "brand":"Genie",
+    "price":398000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105869,
+    "name":"Genie Women Red 15 inches Solid Small Backpack",
+    "brand":"Genie",
+    "price":264000,
+    "color":"Red",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073643,
+    "name":"ELLE Black Textured Shoulder Bag",
+    "brand":"ELLE",
+    "price":377000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10066969,
+    "name":"Mochi Maroon Embroidered Clutch",
+    "brand":"Mochi",
+    "price":297000,
+    "color":"Red",
+    "category":"Clutch",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073657,
+    "name":"ELLE Orange Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":395000,
+    "color":"Orange",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073651,
+    "name":"ELLE Grey & Red Colourblocked Shoulder Bag",
+    "brand":"ELLE",
+    "price":377000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10098387,
+    "name":"KLEIO Red Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":184000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10098385,
+    "name":"KLEIO Women Blue Textured Sling Bag",
+    "brand":"KLEIO",
+    "price":184000,
+    "color":"Blue",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105855,
+    "name":"Genie Women Green 15 inches Solid Small Backpack",
+    "brand":"Genie",
+    "price":398000,
+    "color":"Green",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073661,
+    "name":"ELLE Red Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":449000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073645,
+    "name":"ELLE Pink Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":395000,
+    "color":"Pink",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10066951,
+    "name":"Mochi Black & Gold-Toned Embellished Embellished Clutch",
+    "brand":"Mochi",
+    "price":297000,
+    "color":"Black",
+    "category":"Clutch",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10098381,
+    "name":"KLEIO Green Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":184000,
+    "color":"Green",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10098363,
+    "name":"KLEIO Tan Brown Quilted Sling Bag",
+    "brand":"KLEIO",
+    "price":184000,
+    "color":"Brown",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10068643,
+    "name":"GIORDANO Brown Solid Sling Bag",
+    "brand":"GIORDANO",
+    "price":328000,
+    "color":"Brown",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10098373,
+    "name":"KLEIO Women Green Textured Sling Bag",
+    "brand":"KLEIO",
+    "price":184000,
+    "color":"Green",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097271,
+    "name":"GIORDANO Red Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":419000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073625,
+    "name":"ELLE Beige Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":395000,
+    "color":"Beige",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10101529,
+    "name":"Genius Unisex Blue & Blue  Printed 17inches Medium Laptop Backpack",
+    "brand":"Genius",
+    "price":230000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073653,
+    "name":"ELLE Black Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":431000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097221,
+    "name":"GIORDANO Blue & White Colourblocked Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":450000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073703,
+    "name":"GIORDANO Pink Solid Handheld Bag",
+    "brand":"GIORDANO",
+    "price":1047000,
+    "color":"Pink",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097293,
+    "name":"GIORDANO Red Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":450000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097299,
+    "name":"GIORDANO Maroon Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":419000,
+    "color":"Maroon",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10075751,
+    "name":"URBAN TRIBE Unisex Black Solid Backpack",
+    "brand":"URBAN TRIBE",
+    "price":300000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10097303,
+    "name":"GIORDANO Brown Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":419000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073631,
+    "name":"ELLE Brown Colourblocked Shoulder Bag",
+    "brand":"ELLE",
+    "price":449000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073647,
+    "name":"ELLE Peach-Coloured Textured Shoulder Bag",
+    "brand":"ELLE",
+    "price":377000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10092533,
+    "name":"ELLE Women Yellow Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":395000,
+    "color":"Yellow",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105887,
+    "name":"Genie Women Grey 15 inches Solid Small Backpack",
+    "brand":"Genie",
+    "price":417000,
+    "color":"Grey",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073677,
+    "name":"ELLE Red Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":449000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073659,
+    "name":"ELLE Blue Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":395000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10098375,
+    "name":"KLEIO Green Textured Sling Bag",
+    "brand":"KLEIO",
+    "price":184000,
+    "color":"Green",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10073649,
+    "name":"ELLE Red Solid Shoulder Bag",
+    "brand":"ELLE",
+    "price":431000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10133445,
+    "name":"GIORDANO Off-White Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":754000,
+    "color":"White",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10110843,
+    "name":"URBAN TRIBE Unisex Olive Green Duffle Bag",
+    "brand":"URBAN TRIBE",
+    "price":330000,
+    "color":"Green",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10126779,
+    "name":"Calvin Klein Pink Solid The Standard HS Hard-Sided Cabin Trolley Suitcase",
+    "brand":"Calvin Klein",
+    "price":3135000,
+    "color":"Pink",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105915,
+    "name":"Genie Women Multicoloured Printed 15 inches Small Backpack",
+    "brand":"Genie",
+    "price":254000,
+    "color":"Red",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105897,
+    "name":"Genie Women Blue Geometric Print 16 inches Medium Backpack",
+    "brand":"Genie",
+    "price":284000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10110585,
+    "name":"United Colors of Benetton Women Red & White Colourblocked Two Fold Wallet",
+    "brand":"United Colors of Benetton",
+    "price":261000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10128215,
+    "name":"Baggit Grey Solid Sling Bag",
+    "brand":"Baggit",
+    "price":218000,
+    "color":"Grey",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10126799,
+    "name":"Calvin Klein Unisex Red Solid Medium Trolley Bag",
+    "brand":"Calvin Klein",
+    "price":2916000,
+    "color":"Red",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10131769,
+    "name":"Calvin Klein Men Black Textured Leather Two Fold Wallet",
+    "brand":"Calvin Klein",
+    "price":1282000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10126785,
+    "name":"Calvin Klein Unisex Black Textured Medium Trolley Bag",
+    "brand":"Calvin Klein",
+    "price":4662000,
+    "color":"Red",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10133431,
+    "name":"GIORDANO Grey & Blue Colourblocked Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":419000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10117345,
+    "name":"Caprese Olive Green Solid Shoulder Bag",
+    "brand":"Caprese",
+    "price":720000,
+    "color":"Green",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10126783,
+    "name":"Calvin Klein Unisex Red Solid Cabin Trolley Bag",
+    "brand":"Calvin Klein",
+    "price":3366000,
+    "color":"Red",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10133399,
+    "name":"GIORDANO Blue Textured Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":419000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10131763,
+    "name":"Calvin Klein Men Black Solid Backpack",
+    "brand":"Calvin Klein",
+    "price":3705000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10126795,
+    "name":"Calvin Klein Unisex Black & White Printed Cabin Trolley Bag",
+    "brand":"Calvin Klein",
+    "price":3510000,
+    "color":"Black",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10126755,
+    "name":"Calvin Klein Unisex Black & White Printed Cabin Trolley Bag",
+    "brand":"Calvin Klein",
+    "price":3038000,
+    "color":"Black",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10133435,
+    "name":"GIORDANO Red Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":440000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10133417,
+    "name":"GIORDANO Grey & Brown Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":718000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105909,
+    "name":"Genie Women Blue & Yellow  Printed 16 inches Medium Backpack",
+    "brand":"Genie",
+    "price":298000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105901,
+    "name":"Genie Women Red 15 inches Solid Small Backpack",
+    "brand":"Genie",
+    "price":388000,
+    "color":"Red",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10126751,
+    "name":"Calvin Klein Unisex Black Textured Cabin Trolley Bag",
+    "brand":"Calvin Klein",
+    "price":3086000,
+    "color":"Red",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105905,
+    "name":"Genie Women Blue 15 inches Solid Small Backpack",
+    "brand":"Genie",
+    "price":307000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105935,
+    "name":"Genie Women Bare Green 15 inches Solid Small Backpack",
+    "brand":"Genie",
+    "price":259000,
+    "color":"Green",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10133439,
+    "name":"GIORDANO Beige Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":450000,
+    "color":"Beige",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10131789,
+    "name":"Calvin Klein Men Black Solid Two Fold Leather Wallet",
+    "brand":"Calvin Klein",
+    "price":1425000,
+    "color":"Black",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10128245,
+    "name":"Baggit Beige & Orange Colourblocked Shoulder Bag",
+    "brand":"Baggit",
+    "price":366000,
+    "color":"Beige",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10110431,
+    "name":"United Colors of Benetton Pink & Grey Colourblocked Sling Bag",
+    "brand":"United Colors of Benetton",
+    "price":342000,
+    "color":"Pink",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10111277,
+    "name":"CERIZ Orange Solid Shoulder Bag",
+    "brand":"CERIZ",
+    "price":456000,
+    "color":"Orange",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105911,
+    "name":"Genie Women Black & Blue Tropical Print 15 inches Small Backpack",
+    "brand":"Genie",
+    "price":258000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10110415,
+    "name":"United Colors of Benetton Turquoise Blue & Grey Colourblocked Sling Bag",
+    "brand":"United Colors of Benetton",
+    "price":342000,
+    "color":"Blue",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105933,
+    "name":"Genie Women Black Leopard Patterned 15 inches Small Backpack",
+    "brand":"Genie",
+    "price":291000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10126775,
+    "name":"Calvin Klein Unisex Black & White Printed Large Trolley Bag",
+    "brand":"Calvin Klein",
+    "price":3928000,
+    "color":"Black",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10117361,
+    "name":"Caprese Navy Blue & Gold-Toned Striped Shoulder Bag",
+    "brand":"Caprese",
+    "price":510000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10131767,
+    "name":"Calvin Klein Men Grey Textured Leather Two Fold Wallet",
+    "brand":"Calvin Klein",
+    "price":1282000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105931,
+    "name":"Genie Women Black Printed 15 inches Small Backpack",
+    "brand":"Genie",
+    "price":437000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10133419,
+    "name":"GIORDANO Beige Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":419000,
+    "color":"Beige",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10126777,
+    "name":"Calvin Klein Unisex Black & White Printed Large Trolley Bag",
+    "brand":"Calvin Klein",
+    "price":3807000,
+    "color":"Black",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10126767,
+    "name":"Calvin Klein Unisex Black Textured Medium Trolley Bag",
+    "brand":"Calvin Klein",
+    "price":3564000,
+    "color":"Red",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105917,
+    "name":"Genie Women Black Textured 15 inches Small Backpack",
+    "brand":"Genie",
+    "price":273000,
+    "color":"Red",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10105923,
+    "name":"Genie Women Red & Blue Geometric Print 16 inches Medium Backpack",
+    "brand":"Genie",
+    "price":600000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10145685,
+    "name":"Genius Kids Blue Mickey Mouse Print 16inches Medium Backpack",
+    "brand":"Genius",
+    "price":278000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146535,
+    "name":"KLEIO Orange Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":201000,
+    "color":"Orange",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146525,
+    "name":"KLEIO Mustard Yellow Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":344000,
+    "color":"Yellow",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146533,
+    "name":"KLEIO Mustard Yellow Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":201000,
+    "color":"Yellow",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146537,
+    "name":"KLEIO Peach-Coloured Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":344000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10137405,
+    "name":"Aditi Wasan Women Black Solid Two Fold Leather Wallet",
+    "brand":"Aditi Wasan",
+    "price":180000,
+    "color":"Black",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146501,
+    "name":"KLEIO Green Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":201000,
+    "color":"Green",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146507,
+    "name":"KLEIO Red Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":344000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146497,
+    "name":"KLEIO Red Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":201000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146519,
+    "name":"KLEIO Green Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":201000,
+    "color":"Green",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10143559,
+    "name":"Calvin Klein Jeans Men Navy Blue Solid Backpack",
+    "brand":"Calvin Klein Jeans",
+    "price":2535000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10145683,
+    "name":"Genius Kids Black & Grey Mickey Mouse Print 19 inches Large Backpack",
+    "brand":"Genius",
+    "price":334000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146529,
+    "name":"KLEIO Peach-Coloured Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":201000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146527,
+    "name":"KLEIO Peach-Coloured Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":344000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146511,
+    "name":"KLEIO Green Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":344000,
+    "color":"Green",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146515,
+    "name":"KLEIO Women Yellow Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":344000,
+    "color":"Yellow",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146517,
+    "name":"KLEIO Women Black Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":201000,
+    "color":"Black",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146505,
+    "name":"KLEIO Women Green Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":344000,
+    "color":"Green",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10145677,
+    "name":"Genius Kids Blue Mickey Mouse Print 14 inches Small Backpack",
+    "brand":"Genius",
+    "price":241000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10143543,
+    "name":"Calvin Klein Jeans Men Navy Blue Solid Laptop Backpack",
+    "brand":"Calvin Klein Jeans",
+    "price":2535000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146509,
+    "name":"KLEIO Beige Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":201000,
+    "color":"Beige",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146513,
+    "name":"KLEIO Blue Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":201000,
+    "color":"Blue",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146499,
+    "name":"KLEIO Cream-Coloured Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":344000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10146521,
+    "name":"KLEIO Tan Brown Solid Sling Bag",
+    "brand":"KLEIO",
+    "price":344000,
+    "color":"Brown",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10159501,
+    "name":"Eske Black Checked Leather Handheld Bag",
+    "brand":"Eske",
+    "price":2025000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156375,
+    "name":"E2O Beige Embellished Handheld Bag",
+    "brand":"E2O",
+    "price":621000,
+    "color":"Beige",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10167821,
+    "name":"Tommy Hilfiger Unisex Grey Checked Laptop Backpack",
+    "brand":"Tommy Hilfiger",
+    "price":540000,
+    "color":"Grey",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10159505,
+    "name":"Eske Beige Embellished Leather Shoulder Bag",
+    "brand":"Eske",
+    "price":1125000,
+    "color":"Beige",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10167851,
+    "name":"Tommy Hilfiger Unisex Red Checked Laptop Backpack",
+    "brand":"Tommy Hilfiger",
+    "price":540000,
+    "color":"Red",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156877,
+    "name":"GODS Unisex Zarc Grey Camouflage Anti-Theft Laptop Backpack",
+    "brand":"GODS",
+    "price":662000,
+    "color":"Grey",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156389,
+    "name":"E2O Maroon Solid Handheld Bag",
+    "brand":"E2O",
+    "price":594000,
+    "color":"Maroon",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156631,
+    "name":"E2O Women Brown Textured Zip Around Wallet",
+    "brand":"E2O",
+    "price":256000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156555,
+    "name":"E2O Women Blue Embellished Zip Around Wallet",
+    "brand":"E2O",
+    "price":227000,
+    "color":"Blue",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156391,
+    "name":"E2O Women Black Textured Zip Around Wallet",
+    "brand":"E2O",
+    "price":227000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156499,
+    "name":"E2O Women Navy Blue Solid Zip Around Wallet",
+    "brand":"E2O",
+    "price":256000,
+    "color":"Blue",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156373,
+    "name":"E2O Red Textured Clutch",
+    "brand":"E2O",
+    "price":487000,
+    "color":"Red",
+    "category":"Clutch",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156415,
+    "name":"E2O Women Black Solid Two Fold Wallet",
+    "brand":"E2O",
+    "price":188000,
+    "color":"Black",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156665,
+    "name":"E2O Women Tan Brown Solid Two Fold Wallet",
+    "brand":"E2O",
+    "price":188000,
+    "color":"Brown",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10166959,
+    "name":"Wildcraft Unisex Blue Hopper 1.0 Brand Logo Printed Laptop Backpack",
+    "brand":"Wildcraft",
+    "price":450000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10167843,
+    "name":"Tommy Hilfiger Unisex Navy Blue Checked Laptop Backpack",
+    "brand":"Tommy Hilfiger",
+    "price":540000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10166937,
+    "name":"Wildcraft Unisex Black Trident 2.0 Brand Logo Backpack",
+    "brand":"Wildcraft",
+    "price":696000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156535,
+    "name":"E2O Women Olive Green Solid Zip Around Wallet",
+    "brand":"E2O",
+    "price":256000,
+    "color":"Green",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156579,
+    "name":"E2O Women Yellow Solid Zip Around Wallet",
+    "brand":"E2O",
+    "price":256000,
+    "color":"Yellow",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156455,
+    "name":"E2O Women Pink Solid Zip Around Wallet",
+    "brand":"E2O",
+    "price":256000,
+    "color":"Pink",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156597,
+    "name":"E2O Navy Blue Solid Sling Bag",
+    "brand":"E2O",
+    "price":310000,
+    "color":"Blue",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156453,
+    "name":"E2O Yellow Solid Sling Bag",
+    "brand":"E2O",
+    "price":310000,
+    "color":"Yellow",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10159509,
+    "name":"Eske Black Colourblocked Leather Handheld Bag",
+    "brand":"Eske",
+    "price":1725000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10167235,
+    "name":"Eske Blue Textured Crusader Hard-Sided Cabin Trolley Bag",
+    "brand":"Eske",
+    "price":2520000,
+    "color":"Blue",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156427,
+    "name":"E2O Grey Solid Handheld Bag",
+    "brand":"E2O",
+    "price":540000,
+    "color":"Grey",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10167239,
+    "name":"Eske Black Textured Cabin Trolley Bag",
+    "brand":"Eske",
+    "price":2160000,
+    "color":"Red",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10166971,
+    "name":"Wildcraft Unisex Black Fluoroscent Green Streak 1.0 Brand Logo Printed Laptop Backpack",
+    "brand":"Wildcraft",
+    "price":382000,
+    "color":"Green",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156599,
+    "name":"E2O Blue Solid Sling Bag",
+    "brand":"E2O",
+    "price":251000,
+    "color":"Blue",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156659,
+    "name":"E2O Mustard Yellow Solid Shoulder Bag",
+    "brand":"E2O",
+    "price":311000,
+    "color":"Yellow",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156691,
+    "name":"E2O Olive Green Embellished Sling Bag",
+    "brand":"E2O",
+    "price":283000,
+    "color":"Green",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10174639,
+    "name":"KLEIO Purple & Brown Printed Sling Bag",
+    "brand":"KLEIO",
+    "price":207000,
+    "color":"Brown",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10167837,
+    "name":"Tommy Hilfiger Unisex Navy Blue Geometric Print Laptop Backpack",
+    "brand":"Tommy Hilfiger",
+    "price":478000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10167241,
+    "name":"Eske Blue Textured Cabin Trolley Bag",
+    "brand":"Eske",
+    "price":2160000,
+    "color":"Blue",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10156339,
+    "name":"E2O Women Green Solid Zip Around Wallet",
+    "brand":"E2O",
+    "price":256000,
+    "color":"Green",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186105,
+    "name":"Lavie Women Brown Solid Two Fold Wallet",
+    "brand":"Lavie",
+    "price":304000,
+    "color":"Brown",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181783,
+    "name":"Puma Unisex Yellow Brand Logo Backpack",
+    "brand":"Puma",
+    "price":241000,
+    "color":"Yellow",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186179,
+    "name":"Lavie Women Tan & White Solid Zip Around Wallet",
+    "brand":"Lavie",
+    "price":780000,
+    "color":"White",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186227,
+    "name":"Lavie Peach-Coloured Textured Shoulder Bag",
+    "brand":"Lavie",
+    "price":1260000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186113,
+    "name":"Lavie Yellow Textured Shoulder Bag",
+    "brand":"Lavie",
+    "price":1368000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181849,
+    "name":"Puma Unisex Blue Brand Logo Backpack",
+    "brand":"Puma",
+    "price":487000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181899,
+    "name":"Puma Unisex Multicoloured Graphic Academy Backpack",
+    "brand":"Puma",
+    "price":390000,
+    "color":"Red",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186337,
+    "name":"Lavie Mint Green Solid Handheld Bag",
+    "brand":"Lavie",
+    "price":1234000,
+    "color":"Green",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181945,
+    "name":"Puma Unisex Black Graphic Backpack",
+    "brand":"Puma",
+    "price":390000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186921,
+    "name":"Lavie Navy Blue Solid Hobo Bag",
+    "brand":"Lavie",
+    "price":1140000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10182273,
+    "name":"MBOSS Unisex Brown Solid Laptop Bag",
+    "brand":"MBOSS",
+    "price":342000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186399,
+    "name":"Lavie Women Gunmetal-Toned Textured Zip Around Wallet",
+    "brand":"Lavie",
+    "price":930000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186079,
+    "name":"Lavie Women Red Solid Sling Bag",
+    "brand":"Lavie",
+    "price":912000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10178959,
+    "name":"Global Desi Women Brown Tassel Detail Backpack",
+    "brand":"Global Desi",
+    "price":838000,
+    "color":"Brown",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10179219,
+    "name":"yelloe Black Solid Sling Bag",
+    "brand":"yelloe",
+    "price":232000,
+    "color":"Black",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186601,
+    "name":"Lavie Women Olive Green & Off-White Colourblocked Three Fold Wallet",
+    "brand":"Lavie",
+    "price":252000,
+    "color":"Green",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10184249,
+    "name":"GIORDANO Beige Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":431000,
+    "color":"Beige",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186319,
+    "name":"Lavie Grey Solid Shoulder Bag",
+    "brand":"Lavie",
+    "price":1440000,
+    "color":"Grey",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181817,
+    "name":"Puma Unisex Black Originals Retro woven Brand Logo Backpack",
+    "brand":"Puma",
+    "price":276000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186717,
+    "name":"Lavie Women Dusty Pink Embellished Shoulder Bag",
+    "brand":"Lavie",
+    "price":688000,
+    "color":"Pink",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186413,
+    "name":"Lavie Women Mustard Yellow Solid Shoulder Bag",
+    "brand":"Lavie",
+    "price":1542000,
+    "color":"Yellow",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181933,
+    "name":"Puma Unisex Blue & Black Brand Logo Deck Backpack",
+    "brand":"Puma",
+    "price":360000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186331,
+    "name":"Lavie Mustard Yellow Solid Shoulder Bag",
+    "brand":"Lavie",
+    "price":1494000,
+    "color":"Yellow",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186457,
+    "name":"Lavie Women Purple & Silver-Toned Solid Zip Around Wallet",
+    "brand":"Lavie",
+    "price":252000,
+    "color":"Silver",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186309,
+    "name":"Lavie Women Maroon Textured Hobo Bag",
+    "brand":"Lavie",
+    "price":1367000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181857,
+    "name":"Puma Unisex Black Solid SF Fanwear Backpack",
+    "brand":"Puma",
+    "price":840000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181929,
+    "name":"Puma Women Black Brand Logo Backpack",
+    "brand":"Puma",
+    "price":360000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10178971,
+    "name":"Global Desi Navy Blue Tassel Detail Shoulder Bag",
+    "brand":"Global Desi",
+    "price":444000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186943,
+    "name":"Lavie Navy Blue & Black Checked Handheld Bag",
+    "brand":"Lavie",
+    "price":1494000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186121,
+    "name":"Lavie Women Burgundy & Beige Colourblocked Three Fold Wallet",
+    "brand":"Lavie",
+    "price":241000,
+    "color":"Beige",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186357,
+    "name":"Lavie Women Beige Solid Three Fold Wallet",
+    "brand":"Lavie",
+    "price":252000,
+    "color":"Beige",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186511,
+    "name":"Lavie Women Yellow Solid Zip Around Wallet",
+    "brand":"Lavie",
+    "price":325000,
+    "color":"Yellow",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186475,
+    "name":"Lavie Olive Green Solid Sling Bag",
+    "brand":"Lavie",
+    "price":409000,
+    "color":"Green",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186411,
+    "name":"Lavie Women Brown Solid Three Fold Wallet",
+    "brand":"Lavie",
+    "price":252000,
+    "color":"Brown",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10177689,
+    "name":"SPRAY GROUND Unisex Black & Grey Geometric Backpack",
+    "brand":"SPRAY GROUND",
+    "price":2431000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10182279,
+    "name":"MBOSS Unisex Black Solid Laptop Bag",
+    "brand":"MBOSS",
+    "price":297000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181909,
+    "name":"Puma Unisex Black & Grey Solid Phase Backpack",
+    "brand":"Puma",
+    "price":253000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10185733,
+    "name":"KLEIO Women Gold-Toned Solid Backpack",
+    "brand":"KLEIO",
+    "price":294000,
+    "color":"Gold",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186189,
+    "name":"Lavie Olive Green Textured Hobo Bag",
+    "brand":"Lavie",
+    "price":634000,
+    "color":"Green",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186501,
+    "name":"Lavie Brown Solid Shoulder Bag",
+    "brand":"Lavie",
+    "price":1368000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186307,
+    "name":"Lavie Black & Green Colourblocked Shoulder Bag",
+    "brand":"Lavie",
+    "price":1542000,
+    "color":"Green",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186093,
+    "name":"Lavie Women Silver-Toned Textured Zip Around Wallet",
+    "brand":"Lavie",
+    "price":611000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186155,
+    "name":"Lavie Women Red Textured Sling Bag",
+    "brand":"Lavie",
+    "price":1170000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186389,
+    "name":"Lavie Olive Green Solid Hobo Bag",
+    "brand":"Lavie",
+    "price":1197000,
+    "color":"Green",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186343,
+    "name":"Lavie Yellow Textured Shoulder Bag",
+    "brand":"Lavie",
+    "price":1368000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186573,
+    "name":"Lavie Women Red Textured Two Fold Wallet",
+    "brand":"Lavie",
+    "price":698000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181947,
+    "name":"Puma Unisex Black Solid Backpack",
+    "brand":"Puma",
+    "price":448000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10185729,
+    "name":"KLEIO Women Gold-Toned Solid Leather Backpack",
+    "brand":"KLEIO",
+    "price":294000,
+    "color":"Gold",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186491,
+    "name":"Lavie Women Peach-Coloured & Pink Colourblocked Two Fold Wallet",
+    "brand":"Lavie",
+    "price":844000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181833,
+    "name":"Puma Unisex Maroon Graphic Beta Laptop Backpack",
+    "brand":"Puma",
+    "price":351000,
+    "color":"Maroon",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181779,
+    "name":"PUMA Motorsport Unisex Navy Blue RBR Lifestyle Laptop Textured Backpack",
+    "brand":"PUMA Motorsport",
+    "price":735000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10179043,
+    "name":"Global Desi Orange Solid Sling Bag",
+    "brand":"Global Desi",
+    "price":420000,
+    "color":"Orange",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186379,
+    "name":"Lavie Maroon Solid Handheld Bag",
+    "brand":"Lavie",
+    "price":1516000,
+    "color":"Maroon",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10185821,
+    "name":"KLEIO Women Beige Solid Backpack",
+    "brand":"KLEIO",
+    "price":294000,
+    "color":"Beige",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10179047,
+    "name":"Global Desi Women Beige & Black Colorblocked Self Design Sling Bag",
+    "brand":"Global Desi",
+    "price":384000,
+    "color":"Black",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186203,
+    "name":"Lavie Beige Textured Shoulder Bag",
+    "brand":"Lavie",
+    "price":648000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186603,
+    "name":"Lavie Orange Textured Shoulder Bag",
+    "brand":"Lavie",
+    "price":567000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186405,
+    "name":"Lavie Women Brown Solid Two Fold Wallet",
+    "brand":"Lavie",
+    "price":676000,
+    "color":"Brown",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181893,
+    "name":"Puma Unisex Grey Solid Phase Backpack",
+    "brand":"Puma",
+    "price":253000,
+    "color":"Grey",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186429,
+    "name":"Lavie Women Orange Textured Shoulder Bag",
+    "brand":"Lavie",
+    "price":1396000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186469,
+    "name":"Lavie Blue Textured Shoulder Bag",
+    "brand":"Lavie",
+    "price":715000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181867,
+    "name":"Puma Unisex Grey Brand Logo Laptop Backpack",
+    "brand":"Puma",
+    "price":414000,
+    "color":"Grey",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186455,
+    "name":"Lavie Women Yellow Solid Zip Around Wallet",
+    "brand":"Lavie",
+    "price":220000,
+    "color":"Yellow",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10177693,
+    "name":"SPRAY GROUND Unisex Brown & Black Geometric Backpack",
+    "brand":"SPRAY GROUND",
+    "price":2431000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10179037,
+    "name":"Global Desi Women Black Tassel Detail Backpack",
+    "brand":"Global Desi",
+    "price":838000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181913,
+    "name":"Puma Unisex Grey Solid Backpack",
+    "brand":"Puma",
+    "price":1155000,
+    "color":"Grey",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181943,
+    "name":"Puma Unisex Black Brand Logo Sole Backpack",
+    "brand":"Puma",
+    "price":360000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186329,
+    "name":"Lavie Women Mustard Yellow Textured Shoulder Bag",
+    "brand":"Lavie",
+    "price":1368000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186941,
+    "name":"Lavie Women Pink Solid Zip Around Wallet",
+    "brand":"Lavie",
+    "price":325000,
+    "color":"Pink",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186589,
+    "name":"Lavie Coral Orange Solid Handheld Bag",
+    "brand":"Lavie",
+    "price":1234000,
+    "color":"Orange",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181911,
+    "name":"Puma Black Solid Handheld Bag",
+    "brand":"Puma",
+    "price":1080000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186153,
+    "name":"Lavie Brown Solid Shoulder Bag",
+    "brand":"Lavie",
+    "price":1612000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181847,
+    "name":"Puma Unisex Black Brand Logo Sole Backpack",
+    "brand":"Puma",
+    "price":234000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186489,
+    "name":"Lavie Orange Solid Handheld Bag",
+    "brand":"Lavie",
+    "price":1164000,
+    "color":"Orange",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186599,
+    "name":"Lavie Orange Textured Shoulder Bag",
+    "brand":"Lavie",
+    "price":715000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181851,
+    "name":"Puma Unisex Pink & White Colourblocked Cell Backpack",
+    "brand":"Puma",
+    "price":643000,
+    "color":"White",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186361,
+    "name":"Lavie Women Brown & Copper-Toned Colourblocked Zip Around Wallet",
+    "brand":"Lavie",
+    "price":273000,
+    "color":"Brown",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186677,
+    "name":"Lavie Women Navy Blue Solid Three Fold Wallet",
+    "brand":"Lavie",
+    "price":252000,
+    "color":"Blue",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10185731,
+    "name":"KLEIO Women Pink Solid Backpack",
+    "brand":"KLEIO",
+    "price":294000,
+    "color":"Pink",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181821,
+    "name":"Puma Unisex Navy Blue Brand Logo Deck Backpack",
+    "brand":"Puma",
+    "price":345000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186481,
+    "name":"Lavie Purple Solid Sling Bag",
+    "brand":"Lavie",
+    "price":960000,
+    "color":"Purple",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186191,
+    "name":"Lavie Women Red Solid Two Fold Wallet",
+    "brand":"Lavie",
+    "price":690000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186699,
+    "name":"Lavie Red Solid Handheld Bag",
+    "brand":"Lavie",
+    "price":378000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181883,
+    "name":"Puma Unisex Green Solid Backpack",
+    "brand":"Puma",
+    "price":306000,
+    "color":"Green",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181869,
+    "name":"Puma Unisex Blue & Black Colourblocked Cell Backpack",
+    "brand":"Puma",
+    "price":594000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186277,
+    "name":"Lavie Women Pink Solid Three Fold Wallet",
+    "brand":"Lavie",
+    "price":252000,
+    "color":"Pink",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10185741,
+    "name":"KLEIO Women Gold-Toned Solid Backpack",
+    "brand":"KLEIO",
+    "price":294000,
+    "color":"Gold",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181895,
+    "name":"Puma Unisex Grey Brand Logo Deck Backpack",
+    "brand":"Puma",
+    "price":345000,
+    "color":"Grey",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10179015,
+    "name":"Global Desi Women Navy Blue Tassel Detail Backpack",
+    "brand":"Global Desi",
+    "price":838000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186549,
+    "name":"Lavie Women Navy Blue Solid Three Fold Wallet",
+    "brand":"Lavie",
+    "price":684000,
+    "color":"Blue",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186713,
+    "name":"Lavie Dusty Pink Textured Hobo Bag",
+    "brand":"Lavie",
+    "price":1367000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181785,
+    "name":"Puma Unisex Olive Green Solid Buzz Backpack",
+    "brand":"Puma",
+    "price":414000,
+    "color":"Green",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186293,
+    "name":"Lavie Coral Red Solid Handheld Bag",
+    "brand":"Lavie",
+    "price":1323000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10178967,
+    "name":"Global Desi Yellow Textured Shoulder Bag",
+    "brand":"Global Desi",
+    "price":468000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186281,
+    "name":"Lavie Women Grey Solid Zip Around Wallet",
+    "brand":"Lavie",
+    "price":720000,
+    "color":"Grey",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10185737,
+    "name":"KLEIO Women Black Solid Backpack",
+    "brand":"KLEIO",
+    "price":840000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186317,
+    "name":"Lavie Women Purple Embellished Three Fold Wallet",
+    "brand":"Lavie",
+    "price":283000,
+    "color":"Purple",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186519,
+    "name":"Lavie Women Copper-Toned Textured Zip Around Wallet",
+    "brand":"Lavie",
+    "price":611000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186107,
+    "name":"Lavie Pink Textured Sling Bag",
+    "brand":"Lavie",
+    "price":1015000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181923,
+    "name":"PUMA Motorsport Unisex Grey & Navy Blue RBR Lifestyle Textured Laptop Backpack",
+    "brand":"PUMA Motorsport",
+    "price":787000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181759,
+    "name":"Puma Unisex Maroon Brand Logo Originals Backpack",
+    "brand":"Puma",
+    "price":390000,
+    "color":"Maroon",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10182275,
+    "name":"MBOSS Unisex Tan Brown Solid Laptop Bag",
+    "brand":"MBOSS",
+    "price":297000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186305,
+    "name":"Lavie Women Black Textured Sling Bag",
+    "brand":"Lavie",
+    "price":1200000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10182277,
+    "name":"MBOSS Unisex Blue Solid Laptop Bag",
+    "brand":"MBOSS",
+    "price":342000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186495,
+    "name":"Lavie Women Black & Gunmetal-Toned Colourblocked Three Fold Wallet",
+    "brand":"Lavie",
+    "price":288000,
+    "color":"Black",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186559,
+    "name":"Lavie Women Purple Solid Handheld Bag",
+    "brand":"Lavie",
+    "price":1234000,
+    "color":"Purple",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186213,
+    "name":"Lavie Olive Green & Beige Colourblocked Shoulder Bag",
+    "brand":"Lavie",
+    "price":1260000,
+    "color":"Green",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10178999,
+    "name":"Global Desi Mustard Yellow Solid Shoulder Bag",
+    "brand":"Global Desi",
+    "price":372000,
+    "color":"Yellow",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10184223,
+    "name":"GIORDANO Brown & Off-White Colourblocked Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":1047000,
+    "color":"White",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186091,
+    "name":"Lavie Grey Solid Handheld Bag",
+    "brand":"Lavie",
+    "price":1323000,
+    "color":"Grey",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10178993,
+    "name":"Global Desi Blue & Navy Blue Solid Sling Bag",
+    "brand":"Global Desi",
+    "price":408000,
+    "color":"Blue",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181809,
+    "name":"Puma Unisex Multicoloured Graphic Originals Backpack",
+    "brand":"Puma",
+    "price":390000,
+    "color":"Red",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186679,
+    "name":"Lavie Black Textured Sling Bag",
+    "brand":"Lavie",
+    "price":1015000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186487,
+    "name":"Lavie Mint Green Solid Handheld Bag",
+    "brand":"Lavie",
+    "price":1323000,
+    "color":"Green",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186159,
+    "name":"Lavie Orange Solid Handheld Bag",
+    "brand":"Lavie",
+    "price":1200000,
+    "color":"Orange",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186173,
+    "name":"Lavie Women Blue Solid Three Fold Wallet",
+    "brand":"Lavie",
+    "price":252000,
+    "color":"Blue",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186375,
+    "name":"Lavie Beige Solid Shoulder Bag",
+    "brand":"Lavie",
+    "price":564000,
+    "color":"Beige",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10179075,
+    "name":"Global Desi Women Brown Solid Sling Bag",
+    "brand":"Global Desi",
+    "price":360000,
+    "color":"Brown",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186185,
+    "name":"Lavie Women Gold-Toned Solid Sling Bag",
+    "brand":"Lavie",
+    "price":1080000,
+    "color":"Gold",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186333,
+    "name":"Lavie Brown Solid Shoulder Bag",
+    "brand":"Lavie",
+    "price":715000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186551,
+    "name":"Lavie Blue Solid Shoulder Bag",
+    "brand":"Lavie",
+    "price":540000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186247,
+    "name":"Lavie Red & Beige Colourblocked Shoulder Bag",
+    "brand":"Lavie",
+    "price":1260000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10185739,
+    "name":"KLEIO Women Brown Solid Backpack",
+    "brand":"KLEIO",
+    "price":294000,
+    "color":"Brown",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186637,
+    "name":"Lavie Maroon Solid Shoulder Bag",
+    "brand":"Lavie",
+    "price":564000,
+    "color":"Maroon",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10179061,
+    "name":"Global Desi Red Self Design Sling Bag",
+    "brand":"Global Desi",
+    "price":432000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10178975,
+    "name":"Global Desi Navy Blue Textured Shoulder Bag",
+    "brand":"Global Desi",
+    "price":468000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186219,
+    "name":"Lavie Women Green & Silver-Toned Colorblocked Zip Around Wallet",
+    "brand":"Lavie",
+    "price":720000,
+    "color":"Green",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186161,
+    "name":"Lavie Brown Textured Handheld Bag",
+    "brand":"Lavie",
+    "price":378000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10182267,
+    "name":"MBOSS Unisex Black Solid Laptop Bag",
+    "brand":"MBOSS",
+    "price":342000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181823,
+    "name":"Puma Unisex Black Brand Logo Backpack",
+    "brand":"Puma",
+    "price":243000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10184263,
+    "name":"GIORDANO Red Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":559000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186937,
+    "name":"Lavie Navy Blue Solid Handheld Bag",
+    "brand":"Lavie",
+    "price":594000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186461,
+    "name":"Lavie Black Self Design Hobo Bag",
+    "brand":"Lavie",
+    "price":1200000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181873,
+    "name":"Puma Unisex Red Brand Logo Backpack",
+    "brand":"Puma",
+    "price":390000,
+    "color":"Red",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181771,
+    "name":"Puma Unisex Navy Blue Solid Buzz Backpack",
+    "brand":"Puma",
+    "price":690000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10181885,
+    "name":"Puma Unisex Grey Brand Logo Backpack",
+    "brand":"Puma",
+    "price":276000,
+    "color":"Grey",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10179083,
+    "name":"Global Desi Orange Solid Shoulder Bag",
+    "brand":"Global Desi",
+    "price":516000,
+    "color":"Orange",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186607,
+    "name":"Lavie Women Red Embellished Two Fold Wallet",
+    "brand":"Lavie",
+    "price":810000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186165,
+    "name":"Lavie Yellow Solid Sling Bag",
+    "brand":"Lavie",
+    "price":1015000,
+    "color":"Yellow",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10191001,
+    "name":"Fastrack Unisex Blue & Black Colourblocked Duffel Bag with Printed Detail",
+    "brand":"Fastrack",
+    "price":458000,
+    "color":"Blue",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10197473,
+    "name":"CALFNERO Men Black Solid Two Fold Leather Wallet",
+    "brand":"CALFNERO",
+    "price":166000,
+    "color":"Black",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":1020661,
+    "name":"The House of Tara Women Green Printed Backpack",
+    "brand":"The House of Tara",
+    "price":360000,
+    "color":"Green",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10197465,
+    "name":"CALFNERO Men Black Solid Two Fold Genuine Leather Wallet",
+    "brand":"CALFNERO",
+    "price":162000,
+    "color":"Black",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":1020662,
+    "name":"The House of Tara Women Coral Red Printed Backpack",
+    "brand":"The House of Tara",
+    "price":360000,
+    "color":"Red",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10197757,
+    "name":"CALFNERO Men Black Genuine Leather Solid Messenger Bag",
+    "brand":"CALFNERO",
+    "price":2241000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10197463,
+    "name":"CALFNERO Men Brown Solid Two Fold Leather Wallet",
+    "brand":"CALFNERO",
+    "price":144000,
+    "color":"Brown",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10197743,
+    "name":"CALFNERO Men Brown Solid Leather Messenger Bag",
+    "brand":"CALFNERO",
+    "price":1440000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10197457,
+    "name":"CALFNERO Men Black Solid Two Fold Wallet",
+    "brand":"CALFNERO",
+    "price":162000,
+    "color":"Black",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10197467,
+    "name":"CALFNERO Men Black Solid Two Fold Wallet",
+    "brand":"CALFNERO",
+    "price":166000,
+    "color":"Black",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10190999,
+    "name":"Fastrack Unisex Black & Red Colourblocked Duffel Bag with Printed Detail",
+    "brand":"Fastrack",
+    "price":187000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10190997,
+    "name":"Fastrack Unisex Black & Grey Colourblocked Duffel Bag with Printed Detail",
+    "brand":"Fastrack",
+    "price":374000,
+    "color":"Black",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10232983,
+    "name":"GUESS Women Red Quilted Backpack",
+    "brand":"GUESS",
+    "price":2430000,
+    "color":"Red",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10233401,
+    "name":"GUESS Women Olive Green Solid Zip Around Wallet",
+    "brand":"GUESS",
+    "price":1380000,
+    "color":"Green",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10232399,
+    "name":"Lychee bags Women Grey Solid Backpack",
+    "brand":"Lychee bags",
+    "price":300000,
+    "color":"Grey",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10231031,
+    "name":"GIORDANO Beige Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":417000,
+    "color":"Beige",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10231009,
+    "name":"GIORDANO Blue Printed Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":435000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10231001,
+    "name":"GIORDANO Black Solid Shoulder Bag",
+    "brand":"GIORDANO",
+    "price":536000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10211875,
+    "name":"Teakwood Leathers Unisex Tan Brown Solid Laptop Bag",
+    "brand":"Teakwood Leathers",
+    "price":1080000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10244125,
+    "name":"CALFNERO Men Black Solid Genuine Leather Laptop Bag",
+    "brand":"CALFNERO",
+    "price":2700000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10238701,
+    "name":"Mitera Brown & Black Bagru Hand Block Printed Pure Cotton Saree",
+    "brand":"Mitera",
+    "price":675000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10186693,
+    "name":"Lavie Coral Textured Purse",
+    "brand":"Lavie",
+    "price":168000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10249019,
+    "name":"Lapis O Lupo Women Turquoise Blue Textured Handheld Bag",
+    "brand":"Lapis O Lupo",
+    "price":315000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252711,
+    "name":"Lino Perros Beige Textured Handheld Bag",
+    "brand":"Lino Perros",
+    "price":527000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248977,
+    "name":"Lapis O Lupo Navy Blue Solid Sling Bag",
+    "brand":"Lapis O Lupo",
+    "price":165000,
+    "color":"Blue",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248955,
+    "name":"Lapis O Lupo Women Off-White Embellished Backpack",
+    "brand":"Lapis O Lupo",
+    "price":237000,
+    "color":"White",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10250803,
+    "name":"Tommy Hilfiger Men Tan Textured Genuine Leather Two Fold Wallet",
+    "brand":"Tommy Hilfiger",
+    "price":405000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10249025,
+    "name":"Lapis O Lupo Women Black Solid Backpack",
+    "brand":"Lapis O Lupo",
+    "price":204000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248895,
+    "name":"Lapis O Lupo Blue Textured Shoulder Bag",
+    "brand":"Lapis O Lupo",
+    "price":270000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10249075,
+    "name":"Lapis O Lupo Women Black Solid Backpack",
+    "brand":"Lapis O Lupo",
+    "price":237000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10250887,
+    "name":"Tommy Hilfiger Men Navy Blue & Red Solid Leather Two Fold Wallet with Striped Detail",
+    "brand":"Tommy Hilfiger",
+    "price":612000,
+    "color":"Blue",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10259631,
+    "name":"Woodland Men Black Leather Two Fold Wallet",
+    "brand":"Woodland",
+    "price":328000,
+    "color":"Black",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248967,
+    "name":"Lapis O Lupo Women Blue Solid Backpack",
+    "brand":"Lapis O Lupo",
+    "price":275000,
+    "color":"Blue",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252693,
+    "name":"Lino Perros Beige Solid Handheld Bag",
+    "brand":"Lino Perros",
+    "price":514000,
+    "color":"Beige",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10250831,
+    "name":"Tommy Hilfiger Men Navy Blue Textured Genuine Leather Two Fold Wallet",
+    "brand":"Tommy Hilfiger",
+    "price":576000,
+    "color":"Blue",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252723,
+    "name":"Lino Perros Beige Solid Handheld Bag",
+    "brand":"Lino Perros",
+    "price":461000,
+    "color":"Beige",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10250879,
+    "name":"Tommy Hilfiger Men Navy Blue & Red Solid Two Fold Wallet",
+    "brand":"Tommy Hilfiger",
+    "price":522000,
+    "color":"Blue",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248881,
+    "name":"Lapis O Lupo Women Yellow Solid Satchel Bag",
+    "brand":"Lapis O Lupo",
+    "price":345000,
+    "color":"Yellow",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252731,
+    "name":"Lino Perros Beige Textured Shoulder Bag",
+    "brand":"Lino Perros",
+    "price":527000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10250809,
+    "name":"Tommy Hilfiger Men Navy Blue Textured Two Fold Leather Wallet",
+    "brand":"Tommy Hilfiger",
+    "price":546000,
+    "color":"Blue",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248939,
+    "name":"Lapis O Lupo Yellow Solid Sling Bag",
+    "brand":"Lapis O Lupo",
+    "price":165000,
+    "color":"Yellow",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10249027,
+    "name":"Lapis O Lupo Blue & Brown Colourblocked Handheld Bag",
+    "brand":"Lapis O Lupo",
+    "price":367000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248899,
+    "name":"Lapis O Lupo Women Peach-Coloured Checked Handheld Bag",
+    "brand":"Lapis O Lupo",
+    "price":296000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248885,
+    "name":"Lapis O Lupo Beige & Black Solid Handheld Bag",
+    "brand":"Lapis O Lupo",
+    "price":301000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252717,
+    "name":"Lino Perros Rose Gold-Toned Solid Purse Clutch",
+    "brand":"Lino Perros",
+    "price":329000,
+    "color":"Gold",
+    "category":"Clutch",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252699,
+    "name":"Lino Perros Brown Solid Handheld Bag",
+    "brand":"Lino Perros",
+    "price":527000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10250829,
+    "name":"Tommy Hilfiger Men Black Solid Two Fold Wallet",
+    "brand":"Tommy Hilfiger",
+    "price":565000,
+    "color":"Black",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248969,
+    "name":"Lapis O Lupo Blue Solid Sling Bag",
+    "brand":"Lapis O Lupo",
+    "price":184000,
+    "color":"Blue",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10254771,
+    "name":"Eske Women Beige Solid Leather Sling Bag",
+    "brand":"Eske",
+    "price":1350000,
+    "color":"Beige",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248931,
+    "name":"Lapis O Lupo Yellow Solid Sling Bag",
+    "brand":"Lapis O Lupo",
+    "price":208000,
+    "color":"Yellow",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252697,
+    "name":"Lino Perros Pink Solid Shoulder Bag",
+    "brand":"Lino Perros",
+    "price":388000,
+    "color":"Pink",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248909,
+    "name":"Lapis O Lupo Turquoise Blue Solid Handheld Bag",
+    "brand":"Lapis O Lupo",
+    "price":367000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248889,
+    "name":"Lapis O Lupo Women Blue Textured Handheld Bag",
+    "brand":"Lapis O Lupo",
+    "price":315000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248905,
+    "name":"Lapis O Lupo Tan Brown Solid Sling Bag",
+    "brand":"Lapis O Lupo",
+    "price":226000,
+    "color":"Brown",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248971,
+    "name":"Lapis O Lupo Women Black Textured Handheld Bag",
+    "brand":"Lapis O Lupo",
+    "price":315000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252735,
+    "name":"Lino Perros Grey Textured Handheld Bag",
+    "brand":"Lino Perros",
+    "price":323000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248941,
+    "name":"Lapis O Lupo Black Solid Handheld Bag",
+    "brand":"Lapis O Lupo",
+    "price":303000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10249015,
+    "name":"Lapis O Lupo Black Solid Handheld Bag",
+    "brand":"Lapis O Lupo",
+    "price":367000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252673,
+    "name":"Lino Perros Women Black Solid Three Fold Wallet",
+    "brand":"Lino Perros",
+    "price":208000,
+    "color":"Black",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248877,
+    "name":"Lapis O Lupo Black Solid Sling Bag",
+    "brand":"Lapis O Lupo",
+    "price":165000,
+    "color":"Black",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10254773,
+    "name":"Eske Women Off-White Solid Leather Shoulder Bag",
+    "brand":"Eske",
+    "price":1650000,
+    "color":"White",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248915,
+    "name":"Lapis O Lupo Yellow Solid Sling Bag",
+    "brand":"Lapis O Lupo",
+    "price":244000,
+    "color":"Yellow",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10250787,
+    "name":"Tommy Hilfiger Men Black Textured Two Fold Wallet",
+    "brand":"Tommy Hilfiger",
+    "price":624000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252725,
+    "name":"Lino Perros Blue Solid Sling Bag",
+    "brand":"Lino Perros",
+    "price":341000,
+    "color":"Blue",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248925,
+    "name":"Lapis O Lupo Blue Solid Handheld Bag",
+    "brand":"Lapis O Lupo",
+    "price":244000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248995,
+    "name":"Lapis O Lupo Women Beige Textured Handheld Bag",
+    "brand":"Lapis O Lupo",
+    "price":315000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10254767,
+    "name":"Eske Women Gold-Toned Solid Leather Handheld Bag",
+    "brand":"Eske",
+    "price":1425000,
+    "color":"Gold",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248917,
+    "name":"Lapis O Lupo Blue Solid Quilted Sling Bag",
+    "brand":"Lapis O Lupo",
+    "price":216000,
+    "color":"Blue",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252709,
+    "name":"Lino Perros Beige Solid Handheld Bag",
+    "brand":"Lino Perros",
+    "price":503000,
+    "color":"Beige",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248879,
+    "name":"Lapis O Lupo Black Solid Sling Bag",
+    "brand":"Lapis O Lupo",
+    "price":226000,
+    "color":"Black",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252729,
+    "name":"Lino Perros Blue Solid Shoulder Bag",
+    "brand":"Lino Perros",
+    "price":461000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10250797,
+    "name":"Tommy Hilfiger Men Black Textured Genuine Leather Two Fold Wallet",
+    "brand":"Tommy Hilfiger",
+    "price":585000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10249047,
+    "name":"Lapis O Lupo Turquoise Blue Solid Sling Bag",
+    "brand":"Lapis O Lupo",
+    "price":196000,
+    "color":"Blue",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252713,
+    "name":"Lino Perros Women Brown Textured Three Fold Wallet",
+    "brand":"Lino Perros",
+    "price":508000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252689,
+    "name":"Lino Perros Pink Textured Handheld Bag",
+    "brand":"Lino Perros",
+    "price":527000,
+    "color":"Red",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10249009,
+    "name":"Lapis O Lupo Black Solid Leatherette Handheld Bag",
+    "brand":"Lapis O Lupo",
+    "price":244000,
+    "color":"Black",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248997,
+    "name":"Lapis O Lupo Mustard Brown Self Design Handheld Bag",
+    "brand":"Lapis O Lupo",
+    "price":313000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252681,
+    "name":"Lino Perros Women Blue Solid Three Fold Wallet",
+    "brand":"Lino Perros",
+    "price":208000,
+    "color":"Blue",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10250881,
+    "name":"Tommy Hilfiger Men Brown Textured Leather Two Fold Wallet",
+    "brand":"Tommy Hilfiger",
+    "price":432000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252719,
+    "name":"Lino Perros Women Black Solid Three Fold Wallet",
+    "brand":"Lino Perros",
+    "price":208000,
+    "color":"Black",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10249037,
+    "name":"Lapis O Lupo Tan Brown Solid Sling Bag",
+    "brand":"Lapis O Lupo",
+    "price":196000,
+    "color":"Brown",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252727,
+    "name":"Lino Perros Blue Solid Handheld Bag",
+    "brand":"Lino Perros",
+    "price":443000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10249055,
+    "name":"Lapis O Lupo Tan Brown Solid Handheld Bag",
+    "brand":"Lapis O Lupo",
+    "price":244000,
+    "color":"Brown",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10252701,
+    "name":"Lino Perros Pink Solid Handheld Bag",
+    "brand":"Lino Perros",
+    "price":503000,
+    "color":"Pink",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10248883,
+    "name":"Lapis O Lupo Grey Self Design Handheld Bag",
+    "brand":"Lapis O Lupo",
+    "price":313000,
+    "color":"Grey",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10250811,
+    "name":"Tommy Hilfiger Men Tan Textured Two Fold Wallet",
+    "brand":"Tommy Hilfiger",
+    "price":624000,
+    "color":"Red",
+    "category":"Wallet",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10272239,
+    "name":"Caprese Navy Blue & Brown Colourblocked Shoulder Bag",
+    "brand":"Caprese",
+    "price":450000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10265867,
+    "name":"CAT Grey Iris 20'' Cabin Trolley Suitcase",
+    "brand":"CAT",
+    "price":1365000,
+    "color":"Grey",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10265383,
+    "name":"Kraus Jeans Women Blue Solid High Rise Paper Bag Trousers with Belt",
+    "brand":"Kraus Jeans",
+    "price":450000,
+    "color":"Blue",
+    "category":"Handbag",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10265887,
+    "name":"CAT Grey Armis 20'' Cabin Trolley Suitcase",
+    "brand":"CAT",
+    "price":1155000,
+    "color":"Grey",
+    "category":"Trolley\/Luggage",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10272123,
+    "name":"Caprese Peach-Coloured Solid Sling Bag",
+    "brand":"Caprese",
+    "price":351000,
+    "color":"Red",
+    "category":"Sling",
+    "image":"\/placeholder-bag.png"
+  },
+  {
+    "id":10261367,
+    "name":"SWISS MILITARY Unisex Black & Black Solid Backpack",
+    "brand":"SWISS MILITARY",
+    "price":416000,
+    "color":"Black",
+    "category":"Backpack",
+    "image":"\/placeholder-bag.png"
+  }
+]

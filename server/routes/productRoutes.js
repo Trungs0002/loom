@@ -14,6 +14,29 @@ router.get('/', async (req, res) => {
   }
 });
 
+// GET /api/products/for-ml
+router.get('/for-ml', async (req, res) => {
+  try {
+    const products = await Product.find(
+      {},
+      '_id name price tags colors colorImages image'
+    ).lean();
+
+    const mapped = products.map(p => ({
+      id:       p._id,
+      name:     p.name,
+      price:    p.price,
+      tags:     p.tags || [],
+      color:    p.colors?.[0] || p.colorImages?.[0]?.color || 'Black',
+      image:    p.colorImages?.[0]?.image || p.image || '/placeholder-bag.png',
+    }));
+
+    res.json(mapped);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // GET /api/products/:id
 router.get('/:id', async (req, res) => {
   try {
