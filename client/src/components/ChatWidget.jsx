@@ -34,74 +34,69 @@ const STEPS = [
   },
 ];
 
-const NAVY = '#000b34';
-const BLUE = '#3d57b6';
+const STYLE_INJECT = `
+@keyframes chatFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-chat-bubble {
+  animation: chatFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+`;
 
 const BotBubble = ({ text }) => (
-  <div className="flex justify-start">
-    <div className="max-w-[78%] px-3 py-2 rounded-2xl rounded-bl-sm text-sm bg-white border border-gray-100 shadow-sm"
-         style={{ color: NAVY }}>
+  <div className="flex flex-col items-start animate-chat-bubble">
+    <span className="text-[9px] text-on-surface-variant font-label-caps tracking-widest uppercase mb-1 ml-1">Loom</span>
+    <div className="max-w-[85%] px-4 py-2.5 rounded-2xl rounded-tl-none text-sm bg-surface-container text-primary leading-relaxed font-body-md border border-outline-variant/10 shadow-none">
       {text}
     </div>
   </div>
 );
 
 const UserBubble = ({ text }) => (
-  <div className="flex justify-end">
-    <div className="max-w-[78%] px-3 py-2 rounded-2xl rounded-br-sm text-sm text-white"
-         style={{ backgroundColor: NAVY }}>
+  <div className="flex flex-col items-end animate-chat-bubble">
+    <span className="text-[9px] text-on-surface-variant font-label-caps tracking-widest uppercase mb-1 mr-1">Bạn</span>
+    <div className="max-w-[85%] px-4 py-2.5 rounded-2xl rounded-tr-none text-sm text-white bg-primary leading-relaxed font-body-md shadow-none">
       {text}
     </div>
   </div>
 );
 
-const OptionButton = ({ label, onClick }) => {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <button
-      onClick={onClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="px-3 py-1.5 rounded-full text-sm font-medium border transition-all duration-150"
-      style={{
-        borderColor: BLUE,
-        backgroundColor: hovered ? BLUE : 'transparent',
-        color: hovered ? '#fff' : BLUE,
-      }}
-    >
-      {label}
-    </button>
-  );
-};
+const OptionButton = ({ label, onClick }) => (
+  <button
+    onClick={onClick}
+    className="px-4 py-1.5 rounded-full text-xs font-semibold font-label-caps tracking-widest uppercase border border-outline text-primary bg-white hover:bg-primary hover:text-white hover:border-primary active:scale-95 transition-all duration-200"
+  >
+    {label}
+  </button>
+);
 
 const ProductCard = ({ product }) => {
   const [imgError, setImgError] = useState(false);
   const fmt = (p) => p.toLocaleString('vi-VN') + ' ₫';
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 p-3 flex gap-3 items-center shadow-sm">
+    <div className="bg-white rounded-2xl border border-outline-variant/20 p-3.5 flex gap-3.5 items-center hover:border-outline transition-colors duration-300">
       {!imgError && product.image && product.image !== '/placeholder-bag.png' ? (
         <img
           src={product.image}
           alt={product.name}
-          className="w-14 h-14 object-cover rounded-lg flex-shrink-0 bg-gray-100"
+          className="w-14 h-14 object-cover rounded-xl flex-shrink-0 bg-surface-container-low border border-outline-variant/10"
           onError={() => setImgError(true)}
         />
       ) : (
-        <div className="w-14 h-14 rounded-lg flex-shrink-0 flex items-center justify-center"
-             style={{ backgroundColor: '#f0f2f8' }}>
-          <span className="text-2xl">👜</span>
+        <div className="w-14 h-14 rounded-xl flex-shrink-0 flex items-center justify-center bg-surface-container-high border border-outline-variant/10">
+          <span className="material-symbols-outlined text-primary text-[24px]">shopping_bag</span>
         </div>
       )}
       <div className="flex-1 min-w-0">
-        <p className="text-xs font-semibold text-gray-800 line-clamp-2 leading-snug">{product.name}</p>
-        <p className="text-xs text-gray-400 mt-0.5">{product.category} · {product.color}</p>
-        <p className="text-xs font-bold mt-1" style={{ color: NAVY }}>{fmt(product.price)}</p>
+        <p className="font-headline-lg text-sm text-primary truncate leading-snug">{product.name}</p>
+        <p className="text-[11px] text-on-surface-variant font-body-md mt-0.5">{product.category} · {product.color}</p>
+        <p className="text-xs font-semibold text-primary mt-1">{fmt(product.price)}</p>
       </div>
       <Link
         to={product.id ? `/products/${product.id}` : '/products'}
-        className="text-xs px-2.5 py-1.5 rounded-lg flex-shrink-0 font-medium transition-opacity hover:opacity-80"
-        style={{ backgroundColor: NAVY, color: '#fff' }}
+        className="text-[10px] font-semibold font-label-caps tracking-widest uppercase border-b border-primary text-primary pb-0.5 hover:opacity-70 transition-opacity"
       >
         Xem
       </Link>
@@ -117,11 +112,59 @@ const ChatWidget = () => {
   const [results, setResults]       = useState(null);
   const [loading, setLoading]       = useState(false);
   const [error, setError]           = useState(null);
+  const [showTeaser, setShowTeaser] = useState(true);
   const bottomRef                   = useRef(null);
+
+  const teaserTimeoutRef            = useRef(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, results, loading]);
+
+  useEffect(() => {
+    return () => {
+      if (teaserTimeoutRef.current) {
+        clearTimeout(teaserTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleToggle = () => {
+    if (teaserTimeoutRef.current) {
+      clearTimeout(teaserTimeoutRef.current);
+    }
+    setIsOpen(prev => {
+      const nextOpen = !prev;
+      if (nextOpen) {
+        setShowTeaser(false);
+      } else {
+        teaserTimeoutRef.current = setTimeout(() => {
+          setIsOpen(currentOpen => {
+            if (!currentOpen) {
+              setShowTeaser(true);
+            }
+            return currentOpen;
+          });
+        }, 3000);
+      }
+      return nextOpen;
+    });
+  };
+
+  const handleClose = () => {
+    if (teaserTimeoutRef.current) {
+      clearTimeout(teaserTimeoutRef.current);
+    }
+    setIsOpen(false);
+    teaserTimeoutRef.current = setTimeout(() => {
+      setIsOpen(currentOpen => {
+        if (!currentOpen) {
+          setShowTeaser(true);
+        }
+        return currentOpen;
+      });
+    }, 3000);
+  };
 
   const handleSelect = async (opt) => {
     const key          = STEPS[step].key;
@@ -171,34 +214,72 @@ const ChatWidget = () => {
 
   return (
     <>
+      <style dangerouslySetInnerHTML={{ __html: STYLE_INJECT }} />
+
+      {/* Teaser Dialog / Tooltip */}
+      {showTeaser && !isOpen && (
+        <div 
+          className="fixed bottom-[32px] right-[92px] z-50 bg-white border border-outline-variant/30 rounded-2xl p-4 shadow-[0_8px_30px_rgba(0,0,0,0.06)] max-w-[240px] animate-chat-bubble flex gap-2.5"
+        >
+          {/* Arrow pointing right */}
+          <div className="absolute top-1/2 -translate-y-1/2 -right-1.5 w-3 h-3 bg-white border-t border-r border-outline-variant/30 rotate-45"></div>
+          
+          <div className="flex-1 min-w-0 z-10">
+            <p className="text-secondary font-semibold text-[10px] font-label-caps tracking-widest uppercase">Trợ lý ảo</p>
+            <p className="text-primary/80 text-xs font-body-md mt-1 leading-normal">
+              Bạn đang phân vân? Hãy để AI hỗ trợ chọn túi phù hợp nhé!
+            </p>
+          </div>
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              if (teaserTimeoutRef.current) {
+                clearTimeout(teaserTimeoutRef.current);
+              }
+              setShowTeaser(false);
+            }}
+            className="text-on-surface-variant/60 hover:text-primary transition-colors flex-shrink-0 z-10 self-start"
+            aria-label="Đóng gợi ý"
+          >
+            <span className="material-symbols-outlined text-[16px]">close</span>
+          </button>
+        </div>
+      )}
+
       <button
-        onClick={() => setIsOpen(v => !v)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-transform duration-200 hover:scale-110"
-        style={{ backgroundColor: NAVY }}
+        onClick={handleToggle}
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 bg-primary text-white"
         aria-label="Mở tư vấn chọn túi"
       >
-        {isOpen ? <XIcon /> : <ChatIcon />}
+        <span className="material-symbols-outlined text-[24px]">
+          {isOpen ? 'close' : 'chat'}
+        </span>
       </button>
 
       {isOpen && (
         <div
-          className="fixed bottom-24 right-6 z-50 w-[360px] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
-          style={{ maxHeight: '540px', backgroundColor: '#fff' }}
+          className="fixed bottom-24 right-6 z-50 w-[350px] md:w-[370px] h-[550px] max-h-[75vh] rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] flex flex-col overflow-hidden border border-outline-variant/30 animate-chat-bubble bg-surface"
         >
-          <div className="flex items-center justify-between px-4 py-3 flex-shrink-0"
-               style={{ backgroundColor: NAVY }}>
-            <span className="text-white font-bold text-base tracking-wide"
-                  style={{ fontFamily: '"Playfair Display", serif' }}>
-              Tư vấn chọn túi 👜
-            </span>
-            <button onClick={() => setIsOpen(false)}
-                    className="text-white opacity-60 hover:opacity-100 transition-opacity">
-              <XIcon size={18} />
+          {/* Header - Royal Blue background */}
+          <div className="flex items-center justify-between px-6 py-4 flex-shrink-0 bg-secondary border-b border-outline-variant/10 shadow-sm">
+            <div className="flex flex-col">
+              <span className="text-white font-headline-lg text-lg tracking-wide">
+                Tư vấn chọn túi
+              </span>
+              <span className="text-[10px] text-white/85 font-label-caps tracking-widest uppercase mt-0.5">
+                Loom Assistant
+              </span>
+            </div>
+            <button 
+              onClick={handleClose}
+              className="text-white/80 hover:text-white p-1 rounded-full hover:bg-white/10 transition-all flex items-center justify-center"
+            >
+              <span className="material-symbols-outlined text-[20px]">close</span>
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2"
-               style={{ backgroundColor: '#f4f6fb' }}>
+          {/* Conversation Area */}
+          <div className="flex-1 overflow-y-auto px-6 py-5 space-y-4 bg-surface no-scrollbar">
             {messages.map((msg, i) =>
               msg.from === 'bot'
                 ? <BotBubble key={i} text={msg.text} />
@@ -206,7 +287,7 @@ const ChatWidget = () => {
             )}
 
             {!loading && !results && !error && (
-              <div className="flex flex-wrap gap-2 pt-1">
+              <div className="flex flex-wrap gap-2 pt-2 justify-start animate-chat-bubble">
                 {STEPS[step].options.map(opt => (
                   <OptionButton key={opt.label} label={opt.label} onClick={() => handleSelect(opt)} />
                 ))}
@@ -214,27 +295,36 @@ const ChatWidget = () => {
             )}
 
             {loading && (
-              <div className="flex justify-center py-3">
-                <div className="w-6 h-6 rounded-full border-2 animate-spin"
-                     style={{ borderColor: `${BLUE} transparent transparent transparent` }} />
+              <div className="flex justify-start py-2 animate-chat-bubble">
+                <div className="flex gap-1 items-center py-2">
+                  <span className="w-1.5 h-1.5 bg-outline rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                  <span className="w-1.5 h-1.5 bg-outline rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                  <span className="w-1.5 h-1.5 bg-outline rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                </div>
               </div>
             )}
 
             {error && (
-              <div className="text-red-500 text-xs text-center py-2">{error}</div>
+              <div className="text-error text-xs font-semibold text-center bg-error-container/20 border border-error/15 rounded-xl py-2 px-3 animate-chat-bubble mx-auto max-w-[90%]">
+                {error}
+              </div>
             )}
 
             {results && (
-              <div className="space-y-2 pt-1">
-                <BotBubble text={`Đây là ${results.length} gợi ý cho bạn 🎉`} />
-                {results.map((p, i) => <ProductCard key={i} product={p} />)}
-                <button
-                  onClick={handleReset}
-                  className="w-full mt-1 py-2 rounded-xl text-sm font-medium border transition-colors hover:bg-gray-50"
-                  style={{ borderColor: NAVY, color: NAVY }}
-                >
-                  Tư vấn lại
-                </button>
+              <div className="space-y-4 pt-2 animate-chat-bubble">
+                <BotBubble text={`Đây là gợi ý các mẫu túi lý tưởng nhất cho bạn:`} />
+                <div className="space-y-2 mt-2">
+                  {results.map((p, i) => <ProductCard key={i} product={p} />)}
+                </div>
+                <div>
+                  <button
+                    onClick={handleReset}
+                    className="w-full mt-2 py-2.5 rounded-full text-xs font-semibold font-label-caps tracking-widest uppercase border border-primary text-primary bg-white hover:bg-primary hover:text-white active:scale-95 transition-all duration-300 shadow-sm flex items-center justify-center gap-1.5"
+                  >
+                    <span className="material-symbols-outlined text-[16px]">restart_alt</span>
+                    Tư vấn lại
+                  </button>
+                </div>
               </div>
             )}
 
@@ -246,17 +336,5 @@ const ChatWidget = () => {
   );
 };
 
-const ChatIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-          d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-  </svg>
-);
-
-const XIcon = ({ size = 24 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-  </svg>
-);
-
 export default ChatWidget;
+
