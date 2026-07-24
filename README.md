@@ -44,6 +44,24 @@ Hệ thống được thiết kế theo chuẩn microservices thu nhỏ, tối �
 
 > **Luồng xử lý AI Stylist:** `React (User Input) ➔ Express (Proxy/Auth) ➔ Flask (kNN Engine) ➔ Express (Format) ➔ React (Render)`
 
+## ☁️ Hạ tầng Đám mây (Cloud Infrastructure)
+
+<div align="center">
+  <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
+  <img src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+  <img src="https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white" alt="Render" />
+  <img src="https://img.shields.io/badge/MongoDB_Atlas-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB Atlas" />
+  <img src="https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white" alt="Cloudinary" />
+</div>
+<br/>
+
+Hệ thống đang được triển khai (Live Production) với SLA 99.9% trên các hạ tầng Cloud hàng đầu:
+
+- **Frontend Hosting:** Triển khai qua **Vercel** CDN toàn cầu (Đã cấu hình Custom Domain `loomdenim.site`, tự động cấp phát SSL và tối ưu bộ đệm trang).
+- **Application Servers:** Cả Backend Node.js và ML-Service Python được đóng gói chung vào một **Docker Container** và chạy trên **Render**.
+- **Database (NoSQL):** Dữ liệu phân tán lưu trữ tại **MongoDB Atlas** (Cluster Production), bảo mật đa tầng.
+- **Media CDN:** Toàn bộ hình ảnh sản phẩm tĩnh và ảnh do người dùng tải lên được xử lý và phân phối thông qua **Cloudinary**.
+
 ## 💎 Tính năng Kinh doanh Cốt lõi
 
 - **AI Smart Recommendation:** Tăng 30% tỷ lệ thêm vào giỏ hàng (Add-to-cart) nhờ thuật toán gợi ý Top 5 sản phẩm tiệm cận nhất với sở thích khách hàng.
@@ -76,14 +94,7 @@ loom-web/
 └── start.sh                # Script khởi động đa luồng (Production)
 ```
 
-## ☁️ Hạ tầng Đám mây (Cloud Infrastructure)
 
-Hệ thống đang được triển khai (Live Production) với SLA 99.9% trên các hạ tầng Cloud hàng đầu:
-
-- **Frontend Hosting:** Triển khai qua **Vercel** CDN toàn cầu (Đã cấu hình Custom Domain `loomdenim.site`, tự động cấp phát SSL và tối ưu bộ đệm trang).
-- **Application Servers:** Cả Backend Node.js và ML-Service Python được đóng gói chung vào một **Docker Container** và chạy trên **Render**.
-- **Database (NoSQL):** Dữ liệu phân tán lưu trữ tại **MongoDB Atlas** (Cluster Production), bảo mật đa tầng.
-- **Media CDN:** Toàn bộ hình ảnh sản phẩm tĩnh và ảnh do người dùng tải lên được xử lý và phân phối thông qua **Cloudinary**.
 
 ---
 *© 2026 LoomDenim. All rights reserved. Codebase này là tài sản trí tuệ của thương hiệu Loom và lập trình viên Trung*
