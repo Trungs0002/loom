@@ -12,15 +12,7 @@ Chào mừng đến với hệ thống mã nguồn lõi của **Loom Denim** —
 [![TikTok](https://img.shields.io/badge/TikTok-@loom.bags-000000?style=for-the-badge&logo=tiktok&logoColor=white)](https://www.tiktok.com/@loom.bags)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-LOOM_BAGS-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/loom-bags/)
 
-<br/>
-<div align="center">
-  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
-  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
-  <img src="https://img.shields.io/badge/Python_Flask-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
-  <img src="https://img.shields.io/badge/Scikit_Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="Scikit-Learn" />
-  <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
-</div>
+
 
 ---
 
@@ -33,6 +25,16 @@ Loom Denim không chỉ là một thương hiệu bán lẻ túi xách tái ch�
 - **Trải nghiệm thông minh với AI:** Tích hợp Trợ lý ảo AI (sử dụng thuật toán học máy K-Nearest Neighbors) đóng vai trò như một tư vấn viên cá nhân, giúp gợi ý tự động các dòng túi phù hợp nhất với sở thích và ngân sách của người dùng.
 
 ## 🏗 Kiến trúc Hệ thống Phân tán (3-Tier Architecture)
+
+<div align="center">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/Python_Flask-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Scikit_Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="Scikit-Learn" />
+  <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+</div>
+<br/>
 
 Hệ thống được thiết kế theo chuẩn microservices thu nhỏ, tối ưu hoá cho lượng truy cập thực tế:
 
@@ -84,4 +86,4 @@ Hệ thống đang được triển khai (Live Production) với SLA 99.9% trên
 - **Media CDN:** Toàn bộ hình ảnh sản phẩm tĩnh và ảnh do người dùng tải lên được xử lý và phân phối thông qua **Cloudinary**.
 
 ---
-*© 2026 Loom Denim. All rights reserved. Codebase này là tài sản trí tuệ của thương hiệu Loom.*
+*© 2026 LoomDenim. All rights reserved. Codebase này là tài sản trí tuệ của thương hiệu Loom và lập trình viên Trung*
