@@ -5,11 +5,22 @@
 Chào mừng đến với hệ thống mã nguồn lõi của **Loom Denim** — Thương hiệu thời trang bền vững chuyên cung cấp các dòng túi xách tái chế thân thiện với môi trường. Đây không phải là một dự án cá nhân, mà là **mô hình hệ thống thực tế (Production-ready)** đang vận hành toàn bộ hoạt động kinh doanh trực tuyến của thương hiệu.
 
 ### 🔗 Kênh Bán Hàng & Mạng Xã Hội Chính Thức
-- **Website Chính Thức:** [www.loomdenim.site](https://www.loomdenim.site)
-- **Fanpage Facebook:** [LOOM BAGS](https://web.facebook.com/people/LOOM-BAGS/61589634698432/)
-- **Instagram:** [@loom__bags](https://www.instagram.com/loom__bags)
-- **TikTok Shop:** [@loom.bags](https://www.tiktok.com/@loom.bags)
-- **LinkedIn:** [LOOM BAGS](https://www.linkedin.com/company/loom-bags/)
+
+[![Website](https://img.shields.io/badge/Website-loomdenim.site-081F5C?style=for-the-badge&logo=googlechrome&logoColor=white)](https://www.loomdenim.site)
+[![Facebook](https://img.shields.io/badge/Facebook-LOOM_BAGS-1877F2?style=for-the-badge&logo=facebook&logoColor=white)](https://web.facebook.com/people/LOOM-BAGS/61589634698432/)
+[![Instagram](https://img.shields.io/badge/Instagram-@loom__bags-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/loom__bags)
+[![TikTok](https://img.shields.io/badge/TikTok-@loom.bags-000000?style=for-the-badge&logo=tiktok&logoColor=white)](https://www.tiktok.com/@loom.bags)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-LOOM_BAGS-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/loom-bags/)
+
+<br/>
+<div align="center">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/Python_Flask-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Scikit_Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="Scikit-Learn" />
+  <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+</div>
 
 ---
 
